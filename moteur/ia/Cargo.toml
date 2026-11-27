@@ -1,0 +1,14 @@
+[package]
+name = "ia"
+version = "0.1.0"
+edition = "2021"
+description = "IA de Jeu4X : terrain d'essai (tournois, classement Elo, replays), première IA à utilité, règle « la nouvelle doit battre l'ancienne »."
+license = "MIT"
+publish = false
+
+[dependencies]
+regles = { path = "../regles" }
+
+[[bin]]
+name = "terrain"
+path = "src/main.rs"

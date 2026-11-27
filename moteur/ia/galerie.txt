@@ -1,0 +1,6 @@
+# Galerie des IA (IA-004). Une ligne par version, de la plus ancienne à la plus récente ;
+# la dernière ligne valable pour la version des règles en cours est l'IA en service.
+# Une version n'entre ici que par `terrain valider <nom> --inscrire`.
+# Colonnes : nom, version des règles, type (hasard | utilite/<version des critères>), poids.
+hasard-v1 1 hasard
+utilite-v1 1 utilite/1 100 -100 10 0

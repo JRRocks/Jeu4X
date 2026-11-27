@@ -1,0 +1,8 @@
+# Candidates (IA-004) : IA proposées, pas encore admises dans la galerie.
+# Même format que galerie.txt. `terrain valider <nom>` les confronte à la galerie.
+# utilite-v1 : première IA à utilité (IA-002) : avance ses unités vers la moitié adverse.
+utilite-v1 1 utilite/1 100 -100 10 0
+# utilite-v2 : tient aussi compte de l'avancée adverse (exemple de candidate).
+utilite-v2 1 utilite/1 100 -100 10 -4
+# utilite-recul : poids absurdes (recule au lieu d'avancer), doit être refusée.
+utilite-recul 1 utilite/1 100 -100 -10 0

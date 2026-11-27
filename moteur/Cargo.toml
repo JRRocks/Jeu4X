@@ -1,5 +1,5 @@
 [workspace]
-members = ["regles", "android"]
+members = ["regles", "android", "ia"]
 resolver = "2"
 
 [profile.release]

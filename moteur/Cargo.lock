@@ -31,6 +31,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "ia"
+version = "0.1.0"
+dependencies = [
+ "regles",
+]
+
+[[package]]
 name = "jeu4x_android"
 version = "0.1.0"
 dependencies = [

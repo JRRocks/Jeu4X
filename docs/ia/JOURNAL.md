@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Mission 2 : terrain d'essai des IA et première IA
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`, après fusion de `main` et de `s1-environnement`
+- **Objectif** : IA-001, IA-002, IA-004 en code, sans rien d'affiché (D-24, D-29).
+- **Réalisé** : bibliothèque Rust `moteur/ia` et commande `terrain` (tournoi, rejouer, valider, galerie). Une IA au hasard et une IA à utilité. Classement Elo, ajusté d'un coup sur toutes les parties. Archive des replays d'un tournoi avec rejeu de contrôle. Galerie et candidates, avec la règle « au moins 55 % contre l'IA en service et au moins 50 % contre chaque ancienne ». `utilite-v1` est admise et en service ; `utilite-v2` et `utilite-recul` sont refusées. Le rapport du premier tournoi est dans `docs/ia/tournois/`, la notice dans `docs/ia/terrain-d-essai.md`. Dans l'espace Cargo, j'ai seulement ajouté le membre `ia` (et `Cargo.lock` en conséquence) ; `moteur/regles` n'a pas été touché.
+- **Décisions** : développeur : l'archive des replays n'est pas versionnée, elle se refait avec la même graine.
+- **Vérifications** : `cargo test --release --workspace` est vert (18 tests `ia`, 21 tests `regles`). L'IA à utilité gagne 180 parties sur 200 contre le hasard. Les 1 200 parties du tournoi ont été rejouées et sont conformes. Les codes de sortie de `valider` sont vérifiés (0 pour une IA admise, 1 pour une IA refusée). Contrôle `depot-public` fait.
+- **Non vérifié sur téléphone** : sans objet, l'IA ne tourne pas encore dans l'application.
+- **Problèmes et dette** : `clippy` signale deux boucles indexées dans `main.rs` (style). Les règles actuelles sont sans interaction entre joueurs : l'IA à utilité y est presque parfaite, il faut les règles V1 pour aller plus loin.
+- **Prochaine étape** : attendre les règles V1, puis ajouter les critères, la planification du tour (IA-005) et l'évolution des poids (IA-003).
+
 ## 2026-11-27 · Fichier de tri pour la page à cocher
 
 - **Auteur** : Claude, session S3
