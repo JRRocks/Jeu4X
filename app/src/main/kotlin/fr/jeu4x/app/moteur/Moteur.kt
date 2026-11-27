@@ -17,6 +17,13 @@ object Moteur {
     @JvmStatic external fun versionRegles(): Int
     @JvmStatic external fun autoControle(graine: Long, n: Int): Long
 
+    @JvmStatic external fun nouvellePartie(graine: Long, taille: Int): Long
+    @JvmStatic external fun liberer(partie: Long)
+    @JvmStatic external fun etat(partie: Long): IntArray
+    @JvmStatic external fun atteignables(partie: Long, depart: Int): IntArray
+    @JvmStatic external fun deplacer(partie: Long, depart: Int, arrivee: Int): Int
+    @JvmStatic external fun finDuTour(partie: Long): Int
+
     /** Vrai si le moteur chargé donne la même empreinte que sur le PC. */
     fun controleReussi(): Boolean = autoControle(GRAINE_CONTROLE, LONGUEUR_CONTROLE) == EMPREINTE_ATTENDUE
 }

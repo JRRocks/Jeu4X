@@ -121,7 +121,7 @@ jobs:
           balise="essai-$nom"
           apk="app/build/outputs/apk/essai/Jeu4X-essai.$nom.apk"
           e=app/build/emulateur
-          mv "$e/capture-accueil.png" "$e/Jeu4X-essai.$nom.emulateur-accueil.png"
+          mv "$e/capture-accueil.png" "$e/Jeu4X-essai.$nom.emulateur-plateau.png"
           mv "$e/capture-plantage.png" "$e/Jeu4X-essai.$nom.emulateur-plantage.png"
           mv "$e/resume-emulateur.txt" "$e/Jeu4X-essai.$nom.emulateur-resume.txt"
           gh release create "$balise" "$apk" "$e"/Jeu4X-essai.$nom.emulateur-* \

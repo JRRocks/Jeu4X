@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Plateau en perspective jouable à deux sur le même téléphone
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : étape C, affichage du plateau choisi par l'utilisateur (D-16 : variante C, perspective, aucune adresse à l'écran).
+- **Réalisé** : pont JNI étendu (partie tenue côté Rust par une poignée ; état lu en un seul bloc ; cases atteignables ; déplacer ; fin du tour). Kotlin : `moteur/Partie.kt` (lecture du bloc), `plateau/Perspective.kt` (projection en losanges, case sous le doigt, ordre de dessin), `plateau/EcranPartie.kt` (barre « Tour n sur 30 · Joueur Bleu/Rouge », plateau dessiné dans un `Canvas`, glisser pour déplacer la vue, pincer pour zoomer, toucher une unité puis une case jaune, bouton « Fin du tour », « Nouvelle partie » à la fin), `plateau/PartieViewModel.kt`. Couleurs et dessins provisoires repris de l'aperçu C. L'écran de contrôle du moteur ne s'affiche plus que si la bibliothèque Rust est en défaut. Captures : `docs/environnement/captures/plateau.png` et `plateau-choix.png`.
+- **Décisions** (développeur) : deux joueurs humains sur le même téléphone (pas encore d'IA) ; graine de la carte tirée de l'horloge du téléphone (hors des règles, qui restent reproductibles) ; plateau 11 × 11 par défaut.
+- **Vérifications** : `cargo test` 21 verts ; `:app:testDebugUnitTest` 29 verts (dont 4 de géométrie, 4 de l'écran de partie branché sur le vrai moteur, 2 captures) ; captures regardées. Script d'émulateur mis à jour : plateau affiché (« Tour 1 sur 30 », « Joueur Bleu »), toucher « Fin du tour » donne « Joueur Rouge », plantage provoqué, relance.
+- **Non vérifié sur téléphone** : gestes (glisser, pincer, toucher une case précise), lisibilité des cases sur un petit écran, fluidité.
+- **Problèmes et dette** : au premier cadrage le plateau tient dans la largeur et paraît petit ; à revoir avec l'utilisateur (zoom de départ). Rotation de l'écran : l'état est gardé par le ViewModel, cadrage recalculé.
+- **Prochaine étape** : CI verte avec capture du plateau à l'émulateur, rapport à la session maître.
+
 ## 2026-11-27 · Essai 0.1.6 vert à l'émulateur
 
 - **Auteur** : Claude, session S1

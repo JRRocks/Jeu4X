@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import fr.jeu4x.app.crash.CrashActivity
 import fr.jeu4x.app.crash.CrashReporter
 import fr.jeu4x.app.moteur.Moteur
+import fr.jeu4x.app.plateau.EcranPartie
+import fr.jeu4x.app.plateau.PartieViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +34,18 @@ class MainActivity : ComponentActivity() {
             // Vérification du rapport de plantage à l'émulateur (version d'essai seulement).
             throw IllegalStateException("Plantage de test demandé")
         }
-        val etat = EtatAccueil(BuildConfig.VERSION_NAME, lireMoteur())
-        setContent { MaterialTheme { EcranAccueil(etat) } }
+        val moteur = lireMoteur()
+        setContent {
+            MaterialTheme {
+                if (moteur is EtatMoteur.Ok) {
+                    val vm: PartieViewModel = viewModel()
+                    EcranPartie(vm.affichage, vm::toucherCase, vm::finDuTour, vm::nouvellePartie)
+                } else {
+                    // Moteur absent ou faux : l'écran de contrôle dit pourquoi, plutôt qu'un plantage.
+                    EcranAccueil(EtatAccueil(BuildConfig.VERSION_NAME, moteur))
+                }
+            }
+        }
     }
 
     companion object {

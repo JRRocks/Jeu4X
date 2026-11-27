@@ -9,6 +9,8 @@ import androidx.compose.ui.test.onNodeWithText
 import fr.jeu4x.app.EcranAccueil
 import fr.jeu4x.app.EtatAccueil
 import fr.jeu4x.app.EtatMoteur
+import fr.jeu4x.app.plateau.EcranPartie
+import fr.jeu4x.app.plateau.PartieViewModel
 import java.io.File
 import org.junit.Rule
 import org.junit.Test
@@ -29,6 +31,18 @@ class CapturesTest {
         compose.setContent { MaterialTheme { EcranAccueil(EtatAccueil("0.1.1", EtatMoteur.Ok(1))) } }
         compose.onNodeWithText("Moteur de règles 1 : contrôle réussi").assertExists()
         capturer("accueil")
+    }
+
+    @Test
+    fun plateau() {
+        val vm = PartieViewModel { 7L }
+        compose.setContent { MaterialTheme { EcranPartie(vm.affichage, vm::toucherCase, vm::finDuTour, vm::nouvellePartie) } }
+        compose.onNodeWithText("Fin du tour").assertExists()
+        capturer("plateau")
+        // Une unité choisie : sa portée en jaune.
+        vm.toucherCase(vm.affichage.etat.unites.first { it.joueur == 0 }.case)
+        compose.waitForIdle()
+        capturer("plateau-choix")
     }
 
     private fun capturer(nom: String) {
