@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Essai 0.1.10 vert à l'émulateur, glissement de début de tour (D-21)
+
+*Claude, session S1.*
+
+- CI n° 10 (commit 49bce61) verte ; pré-version `essai-0.1.10` publiée avec l'APK, le résumé et les captures.
+- Résumé de l'émulateur (API 34, x86_64) : installation, plateau, passage au Rouge, plantage provoqué, rapport et relance, tout vert.
+- Capture `emulateur-tour-rouge` regardée : 2 s après « Fin du tour », les trois unités rouges sont au centre de la vue, zoom ×2 gardé.
+- Non vérifié : douceur réelle de l'animation (une capture fixe ne la montre pas), gestes, téléphone ARM, installation par-dessus.
+
 ## 2026-11-27 · Début de tour : la vue glisse vers les unités du joueur (D-21)
 
 - **Auteur** : Claude, session S1
