@@ -11,7 +11,7 @@ L'utilisateur parle à la session maître, et à elle seule. La session maître 
 | S3 | IA évolutive : apprentissage par renforcement, algorithmes génétiques, pré-entraînement | `s3-ia` | `docs/ia/` et `moteur/ia/` | `IA-` | terrain d'essai livré, attend les règles codées |
 | S4 | Regroupement des données : serveur, local ou mixte, pour suivre l'évolution de l'IA | `s4-donnees` | `docs/donnees/` | `DO-` | trié, en pause |
 | S5 | Veille dans le monde du jeu vidéo : idées de gameplay et autres | `s5-veille` | `docs/veille/` | `VE-` | trié, mission terminée |
-| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` | `DA-` | deuxième série d'images (P6.2) |
+| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` | `DA-` | guide de style pour S1 (P6.3) |
 
 ## Règles communes aux sessions de travail
 

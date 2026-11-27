@@ -23,8 +23,9 @@ Poser les fondations d'un jeu de stratégie 4X original pour Android : un platea
 | P5.1 | Veille : idées venues du monde du jeu vidéo | Un catalogue `VE-` à trier | S5 | ✅ 80 idées |
 | P6.1 | Direction artistique : styles graphiques, palettes, interface | Des aperçus en images, plusieurs variantes de chaque | S6 | ✅ 12 propositions |
 | P2.2 | Règles précises de la première version, d'après le tri (D-23, D-28) | Un résumé d'une page, validé par l'utilisateur | S2 | ✅ validé (D-30) |
-| P6.2 | Deuxième série d'images : papier découpé en perspective, palette Jour franc et Nuit, interface Pouce (D-27) | Des images avec variantes ; un choix de l'utilisateur | S6 | 🔄 images livrées (01317e3), choix de l'utilisateur en cours |
+| P6.2 | Deuxième série d'images : papier découpé en perspective, palette Jour franc et Nuit, interface Pouce (D-27) | Des images avec variantes ; un choix de l'utilisateur | S6 | ✅ choix faits (D-31 à D-33) |
 | P3.2 | Terrain d'essai des IA et première IA simple, sans rien d'affiché (D-24) | Un tournoi d'IA lancé par une commande, son résultat écrit | S3 | ✅ terrain d'essai et IA à utilité (s3-ia, 4762d74) |
+| P6.3 | Guide de style pour S1 : couleurs, formes et dimensions du papier découpé retenu, de jour et de nuit | S1 peut dessiner le style sans deviner ; l'utilisateur voit le jeu dans le style choisi | S6 | 🔄 |
 | P1.6 | Coder les règles de la première version une fois validées | Sur l'essai : villes, villages, combat annoncé, brouillard, arbre, quatre clans, victoire (D-28) | S1 | 🔄 étape a) en cours |
 | P0.1 | Tri des idées avec l'utilisateur, sur une page à cocher (D-13) | Le retenu entre dans les décisions et le plan, le reste dans `docs/idees-futur.md` | maître | ✅ D-22, détail dans `docs/TRI.md` |
 
