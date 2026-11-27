@@ -22,6 +22,18 @@ Gabarit :
 
 ---
 
+## 2026-11-27 · Tous les catalogues livrés, page de tri publiée
+
+- **Auteur** : Claude, session maître
+- **Branche et commit** : `main`
+- **Objectif** : réunir les cinq catalogues de recherche sur une seule page de tri (D-13).
+- **Réalisé** : S2 (54 idées, 8 questions), S3 (19 idées, 1 question), S4 (21 idées, 4 questions), S5 (80 idées, 5 questions) et S6 (12 propositions en images, 4 questions) ont livré un `catalogue.json` chacun. Page de tri privée publiée pour l'utilisateur : recommandations pré-cochées, choix enregistrés dans la base de la page, une collection `tri` avec un document par session. S1 a retenu les technologies (D-14) et prépare la première application installable.
+- **Décisions** : D-14 (technologies), D-15 (usage limité de GitHub Actions).
+- **Vérifications** : les cinq JSON passent le contrôle de fusion (champs, recommandations, identifiants, images présentes) ; page rendue à 390 px de large sans erreur ni défilement de côté ; collection `tri` lue une fois, vide comme attendu. Non vérifié : l'enregistrement d'un choix depuis le téléphone de l'utilisateur.
+- **Non vérifié sur téléphone** : rien à installer encore.
+- **Problèmes et dette** : les liens vers les fiches s'appuient sur des ancres GitHub que S2 n'a pas vérifiées dans un navigateur ; au pire, le lien ouvre le haut du fichier.
+- **Prochaine étape** : lire les choix de l'utilisateur, les reporter dans les décisions et le plan, et donner la suite à chaque session.
+
 ## 2026-11-27 · Premiers livrables, choix de la technologie et de la façon de trier
 
 - **Auteur** : Claude, session maître

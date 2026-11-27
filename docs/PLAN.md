@@ -19,7 +19,7 @@ Poser les fondations d'un jeu de stratégie 4X original pour Android : un platea
 | P2.1 | Catalogue de game design : arbre d'évolution, clans, styles de jeu | Un catalogue `GD-` à trier | S2 | ✅ 54 idées |
 | P3.1 | Étude de l'IA évolutive et de ses besoins envers le moteur | Une étude et un catalogue `IA-` à trier | S3 | ✅ 19 idées |
 | P4.1 | Étude du regroupement des données | Un comparatif, une recommandation et un catalogue `DO-` | S4 | ✅ 21 idées |
-| P5.1 | Veille : idées venues du monde du jeu vidéo | Un catalogue `VE-` à trier | S5 | 🔄 |
+| P5.1 | Veille : idées venues du monde du jeu vidéo | Un catalogue `VE-` à trier | S5 | ✅ 80 idées |
 | P6.1 | Direction artistique : styles graphiques, palettes, interface | Des aperçus en images, plusieurs variantes de chaque | S6 | ✅ 12 propositions |
 | P0.1 | Tri des idées avec l'utilisateur, sur une page à cocher (D-13) | Le retenu entre dans les décisions et le plan, le reste dans `docs/idees-futur.md` | maître | 🔄 page publiée, en attente des choix |
 
