@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Essai 0.1.7 : plateau vert à l'émulateur
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`, `3f15a9e`, exécution CI n° 7 (7 min 46)
+- **Objectif** : vérifier le plateau à l'émulateur avant tout envoi à l'utilisateur (D-19).
+- **Réalisé** : pré-version `essai-0.1.7` (APK, capture du plateau, capture du rapport, résumé).
+- **Décisions** : aucune.
+- **Vérifications** : Android 14 (API 34) x86_64 : installation, plateau affiché depuis le moteur (« Tour 1 sur 30 », « Joueur Bleu »), « Fin du tour » touché donne « Joueur Rouge », plantage provoqué et rapport, relance : tout vert. Capture retéléchargée et regardée.
+- **Non vérifié sur téléphone** : toucher une case précise, glisser, pincer ; lisibilité (plateau petit au premier cadrage) ; ARM réel.
+- **Problèmes et dette** : cadrage de départ trop petit sur un écran de téléphone.
+- **Prochaine étape** : avis de l'utilisateur sur l'essai, puis zoom de départ.
+
 ## 2026-11-27 · Plateau en perspective jouable à deux sur le même téléphone
 
 - **Auteur** : Claude, session S1
