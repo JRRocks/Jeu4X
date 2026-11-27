@@ -6,12 +6,12 @@ L'utilisateur parle à la session maître, et à elle seule. La session maître 
 
 | N° | Rôle | Branche | Dossier | Préfixe des idées | État |
 |---|---|---|---|---|---|
-| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | étape A revue avec D-12 |
+| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | technologies retenues (D-14), étape B en cours |
 | S2 | Recherche de game design : arbre d'évolution, clans, styles de jeu | `s2-game-design` | `docs/game-design/` | `GD-` | livré, attend le tri |
 | S3 | IA évolutive : apprentissage par renforcement, algorithmes génétiques, pré-entraînement | `s3-ia` | `docs/ia/` | `IA-` | livré, attend le tri |
-| S4 | Regroupement des données : serveur, local ou mixte, pour suivre l'évolution de l'IA | `s4-donnees` | `docs/donnees/` | `DO-` | livré, compléments en cours |
+| S4 | Regroupement des données : serveur, local ou mixte, pour suivre l'évolution de l'IA | `s4-donnees` | `docs/donnees/` | `DO-` | livré, attend le tri |
 | S5 | Veille dans le monde du jeu vidéo : idées de gameplay et autres | `s5-veille` | `docs/veille/` | `VE-` | lancée le 2026-11-27 |
-| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` | `DA-` | lancée le 2026-11-27 |
+| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` | `DA-` | livré, attend le tri |
 
 ## Règles communes aux sessions de travail
 
