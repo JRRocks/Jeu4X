@@ -16,7 +16,7 @@ Poser les fondations d'un jeu de stratégie 4X original pour Android : un platea
 | P1.2 | Application vide qui s'installe, avec sa chaîne de livraison | Un `Jeu4X.<version>.apk` qui s'installe et s'ouvre sur le téléphone | S1 | 🔄 essai vérifié à l'émulateur (0.1.6) ; vrai APK : clé à créer |
 | P1.5 | Test automatique sur émulateur Android dans la CI, à chaque version (D-19) | Une capture de l'émulateur jointe à chaque pré-version d'essai, troisième ligne « contrôle réussi » | S1 | ✅ essai 0.1.6, exécution 6 |
 | P1.3 | Aperçus du plateau, avec variantes | Des images du plateau (cases adressées A1, B2…) ; une variante choisie | S1 | ✅ variante C, adresses internes (D-16) |
-| P1.4 | Plateau, déplacements au tour par tour, petits graphismes | Sur le téléphone : toucher une unité, voir où elle peut aller, la déplacer, passer le tour | S1 | ⬜ |
+| P1.4 | Plateau, déplacements au tour par tour, petits graphismes | Sur le téléphone : toucher une unité, voir où elle peut aller, la déplacer, passer le tour | S1 | 🔄 jouable en essai 0.1.7, vérifié à l'émulateur ; cadrage au lancement en cours (D-20) |
 | P2.1 | Catalogue de game design : arbre d'évolution, clans, styles de jeu | Un catalogue `GD-` à trier | S2 | ✅ 54 idées |
 | P3.1 | Étude de l'IA évolutive et de ses besoins envers le moteur | Une étude et un catalogue `IA-` à trier | S3 | ✅ 19 idées |
 | P4.1 | Étude du regroupement des données | Un comparatif, une recommandation et un catalogue `DO-` | S4 | ✅ 21 idées |
