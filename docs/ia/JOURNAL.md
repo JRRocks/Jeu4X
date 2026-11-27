@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Réglage de durée de S2 intégré, nouvelle IA en service
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`, après fusion de `s1-environnement` (30f0f6d, réglage de durée de S2)
+- **Réalisé** : j'ai fait les essais 1 à 3 des réglages de S2 (`docs/ia/equilibre/`). Avec le réglage retenu, codé par S1, `terrain duree` redonne exactement les chiffres de l'essai 3. `utilite-r3-v3`, issue de l'évolution courte, est admise sous ces règles et passe en service : 60,2 % contre `utilite-r3-v1`, 68,3 % contre `simple-r3`, 99,5 % contre le hasard, sur 400 parties. Rapport du tournoi : `tournois/2026-11-27-regles-3-reglage-duree.md`.
+- **Vérifications** : `cargo test --release --workspace` est vert (24 tests `ia`, 30 tests `regles`). Rejeu : 2 000 parties sur 2 000 conformes. `chrono` : 2,5 ms par tour en moyenne, 28 ms au pire à 4 joueurs (PC).
+- **Non vérifié sur téléphone** : le temps de réflexion réel.
+- **Prochaine étape** : attendre les retours de jeu de l'utilisateur (IA-005 ensuite, sur consigne).
+
 ## 2026-11-27 · Mesures d'équilibre pour S2 (durée des parties)
 
 - **Auteur** : Claude, session S3
