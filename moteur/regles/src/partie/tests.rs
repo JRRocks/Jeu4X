@@ -123,7 +123,7 @@ fn combats_des_exemples_du_paragraphe_6_3() {
     let r = partie_plaine(&[(0, 5, 5, TypeUnite::Archer), (1, 7, 5, TypeUnite::Lancier)]);
     let an = r.annonce_combat(r.plateau.case(5, 5), r.plateau.case(7, 5)).unwrap();
     assert_eq!((an.degats, an.riposte), (6, 0));
-    // Lancier contre Lancier dans une ville à remparts : 1 et 2.
+    // Lancier contre Lancier dans une capitale à remparts : 4 + 3 − (3 + 4 + 2) → 1, riposte 2.
     let mut s = partie_plaine(&[]);
     let cap = s.capitale(1);
     let (x, y) = (s.plateau.colonne(cap), s.plateau.rangee(cap));
@@ -166,14 +166,14 @@ fn rallier_un_village() {
     let avant = p.score(0);
     p.appliquer(Action::Rallier { case: village }).unwrap();
     assert_eq!(p.villes().iter().find(|v| v.case == village).unwrap().joueur, Some(0));
-    assert_eq!(p.score(0), avant + 2);
+    assert_eq!(p.score(0), avant + 1);
     assert!(p.entretien(0) > 3);
 }
 
 #[test]
 fn victoire_au_seuil_au_debut_du_tour_suivant() {
     let mut p = Partie::nouvelle(Reglages::default(), 4);
-    p.joueurs[0].points_acquis = 50;
+    p.joueurs[0].points_acquis = 60;
     p.appliquer(Action::FinDuTour).unwrap();
     assert!(p.joueurs[0].annonce);
     assert!(!p.est_finie());
@@ -200,14 +200,14 @@ fn economie_croissance_recherche() {
     let r0 = p.revenu(0);
     assert_eq!(r0, 4, "capitale niveau 1 : 2 + 2");
     p.appliquer(Action::Agrandir { ville: cap, recompense_b: false }).unwrap();
-    assert_eq!(p.revenu(0), r0 + 2, "niveau 2 (+1) et cadeau a (+1)");
+    assert_eq!(p.revenu(0), r0 + 1, "niveau 2 (+0) et cadeau a (+1)");
     p.appliquer(Action::Rechercher { avancee: Avancee::Champs }).unwrap();
     assert!(!p.actions_permises().contains(&Action::Rechercher { avancee: Avancee::Champs }));
     p.appliquer(Action::Rechercher { avancee: Avancee::Carrieres }).unwrap();
     p.appliquer(Action::Rechercher { avancee: Avancee::Marches }).unwrap();
     assert!(!p.avancee_ouverte(0, Avancee::Greniers), "choix exclusif");
     p.appliquer(Action::Batir { ville: cap, batiment: Batiment::Marche }).unwrap();
-    assert_eq!(p.revenu(0), r0 + 4);
+    assert_eq!(p.revenu(0), r0 + 3);
 }
 
 #[test]

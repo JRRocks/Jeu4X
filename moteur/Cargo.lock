@@ -41,6 +41,7 @@ dependencies = [
 name = "jeu4x_android"
 version = "0.1.0"
 dependencies = [
+ "ia",
  "jni",
  "regles",
 ]
