@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Étude de l'IA : méthodes, architecture, catalogue
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`
+- **Objectif** : terminer l'étape A de la mission.
+- **Réalisé** : `etude.md` (14 méthodes notées, lieux d'apprentissage, contraintes du téléphone, garde-fous, feuille de route R0 à R6) ; `architecture.md` ; `besoins-donnees.md` pour S4 ; `catalogue.md` (IA-001 à IA-019) ; `sources.md` complété.
+- **Décisions** : aucune (propositions seulement).
+- **Vérifications** : contrôle `depot-public` sans signalement. Aucun essai de calcul : temps d'inférence et coûts d'entraînement sont des estimations.
+- **Non vérifié sur téléphone** : temps d'évaluation d'un réseau sur un téléphone moyen (estimé 5 à 20 ms).
+- **Problèmes et dette** : sources citées de mémoire, liens à revérifier.
+- **Prochaine étape** : attendre le tri de l'utilisateur et le choix de technologie (S1).
+
 ## 2026-11-27 · Ce que les règles du jeu doivent offrir à l'IA
 
 - **Auteur** : Claude, session S3
