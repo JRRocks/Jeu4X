@@ -42,6 +42,18 @@ Observations :
 - La durée réagit fortement au seuil : 5 points de plus donnent 7 à 10 tours de plus avec l'adversaire de S3.
 - Avec `ia_simple` à deux joueurs, un tiers des parties finissent par une capitale prise, parfois dès le tour 5. Cette IA laisse sa capitale vide. Ajouter +2 de défense aux capitales n'y change rien : c'est son jeu, pas un chiffre. L'adversaire de S3 sert de référence, puisque c'est lui que l'utilisateur affrontera.
 
-## 5. Confirmation par S3
+## 5. Tournois de S3
 
-En attente : tournoi complet (durées, façons de gagner, taux de victoire par clan).
+Fait sur 200 parties par format, avec les clans en rotation : chaque clan joue à chaque place. Détail dans `docs/ia/equilibre/` sur `s3-ia`.
+
+| Essai | IA | Durée (min.–max.) 2 / 3 / 4 joueurs | Fins par capitale / au seuil / nulles | Victoires par clan (Crocs / Murailliers / Veilleurs / Vents) | Victoires du premier joueur à 2 |
+|---|---|---|---|---|---|
+| Référence | IA de S3 | ≈ 9 à 10 tours | 86 à 98 % au seuil | Vents-Errants faibles | 64 % |
+| 1 (réglage du § 3) | IA de S3 | 18,7 (6–26) / 19,4 (8–24) / 19,4 (16–23) | 28/72/0, 36/64/0, 53/47/0 | 49/46/56/49 % à 2 ; 24/25/27/24 % à 4 | 57 % |
+| 1 | `ia_simple` | 26,1 / 26,4 / 29,1 | 13/82/5, 22/74/4, 28/64/8 | 59/42/59/30 % à 2 ; Vents-Errants faibles | 58 % |
+
+Lecture : `chrono` opposait toujours Crocs-Rouges et Murailliers sur 20 parties, d'où mon 31,8, trop optimiste. Avec l'IA de S3, il manque 6 à 10 tours. Les clans sont équilibrés, mais les victoires par la capitale dominent à 4 joueurs.
+
+Essai 2 demandé :
+- **variante A** : seuils 62, 60 et 60 ;
+- **variante B** : A, plus +2 de défense dans sa propre capitale et 2 vivres de départ par rang au lieu de 1.
