@@ -22,7 +22,7 @@ Poser les fondations d'un jeu de stratégie 4X original pour Android : un platea
 | P4.1 | Étude du regroupement des données | Un comparatif, une recommandation et un catalogue `DO-` | S4 | ✅ 21 idées |
 | P5.1 | Veille : idées venues du monde du jeu vidéo | Un catalogue `VE-` à trier | S5 | ✅ 80 idées |
 | P6.1 | Direction artistique : styles graphiques, palettes, interface | Des aperçus en images, plusieurs variantes de chaque | S6 | ✅ 12 propositions |
-| P0.1 | Tri des idées avec l'utilisateur, sur une page à cocher (D-13) | Le retenu entre dans les décisions et le plan, le reste dans `docs/idees-futur.md` | maître | 🔄 page publiée, en attente des choix |
+| P0.1 | Tri des idées avec l'utilisateur, sur une page à cocher (D-13) | Le retenu entre dans les décisions et le plan, le reste dans `docs/idees-futur.md` | maître | ✅ D-22, détail dans `docs/TRI.md` |
 
 ## À vérifier sur le téléphone
 
