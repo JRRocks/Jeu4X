@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-11-27 · Fichier de tri pour la page à cocher
+
+- **Auteur** : Claude, session S4
+- **Branche et commit** : `s4-donnees` (voir le dernier commit de la branche)
+- **Objectif** : demande de la session maître : `catalogue.json` pour la page de tri sur téléphone.
+- **Réalisé** : `docs/donnees/catalogue.json` : 21 idées en 5 groupes, avec recommandation (7 à garder, 13 pour plus tard, 1 à jeter : DO-017) et les 4 questions DO-Q1 à DO-Q4 (DO-Q1 couvre aussi l'envoi des parties demandé par S3).
+- **Décisions** : aucune.
+- **Vérifications** : `python3 -m json.tool` sans erreur ; longueurs des titres, résumés et libellés contrôlées par script.
+- **Non vérifié sur téléphone** : rendu de la page (construite par la session maître).
+- **Problèmes et dette** : aucun.
+- **Prochaine étape** : attendre le tri groupé.
+
 ## 2026-11-27 · Étude revue avec les besoins de l'IA, règles de GitHub Actions
 
 - **Auteur** : Claude, session S4

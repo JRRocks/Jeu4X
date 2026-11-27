@@ -1,0 +1,358 @@
+{
+ "session": "S4",
+ "domaine": "Données",
+ "branche": "s4-donnees",
+ "commit_catalogue": "bba8984",
+ "groupes": [
+  "Garder ses parties",
+  "Mesurer les progrès de l'IA",
+  "Recevoir les parties des joueurs",
+  "Vie privée",
+  "La nouvelle IA vers les téléphones"
+ ],
+ "idees": [
+  {
+   "id": "DO-001",
+   "groupe": "Garder ses parties",
+   "titre": "Une partie enregistrée en tout petit",
+   "resume": "On garde le point de départ et la liste des coups : environ 2 Ko par partie, de quoi la rejouer à l'identique.",
+   "interet": 3,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "Tout le reste en dépend.",
+   "fiche": "docs/donnees/catalogue.md#do-001--replay-compact"
+  },
+  {
+   "id": "DO-002",
+   "groupe": "Garder ses parties",
+   "titre": "Le carnet de toutes vos parties",
+   "resume": "Le téléphone garde chaque partie jouée, même sans réseau.",
+   "interet": 3,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "Rien ne se perd, et le jeu reste jouable hors ligne.",
+   "fiche": "docs/donnees/catalogue.md#do-002--carnet-des-parties-sur-le-téléphone"
+  },
+  {
+   "id": "DO-003",
+   "groupe": "Garder ses parties",
+   "titre": "Envoyer ses parties en un fichier",
+   "resume": "Un bouton crée un fichier de vos parties à partager où vous voulez.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "Le plus simple tant que vous êtes le seul joueur.",
+   "fiche": "docs/donnees/catalogue.md#do-003--export-dun-fichier"
+  },
+  {
+   "id": "DO-004",
+   "groupe": "Garder ses parties",
+   "titre": "Copie automatique sur votre Google Drive",
+   "resume": "Vos parties arrivent seules dans un dossier de votre Drive, où l'ordinateur peut les relire.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Automatique et privé, avec une brique déjà éprouvée ; dépend de la question DO-Q3.",
+   "fiche": "docs/donnees/catalogue.md#do-004--copie-sur-le-drive-de-lutilisateur"
+  },
+  {
+   "id": "DO-005",
+   "groupe": "Mesurer les progrès de l'IA",
+   "titre": "Tournois entre versions de l'IA",
+   "resume": "Des milliers de parties entre l'ancienne et la nouvelle IA, jouées automatiquement en ligne, sans aucun joueur.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "C'est la vraie mesure du progrès, gratuite et sans donnée personnelle.",
+   "fiche": "docs/donnees/catalogue.md#do-005--banc-dessai-ia-contre-ia"
+  },
+  {
+   "id": "DO-006",
+   "groupe": "Mesurer les progrès de l'IA",
+   "titre": "Une note de niveau pour chaque IA",
+   "resume": "Chaque version d'IA reçoit une note, comme un classement aux échecs, adaptée aux parties à 3 ou 4.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "Un seul chiffre pour dire si la nouvelle IA est meilleure.",
+   "fiche": "docs/donnees/catalogue.md#do-006--classement-des-versions-dia"
+  },
+  {
+   "id": "DO-007",
+   "groupe": "Mesurer les progrès de l'IA",
+   "titre": "Les courbes de l'IA sur une page web",
+   "resume": "Une page gratuite, mise à jour après chaque tournoi, qui s'ouvre sur le téléphone.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Voir l'IA progresser sans rien installer ; aperçu avant de la construire.",
+   "fiche": "docs/donnees/catalogue.md#do-007--tableau-de-bord-en-page-web"
+  },
+  {
+   "id": "DO-008",
+   "groupe": "Recevoir les parties des joueurs",
+   "titre": "Envoi des parties quand le réseau revient",
+   "resume": "Le téléphone envoie ses nouvelles parties d'un coup, une fois par jour ou au retour du Wi-Fi.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Utile seulement quand d'autres personnes joueront.",
+   "fiche": "docs/donnees/catalogue.md#do-008--envoi-par-lots"
+  },
+  {
+   "id": "DO-009",
+   "groupe": "Recevoir les parties des joueurs",
+   "titre": "Un petit serveur gratuit pour recevoir",
+   "resume": "Un service en ligne gratuit (Cloudflare) range les parties reçues ; quelques dollars par mois au-delà de mille joueurs.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "À créer quand d'autres joueurs arriveront ; dépend de la question DO-Q2.",
+   "fiche": "docs/donnees/catalogue.md#do-009--petit-point-de-collecte-cloudflare"
+  },
+  {
+   "id": "DO-010",
+   "groupe": "Recevoir les parties des joueurs",
+   "titre": "Rejouer chaque partie pour démasquer les tricheurs",
+   "resume": "Chaque partie reçue est rejouée : un coup impossible ou une fausse victoire, et elle est écartée.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Indispensable dès qu'on reçoit des parties d'autres joueurs.",
+   "fiche": "docs/donnees/catalogue.md#do-010--vérification-par-rejeu"
+  },
+  {
+   "id": "DO-011",
+   "groupe": "Recevoir les parties des joueurs",
+   "titre": "Vérifier que l'envoi vient du vrai jeu",
+   "resume": "Le Play Store certifie que les parties viennent du jeu officiel sur un vrai téléphone.",
+   "interet": 1,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Seulement si le jeu passe un jour par le Play Store.",
+   "fiche": "docs/donnees/catalogue.md#do-011--jeton-dintégrité-play"
+  },
+  {
+   "id": "DO-012",
+   "groupe": "Recevoir les parties des joueurs",
+   "titre": "Protéger l'IA des mauvaises leçons",
+   "resume": "Les parties des joueurs sont filtrées et plafonnées, et une nouvelle IA doit battre l'ancienne avant d'être livrée.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Empêche quelques tricheurs de fausser l'IA ; utile avec d'autres joueurs.",
+   "fiche": "docs/donnees/catalogue.md#do-012--quarantaine-anti-empoisonnement"
+  },
+  {
+   "id": "DO-013",
+   "groupe": "Vie privée",
+   "titre": "Demander l'accord et permettre d'effacer",
+   "resume": "Une question claire à la première partie, un réglage pour changer d'avis, un bouton pour tout effacer.",
+   "interet": 3,
+   "cout": "S",
+   "recommandation": "plus-tard",
+   "raison": "Obligatoire par la loi dès qu'on envoie des parties d'autres joueurs.",
+   "fiche": "docs/donnees/catalogue.md#do-013--consentement-et-effacement"
+  },
+  {
+   "id": "DO-014",
+   "groupe": "Vie privée",
+   "titre": "Un numéro de joueur au hasard",
+   "resume": "Chaque joueur reçoit un numéro tiré au hasard, sans lien avec son téléphone ni son compte.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "plus-tard",
+   "raison": "On ne sait jamais qui joue ; utile dès qu'on reçoit des parties.",
+   "fiche": "docs/donnees/catalogue.md#do-014--identifiant-de-joueur-jetable"
+  },
+  {
+   "id": "DO-015",
+   "groupe": "La nouvelle IA vers les téléphones",
+   "titre": "Nouvelle IA sans réinstaller le jeu",
+   "resume": "La nouvelle IA se télécharge seule depuis GitHub, vérifiée avant usage, avec l'ancienne gardée en secours.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Au début, l'IA est simplement incluse dans chaque nouvelle version du jeu.",
+   "fiche": "docs/donnees/catalogue.md#do-015--modèles-dia-en-fichiers-de-release"
+  },
+  {
+   "id": "DO-016",
+   "groupe": "La nouvelle IA vers les téléphones",
+   "titre": "Essayer une nouvelle IA sur quelques joueurs",
+   "resume": "La nouvelle IA ne va d'abord qu'à un joueur sur cinq ; on compare, puis on la généralise ou on revient.",
+   "interet": 1,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Seulement avec beaucoup de joueurs.",
+   "fiche": "docs/donnees/catalogue.md#do-016--déploiement-progressif-dun-modèle"
+  },
+  {
+   "id": "DO-017",
+   "groupe": "Vie privée",
+   "titre": "Publier les parties pour les chercheurs",
+   "resume": "Un extrait anonyme des parties mis en ligne pour tous, sur un site de partage de données.",
+   "interet": 1,
+   "cout": "M",
+   "recommandation": "jeter",
+   "raison": "Peu utile au jeu et ajoute un risque pour la vie privée.",
+   "fiche": "docs/donnees/catalogue.md#do-017--jeu-de-données-public"
+  },
+  {
+   "id": "DO-018",
+   "groupe": "Mesurer les progrès de l'IA",
+   "titre": "Un écran du progrès de l'IA",
+   "resume": "Dans le jeu, une courbe du niveau de l'IA et la part de vos parties dans ce progrès.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Motivant, mais seulement quand d'autres joueurs participeront.",
+   "fiche": "docs/donnees/catalogue.md#do-018--écran--progrès-de-lia-"
+  },
+  {
+   "id": "DO-019",
+   "groupe": "Vie privée",
+   "titre": "Effacer les vieilles parties après deux ans",
+   "resume": "Les parties détaillées sont effacées au bout de 24 mois, seuls les totaux restent.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "plus-tard",
+   "raison": "Obligatoire par la loi dès qu'on garde des parties d'autres joueurs.",
+   "fiche": "docs/donnees/catalogue.md#do-019--durée-de-conservation"
+  },
+  {
+   "id": "DO-020",
+   "groupe": "Garder ses parties",
+   "titre": "Revoir une partie coup par coup",
+   "resume": "Une partie enregistrée se rejoue à l'écran, tour après tour.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Pratique pour comprendre l'IA, mais pas nécessaire au départ.",
+   "fiche": "docs/donnees/catalogue.md#do-020--revoir-une-partie"
+  },
+  {
+   "id": "DO-021",
+   "groupe": "Recevoir les parties des joueurs",
+   "titre": "Un serveur loué à prix fixe",
+   "resume": "Un petit serveur loué 5 à 7 € par mois, à entretenir soi-même.",
+   "interet": 1,
+   "cout": "L",
+   "recommandation": "plus-tard",
+   "raison": "Solution de secours si le service gratuit change ses règles.",
+   "fiche": "docs/donnees/catalogue.md#do-021--serveur-loué-à-prix-fixe"
+  }
+ ],
+ "questions": [
+  {
+   "id": "DO-Q1",
+   "question": "Quand d'autres personnes joueront, leurs parties peuvent-elles être envoyées pour faire progresser l'IA ?",
+   "contexte": "Les parties envoyées ne contiennent ni nom ni position, mais la loi demande l'accord du joueur, et celui d'un parent avant 15 ans.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Oui si le joueur accepte",
+     "detail": "Question posée à la première partie, réponse « non » par défaut, rien d'envoyé avant 15 ans."
+    },
+    {
+     "id": "b",
+     "libelle": "Oui, accepté par défaut",
+     "detail": "Le joueur peut refuser, mais l'envoi est coché d'office."
+    },
+    {
+     "id": "c",
+     "libelle": "Jamais",
+     "detail": "L'IA progresse seulement en jouant contre elle-même."
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DO-008",
+    "DO-013",
+    "DO-014",
+    "DO-019"
+   ]
+  },
+  {
+   "id": "DO-Q2",
+   "question": "Où recevoir les parties des autres joueurs, le moment venu ?",
+   "contexte": "Les trois solutions marchent ; elles diffèrent par le prix, l'entretien et la dépendance à une entreprise.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Service gratuit Cloudflare",
+     "detail": "Gratuit jusqu'à environ mille joueurs, sans mise en veille ni carte bancaire, rien à entretenir."
+    },
+    {
+     "id": "b",
+     "libelle": "Service gratuit de Google",
+     "detail": "Gratuit aussi (Firebase), tout chez Google, plus difficile à quitter ensuite."
+    },
+    {
+     "id": "c",
+     "libelle": "Serveur loué à prix fixe",
+     "detail": "5 à 7 € par mois, libre, mais mises à jour et sauvegardes à faire soi-même."
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DO-009",
+    "DO-021"
+   ]
+  },
+  {
+   "id": "DO-Q3",
+   "question": "Vos propres parties doivent-elles se copier seules sur votre Google Drive dès maintenant ?",
+   "contexte": "Cela permet à l'ordinateur de les relire sans que vous ayez à les envoyer.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Oui, copie automatique",
+     "detail": "Il faudra autoriser le jeu une fois à écrire dans un dossier de votre Drive."
+    },
+    {
+     "id": "b",
+     "libelle": "Non, envoi à la main",
+     "detail": "Un bouton crée un fichier quand vous voulez."
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DO-003",
+    "DO-004"
+   ]
+  },
+  {
+   "id": "DO-Q4",
+   "question": "Comment voulez-vous suivre les progrès de l'IA ?",
+   "contexte": "La page ne montrerait que les parties entre IA et des totaux, rien sur les joueurs.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Page web publique gratuite",
+     "detail": "Visible par tous, s'ouvre sur le téléphone, rien à entretenir."
+    },
+    {
+     "id": "b",
+     "libelle": "Page privée avec connexion",
+     "detail": "Demande un service payant ou un compte à gérer."
+    },
+    {
+     "id": "c",
+     "libelle": "Pas pour l'instant",
+     "detail": "On regarde les chiffres dans les rapports."
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DO-005",
+    "DO-006",
+    "DO-007"
+   ]
+  }
+ ]
+}
