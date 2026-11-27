@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Aperçus Jeu4X</title>
+<style>
+  @font-face { font-family: Fell; src: url(fonts/im-fell-french-canon-latin-400-normal.woff2); }
+  @font-face { font-family: Fell; font-style: italic; src: url(fonts/im-fell-french-canon-latin-400-italic.woff2); }
+  @font-face { font-family: Pixelify; src: url(fonts/pixelify-sans-latin-400-normal.woff2); }
+  @font-face { font-family: Pixelify; font-weight: 700; src: url(fonts/pixelify-sans-latin-700-normal.woff2); }
+  @font-face { font-family: Fredoka; font-weight: 400; src: url(fonts/fredoka-latin-400-normal.woff2); }
+  @font-face { font-family: Fredoka; font-weight: 600; src: url(fonts/fredoka-latin-600-normal.woff2); }
+  @font-face { font-family: Bitter; font-weight: 400; src: url(fonts/bitter-latin-400-normal.woff2); }
+  @font-face { font-family: Bitter; font-weight: 700; src: url(fonts/bitter-latin-700-normal.woff2); }
+  @font-face { font-family: Chakra; font-weight: 400; src: url(fonts/chakra-petch-latin-400-normal.woff2); }
+  @font-face { font-family: Chakra; font-weight: 700; src: url(fonts/chakra-petch-latin-700-normal.woff2); }
+  @font-face { font-family: Nunito; font-weight: 400; src: url(fonts/nunito-latin-400-normal.woff2); }
+  @font-face { font-family: Nunito; font-weight: 700; src: url(fonts/nunito-latin-700-normal.woff2); }
+  @font-face { font-family: Atkinson; font-weight: 400; src: url(fonts/atkinson-hyperlegible-latin-400-normal.woff2); }
+  @font-face { font-family: Atkinson; font-weight: 700; src: url(fonts/atkinson-hyperlegible-latin-700-normal.woff2); }
+
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #E9E7E2; font-family: Inter, sans-serif; color: #1C1E24; }
+  #shot { display: inline-flex; gap: 28px; padding: 28px; background: #E9E7E2; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+  .phone { width: 380px; padding: 10px; border-radius: 46px; background: #15161A; box-shadow: 0 10px 30px #0004; }
+  .screen { width: 360px; height: 780px; border-radius: 36px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+  .top { height: 64px; margin-top: 10px; display: flex; align-items: center; gap: 10px; padding: 0 12px; position: relative; z-index: 1; }
+  .turn { display: flex; flex-direction: column; line-height: 1; } .turn small { font-size: 11px; } .turn b { font-size: 20px; }
+  .res { display: flex; gap: 12px; margin-left: auto; font-size: 17px; } .res span { display: flex; align-items: center; gap: 4px; } .res small { font-size: 12px; opacity: .85; }
+  button { font: inherit; color: inherit; border: 0; background: none; }
+  .menu { width: 48px; height: 48px; display: grid; place-items: center; }
+  .board { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+  .panel { padding: 10px 14px 22px; display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+  .card { display: flex; gap: 10px; align-items: center; padding: 8px 12px; }
+  .card .info { display: flex; flex-direction: column; } .card b { font-size: 18px; } .card small { font-size: 13px; }
+  .actions { display: flex; gap: 10px; }
+  .actions button { height: 56px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .ghost { padding: 0 14px; font-size: 15px; } .end { flex: 1; font-size: 19px; font-weight: 700; }
+  .cap { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; }
+  .cap .num { font: 700 13px Inter; letter-spacing: .06em; color: #6A6458; } .cap b { font-size: 22px; } .cap small { font-size: 14px; color: #555; }
+
+  /* DA-001 Carnet d'explorateur */
+  .s-encre { background: #F1E6CC radial-gradient(ellipse at 50% 40%, #F6EEDA 30%, #E3D2AC 100%); font-family: Fell, serif; color: #3A2D20; }
+  .s-encre::before { content: ''; position: absolute; inset: 0; opacity: .5; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .15 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .s-encre .top { border-bottom: 3px double #3A2D20; margin: 10px 12px 0; padding: 0 4px; }
+  .s-encre .turn b { font-size: 24px; } .s-encre .res { --icon-in: #F1E6CC; }
+  .s-encre .r-or { color: #A87A1C; } .s-encre .r-sv { color: #2B5A9A; } .s-encre .res b, .s-encre .res small { color: #3A2D20; }
+  .s-encre .card { border: 1.5px solid #3A2D20; border-radius: 4px; background: #F6EEDACC; } .s-encre .card b { font-size: 21px; font-style: italic; }
+  .s-encre .ghost { border: 1.5px solid #3A2D20; border-radius: 4px; }
+  .s-encre .end { background: #8E2A1C; color: #F7EFDC; border-radius: 28px; font-size: 22px; font-weight: 400; box-shadow: inset 0 0 0 3px #8E2A1C, inset 0 0 0 4.5px #F7EFDC88, 0 2px 0 #5A170E; }
+
+  /* DA-002 Pixel 16 */
+  .s-pixel { background: #1B1E2B; font-family: Pixelify, monospace; color: #E8ECF8; }
+  .s-pixel .top { background: #2A2F45; border-bottom: 3px solid #0E1018; margin-top: 0; padding-top: 10px; height: 74px; }
+  .s-pixel .res { --icon-in: #2A2F45; } .s-pixel .r-or svg { color: #FFB627; } .s-pixel .r-sv svg { color: #77ABF0; }
+  .s-pixel svg { shape-rendering: crispEdges; image-rendering: pixelated; }
+  .s-pixel .card { background: #2A2F45; border: 3px solid #0E1018; box-shadow: 0 4px 0 #0E1018; }
+  .s-pixel .actions button { border: 3px solid #0E1018; box-shadow: 0 4px 0 #0E1018; }
+  .s-pixel .ghost { background: #3A4060; } .s-pixel .end { background: #FFB627; color: #14161F; font-size: 20px; }
+
+  /* DA-003 Papier découpé */
+  .s-papier { background: #EAD3AE; font-family: Fredoka, sans-serif; color: #4A341F; }
+  .s-papier::before { content: ''; position: absolute; inset: 0; opacity: .35; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.55' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .3 0 0 0 0 .15 0 0 0 .25 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .s-papier .top { background: #FFFDF8; margin: 10px 10px 0; border-radius: 20px; box-shadow: 0 3px 6px #5a3a1a44; }
+  .s-papier .turn b { font-weight: 600; } .s-papier .res b { font-weight: 600; } .s-papier .r-or svg { color: #E0A21A; } .s-papier .r-sv svg { color: #4B3FD6; } .s-papier .res { --icon-in: #FFFDF8; }
+  .s-papier .card { background: #FFFDF8; border-radius: 20px; box-shadow: 0 3px 6px #5a3a1a44; } .s-papier .card b { font-weight: 600; }
+  .s-papier .actions button { border-radius: 28px; box-shadow: 0 3px 6px #5a3a1a55; }
+  .s-papier .ghost { background: #FFFDF8; } .s-papier .end { background: #C8401A; color: #FFFFFF; font-weight: 600; font-size: 21px; }
+
+  /* DA-004 Plateau de bois */
+  .s-bois { background: repeating-linear-gradient(90deg, #3E2716 0 34px, #43291A 34px 70px, #3A2414 70px 96px); font-family: Bitter, serif; color: #F3E3C3; }
+  .s-bois .top { background: linear-gradient(#8A5A32, #6B4424); margin: 10px 10px 0; border-radius: 10px; box-shadow: 0 3px 0 #2A180B, inset 0 1px 0 #B98454; }
+  .s-bois .res { --icon-in: #6B4424; } .s-bois .r-or svg { color: #F0C45A; } .s-bois .r-sv svg { color: #9CC7E8; }
+  .s-bois .card { background: linear-gradient(#6B4424, #5A381D); border-radius: 10px; box-shadow: 0 3px 0 #2A180B, inset 0 1px 0 #9C6B40; }
+  .s-bois .actions button { border-radius: 10px; box-shadow: 0 3px 0 #2A180B; }
+  .s-bois .ghost { background: linear-gradient(#6B4424, #5A381D); }
+  .s-bois .end { background: linear-gradient(#F2D27A, #C99A3A); color: #2A1A08; box-shadow: 0 3px 0 #6E4E14, inset 0 1px 0 #FFF0B8; }
+
+  /* DA-005 Table tactique */
+  .s-tactique { background: #060912; font-family: Chakra, sans-serif; color: #DDE7FF;
+    background-image: linear-gradient(#4FC3FF0D 1px, transparent 1px), linear-gradient(90deg, #4FC3FF0D 1px, transparent 1px); background-size: 20px 20px; }
+  .s-tactique .top { border-bottom: 1px solid #4FC3FF66; margin: 10px 12px 0; padding: 0 2px; }
+  .s-tactique .res { --icon-in: #060912; } .s-tactique .r-or svg { color: #FFD166; } .s-tactique .r-sv svg { color: #4FC3FF; }
+  .s-tactique .card { border: 1px solid #4FC3FF66; background: #0B1424; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+  .s-tactique .card small { color: #9FB2D6; }
+  .s-tactique .ghost { border: 1.5px solid #4FC3FF; color: #4FC3FF; }
+  .s-tactique .end { background: #4FC3FF; color: #041018; text-transform: uppercase; letter-spacing: .06em; clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px)); }
+
+  /* Style plat (palettes et interfaces) : variables posées par le script */
+  .s-plat { background: var(--bg); color: var(--text); font-family: var(--font, Nunito), sans-serif; }
+  .s-plat .top { background: var(--surf); border-bottom: 1px solid var(--line); margin-top: 0; padding-top: 10px; height: 74px; }
+  .s-plat .res { --icon-in: var(--surf); } .s-plat .r-or svg { color: var(--c0); } .s-plat .r-sv svg { color: var(--accent); }
+  .s-plat .card { background: var(--surf); border: 1px solid var(--line); border-radius: 14px; } .s-plat .card small { color: var(--text2); }
+  .s-plat .actions button { border-radius: 14px; }
+  .s-plat .ghost { background: var(--surf); border: 1.5px solid var(--text2); } .s-plat .end { background: var(--btn); color: var(--btnText); }
+
+  /* Fiches de palettes */
+  .sheet { width: 700px; display: flex; flex-direction: column; gap: 16px; }
+  .sheet h1 { font-size: 30px; } .sheet h1 span { font-size: 15px; color: #6A6458; letter-spacing: .06em; margin-right: 8px; }
+  .sheet h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: #6A6458; margin-bottom: 8px; }
+  .sheet p.int { font-size: 17px; color: #3C3A35; }
+  .box { background: #FFF; border-radius: 14px; padding: 14px 16px; }
+  .sw { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .sw div { display: flex; flex-direction: column; gap: 3px; font-size: 13px; } .sw i { display: block; height: 46px; border-radius: 8px; border: 1px solid #0002; }
+  .sw code { font: 12px 'JetBrains Mono'; color: #555; }
+  .cvd { display: grid; grid-template-columns: 110px repeat(6, 1fr) 96px; gap: 6px 8px; align-items: center; font-size: 14px; }
+  .cvd .h { font-size: 12px; color: #6A6458; text-align: center; } .cvd .t { display: grid; place-items: center; }
+  .ok { color: #1A7F37; font-weight: 700; } .moy { color: #9A6700; font-weight: 700; } .ko { color: #B3261E; font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; } td { padding: 6px 4px; border-top: 1px solid #EEE; } td.r { text-align: right; font-variant-numeric: tabular-nums; }
+  .pill { display: inline-block; padding: 4px 10px; border-radius: 8px; font-weight: 700; }
+  .notes { width: 380px; font-size: 15px; line-height: 1.4; display: flex; flex-direction: column; gap: 6px; }
+  .notes b { font-size: 17px; } .notes ol { padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+  .head { width: 100%; display: flex; flex-direction: column; gap: 4px; }
+  .head h1 { font-size: 28px; } .head h1 span { font-size: 15px; color: #6A6458; letter-spacing: .06em; margin-right: 8px; } .head p { font-size: 16px; color: #3C3A35; }
+</style>
+<script src="couleurs.js"></script>
+<script src="scene.js"></script>
+<script src="styles.js"></script>
+<script src="palettes.js"></script>
+<script src="interfaces.js"></script>
+</head>
+<body>
+<div id="shot"></div>
+<script>
+  const q = new URLSearchParams(location.search), vue = q.get('vue'), id = q.get('id');
+  const shot = document.getElementById('shot');
+  const phone = html => `<div class="phone">${html}</div>`;
+
+  function vueStyle(st) {
+    return `<div class="col">${phone(Scene.ecran(st))}<div class="cap"><span class="num">${st.num}</span><b>${st.nom}</b><small>${st.sous}</small></div></div>`;
+  }
+
+  function vueComparatif() {
+    shot.style.flexWrap = 'wrap'; shot.style.width = '860px'; shot.style.justifyContent = 'center';
+    return ['encre', 'pixel', 'papier', 'bois', 'tactique'].map(k => `<div style="zoom:.58">${vueStyle(STYLES[k])}</div>`).join('')
+      + `<div class="col" style="width:228px;justify-content:center;height:520px;text-align:left;font-size:15px;line-height:1.45;color:#3C3A35"><b style="font-size:20px">Même scène, cinq univers</b>Plateau 6 × 8 (A1 à F8), ville d’Ostrelle en C3, Lancier choisi en D4, Archère en B2, Pillard ennemi en E5. Les points montrent les cases atteignables, la croix l’attaque possible.</div>`;
+  }
+
+  function applyPal(el, p, font) {
+    const v = { bg: p.ui.bg, surf: p.ui.surf, text: p.ui.text, text2: p.ui.text2, accent: p.ui.accent, btn: p.ui.btn, btnText: p.ui.btnText, line: p.ui.line, c0: p.clans[0] };
+    for (const k in v) el.style.setProperty('--' + k, v[k]);
+    if (font) el.style.setProperty('--font', font);
+  }
+
+  function vuePalette(p) {
+    const V = [['normal', 'Vision normale'], ['protan', 'Protanopie'], ['deutan', 'Deutéranopie'], ['tritan', 'Tritanopie']];
+    const verdict = d => d >= 0.12 ? `<span class="ok">${d.toFixed(2)} net</span>` : d >= 0.07 ? `<span class="moy">${d.toFixed(2)} correct</span>` : `<span class="ko">${d.toFixed(2)} faible</span>`;
+    const tok = (c, sh) => { const ink = Couleurs.contrast(c, '#000000') > Couleurs.contrast(c, '#FFFFFF') ? '#111' : '#FFF'; return `<svg width="40" height="40" viewBox="0 0 40 40">${sh ? `<path d="M20 3L37 20L20 37L3 20Z"` : `<circle cx="20" cy="20" r="17"`} fill="${c}" stroke="#222" stroke-width="1.5"/>${Scene.placeGlyph('lance', ink, 20, 20, 20, 2.6)}</svg>`; };
+    const terrK = ['P', 'F', 'M', 'E', 'S', 'X'], terrN = { P: 'Plaine', F: 'Forêt', M: 'Montagne', E: 'Eau', S: 'Sable', X: 'Brouillard' };
+    let cvd = `<div class="h"></div>${p.clanNoms.map(n => `<div class="h">${n}</div>`).join('')}<div class="h">écart mini</div>`;
+    for (const [k, n] of V) {
+      cvd += `<div>${n}</div>` + p.clans.map((c, i) => `<div class="t">${tok(Couleurs.simulate(c, k), false)}</div>`).join('') + `<div>${verdict(Couleurs.minPair(p.clans, k).d)}</div>`;
+    }
+    let tcvd = `<div class="h"></div>${terrK.map(t => `<div class="h">${terrN[t]}</div>`).join('')}<div class="h">écart mini</div>`;
+    for (const [k, n] of V) tcvd += `<div>${n}</div>` + terrK.map(t => `<div class="t"><i style="display:block;width:44px;height:26px;border-radius:5px;background:${Couleurs.simulate(p.terr[t], k)}"></i></div>`).join('') + `<div>${verdict(Couleurs.minPair(terrK.map(t => p.terr[t]), k).d)}</div>`;
+    const u = p.ui;
+    const pairs = [['Texte sur fond', u.text, u.bg, 4.5], ['Texte secondaire sur fond', u.text2, u.bg, 4.5], ['Texte sur carte', u.text, u.surf, 4.5], ['Texte du bouton « Fin du tour »', u.btnText, u.btn, 4.5], ['Accent sur carte', u.accent, u.surf, 3], ['Alerte sur carte', u.alert, u.surf, 3]];
+    const rows = pairs.map(([n, f, b, min]) => { const r = Couleurs.contrast(f, b); return `<tr><td>${n}</td><td><span class="pill" style="background:${b};color:${f};border:1px solid #0002">Aa 12</span></td><td class="r">${r.toFixed(1)} : 1</td><td class="r">${r >= Math.max(min, 4.5) ? '<span class="ok">AA</span>' : r >= min ? '<span class="ok">AA (grand texte, icône)</span>' : '<span class="ko">insuffisant</span>'}</td></tr>`; }).join('');
+    const st = STYLES.plat(p);
+    const html = `<div class="col"><div class="phone" id="ph">${Scene.ecran(st)}</div></div>
+      <div class="sheet"><div><h1><span>${p.num}</span>Palette « ${p.nom} »</h1><p class="int">${p.intention}</p></div>
+      <div class="box"><h2>Terrains</h2><div class="sw">${terrK.map(t => `<div><i style="background:${p.terr[t]}"></i>${terrN[t]}<code>${p.terr[t]}</code></div>`).join('')}</div></div>
+      <div class="box"><h2>Terrains vus par les daltoniens</h2><div class="cvd">${tcvd}</div></div>
+      <div class="box"><h2>Six couleurs de clans, simulées</h2><div class="cvd">${cvd}</div></div>
+      <div class="box"><h2>Interface : contrastes mesurés (WCAG)</h2><table>${rows}</table></div></div>`;
+    setTimeout(() => applyPal(document.querySelector('#ph .screen'), p, 'Nunito'), 0);
+    return html;
+  }
+
+  if (vue === 'style') shot.innerHTML = vueStyle(STYLES[id]);
+  else if (vue === 'comparatif') shot.innerHTML = vueComparatif();
+  else if (vue === 'palette') shot.innerHTML = vuePalette(PALETTES[id]);
+  else if (vue === 'interface') { shot.innerHTML = INTERFACES[id].html(); INTERFACES[id].after && INTERFACES[id].after(); }
+  document.fonts.ready.then(() => setTimeout(() => document.body.dataset.pret = '1', 150));
+</script>
+</body>
+</html>

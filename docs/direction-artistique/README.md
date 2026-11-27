@@ -1,0 +1,32 @@
+# Direction artistique (session 6)
+
+Aperçus à comparer : rien n'est codé dans le jeu (D-11). Détail de chaque proposition : [`catalogue.md`](catalogue.md).
+
+## Images (`apercus/`, PNG à l'échelle 2, sans métadonnées)
+
+| N° | Fichier | Ce qu'elle montre |
+|---|---|---|
+| DA-000 | `DA-000-comparatif.png` | Les cinq styles côte à côte sur la même scène |
+| DA-001 | `DA-001-style-carnet.png` | Style « Carnet d'explorateur » : encre et lavis sur papier |
+| DA-002 | `DA-002-style-pixel.png` | Style « Pixel 16 » : gros pixels, 16 × 16 par case |
+| DA-003 | `DA-003-style-papier.png` | Style « Papier découpé » : formes découpées, ombres douces |
+| DA-004 | `DA-004-style-bois.png` | Style « Plateau de bois » : tuiles et pions de jeu de société |
+| DA-005 | `DA-005-style-tactique.png` | Style « Table tactique » : lignes lumineuses sur fond sombre |
+| DA-006 | `DA-006-palette-jour.png` | Palette « Jour franc » : terrains, 6 clans simulés pour 3 daltonismes, contrastes |
+| DA-007 | `DA-007-palette-nuit.png` | Palette « Nuit » (fond sombre) |
+| DA-008 | `DA-008-palette-lavis.png` | Palette « Lavis » (tons de papier) |
+| DA-009 | `DA-009-palette-soleil.png` | Palette « Plein soleil » (contraste maximal) |
+| DA-010 | `DA-010-interface-pouce.png` | Interface « Pouce » : panneau bas, deux écrans |
+| DA-011 | `DA-011-interface-anneau.png` | Interface « Anneau » : actions en anneau, deux écrans |
+| DA-012 | `DA-012-interface-onglets.png` | Interface « Onglets » : barre d'onglets, deux écrans |
+
+## Refaire les images
+
+Le dossier `source/` contient la scène type (`scene.js`), les styles (`styles.js`), les palettes (`palettes.js`), les interfaces (`interfaces.js`), les calculs de couleur (`couleurs.js`) et le script de rendu.
+
+```
+npm i @fontsource/fredoka @fontsource/im-fell-french-canon @fontsource/pixelify-sans @fontsource/chakra-petch @fontsource/bitter @fontsource/atkinson-hyperlegible @fontsource/nunito
+node source/rendu.js <chemin>/node_modules/@fontsource
+```
+
+Les polices (licence SIL OFL 1.1) sont copiées dans `source/fonts/`, qui n'est pas versionné.
