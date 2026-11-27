@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · CI verte, compilation Rust pour Android vérifiée sur GitHub
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`, `aa332ab` puis `4810263`
+- **Objectif** : vérifier en CI ce qui ne l'était qu'en session : la compilation du moteur Rust pour le téléphone.
+- **Réalisé** : sans clé, la CI compile maintenant un APK de debug (jamais livré) et vérifie qu'il contient `lib/arm64-v8a/libjeu4x_android.so`. Panne révélée : « NDK is not installed » (le NDK 27.2.12479018 n'est pas sur le runner et AGP ne l'installe pas pour une tâche Exec). Parade : étape `sdkmanager --install "ndk;27.2.12479018"` avant Gradle.
+- **Décisions** : aucune.
+- **Vérifications** : exécution 1 (`19daecf`) verte, 3 min 24 ; exécution 2 (`aa332ab`) rouge sur la panne NDK ; exécution 3 (`4810263`) verte, 4 min, tests Rust + Kotlin + APK de debug avec la bibliothèque native.
+- **Non vérifié sur téléphone** : tout.
+- **Problèmes et dette** : actions GitHub en Node 20 dépréciées (avertissement), à monter de version plus tard.
+- **Prochaine étape** : clé de signature par l'utilisateur, choix de l'aperçu du plateau.
+
 ## 2026-11-27 · Vérification des développeurs Android
 
 - **Auteur** : Claude, session S1
