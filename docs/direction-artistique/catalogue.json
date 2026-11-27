@@ -1,0 +1,276 @@
+{
+ "session": "S6",
+ "domaine": "Direction artistique",
+ "branche": "s6-direction-artistique",
+ "commit_catalogue": "3f6e50a",
+ "groupes": [
+  "Styles graphiques",
+  "Palettes de couleurs",
+  "Interface"
+ ],
+ "idees": [
+  {
+   "id": "DA-001",
+   "groupe": "Styles graphiques",
+   "titre": "Carnet d’explorateur, encre et lavis",
+   "resume": "Carte dessinée à l’encre sur du papier, terrains en aquarelle, unités en cachets de cire.",
+   "interet": 2,
+   "cout": "L",
+   "recommandation": "plus-tard",
+   "raison": "Très original, mais long à rendre soigné et les chiffres de sa police se lisent mal.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-001-style-carnet-dexplorateur",
+   "image": "docs/direction-artistique/apercus/DA-001-style-carnet.png"
+  },
+  {
+   "id": "DA-002",
+   "groupe": "Styles graphiques",
+   "titre": "Pixel 16, gros pixels",
+   "resume": "Chaque case est un petit dessin de 16 × 16 pixels, les unités sont de petits personnages.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "plus-tard",
+   "raison": "Le moins cher et très lisible, mais le genre est très répandu.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-002-style-pixel-16",
+   "image": "docs/direction-artistique/apercus/DA-002-style-pixel.png"
+  },
+  {
+   "id": "DA-003",
+   "groupe": "Styles graphiques",
+   "titre": "Papier découpé",
+   "resume": "Formes de papier coloré superposées, bords irréguliers, ombres douces, pions en gommettes.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Joyeux, lisible, original, et entièrement dessiné par le code.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-003-style-papier-découpé",
+   "image": "docs/direction-artistique/apercus/DA-003-style-papier.png"
+  },
+  {
+   "id": "DA-004",
+   "groupe": "Styles graphiques",
+   "titre": "Plateau de bois",
+   "resume": "Tuiles peintes et pions en bois, comme un jeu de société posé sur une table.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Chaleureux et clair, mais demande une texture de bois pour être convaincant.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-004-style-plateau-de-bois",
+   "image": "docs/direction-artistique/apercus/DA-004-style-bois.png"
+  },
+  {
+   "id": "DA-005",
+   "groupe": "Styles graphiques",
+   "titre": "Table tactique lumineuse",
+   "resume": "Fond noir, terrains reconnus à leur motif, lignes lumineuses comme un écran de commandement.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "plus-tard",
+   "raison": "Simple à faire et sûr pour les daltoniens, mais froid et d’allure courante.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-005-style-table-tactique",
+   "image": "docs/direction-artistique/apercus/DA-005-style-tactique.png"
+  },
+  {
+   "id": "DA-006",
+   "groupe": "Palettes de couleurs",
+   "titre": "Jour franc, couleurs vives",
+   "resume": "Couleurs vives et nettes sur fond crème, six couleurs de clans bien distinctes.",
+   "interet": 3,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "La plus sûre pour les daltoniens, clans comme terrains, et tous les textes lisibles.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-006-palette-jour-franc",
+   "image": "docs/direction-artistique/apercus/DA-006-palette-jour.png"
+  },
+  {
+   "id": "DA-007",
+   "groupe": "Palettes de couleurs",
+   "titre": "Nuit, fond sombre",
+   "resume": "Fond presque noir, terrains sombres, clans en couleurs claires, pour jouer le soir.",
+   "interet": 3,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "Bon mode nuit de la palette Jour franc, économe en batterie.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-007-palette-nuit",
+   "image": "docs/direction-artistique/apercus/DA-007-palette-nuit.png"
+  },
+  {
+   "id": "DA-008",
+   "groupe": "Palettes de couleurs",
+   "titre": "Lavis, tons de papier",
+   "resume": "Terrains très pâles comme de l’aquarelle, clans en couleurs d’encre franches.",
+   "interet": 1,
+   "cout": "S",
+   "recommandation": "plus-tard",
+   "raison": "Les terrains se confondent, elle ne va qu’avec le style Carnet.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-008-palette-lavis",
+   "image": "docs/direction-artistique/apercus/DA-008-palette-lavis.png"
+  },
+  {
+   "id": "DA-009",
+   "groupe": "Palettes de couleurs",
+   "titre": "Plein soleil, contraste maximal",
+   "resume": "Noir, blanc, jaune et couleurs saturées, pour jouer dehors ou avec une vue fatiguée.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "plus-tard",
+   "raison": "Utile comme réglage « contraste élevé » plutôt que comme palette de base.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-009-palette-plein-soleil",
+   "image": "docs/direction-artistique/apercus/DA-009-palette-soleil.png"
+  },
+  {
+   "id": "DA-010",
+   "groupe": "Interface",
+   "titre": "Pouce : tout en bas de l’écran",
+   "resume": "Actions et « Fin du tour » dans le tiers bas ; un panneau monte pour la ville.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "La plus simple à apprendre et à coder, jouable d’une main.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-010-interface-pouce",
+   "image": "docs/direction-artistique/apercus/DA-010-interface-pouce.png"
+  },
+  {
+   "id": "DA-011",
+   "groupe": "Interface",
+   "titre": "Anneau autour de ce qu’on touche",
+   "resume": "Le plateau occupe tout l’écran ; les actions s’ouvrent en cercle autour de l’unité ou de la ville.",
+   "interet": 2,
+   "cout": "L",
+   "recommandation": "plus-tard",
+   "raison": "Montre plus de carte, mais le doigt cache l’anneau et les bords compliquent tout.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-011-interface-anneau",
+   "image": "docs/direction-artistique/apercus/DA-011-interface-anneau.png"
+  },
+  {
+   "id": "DA-012",
+   "groupe": "Interface",
+   "titre": "Onglets en bas de l’écran",
+   "resume": "Barre d’onglets Carte, Villes, Savoir, Clans ; un écran par tâche.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "plus-tard",
+   "raison": "Familière sur Android, mais plus d’allers-retours pendant un tour.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-012-interface-onglets",
+   "image": "docs/direction-artistique/apercus/DA-012-interface-onglets.png"
+  }
+ ],
+ "questions": [
+  {
+   "id": "DA-Q1",
+   "question": "Quel style graphique ?",
+   "contexte": "Les cinq styles montrent la même scène ; on peut en garder deux pour une seconde série de variantes.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Papier découpé",
+     "detail": "Joyeux et lisible, tout dessiné par le code.",
+     "image": "docs/direction-artistique/apercus/DA-003-style-papier.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Pixel 16",
+     "detail": "Le moins cher, très lisible, genre répandu.",
+     "image": "docs/direction-artistique/apercus/DA-002-style-pixel.png"
+    },
+    {
+     "id": "c",
+     "libelle": "Plateau de bois",
+     "detail": "Chaleureux, comme un jeu de société.",
+     "image": "docs/direction-artistique/apercus/DA-004-style-bois.png"
+    },
+    {
+     "id": "d",
+     "libelle": "Carnet d’explorateur",
+     "detail": "Très original, le plus long à soigner.",
+     "image": "docs/direction-artistique/apercus/DA-001-style-carnet.png"
+    },
+    {
+     "id": "e",
+     "libelle": "Table tactique",
+     "detail": "Sobre et sombre, motifs lumineux.",
+     "image": "docs/direction-artistique/apercus/DA-005-style-tactique.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": true,
+   "idees_liees": [
+    "DA-001",
+    "DA-002",
+    "DA-003",
+    "DA-004",
+    "DA-005"
+   ]
+  },
+  {
+   "id": "DA-Q2",
+   "question": "Quelles palettes de couleurs ?",
+   "contexte": "On peut en garder deux, par exemple une de jour et une de nuit.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Jour franc",
+     "detail": "Vive et la plus sûre pour les daltoniens.",
+     "image": "docs/direction-artistique/apercus/DA-006-palette-jour.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Nuit",
+     "detail": "Fond sombre pour le soir.",
+     "image": "docs/direction-artistique/apercus/DA-007-palette-nuit.png"
+    },
+    {
+     "id": "c",
+     "libelle": "Plein soleil",
+     "detail": "Contraste maximal, pour dehors.",
+     "image": "docs/direction-artistique/apercus/DA-009-palette-soleil.png"
+    },
+    {
+     "id": "d",
+     "libelle": "Lavis",
+     "detail": "Tons de papier, seulement avec le Carnet.",
+     "image": "docs/direction-artistique/apercus/DA-008-palette-lavis.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": true,
+   "idees_liees": [
+    "DA-006",
+    "DA-007",
+    "DA-008",
+    "DA-009"
+   ]
+  },
+  {
+   "id": "DA-Q3",
+   "question": "Quelle disposition de l’interface ?",
+   "contexte": "Les trois modèles sont montrés avec les mêmes couleurs pour ne juger que la disposition.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Pouce",
+     "detail": "Tout en bas, à portée du pouce.",
+     "image": "docs/direction-artistique/apercus/DA-010-interface-pouce.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Onglets",
+     "detail": "Quatre écrans rangés par onglets.",
+     "image": "docs/direction-artistique/apercus/DA-012-interface-onglets.png"
+    },
+    {
+     "id": "c",
+     "libelle": "Anneau",
+     "detail": "Actions en cercle sur le plateau.",
+     "image": "docs/direction-artistique/apercus/DA-011-interface-anneau.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-010",
+    "DA-011",
+    "DA-012"
+   ]
+  }
+ ]
+}

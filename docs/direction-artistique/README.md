@@ -30,3 +30,9 @@ node source/rendu.js <chemin>/node_modules/@fontsource
 ```
 
 Les polices (licence SIL OFL 1.1) sont copiées dans `source/fonts/`, qui n'est pas versionné.
+
+`DA-000` et `DA-001` sont ensuite réduites à 256 couleurs (Pillow, tramage) pour rester sous 1 Mo.
+
+## Catalogue pour la page de choix
+
+`catalogue.json` reprend les idées et les questions au format demandé par la session maître.
