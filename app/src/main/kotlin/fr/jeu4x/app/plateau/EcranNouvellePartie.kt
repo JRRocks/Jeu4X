@@ -33,8 +33,10 @@ import fr.jeu4x.app.moteur.Clan
 fun EcranNouvellePartie(reglage: Reglage, surChoix: (Reglage) -> Unit, surCommencer: () -> Unit) {
     val noms = stringArrayResource(R.array.noms_clans)
     val resumes = stringArrayResource(R.array.clans_resumes)
+    // Le bouton « Commencer » reste en bas, toujours visible, même sur un petit écran.
+    Column(Modifier.fillMaxSize().background(Color(0xFFF6F3EC))) {
     Column(
-        Modifier.fillMaxSize().background(Color(0xFFF6F3EC)).verticalScroll(rememberScrollState()).padding(20.dp),
+        Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(stringResource(R.string.reglage_titre), fontSize = 24.sp, fontWeight = FontWeight.Bold)
@@ -57,9 +59,10 @@ fun EcranNouvellePartie(reglage: Reglage, surChoix: (Reglage) -> Unit, surCommen
             }
         }
         Text(stringResource(R.string.reglage_adversaires), fontSize = 13.sp, color = Color(0xFF444444))
-        Button(onClick = surCommencer, modifier = Modifier.fillMaxWidth().height(52.dp).testTag("commencer")) {
-            Text(stringResource(R.string.reglage_commencer), fontSize = 17.sp, fontWeight = FontWeight.Bold)
-        }
+    }
+    Button(onClick = surCommencer, modifier = Modifier.fillMaxWidth().padding(16.dp).height(52.dp).testTag("commencer")) {
+        Text(stringResource(R.string.reglage_commencer), fontSize = 17.sp, fontWeight = FontWeight.Bold)
+    }
     }
 }
 

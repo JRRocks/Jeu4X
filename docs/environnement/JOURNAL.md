@@ -2,6 +2,10 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · CI n° 12 à 15 rouges : « Commencer » hors de l'écran de l'émulateur
+
+*Claude, session S1.* Les quatre exécutions depuis la version jouable échouent au même endroit : l'émulateur (écran 320 × 640, mdpi) ne montre pas le bouton « Commencer », placé au bas d'une colonne qui défile, et uiautomator ne voit que l'écran visible. Les tests, la compilation et le plantage provoqué sont verts. Réparation durable : le bouton reste fixé en bas de l'écran « Nouvelle partie » ; l'émulateur prend le profil `pixel_6` (1080 × 2400), plus proche d'un vrai téléphone. Les essais 0.1.12 à 0.1.15 n'ont pas été publiés.
+
 ## 2026-11-27 · Réglage de la durée des parties (S2)
 
 *Claude, session S1.* Valeurs de S2 (`reglage-duree.md` sur `s2-game-design`) reportées dans `donnees.rs` : coût de croissance [8, 14, 20, 26], revenu par niveau [2, 2, 3, 3, 4], points tenus [1, 2, 3, 4, 5], seuil 58 / 56 / 56, +2 vivres de départ par rang, +2 de défense dans sa propre capitale. Mesure avec l'adversaire simple (`examples/parties_ia.rs`) : 19 à 21 tours en moyenne (S3 mesure 30 à 34 avec son IA). Tests verts.
