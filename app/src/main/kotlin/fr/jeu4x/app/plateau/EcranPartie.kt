@@ -1,5 +1,7 @@
 package fr.jeu4x.app.plateau
 
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -141,6 +143,19 @@ private fun Plateau(affichage: Affichage, surToucherCase: (Int) -> Unit) {
             val (e, dx, dy) = perspective.cadrageSur(miennes, tailleVue.width.toFloat(), tailleVue.height.toFloat())
             echelle = e
             decalage = Offset(dx, dy)
+        }
+    }
+
+    // Début de chaque tour (D-21) : la vue glisse en une demi-seconde vers les unités du
+    // joueur dont c'est le tour, au zoom choisi. Rien au premier cadrage (déjà centré).
+    LaunchedEffect(affichage.numeroPartie, etat.tour, etat.joueurCourant) {
+        if (echelle == 0f || tailleVue.width == 0) return@LaunchedEffect
+        val miennes = etat.unites.filter { it.joueur == etat.joueurCourant }
+            .map { etat.colonne(it.case) to etat.rangee(it.case) }
+        val (cx, cy) = perspective.decalagePour(miennes, tailleVue.width.toFloat(), tailleVue.height.toFloat(), echelle)
+        val depart = decalage
+        animate(0f, 1f, animationSpec = tween(durationMillis = 500)) { t, _ ->
+            decalage = Offset(depart.x + (cx - depart.x) * t, depart.y + (cy - depart.y) * t)
         }
     }
 

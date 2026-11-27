@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Début de tour : la vue glisse vers les unités du joueur (D-21)
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : réponse a) de l'utilisateur (D-21).
+- **Réalisé** : `Perspective.decalagePour` (centre moyen des unités au milieu de la vue, à l'échelle donnée) ; `EcranPartie` : au changement de tour ou de joueur, animation de 500 ms du décalage seul, zoom gardé. Script d'émulateur : capture après « Fin du tour » (`capture-tour-rouge.png`), jointe à la pré-version. Capture haute définition : `docs/environnement/captures/plateau-tour-rouge.png` (les trois unités rouges au centre).
+- **Décisions** : aucune nouvelle.
+- **Vérifications** : `:app:testDebugUnitTest` 31 verts (dont le centrage au changement de tour) ; capture regardée.
+- **Non vérifié sur téléphone** : douceur de l'animation, confort.
+- **Problèmes et dette** : aucun.
+- **Prochaine étape** : essai à l'émulateur, rapport.
+
 ## 2026-11-27 · Essai 0.1.9 vert à l'émulateur, cadrage zoomé
 
 - **Auteur** : Claude, session S1

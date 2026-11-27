@@ -53,4 +53,13 @@ class CadrageTest {
         assertEquals(540f, cx * e + dx, 1f)
         assertEquals(850f, cy * e + dy, 1f)
     }
+
+    @Test
+    fun `au changement de tour le zoom reste et la vue se centre sur l'autre joueur`() {
+        val rouges = listOf(10 to 10, 9 to 10, 8 to 10)
+        val (dx, dy) = p.decalagePour(rouges, 1080f, 1700f, 3f)
+        val (cx, cy) = p.centre(9, 10)
+        assertEquals(540f, cx * 3f + dx, 1f)
+        assertEquals(850f, cy * 3f + dy, 1f)
+    }
 }

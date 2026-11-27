@@ -5,7 +5,7 @@
 #      toucher « Fin du tour » passe la main au joueur Rouge ;
 #   3. un plantage provoqué ouvre l'écran « … s'est arrêté ».
 # Usage : outils/essai-emulateur.sh <apk> <dossier de sortie>
-# Sortie : capture-accueil.png (plateau), capture-plantage.png, resume-emulateur.txt.
+# Sortie : capture-accueil.png (plateau), capture-tour-rouge.png, capture-plantage.png, resume-emulateur.txt.
 set -uo pipefail
 APK=$1; SORTIE=$2
 PAQUET=fr.jeu4x.app.essai
@@ -54,6 +54,8 @@ read -r x1 y1 x2 y2 <<<"$(echo "$cadre" | grep -oE '[0-9]+' | tr '\n' ' ')"
 if [ -n "${y2:-}" ]; then
   adb shell input tap $(( (x1 + x2) / 2 )) $(( (y1 + y2) / 2 ))
   if ecran_contient "Joueur Rouge"; then note "OK  « Fin du tour » touché : la main passe au joueur Rouge"; else note "ÉCHEC « Fin du tour » touché, mais pas de « Joueur Rouge »"; echec=1; fi
+  sleep 2  # la vue glisse vers les unités rouges (D-21) : laisser finir l'animation
+  adb exec-out screencap -p > "$SORTIE/capture-tour-rouge.png"
 else
   note "ÉCHEC bouton « Fin du tour » introuvable"; echec=1
 fi

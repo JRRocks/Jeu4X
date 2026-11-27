@@ -60,9 +60,15 @@ class Perspective(val taille: Int, val demiLargeur: Float, val demiHauteur: Floa
      */
     fun cadrageSur(cases: List<Pair<Int, Int>>, largeur: Float, hauteur: Float, grossissement: Float = 2f): Triple<Float, Float, Float> {
         val echelle = echelleEnsemble(largeur, hauteur) * grossissement
+        val (dx, dy) = decalagePour(cases, largeur, hauteur, echelle)
+        return Triple(echelle, dx, dy)
+    }
+
+    /** Décalage qui met le centre moyen des cases au milieu de la vue, à l'échelle donnée (D-21). */
+    fun decalagePour(cases: List<Pair<Int, Int>>, largeur: Float, hauteur: Float, echelle: Float): Pair<Float, Float> {
         val centres = if (cases.isEmpty()) listOf(centre((taille - 1) / 2, (taille - 1) / 2)) else cases.map { (x, y) -> centre(x, y) }
         val cx = centres.map { it.first }.average().toFloat()
         val cy = centres.map { it.second }.average().toFloat()
-        return Triple(echelle, largeur / 2f - cx * echelle, hauteur / 2f - cy * echelle)
+        return largeur / 2f - cx * echelle to hauteur / 2f - cy * echelle
     }
 }
