@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Essai vérifié à l'émulateur dans la CI (D-19)
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : consigne de l'utilisateur, « utilise l'émulateur Android Studio pour ce genre de test » : vérifications de base à l'émulateur avant de lui demander quoi que ce soit.
+- **Réalisé** : l'essai embarque aussi la bibliothèque Rust `x86_64` (le vrai jeu reste `arm64-v8a`, D-18) ; plantage provoqué possible dans l'essai seulement (`BuildConfig.PLANTAGE_DE_TEST`, extra `fr.jeu4x.app.PLANTAGE_DE_TEST`) ; script `outils/essai-emulateur.sh` (installation, ouverture, texte « Moteur de règles 1 : contrôle réussi » lu par `uiautomator`, plantage provoqué puis écran du rapport et cause, relance normale, deux captures, résumé) ; CI : KVM, `reactivecircus/android-emulator-runner@v2` (API 34, x86_64, google_apis), puis pré-version `essai-0.1.<n>` avec l'APK, les deux captures et le résumé. Durée bornée à 20 min (D-15). Une pré-version n'est publiée que si l'essai à l'émulateur est vert.
+- **Décisions** (développeur) : le logcat de l'appli reste dans le journal de la CI, pas dans la pré-version (dépôt public : pas de journal de test brut publié).
+- **Vérifications** : en session : `assembleEssai` contient `lib/arm64-v8a` et `lib/x86_64/libjeu4x_android.so`, l'APK de debug seulement `arm64-v8a` ; tests unitaires verts ; script vérifié par `bash -n`. L'émulateur lui-même ne tourne qu'en CI (pas de KVM en session).
+- **Non vérifié sur téléphone** : tout ; l'émulateur ne remplace ni les gestes, ni la lisibilité, ni un vrai processeur ARM.
+- **Problèmes et dette** : aucun pour l'instant.
+- **Prochaine étape** : CI verte avec captures, rapport à la session maître, puis affichage du plateau.
+
 ## 2026-11-27 · Moteur Rust : plateau, terrains, déplacements, tours, interface d'actions
 
 - **Auteur** : Claude, session S1

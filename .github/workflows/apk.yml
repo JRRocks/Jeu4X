@@ -11,6 +11,7 @@ on:
     branches: [main, s1-environnement]
     paths:
       - "moteur/**"
+      - "outils/**"
       - "app/**"
       - "*.gradle.kts"
       - "gradle/**"
@@ -28,6 +29,8 @@ concurrency:
 jobs:
   apk:
     runs-on: ubuntu-latest
+    # D-15 : moins de 20 minutes par exécution.
+    timeout-minutes: 20
     env:
       # Version qui monte seule : le numéro d'exécution de ce workflow, unique et croissant.
       JEU4X_VERSION_CODE: ${{ github.run_number }}
@@ -42,7 +45,7 @@ jobs:
       - name: Outils Rust pour Android
         run: |
           set -euo pipefail
-          rustup target add aarch64-linux-android
+          rustup target add aarch64-linux-android x86_64-linux-android
           cargo install cargo-ndk --version 4.1.2 --locked
 
       - name: NDK Android (version fixée par app/build.gradle.kts)
@@ -92,7 +95,24 @@ jobs:
             || { echo "::error::Bibliothèque Rust absente de l'APK d'essai"; exit 1; }
           mv "$source" "app/build/outputs/apk/essai/Jeu4X-essai.0.1.${JEU4X_VERSION_CODE}.apk"
 
-      - name: Publier l'essai en pré-version
+      - name: Activer KVM pour l'émulateur
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Essai à l'émulateur (installation, moteur Rust, rapport de plantage)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: bash outils/essai-emulateur.sh app/build/outputs/apk/essai/Jeu4X-essai.0.1.${{ env.JEU4X_VERSION_CODE }}.apk app/build/emulateur
+
+      - name: Publier l'essai en pré-version (APK, captures, résumé)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -100,13 +120,18 @@ jobs:
           nom="0.1.${JEU4X_VERSION_CODE}"
           balise="essai-$nom"
           apk="app/build/outputs/apk/essai/Jeu4X-essai.$nom.apk"
-          gh release create "$balise" "$apk" \
+          e=app/build/emulateur
+          mv "$e/capture-accueil.png" "$e/Jeu4X-essai.$nom.emulateur-accueil.png"
+          mv "$e/capture-plantage.png" "$e/Jeu4X-essai.$nom.emulateur-plantage.png"
+          mv "$e/resume-emulateur.txt" "$e/Jeu4X-essai.$nom.emulateur-resume.txt"
+          gh release create "$balise" "$apk" "$e"/Jeu4X-essai.$nom.emulateur-* \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --prerelease \
             --title "Jeu4X essai $nom" \
-            --notes "Version d'essai (fr.jeu4x.app.essai), branche ${GITHUB_REF_NAME}, commit ${GITHUB_SHA::7}. S'installe à côté du vrai jeu."
-          echo "Lien : https://github.com/$GITHUB_REPOSITORY/releases/download/$balise/$(basename "$apk")" >> "$GITHUB_STEP_SUMMARY"
+            --notes "Version d'essai (fr.jeu4x.app.essai), branche ${GITHUB_REF_NAME}, commit ${GITHUB_SHA::7}. S'installe à côté du vrai jeu. Vérifiée à l'émulateur Android avant publication : voir le résumé et les captures."
+          echo "Lien : https://github.com/$GITHUB_REPOSITORY/releases/tag/$balise" >> "$GITHUB_STEP_SUMMARY"
+          cat "$e/Jeu4X-essai.$nom.emulateur-resume.txt" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Compiler l'APK release
         if: steps.cle.outputs.presente == 'oui'

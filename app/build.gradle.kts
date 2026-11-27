@@ -35,6 +35,8 @@ android {
         // Le commit de l'APK, écrit dans les rapports de plantage : connu en CI, « local » sinon
         val commit = providers.environmentVariable("GITHUB_SHA").orNull?.take(7) ?: "local"
         buildConfigField("String", "GIT_SHA", "\"$commit\"")
+        // Plantage provoqué à la demande, pour vérifier le rapport à l'émulateur : essai seulement.
+        buildConfigField("boolean", "PLANTAGE_DE_TEST", "false")
         ndk { abiFilters += listOf("arm64-v8a") }
     }
 
@@ -71,6 +73,9 @@ android {
             applicationIdSuffix = ".essai"
             signingConfig = signingConfigs.getByName("essai")
             matchingFallbacks += listOf("release")
+            // x86_64 en plus : l'essai passe d'abord par l'émulateur de la CI (D-19).
+            ndk { abiFilters += listOf("x86_64") }
+            buildConfigField("boolean", "PLANTAGE_DE_TEST", "true")
         }
     }
 
@@ -96,7 +101,7 @@ androidComponents {
 
 // Bibliothèque Rust pour le téléphone (arm64-v8a), compilée par cargo-ndk.
 val cargoAndroid by tasks.registering(Exec::class) {
-    description = "Compile le moteur Rust pour Android"
+    description = "Compile le moteur Rust pour Android (arm64-v8a ; x86_64 pour l'émulateur)"
     workingDir = dossierMoteur
     inputs.dir(dossierMoteur.resolve("regles/src"))
     inputs.dir(dossierMoteur.resolve("android/src"))
@@ -105,7 +110,7 @@ val cargoAndroid by tasks.registering(Exec::class) {
         environment("ANDROID_NDK_HOME", android.ndkDirectory.absolutePath)
     }
     commandLine(
-        "cargo", "ndk", "-t", "arm64-v8a", "--platform", "26",
+        "cargo", "ndk", "-t", "arm64-v8a", "-t", "x86_64", "--platform", "26",
         "-o", sortieJniAndroid.get().asFile.absolutePath,
         "build", "--release", "-p", "jeu4x_android",
     )

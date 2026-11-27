@@ -27,8 +27,16 @@ class MainActivity : ComponentActivity() {
             finish()
             return
         }
+        if (BuildConfig.PLANTAGE_DE_TEST && intent.getBooleanExtra(EXTRA_PLANTAGE_DE_TEST, false)) {
+            // Vérification du rapport de plantage à l'émulateur (version d'essai seulement).
+            throw IllegalStateException("Plantage de test demandé")
+        }
         val etat = EtatAccueil(BuildConfig.VERSION_NAME, lireMoteur())
         setContent { MaterialTheme { EcranAccueil(etat) } }
+    }
+
+    companion object {
+        const val EXTRA_PLANTAGE_DE_TEST = "fr.jeu4x.app.PLANTAGE_DE_TEST"
     }
 
     private fun lireMoteur(): EtatMoteur = try {
