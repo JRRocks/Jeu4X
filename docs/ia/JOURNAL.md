@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Les cas ouverts dans l'architecture (brouillard, hasard, taille)
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`
+- **Objectif** : consigne de la session maître : couvrir les deux cas là où ils changent l'architecture.
+- **Réalisé** : `architecture.md`, § 7 : information complète ou brouillard, combats avec ou sans hasard, taille de carte et nombre de joueurs.
+- **Décisions** : aucune.
+- **Vérifications** : contrôle `depot-public`. Les multiplicateurs de coût sont des estimations.
+- **Non vérifié sur téléphone** : sans objet.
+- **Problèmes et dette** : aucun nouveau.
+- **Prochaine étape** : attendre le tri de l'utilisateur.
+
 ## 2026-11-27 · Étude de l'IA : méthodes, architecture, catalogue
 
 - **Auteur** : Claude, session S3
