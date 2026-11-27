@@ -1,0 +1,253 @@
+{
+  "session": "S3",
+  "domaine": "IA",
+  "branche": "s3-ia",
+  "commit_catalogue": "5c1d3d8",
+  "groupes": [
+    "Les bases",
+    "Niveaux et caractère",
+    "Apprendre des joueurs",
+    "Une IA plus forte"
+  ],
+  "idees": [
+    {
+      "id": "IA-001",
+      "groupe": "Les bases",
+      "titre": "Un terrain d'essai pour mesurer les IA",
+      "resume": "Les IA jouent seules des milliers de parties entre elles, et chaque version reçoit une note de force pour savoir si elle progresse vraiment.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Sans lui, impossible de savoir si une IA s'améliore.",
+      "fiche": "docs/ia/catalogue.md#ia-001--banc-dessai"
+    },
+    {
+      "id": "IA-002",
+      "groupe": "Les bases",
+      "titre": "Une première IA simple et rapide",
+      "resume": "L'IA note chaque coup possible selon quelques critères, comme le danger ou la valeur d'une case, et joue le meilleur.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Jouable tout de suite, sur tous les téléphones.",
+      "fiche": "docs/ia/catalogue.md#ia-002--ia-à-utilité"
+    },
+    {
+      "id": "IA-003",
+      "groupe": "Les bases",
+      "titre": "Une IA déjà entraînée avant la sortie",
+      "resume": "Avant la sortie, l'IA se perfectionne seule sur l'ordinateur en jouant des millions de parties et en gardant les meilleurs réglages.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Répond à la demande d'une IA qui ne part pas de zéro, sans frais.",
+      "fiche": "docs/ia/catalogue.md#ia-003--pré-entraînement-par-évolution"
+    },
+    {
+      "id": "IA-004",
+      "groupe": "Les bases",
+      "titre": "Une nouvelle IA doit battre l'ancienne",
+      "resume": "Toutes les versions sont gardées ; une nouvelle n'est publiée que si elle bat celle en service et toutes les précédentes.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Garantit un vrai progrès et fournit les niveaux.",
+      "fiche": "docs/ia/catalogue.md#ia-004--ligue-de-versions"
+    },
+    {
+      "id": "IA-005",
+      "groupe": "Une IA plus forte",
+      "titre": "L'IA prépare son tour entier",
+      "resume": "À chaque tour, l'IA essaie plusieurs enchaînements de coups pour toutes ses unités et garde le meilleur.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "La meilleure méthode connue pour les jeux où l'on bouge plusieurs unités par tour.",
+      "fiche": "docs/ia/catalogue.md#ia-005--planification-du-tour-par-évolution"
+    },
+    {
+      "id": "IA-006",
+      "groupe": "Niveaux et caractère",
+      "titre": "Des niveaux selon le temps de réflexion",
+      "resume": "Le niveau choisi règle combien de temps l'IA réfléchit : facile, elle réfléchit peu ; difficile, beaucoup.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Plusieurs niveaux cohérents avec une seule IA.",
+      "fiche": "docs/ia/catalogue.md#ia-006--niveaux-par-budget-de-réflexion"
+    },
+    {
+      "id": "IA-007",
+      "groupe": "Niveaux et caractère",
+      "titre": "Un adversaire à votre mesure",
+      "resume": "Le jeu propose l'IA qui vous laisse environ une chance sur deux de gagner, et vous pouvez toujours choisir vous-même.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "L'IA n'est jamais imbattable ni ridicule.",
+      "fiche": "docs/ia/catalogue.md#ia-007--difficulté-qui-sajuste"
+    },
+    {
+      "id": "IA-008",
+      "groupe": "Niveaux et caractère",
+      "titre": "Chaque clan a son caractère",
+      "resume": "Chaque clan joue à sa façon : l'un attaque tôt, l'autre bâtit, un autre explore.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Variété et parties plus lisibles ; à faire avec les clans du game design.",
+      "fiche": "docs/ia/catalogue.md#ia-008--personnalités-par-clan"
+    },
+    {
+      "id": "IA-009",
+      "groupe": "Niveaux et caractère",
+      "titre": "L'IA devine votre style de jeu",
+      "resume": "Pendant la partie, l'IA repère si vous attaquez, bâtissez ou explorez, et adapte sa réponse.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Agréable, mais pas indispensable pour une première version.",
+      "fiche": "docs/ia/catalogue.md#ia-009--lecture-du-style-du-joueur"
+    },
+    {
+      "id": "IA-010",
+      "groupe": "Apprendre des joueurs",
+      "titre": "Partager ses parties pour faire progresser l'IA",
+      "resume": "Avec votre accord, vos parties sont envoyées sans aucune donnée personnelle et vérifiées avant de servir à l'entraînement.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Le cœur d'une IA qui progresse avec les joueurs, une fois le jeu diffusé.",
+      "fiche": "docs/ia/catalogue.md#ia-010--collecte-des-parties"
+    },
+    {
+      "id": "IA-011",
+      "groupe": "Apprendre des joueurs",
+      "titre": "Une IA qui apprend des joueurs",
+      "resume": "L'IA apprend à jouer comme les bons joueurs à partir des parties partagées.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Demande d'abord des parties de joueurs.",
+      "fiche": "docs/ia/catalogue.md#ia-011--imitation-des-joueurs"
+    },
+    {
+      "id": "IA-012",
+      "groupe": "Une IA plus forte",
+      "titre": "Une IA très forte qui s'entraîne seule",
+      "resume": "L'IA s'entraîne longuement contre elle-même avec un petit cerveau artificiel, comme les meilleures IA de jeux de plateau.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "La plus forte, mais coûteuse en calcul ; utile une fois les bases en place.",
+      "fiche": "docs/ia/catalogue.md#ia-012--réseau-et-jeu-contre-soi-même"
+    },
+    {
+      "id": "IA-013",
+      "groupe": "Apprendre des joueurs",
+      "titre": "Une IA qui progresse de mois en mois",
+      "resume": "À intervalles réguliers, une nouvelle IA entraînée sur les parties de tous est publiée si elle bat l'ancienne.",
+      "interet": 3,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "La progression collective visible, après le partage des parties.",
+      "fiche": "docs/ia/catalogue.md#ia-013--ligue-vivante"
+    },
+    {
+      "id": "IA-014",
+      "groupe": "Apprendre des joueurs",
+      "titre": "Affronter le double d'un joueur",
+      "resume": "Une IA imite le style d'un joueur précis, pour l'affronter ou le défier entre amis, avec son accord.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Original et motivant, mais demande des parties partagées.",
+      "fiche": "docs/ia/catalogue.md#ia-014--ia-fantôme"
+    },
+    {
+      "id": "IA-015",
+      "groupe": "Apprendre des joueurs",
+      "titre": "Nouvelles IA sans réinstaller le jeu",
+      "resume": "Les IA améliorées se téléchargent à part, sans nouvelle version du jeu, et l'ancienne est gardée.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Utile dès qu'il y a de nouvelles IA à envoyer.",
+      "fiche": "docs/ia/catalogue.md#ia-015--modèles-téléchargés"
+    },
+    {
+      "id": "IA-016",
+      "groupe": "Niveaux et caractère",
+      "titre": "L'IA explique ses coups",
+      "resume": "L'IA peut dire pourquoi elle a joué un coup, par exemple une menace sur votre ville.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Aide à apprendre ; demande un aperçu d'écran d'abord.",
+      "fiche": "docs/ia/catalogue.md#ia-016--coup-expliqué"
+    },
+    {
+      "id": "IA-017",
+      "groupe": "Une IA plus forte",
+      "titre": "Des IA qui cherchent les failles",
+      "resume": "Des IA spéciales cherchent les points faibles de la meilleure IA, qui apprend ensuite à les corriger.",
+      "interet": 1,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Rend l'IA plus solide, utile seulement quand elle sera déjà forte.",
+      "fiche": "docs/ia/catalogue.md#ia-017--exploiteurs"
+    },
+    {
+      "id": "IA-018",
+      "groupe": "Une IA plus forte",
+      "titre": "Un petit cerveau qui évolue seul",
+      "resume": "Un petit cerveau artificiel dont la forme évolue au fil des générations.",
+      "interet": 1,
+      "cout": "M",
+      "recommandation": "jeter",
+      "raison": "Moins efficace ici que les autres méthodes.",
+      "fiche": "docs/ia/catalogue.md#ia-018--neuroévolution-neat"
+    },
+    {
+      "id": "IA-019",
+      "groupe": "Apprendre des joueurs",
+      "titre": "Les téléphones entraînent l'IA eux-mêmes",
+      "resume": "Chaque téléphone entraîne l'IA de son côté et n'envoie que ce qu'il a appris.",
+      "interet": 1,
+      "cout": "L",
+      "recommandation": "jeter",
+      "raison": "Lourd, use la batterie, et inutile tant que le partage de parties suffit.",
+      "fiche": "docs/ia/catalogue.md#ia-019--apprentissage-fédéré"
+    }
+  ],
+  "questions": [
+    {
+      "id": "IA-Q1",
+      "question": "Accepterais-tu de payer de la puissance de calcul pour rendre l'IA très forte ?",
+      "contexte": "Une IA très forte demande des jours de calcul sur des cartes graphiques ; le gratuit existe mais il est limité.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Non, gratuit seulement pour commencer",
+          "detail": "Ordinateur et offres gratuites en ligne ; on reverra la question quand on y sera."
+        },
+        {
+          "id": "b",
+          "libelle": "Oui, avec un plafond",
+          "detail": "Quelques euros l'heure, avec un budget maximum que tu fixes."
+        },
+        {
+          "id": "c",
+          "libelle": "Non, jamais",
+          "detail": "L'IA restera au niveau atteignable gratuitement."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "IA-012",
+        "IA-013"
+      ]
+    }
+  ]
+}

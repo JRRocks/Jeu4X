@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Fichier de tri pour la page à cocher
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`
+- **Objectif** : consigne de la session maître : `catalogue.json` pour la page de tri sur téléphone.
+- **Réalisé** : 19 idées en 4 groupes. Recommandations : 8 à garder (IA-001 à IA-008), 9 pour plus tard, 2 à jeter (IA-018, IA-019). Une question sur la location de puissance de calcul. La question sur l'envoi des parties est fusionnée avec celle de S4.
+- **Vérifications** : `python3 -m json.tool` valide ; longueurs des titres et résumés contrôlées ; contrôle `depot-public`.
+- **Prochaine étape** : attendre le tri.
+
 ## 2026-11-27 · Sources vérifiées une à une
 
 - **Auteur** : Claude, session S3
