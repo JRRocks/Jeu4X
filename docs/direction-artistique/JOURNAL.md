@@ -7,7 +7,7 @@
 - **Auteur** : Claude, session S6
 - **Branche et commit** : `s6-direction-artistique`, voir `git log`
 - **Objectif** : demande de la session maître : fichier `catalogue.json` pour la page où l'utilisateur coche ses choix.
-- **Réalisé** : `catalogue.json` (12 idées, 3 questions, une image par option) ; DA-000 et DA-001 réduites à 256 couleurs pour passer sous 1 Mo (1,5 et 1,3 Mo avant, 0,3 et 0,5 Mo après).
+- **Réalisé** : `catalogue.json` (12 idées, 3 questions, une image par option ; DA-Q4 ajoutée ensuite à la demande de la session maître) ; DA-000 et DA-001 réduites à 256 couleurs pour passer sous 1 Mo (1,5 et 1,3 Mo avant, 0,3 et 0,5 Mo après).
 - **Vérifications** : `python3 -m json.tool` passe ; chaque chemin d'image existe ; limites de mots contrôlées par script ; DA-001 réduite regardée, pas de défaut visible.
 - **Prochaine étape** : attendre les choix de l'utilisateur.
 

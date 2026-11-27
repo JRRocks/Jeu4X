@@ -271,6 +271,34 @@
     "DA-011",
     "DA-012"
    ]
+  },
+  {
+   "id": "DA-Q4",
+   "question": "Une deuxième série de variantes avant de lancer le dessin ?",
+   "contexte": "Pour le style retenu : ville, unités et brouillard en plusieurs variantes, avant de passer la main à la session 1.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Oui, une deuxième série",
+     "detail": "Je montre des variantes de ville, d’unités et de brouillard dans le style retenu.",
+     "image": "docs/direction-artistique/apercus/DA-003-style-papier.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Non, passer à la session 1",
+     "detail": "La session 1 dessine directement à partir de l’aperçu retenu.",
+     "image": "docs/direction-artistique/apercus/DA-000-comparatif.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-001",
+    "DA-002",
+    "DA-003",
+    "DA-004",
+    "DA-005"
+   ]
   }
  ]
 }
