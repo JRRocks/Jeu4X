@@ -26,6 +26,9 @@
 | GD-012 | Bêtes neutres | Des bêtes gardent les ruines ; les vaincre rapporte | Danger précoce, cibles hors joueurs | M |
 | GD-013 ⭐ | Croissance à choix | Chaque niveau de ville offre deux récompenses, on en prend une | Une décision intéressante à chaque croissance | S |
 | GD-014 | Tours rapides | Un geste par action, fin de tour qui signale les unités oubliées | Fluidité sur téléphone | S |
+| GD-015 ⭐ | Carte maximale et nombre de joueurs | Recommandé : 14×14 au plus, 2 à 4 joueurs (V1 en 11×11) ; options 18×18 à 6, ou duel seul | Fixe la taille de l'IA (S3) | S |
+| GD-016 ⭐ | Brouillard de guerre ou non | Recommandé : brume avec mémoire ; options sans brume, terrain caché seulement, au choix | Change l'architecture de l'IA (S3) | M |
+| GD-017 ⭐ | Combats avec ou sans hasard | Recommandé : sans hasard ; options petit hasard borné, hasard franc | Change l'architecture de l'IA (S3) | S |
 
 ### Arbre d'évolution
 
@@ -159,6 +162,50 @@
 - **Description** : un toucher sélectionne, les cases possibles s'allument, un second toucher agit. Le bouton de fin de tour signale les unités inactives. Animation courte et passable.
 - **Pourquoi** : fluidité d'une main sur téléphone.
 - **Coût** : S. **Dépendances** : S1 (plateau). Visible : aperçu avant tout code. **Sources** : S-01.
+
+### Trois choix qui décident de l'architecture de l'IA
+
+Les trois fiches suivantes changent la façon dont la session 3 construira l'IA. Chacune donne les options (la recommandée en premier), leurs conséquences pour le jeu et pour l'IA, et ce qu'elles rendent possible ou non parmi les autres idées. L'utilisateur tranche au tri.
+
+#### GD-015 · Taille maximale de la carte et nombre de joueurs
+- **Description** : fixer la plus grande carte et le plus grand nombre de joueurs que le jeu acceptera, pour que l'IA soit construite pour cette limite.
+
+| Option | Carte la plus grande | Joueurs | Pour le jeu | Pour l'IA |
+|---|---|---|---|---|
+| **A (recommandée)** : moyen | 14 × 14 (196 cases) ; V1 en 11 × 11 | 2 à 4 | Parties de 10 à 30 min ; formats Duel, Escarmouche, Bataille (`boucle-de-jeu.md` § 5) | L'état de la carte a une taille fixe, bornée à 196 cases : on peut tout ramener à une grille 14 × 14 de taille constante. Parties de 30 tours au plus : entraînement rapide. Au-delà de 2 joueurs, l'IA doit gérer plusieurs adversaires (alliances de fait, joueur qui fait gagner un autre) : on entraîne d'abord en duel, puis à 3 ou 4. |
+| B : grand | 18 × 18 (324 cases) | 2 à 6 | Ajoute le « Grand monde » (40 min et plus) ; plus de place pour les clans diplomatie, commerce, nomades | État presque deux fois plus gros, parties de 40 tours ou sans limite : entraînement nettement plus long. À 5 ou 6 joueurs, l'apprentissage devient bien plus difficile et plus lent à mesurer. |
+| C : duel seulement | 11 × 11 | 2 | Le plus simple ; mais moins « 4X », et les clans diplomatie (GD-046) ou commerce (GD-045) perdent leur sens | Le cas le plus simple : un contre un, gagnant ou perdant, adapté à l'entraînement de l'IA contre elle-même. |
+
+- **Conséquences sur d'autres idées** : B est nécessaire pour GD-046 à plein régime et pour le format Grand monde de GD-003 ; C exclut les victoires de diplomatie.
+- **Recommandation** : **A**. On entraîne d'abord l'IA en duel 11 × 11, puis à 3 ou 4 joueurs jusqu'à 14 × 14. L'option B reste possible plus tard si l'IA est conçue pour une taille de carte variable, à demander à S3.
+- **Coût** : S (décision) ; le coût réel est côté IA. **Dépendances** : GD-003, GD-001. **Sources** : `boucle-de-jeu.md` § 5 et § 8.
+
+#### GD-016 · Brouillard de guerre (« la brume ») ou non
+- **Description** : décider ce que chaque joueur, humain ou IA, voit de la carte.
+
+| Option | Règle | Pour le jeu | Pour l'IA |
+|---|---|---|---|
+| **A (recommandée)** : brume avec mémoire | Ce qui n'a jamais été vu est caché. Ce qui a été vu garde son terrain et ses villes connus, mais les unités ennemies n'y sont visibles que dans la vision actuelle (unités et villes) | L'exploration, premier des quatre X, a un sens ; surprise et menace à la frontière ; les clans exploration, ruse, souterrain et mystique fonctionnent | Information imparfaite : l'IA ne doit recevoir que ce que voit son joueur (sinon elle triche) et doit deviner le reste. Plus difficile que sans brume : il faut une mémoire de ce qu'elle a vu, et on ne peut plus calculer exactement les coups adverses. L'IA peut s'entraîner d'abord sans brume, puis avec. |
+| B : sans brume | Tout est visible tout le temps | Plus simple et très lisible ; mais l'exploration se réduit à une course aux villages ; GD-006, GD-044, GD-054, GD-056 perdent l'essentiel de leur intérêt | Information complète : le cas le plus simple pour une IA de recherche (comme aux échecs). Entraînement plus rapide. |
+| C : terrain caché, unités visibles | La carte est cachée au départ et se découvre ; une fois une zone découverte, on y voit tout, unités comprises, pour toujours | Compromis : l'exploration garde son sens (terrain, ruines, villages) ; pas de surprise militaire | L'incertitude ne porte que sur le terrain inconnu, pas sur les unités adverses : beaucoup plus simple que A pour l'IA. |
+| D : au choix de la partie | A ou B, réglé au lancement | Les deux publics | Deux IA à entraîner, ou une seule qui sait jouer les deux : coût doublé environ. |
+
+- **Conséquences sur d'autres idées** : A est nécessaire pour les Masques (GD-054), les Fouisseurs (GD-056) et les Voyants (GD-055) ; C les affaiblit ; B les rend inutiles.
+- **Recommandation** : **A**, parce que l'exploration est un pilier du genre et que plusieurs clans en dépendent. Si S3 juge A trop coûteux pour la V1, **C** est le repli. B ne garde qu'une partie du jeu.
+- **Coût** : M (vision par unité, mémoire de la carte vue, affichage). **Dépendances** : GD-006. **Sources** : S-01.
+
+#### GD-017 · Combats avec ou sans hasard
+- **Description** : décider si un même combat donne toujours le même résultat.
+
+| Option | Règle | Pour le jeu | Pour l'IA |
+|---|---|---|---|
+| **A (recommandée)** : sans hasard | Dégâts calculés par une formule fixe (attaque, défense, points de vie, terrain, triangle des unités). Le hasard n'existe qu'à la création de la partie (carte, contenu des ruines), tiré de la graine | La prévisualisation montre le résultat exact (GD-007) : lisible, aucune frustration, le joueur est seul responsable | Un coup donne toujours le même état : l'IA peut calculer plusieurs coups à l'avance. Même graine, même partie : reproductible. Équilibrage mesurable avec moins de parties. |
+| B : petit hasard borné | Dégâts variant d'au plus ± 10 %, ou un coup critique rare, tirés d'un générateur à graine | Un peu de suspense, résultats moins « calculables » ; la prévisualisation montre une fourchette | Reproductible si le générateur à graine fait partie de l'état de la partie. L'IA doit raisonner sur des moyennes ; il faut plus de parties pour mesurer l'équilibre. |
+| C : hasard franc | Chaque combat a une chance de victoire (par exemple 70 %) | Tension, coups de chance ; mais frustration fréquente sur des parties courtes, et la prévisualisation n'affiche qu'un pourcentage | Le plus coûteux : beaucoup de variance, apprentissage plus lent, équilibrage bruité. |
+
+- **Règle commune à toutes les options** : tout hasard, même dans la création de la carte, vient d'un seul générateur à graine rangé dans l'état de la partie (`CLAUDE.md`, point 2).
+- **Recommandation** : **A**. Le hasard se met là où il crée de la variété sans frustrer : la carte, les ruines, le tirage d'avancées de l'arbre B (GD-021).
+- **Coût** : S. **Dépendances** : GD-007, GD-072. **Sources** : S-04 ; `boucle-de-jeu.md` § 6 et § 8.
 
 ### Arbre d'évolution
 
@@ -332,10 +379,10 @@ Description, style, forces, faiblesses, victoire, contres et rythme : `clans.md`
 
 #### GD-090 · Socle minimal V1
 - **Description** :
-  - **Carte** : Escarmouche 11×11, 2 à 3 joueurs, 8 à 10 villages neutres, quelques lieux remarquables ; terrains plaine, forêt, colline, montagne, eau (sans bateaux au début).
+  - **Carte** : Escarmouche 11×11, 2 à 3 joueurs (limite du jeu : GD-015), brume avec mémoire (GD-016), 8 à 10 villages neutres, quelques lieux remarquables ; terrains plaine, forêt, colline, montagne, eau (sans bateaux au début).
   - **Victoire** : score au tour 30, ou domination avant (GD-001, GD-002 sans victoire de clan).
   - **Économie** : une monnaie (GD-004), villages à rallier (GD-005), croissance à choix (GD-013), plafond d'unités (GD-011).
-  - **Combat** : sans hasard, prévisualisé (GD-007), triangle des unités (GD-072) : 5 unités communes (éclaireur, lancier, archer, cavalier, catapulte) + 1 unité propre par clan.
+  - **Combat** : sans hasard (GD-017), prévisualisé (GD-007), triangle des unités (GD-072) : 5 unités communes (éclaireur, lancier, archer, cavalier, catapulte) + 1 unité propre par clan.
   - **Arbre** : arbre A, 16 nœuds (GD-020, GD-025, GD-026, GD-027).
   - **Clans** : 4, bouquet A de `clans.md` : Crocs-Rouges, Murailliers, Vents-Errants, Veilleurs d'Astres, en asymétrie niveaux 1 et 2 (GD-070), décrits par des données (GD-077).
   - **Équilibrage** : parties simulées dès que le moteur et une IA simple existent (GD-073).

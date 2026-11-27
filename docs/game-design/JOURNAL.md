@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Trois fiches pour l'IA : taille de carte, brouillard, hasard
+
+- **Auteur** : Claude, session S2
+- **Branche et commit** : `s2-game-design`
+- **Objectif** : demande de la session maître pour la session 3 : rendre explicites trois choix qui changent l'architecture de l'IA.
+- **Réalisé** : `catalogue.md` : fiches GD-015 (carte maximale et nombre de joueurs), GD-016 (brouillard), GD-017 (hasard des combats), chacune avec ses options, leurs conséquences pour le jeu et pour l'IA, et la recommandation en premier ; le socle GD-090 y renvoie. Le catalogue compte maintenant 54 idées.
+- **Décisions** : aucune. Recommandations : 14×14 et 2 à 4 joueurs au plus ; brume avec mémoire (repli : terrain caché seulement) ; combats sans hasard.
+- **Vérifications** : contrôle « dépôt public » avant push.
+- **Non vérifié sur téléphone** : sans objet.
+- **Problèmes et dette** : aucun.
+- **Prochaine étape** : attendre le tri.
+
 ## 2026-11-27 · Premier catalogue de game design : boucle, arbre, clans
 
 - **Auteur** : Claude, session S2
