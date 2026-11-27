@@ -83,3 +83,5 @@ Nulles de l'essai 3 : le meilleur joueur finit en moyenne 3 à 4 points sous le 
 - 10 à 12 % de parties nulles par palier de score ;
 - les Vents-Errants, les plus faibles (14 à 25 %) ;
 - la défense des capitales est une valeur nouvelle, qui précise la règle du § 6.3 de `regles-v1.md`.
+
+Repris par S1 tel quel sur `s1-environnement` (commit 30f0f6d). Avec l'adversaire simple de S1, les parties durent 19 à 21 tours, comme mes mesures avec `ia_simple` (18 à 20). L'IA de S3 reste la référence, avec environ 30 tours.
