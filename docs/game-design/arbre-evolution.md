@@ -33,6 +33,8 @@
 
 ### Arbre A : « Les Trois Veines » (branches par thème) [GD-020]
 
+> Note du 2026-11-27 : esquisse précisée et corrigée dans `regles-v1.md` § 8 (16 avancées : départ + 3 branches de rang 1, rang 2, deux au rang 3, merveille au rang 4).
+
 Trois branches de 5 avancées, plus un nœud de départ propre au clan. 16 nœuds. Une branche correspond à un style de jeu ; chaque branche a, au palier 3, **un choix exclusif** (on prend l'une des deux, l'autre se ferme) [GD-025].
 
 ```

@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Mission 2 : règles précises de la première version
+
+- **Auteur** : Claude, session S2
+- **Branche et commit** : `s2-game-design`, après fusion de `main` (tri, D-22 à D-29)
+- **Objectif** : écrire les règles de la V1 (D-23, D-28) assez précises pour que S1 les code et que S3 les apprenne à l'IA.
+- **Réalisé** : `regles-v1.md` : plateau, création de la carte, départs équitables, brouillard qui se souvient, villes, économie, combat sans hasard avec sa formule entière, quatre clans, arbre précisé, victoires, accord avec D-28, autres idées gardées, tables de données en identifiants anglais, actions, 14 cas limites, questions GD-Q9 à GD-Q14. `regles-v1-resume.md` : une page pour l'utilisateur.
+- **Décisions** : aucune. Correction de l'esquisse de l'arbre A (`arbre-evolution.md` annonçait 16 nœuds mais en dessinait 19) : 16 nœuds = départ + 3 branches × (rang 1, rang 2, deux au rang 3, merveille au rang 4).
+- **Vérifications** : exemples de combat recalculés à la main avec la formule ; contrôle « dépôt public ».
+- **Non vérifié sur téléphone** : sans objet (aucun code).
+- **Problèmes et dette** : tous les chiffres sont des valeurs de départ, non simulés ; le seuil de points (45/40) et la durée de 25 à 35 tours sont des estimations à mesurer par S3. Le moteur d'essai de S1 se déplace dans 4 directions et ne prend que 2 joueurs : à aligner après validation.
+- **Prochaine étape** : réponses aux questions GD-Q9 à GD-Q14 et « oui » de l'utilisateur, puis reprise des chiffres d'après les parties simulées.
+
 ## 2026-11-27 · Fichier de tri pour la page à cocher
 
 - **Auteur** : Claude, session S2
