@@ -26,7 +26,7 @@
 | DO-018 | Écran « progrès de l'IA » dans le jeu | Le joueur voit le niveau de l'IA monter, et sa part dans ce progrès | Motive à jouer et à partager ses parties ; écran = aperçu d'abord | M | 2 |
 | DO-019 | Durée de conservation | Replays bruts gardés 24 mois, puis seulement les agrégats | Obligatoire (RGPD), et réduit le stockage | S | 1 |
 | DO-020 | Revoir une partie | Le replay se rejoue à l'écran, coup par coup | Bonus du replay compact : déboguer l'IA, montrer une belle partie | M | 1 |
-| DO-021 | Serveur loué à prix fixe | Un petit VPS (≈ 4 à 5 € par mois) avec PocketBase ou PostgreSQL | Sortie de secours si un service gratuit change ses règles | L | 2 |
+| DO-021 | Serveur loué à prix fixe | Un petit VPS (≈ 4,60 à 7 € TTC par mois) avec PocketBase ou PostgreSQL | Sortie de secours si un service gratuit change ses règles | L | 2 |
 
 ---
 

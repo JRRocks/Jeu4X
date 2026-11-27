@@ -13,5 +13,5 @@
 - **Décisions** : aucune ; propositions seulement (D-11). Hypothèses H1 à H8 écrites dans `schema-donnees.md`.
 - **Vérifications** : tarifs relevés sur les pages officielles le 2026-11-27 (`sources.md`) ; chiffres non vérifiés signalés comme tels. Aucun code, aucun compte, aucune dépense.
 - **Non vérifié sur téléphone** : rien (étude).
-- **Problèmes et dette** : `docs/ia/besoins-donnees.md` (S3) n'existait pas encore (branche `s3-ia` absente du dépôt distant au moment de l'étude) : à reprendre dès qu'il arrive.
+- **Problèmes et dette** : `docs/ia/besoins-donnees.md` (S3) n'existait pas encore (la branche `s3-ia` ne porte encore que `besoins-moteur.md`, dont l'hypothèse de ≈ 1 000 actions par partie confirme H2) : à reprendre dès qu'il arrive.
 - **Prochaine étape** : attendre le tri de l'utilisateur et les besoins de S3.

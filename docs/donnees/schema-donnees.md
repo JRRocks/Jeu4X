@@ -9,7 +9,7 @@
 | N° | Hypothèse | Si elle tombe |
 |---|---|---|
 | H1 | Le moteur de règles est **déterministe** : même graine + mêmes actions = même partie, à l'octet près (`CLAUDE.md`, point 2). | Il faudrait stocker l'état de chaque tour : volume ×50 à ×200. |
-| H2 | Petites cartes, 2 à 4 joueurs, partie de 20 à 40 tours, 5 à 15 actions par joueur et par tour. | Volume à recalculer (il reste proportionnel au nombre d'actions). |
+| H2 | Petites cartes, 2 à 4 joueurs, partie de 20 à 40 tours, 5 à 15 actions par joueur et par tour. | Volume à recalculer (il reste proportionnel au nombre d'actions). Cohérent avec S3 (`docs/ia/besoins-moteur.md`, branche `s3-ia` : ≈ 1 000 actions par partie, 30 à 50 tours). |
 | H3 | Une action tient en 3 à 5 octets (type, unité ou ville, case cible). | Idem. |
 | H4 | L'IA s'entraîne surtout **contre elle-même** sur un PC ou en session cloud (S3) ; ces parties-là ne passent jamais par les téléphones. | Aucune : c'est l'hypothèse la plus sûre. |
 | H5 | Les parties des joueurs humains servent à **mesurer** l'IA et, plus tard, à la **pré-entraîner par imitation**. | Si S3 n'en veut que des agrégats, on ne remonte que le résultat (≈ 200 octets). |
