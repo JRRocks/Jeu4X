@@ -1,0 +1,1135 @@
+{
+  "session": "S5",
+  "domaine": "Veille",
+  "branche": "s5-veille",
+  "commit_catalogue": "A_REMPLIR",
+  "groupes": [
+    "Lisibilité et équité",
+    "Règles contre l'effet boule de neige",
+    "Modes de jeu",
+    "Parties courtes et victoire",
+    "Cartes et brouillard",
+    "Événements et diplomatie",
+    "Premier contact, tutoriel, accessibilité",
+    "Partage, replays, classements",
+    "IA visible",
+    "Fidélisation et saisons",
+    "Modèle économique et distribution",
+    "Renvois à la session 2 (→ GD)",
+    "Renvois à la session 3 (→ IA)"
+  ],
+  "idees": [
+    {
+      "id": "VE-001",
+      "groupe": "Lisibilité et équité",
+      "titre": "Voir ce que prépare l'adversaire",
+      "resume": "Avant de jouer, l'adversaire laisse voir sa cible ou la case qu'il menace.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Très utile mais demande du travail sur le moteur et l'IA ; à faire après les bases.",
+      "fiche": "docs/veille/catalogue.md#ve-001",
+      "origine": "Into the Breach, Cicero"
+    },
+    {
+      "id": "VE-002",
+      "groupe": "Lisibilité et équité",
+      "titre": "Voir l'effet avant de valider",
+      "resume": "Un appui long montre ce que l'action va changer avant de la confirmer.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Rassurant au toucher, mais le geste doit d'abord être essayé sur le téléphone.",
+      "fiche": "docs/veille/catalogue.md#ve-002",
+      "origine": "Reigns, Into the Breach"
+    },
+    {
+      "id": "VE-003",
+      "groupe": "Lisibilité et équité",
+      "titre": "Combat sans dé, résultat annoncé",
+      "resume": "Le résultat d'une attaque se calcule d'avance et s'affiche avant d'attaquer.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Simple, lisible et parfaitement reproductible avec la même graine.",
+      "fiche": "docs/veille/catalogue.md#ve-003",
+      "origine": "Ozymandias"
+    },
+    {
+      "id": "VE-004",
+      "groupe": "Lisibilité et équité",
+      "titre": "Annuler ses coups tant que rien n'est révélé",
+      "resume": "On revient librement en arrière tant que rien de caché n'apparaît, plus une remise à zéro du tour par partie.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : indispensable au toucher et presque gratuit avec le moteur.",
+      "fiche": "docs/veille/catalogue.md#ve-004",
+      "origine": "Antiyoy, Through the Ages, Root, Into the Breach, Advance Wars"
+    },
+    {
+      "id": "VE-005",
+      "groupe": "Lisibilité et équité",
+      "titre": "Un signe montre comment agit l'ennemi",
+      "resume": "Une couleur ou une forme indique si une unité adverse charge, garde ou tire de loin.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Bonne idée de lisibilité, à décider avec la direction artistique.",
+      "fiche": "docs/veille/catalogue.md#ve-005",
+      "origine": "Hitman GO, Hoplite"
+    },
+    {
+      "id": "VE-006",
+      "groupe": "Lisibilité et équité",
+      "titre": "La clarté avant tout",
+      "resume": "Une règle impossible à montrer simplement est simplifiée ou supprimée.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "C'est une façon de travailler plutôt qu'une fonction ; à proposer comme décision.",
+      "fiche": "docs/veille/catalogue.md#ve-006",
+      "origine": "Into the Breach"
+    },
+    {
+      "id": "VE-007",
+      "groupe": "Lisibilité et équité",
+      "titre": "Parties équitables : même clan, exclusions",
+      "resume": "En partie personnalisée, tout le monde joue le même clan, ou on retire un clan jugé trop fort.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Utile une fois qu'il y aura plusieurs clans.",
+      "fiche": "docs/veille/catalogue.md#ve-007",
+      "origine": "The Battle of Polytopia"
+    },
+    {
+      "id": "VE-008",
+      "groupe": "Règles contre l'effet boule de neige",
+      "titre": "Freiner le joueur qui s'emballe",
+      "resume": "Entretien des unités, villes de plus en plus chères ou nombre d'actions limité par tour.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Touche l'équilibre du jeu : à choisir avec la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-008",
+      "origine": "Antiyoy, Northgard, Old World"
+    },
+    {
+      "id": "VE-009",
+      "groupe": "Modes de jeu",
+      "titre": "Défi du jour ou de la semaine",
+      "resume": "Chaque jour ou chaque semaine, tout le monde joue exactement la même partie et compare son score.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : presque gratuit grâce à la même graine, et marche sans réseau.",
+      "fiche": "docs/veille/catalogue.md#ve-009",
+      "origine": "The Battle of Polytopia, Slay the Spire, Wordle"
+    },
+    {
+      "id": "VE-010",
+      "groupe": "Modes de jeu",
+      "titre": "Énigme tactique du jour",
+      "resume": "Une situation fixe à résoudre en quelques tours, avec une série de jours à tenir.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Excellent format court, mais il faut d'abord des parties d'IA pour fabriquer les énigmes.",
+      "fiche": "docs/veille/catalogue.md#ve-010",
+      "origine": "Chess.com, Hitman GO"
+    },
+    {
+      "id": "VE-011",
+      "groupe": "Modes de jeu",
+      "titre": "Jouer à plusieurs sur un téléphone",
+      "resume": "On se passe le téléphone ; un écran cache le jeu du précédent ; l'IA tient les places vides.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Le multijoueur le moins cher : aucun serveur.",
+      "fiche": "docs/veille/catalogue.md#ve-011",
+      "origine": "Antiyoy, Polytopia, Root, Ticket to Ride"
+    },
+    {
+      "id": "VE-012",
+      "groupe": "Modes de jeu",
+      "titre": "Parties à distance, chacun à son rythme",
+      "resume": "Chacun joue quand il veut, par échange de fichier ou en ligne avec un long délai par tour.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Demande un stockage ou un serveur : pas pour la première version.",
+      "fiche": "docs/veille/catalogue.md#ve-012",
+      "origine": "Unciv, Through the Ages, Wingspan, Freeciv"
+    },
+    {
+      "id": "VE-013",
+      "groupe": "Modes de jeu",
+      "titre": "Expédition de petites parties enchaînées",
+      "resume": "Quatre à six mini-parties sur une carte à embranchements, en gardant quelques unités.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Belle progression mais gros contenu à créer.",
+      "fiche": "docs/veille/catalogue.md#ve-013",
+      "origine": "Wargroove 2, Slay the Spire, Hoplite"
+    },
+    {
+      "id": "VE-014",
+      "groupe": "Modes de jeu",
+      "titre": "Scénarios à règle changée",
+      "resume": "Des scénarios où une règle change, puis un mode où l'on choisit ses règles.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Contenu bon marché, à faire une fois les règles de base stables.",
+      "fiche": "docs/veille/catalogue.md#ve-014",
+      "origine": "Root, Balatro, Slay the Spire, Polytopia"
+    },
+    {
+      "id": "VE-015",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Parties à nombre de tours fixe",
+      "resume": "On vise le meilleur score en un nombre de tours connu d'avance, ou on gagne vite par conquête.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : parties courtes garanties et score simple pour entraîner l'IA.",
+      "fiche": "docs/veille/catalogue.md#ve-015",
+      "origine": "The Battle of Polytopia, Marvel Snap"
+    },
+    {
+      "id": "VE-016",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Gagner par la capitale ou les points",
+      "resume": "On gagne en prenant la capitale adverse ou en atteignant un seuil de points.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : la conquête totale n'est plus la seule voie.",
+      "fiche": "docs/veille/catalogue.md#ve-016",
+      "origine": "The Battle of Polytopia, Advance Wars"
+    },
+    {
+      "id": "VE-017",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Score fait d'exploits variés",
+      "resume": "Explorer, bâtir et vaincre rapportent des étoiles ; chaque voie a des étapes visibles.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Intéressant mais délicat à doser ; après les premiers essais.",
+      "fiche": "docs/veille/catalogue.md#ve-017",
+      "origine": "Humankind, Ozymandias, Northgard, Civilization VII, Islanders"
+    },
+    {
+      "id": "VE-018",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Lieux clés révélés un à un",
+      "resume": "Des lieux spéciaux dévoilent leur effet au fil des premiers tours ; les tenir peut faire gagner.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Variante amusante à essayer plus tard.",
+      "fiche": "docs/veille/catalogue.md#ve-018",
+      "origine": "Marvel Snap"
+    },
+    {
+      "id": "VE-019",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Objectifs qui apparaissent en cours de partie",
+      "resume": "À mi-partie, un objectif de carte ou personnel apparaît et rapporte des points.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Bonne variété, mais pas nécessaire pour démarrer.",
+      "fiche": "docs/veille/catalogue.md#ve-019",
+      "origine": "Northgard, Old World"
+    },
+    {
+      "id": "VE-020",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Objectifs bonus sur chaque carte",
+      "resume": "Un ou deux objectifs facultatifs par carte, comme gagner en moins de N tours.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Peu cher mais secondaire pour la première version.",
+      "fiche": "docs/veille/catalogue.md#ve-020",
+      "origine": "Into the Breach"
+    },
+    {
+      "id": "VE-021",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Fin de partie plus courte",
+      "resume": "Limite de tours, victoire aux points, ou abandon automatique d'un camp trop en retard.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Corrige la critique la plus répandue des jeux du genre.",
+      "fiche": "docs/veille/catalogue.md#ve-021",
+      "origine": "Grands jeux 4X, Polytopia"
+    },
+    {
+      "id": "VE-022",
+      "groupe": "Parties courtes et victoire",
+      "titre": "Perdre quand le moral s'effondre",
+      "resume": "On perd aussi quand une jauge commune tombe à zéro, pas seulement en perdant ses unités.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Idée originale à étudier avec la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-022",
+      "origine": "Into the Breach"
+    },
+    {
+      "id": "VE-023",
+      "groupe": "Cartes et brouillard",
+      "titre": "Plusieurs types de cartes",
+      "resume": "Terres pleines, lacs, continents, archipels, avec des tailles selon le nombre de joueurs.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Variété facile, mais une seule famille suffit pour commencer.",
+      "fiche": "docs/veille/catalogue.md#ve-023",
+      "origine": "The Battle of Polytopia"
+    },
+    {
+      "id": "VE-024",
+      "groupe": "Cartes et brouillard",
+      "titre": "Des départs équitables garantis",
+      "resume": "Le jeu vérifie que chaque joueur commence avec autant de ressources et de place.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "Sur une petite carte, un mauvais départ décide de la partie.",
+      "fiche": "docs/veille/catalogue.md#ve-024",
+      "origine": "Polytopia, Hexarchy, Age of Wonders III, Civilization VII"
+    },
+    {
+      "id": "VE-025",
+      "groupe": "Cartes et brouillard",
+      "titre": "L'IA teste l'équité des cartes",
+      "resume": "Les IA jouent chaque carte avant nous et on écarte celles qui avantagent un camp.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ IA (session 3) : à faire quand l'IA existera.",
+      "fiche": "docs/veille/catalogue.md#ve-025",
+      "origine": "Recherche sur Planet Wars"
+    },
+    {
+      "id": "VE-026",
+      "groupe": "Cartes et brouillard",
+      "titre": "Toute la carte sur l'écran",
+      "resume": "Les petites cartes tiennent sur l'écran sans faire défiler.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Rien de caché hors de l'écran ; à vérifier sur le téléphone.",
+      "fiche": "docs/veille/catalogue.md#ve-026",
+      "origine": "Hoplite, Into the Breach"
+    },
+    {
+      "id": "VE-027",
+      "groupe": "Cartes et brouillard",
+      "titre": "Brouillard qui revient",
+      "resume": "Ce qu'on ne voit plus redevient incertain, ce qui permet des attaques surprises.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Ajoute de la tension, à décider avec les règles du brouillard.",
+      "fiche": "docs/veille/catalogue.md#ve-027",
+      "origine": "Age of Wonders 4"
+    },
+    {
+      "id": "VE-028",
+      "groupe": "Événements et diplomatie",
+      "titre": "Événements à deux ou trois choix",
+      "resume": "Une découverte déclenche un petit choix, avec l'effet montré avant de décider.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Donne du sel aux premiers tours, mais demande du contenu.",
+      "fiche": "docs/veille/catalogue.md#ve-028",
+      "origine": "Reigns, Age of Wonders 4, Old World"
+    },
+    {
+      "id": "VE-029",
+      "groupe": "Événements et diplomatie",
+      "titre": "Un régisseur pour le rythme",
+      "resume": "Un régisseur invisible alterne calme et temps forts sans rendre l'IA plus forte.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Utile une fois les événements en place.",
+      "fiche": "docs/veille/catalogue.md#ve-029",
+      "origine": "Left 4 Dead, Alien: Isolation"
+    },
+    {
+      "id": "VE-030",
+      "groupe": "Événements et diplomatie",
+      "titre": "Décisions définitives mais nuançables",
+      "resume": "Certaines décisions ne s'annulent pas ; une décision suivante peut seulement les nuancer.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Intéressant mais pas central dans un jeu court.",
+      "fiche": "docs/veille/catalogue.md#ve-030",
+      "origine": "Frostpunk"
+    },
+    {
+      "id": "VE-031",
+      "groupe": "Événements et diplomatie",
+      "titre": "Rallier des villages neutres",
+      "resume": "Un village neutre se rallie si l'on remplit une condition simple, sinon par la force.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Bonne voie pacifique, à étudier avec la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-031",
+      "origine": "Endless Legend 2"
+    },
+    {
+      "id": "VE-032",
+      "groupe": "Événements et diplomatie",
+      "titre": "Diplomatie en trois mots",
+      "resume": "Paix, alliance, rupture ; chaque demande coûte et rompre une paix se paie.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Tient sur un téléphone, mais vient après les combats et la victoire.",
+      "fiche": "docs/veille/catalogue.md#ve-032",
+      "origine": "Polytopia, Old World, Civilization IV"
+    },
+    {
+      "id": "VE-033",
+      "groupe": "Événements et diplomatie",
+      "titre": "Humeur des clans affichée honnêtement",
+      "resume": "Chaque clan IA montre ce qu'il pense de vous et pourquoi, et tient ses promesses.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Va avec la diplomatie ; la partie « promesses tenues » est → IA (session 3).",
+      "fiche": "docs/veille/catalogue.md#ve-033",
+      "origine": "Stellaris, Old World, Civilization IV, Cicero"
+    },
+    {
+      "id": "VE-034",
+      "groupe": "Premier contact, tutoriel, accessibilité",
+      "titre": "Tutoriel en petits chapitres",
+      "resume": "Une règle par chapitre de deux minutes et de petites cartes de difficulté croissante.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Important mais à écrire quand les règles seront fixées.",
+      "fiche": "docs/veille/catalogue.md#ve-034",
+      "origine": "Through the Ages, Root, Antiyoy"
+    },
+    {
+      "id": "VE-035",
+      "groupe": "Premier contact, tutoriel, accessibilité",
+      "titre": "Quelques actions conseillées à chaque tour",
+      "resume": "Au début du tour, le jeu propose quelques actions utiles.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Aide le débutant, à essayer après le tutoriel.",
+      "fiche": "docs/veille/catalogue.md#ve-035",
+      "origine": "Hexarchy"
+    },
+    {
+      "id": "VE-036",
+      "groupe": "Premier contact, tutoriel, accessibilité",
+      "titre": "Changer la difficulté librement",
+      "resume": "Le niveau se change sans pénalité ; un mode libre sans score ni défaite existe.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Simple, mais dépend des niveaux d'IA.",
+      "fiche": "docs/veille/catalogue.md#ve-036",
+      "origine": "Advance Wars, Islanders"
+    },
+    {
+      "id": "VE-037",
+      "groupe": "Premier contact, tutoriel, accessibilité",
+      "titre": "Le tour de l'IA sans attente",
+      "resume": "Le tour de l'ordinateur passe instantanément ou en accéléré, avec combat rapide.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Essentiel ; la vitesse de l'IA relève aussi de la session 3.",
+      "fiche": "docs/veille/catalogue.md#ve-037",
+      "origine": "Advance Wars, Root, Civilization VII"
+    },
+    {
+      "id": "VE-038",
+      "groupe": "Premier contact, tutoriel, accessibilité",
+      "titre": "Jouer sans réseau, reprendre à tout moment",
+      "resume": "Tout le solo marche hors ligne, en portrait ou paysage, avec sauvegarde à chaque tour.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Attendu sur téléphone ; l'orientation se tranche en essayant.",
+      "fiche": "docs/veille/catalogue.md#ve-038",
+      "origine": "The Battle of Polytopia"
+    },
+    {
+      "id": "VE-039",
+      "groupe": "Premier contact, tutoriel, accessibilité",
+      "titre": "Ménager la batterie",
+      "resume": "L'écran ne se redessine pas sans cesse et l'IA calcule sobrement.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Bonne pratique à vérifier sur le téléphone.",
+      "fiche": "docs/veille/catalogue.md#ve-039",
+      "origine": "Through the Ages"
+    },
+    {
+      "id": "VE-040",
+      "groupe": "Partage, replays, classements",
+      "titre": "Un code pour partager une carte",
+      "resume": "Un code court permet à un ami de jouer exactement la même carte.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : partage sans serveur, utile aussi pour corriger les bugs.",
+      "fiche": "docs/veille/catalogue.md#ve-040",
+      "origine": "Demandes des joueurs de Polytopia, Age of Empires"
+    },
+    {
+      "id": "VE-041",
+      "groupe": "Partage, replays, classements",
+      "titre": "Revoir une partie coup par coup",
+      "resume": "On rejoue une partie terminée en avant et en arrière.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Gratuit avec le moteur et base du mode spectateur.",
+      "fiche": "docs/veille/catalogue.md#ve-041",
+      "origine": "Antiyoy"
+    },
+    {
+      "id": "VE-042",
+      "groupe": "Partage, replays, classements",
+      "titre": "Résumé de partie à partager",
+      "resume": "Une petite grille à copier raconte la partie sans révéler la solution du défi.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Va avec le défi du jour, juste après.",
+      "fiche": "docs/veille/catalogue.md#ve-042",
+      "origine": "Wordle"
+    },
+    {
+      "id": "VE-043",
+      "groupe": "Partage, replays, classements",
+      "titre": "Succès liés au style de jeu",
+      "resume": "Des succès comme « gagner sans armée » ou « gagner en moins de 15 tours ».",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Peu cher, à ajouter une fois le jeu jouable.",
+      "fiche": "docs/veille/catalogue.md#ve-043",
+      "origine": "The Battle of Polytopia, Balatro"
+    },
+    {
+      "id": "VE-044",
+      "groupe": "Partage, replays, classements",
+      "titre": "Classement en ligne vérifié",
+      "resume": "Les scores sont envoyés en ligne et vérifiés en rejouant la partie.",
+      "interet": 1,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Demande un serveur : pas avant d'avoir des joueurs.",
+      "fiche": "docs/veille/catalogue.md#ve-044",
+      "origine": "Polytopia, Clash Royale, Marvel Snap"
+    },
+    {
+      "id": "VE-045",
+      "groupe": "IA visible",
+      "titre": "Regarder des IA s'affronter",
+      "resume": "On lance une partie entre IA et on la regarde en accéléré.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : montre les progrès de l'IA, presque gratuit.",
+      "fiche": "docs/veille/catalogue.md#ve-045",
+      "origine": "Antiyoy"
+    },
+    {
+      "id": "VE-046",
+      "groupe": "IA visible",
+      "titre": "Niveaux qui jouent comme des humains",
+      "resume": "Chaque niveau joue comme un joueur d'un certain niveau, sans avantage caché.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "Top 10 : répond à « le niveau max triche ou est trop facile ».",
+      "fiche": "docs/veille/catalogue.md#ve-046",
+      "origine": "Maia, The Battle of Polytopia, Gran Turismo Sophy"
+    },
+    {
+      "id": "VE-047",
+      "groupe": "IA visible",
+      "titre": "Avantages de l'IA affichés",
+      "resume": "Si un niveau donne un avantage à l'IA, le jeu le dit clairement.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Rassure à peu de frais tant que l'IA apprise n'est pas prête.",
+      "fiche": "docs/veille/catalogue.md#ve-047",
+      "origine": "Civilization VI, Humankind, Polytopia"
+    },
+    {
+      "id": "VE-048",
+      "groupe": "IA visible",
+      "titre": "L'IA montre ce qu'elle a appris",
+      "resume": "Le jeu affiche combien de parties l'IA a jouées et comment elle a progressé.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : montre ce qui rend le jeu unique, sans fausse promesse.",
+      "fiche": "docs/veille/catalogue.md#ve-048",
+      "origine": "Propre au projet, contre-exemple Hello Neighbor"
+    },
+    {
+      "id": "VE-049",
+      "groupe": "IA visible",
+      "titre": "L'IA voit ce que vous voyez",
+      "resume": "L'IA a exactement les mêmes informations et règles que le joueur, brouillard compris.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : coupe court au soupçon de triche.",
+      "fiche": "docs/veille/catalogue.md#ve-049",
+      "origine": "Forza Horizon 6, AlphaStar"
+    },
+    {
+      "id": "VE-050",
+      "groupe": "IA visible",
+      "titre": "Les IA ne se liguent pas contre vous",
+      "resume": "Les IA visent plutôt le joueur en tête ; leur agressivité se règle.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Plainte fréquente, à régler avec la session 3.",
+      "fiche": "docs/veille/catalogue.md#ve-050",
+      "origine": "Polytopia, Hexonia, Root"
+    },
+    {
+      "id": "VE-051",
+      "groupe": "IA visible",
+      "titre": "Des erreurs d'IA crédibles",
+      "resume": "Aux niveaux faciles, l'IA se trompe comme un débutant et montre les bons réflexes.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ IA (session 3) : dépend de l'entraînement.",
+      "fiche": "docs/veille/catalogue.md#ve-051",
+      "origine": "Principes de Mick West et Soren Johnson, Humankind"
+    },
+    {
+      "id": "VE-052",
+      "groupe": "IA visible",
+      "titre": "Des clans IA au caractère visible",
+      "resume": "Chaque clan IA a un caractère qui se voit dans ses choix.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ IA (session 3) : à construire avec l'IA et les clans.",
+      "fiche": "docs/veille/catalogue.md#ve-052",
+      "origine": "Civilization VI, Stellaris"
+    },
+    {
+      "id": "VE-053",
+      "groupe": "IA visible",
+      "titre": "Un adversaire qui se souvient de vous",
+      "resume": "Un chef IA se rappelle vos parties précédentes et adapte ses préférences.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Belle idée, mais il faut d'abord une IA solide.",
+      "fiche": "docs/veille/catalogue.md#ve-053",
+      "origine": "Shadow of Mordor"
+    },
+    {
+      "id": "VE-054",
+      "groupe": "IA visible",
+      "titre": "L'IA dévoile de nouvelles tactiques",
+      "resume": "L'IA montre peu à peu de nouvelles tactiques, jamais pour punir une défaite.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Donne vie à l'IA, à manier sans fausse promesse.",
+      "fiche": "docs/veille/catalogue.md#ve-054",
+      "origine": "Alien: Isolation"
+    },
+    {
+      "id": "VE-055",
+      "groupe": "IA visible",
+      "titre": "Un rival qui imite un joueur",
+      "resume": "Une IA apprend le style d'un joueur et devient un adversaire hors ligne.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "→ IA (session 3) : gros chantier.",
+      "fiche": "docs/veille/catalogue.md#ve-055",
+      "origine": "Forza, Real Racing 3, Trackmania"
+    },
+    {
+      "id": "VE-056",
+      "groupe": "IA visible",
+      "titre": "IA mise à jour, défi de la faille",
+      "resume": "L'IA reçoit des nouvelles versions ; les victoires par ruse servent à la corriger.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ IA (session 3) : après la première IA livrée.",
+      "fiche": "docs/veille/catalogue.md#ve-056",
+      "origine": "OpenAI Five"
+    },
+    {
+      "id": "VE-057",
+      "groupe": "IA visible",
+      "titre": "Une IA qui vous entraîne",
+      "resume": "Une IA un peu plus forte rejoue avec vous pour vous aider à progresser.",
+      "interet": 1,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "→ IA (session 3) : intéressant mais lointain.",
+      "fiche": "docs/veille/catalogue.md#ve-057",
+      "origine": "Gran Turismo Sophy, Naruto Mobile"
+    },
+    {
+      "id": "VE-058",
+      "groupe": "Fidélisation et saisons",
+      "titre": "Progresser sans devenir plus fort",
+      "resume": "Gagner débloque un niveau plus dur ou une variante, jamais un bonus de puissance.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Excellente idée, une fois le jeu de base terminé.",
+      "fiche": "docs/veille/catalogue.md#ve-058",
+      "origine": "Slay the Spire, Balatro, Wargroove 2"
+    },
+    {
+      "id": "VE-059",
+      "groupe": "Fidélisation et saisons",
+      "titre": "Petites saisons mensuelles",
+      "resume": "Chaque mois, un mode ou une règle spéciale, sans passe payant.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Utile quand il y aura des joueurs réguliers.",
+      "fiche": "docs/veille/catalogue.md#ve-059",
+      "origine": "Jeux mobiles à succès, Polytopia"
+    },
+    {
+      "id": "VE-060",
+      "groupe": "Fidélisation et saisons",
+      "titre": "Éditeur de cartes",
+      "resume": "Créer ses cartes et les partager par fichier ou par code.",
+      "interet": 1,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Gros travail pour peu d'intérêt au début.",
+      "fiche": "docs/veille/catalogue.md#ve-060",
+      "origine": "Antiyoy, Polytopia, Unciv"
+    },
+    {
+      "id": "VE-061",
+      "groupe": "Fidélisation et saisons",
+      "titre": "Règles décrites dans des fichiers",
+      "resume": "Les clans, unités et valeurs sont décrits dans des fichiers, pas dans le code.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "Facilite l'équilibrage et l'entraînement de l'IA dès le départ.",
+      "fiche": "docs/veille/catalogue.md#ve-061",
+      "origine": "Unciv"
+    },
+    {
+      "id": "VE-062",
+      "groupe": "Fidélisation et saisons",
+      "titre": "Aucune notification par défaut",
+      "resume": "Au plus un rappel de défi, désactivé tant que le joueur ne l'active pas.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Bon principe, sans urgence.",
+      "fiche": "docs/veille/catalogue.md#ve-062",
+      "origine": "Choix de conduite, Ticket to Ride"
+    },
+    {
+      "id": "VE-063",
+      "groupe": "Fidélisation et saisons",
+      "titre": "Une communauté qui démarre petit",
+      "resume": "D'abord une page de projet et les discussions du dépôt, un salon plus tard.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Rien à faire tant qu'il n'y a pas de joueurs.",
+      "fiche": "docs/veille/catalogue.md#ve-063",
+      "origine": "Polytopia"
+    },
+    {
+      "id": "VE-064",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Ne jamais vendre de puissance",
+      "resume": "Rien de payant qui avantage : ni puissance, ni jeu en ligne, ni aide, ni publicité imposée.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Top 10 : ferme la critique la plus constante faite à Polytopia.",
+      "fiche": "docs/veille/catalogue.md#ve-064",
+      "origine": "Critiques de Polytopia, Hitman GO, étude Deloitte"
+    },
+    {
+      "id": "VE-065",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Tout gratuit, sans pub ni achat",
+      "resume": "Le jeu entier est gratuit, avec au plus un lien de soutien hors du jeu.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Le plus simple et le plus cohérent avec un projet personnel public.",
+      "fiche": "docs/veille/catalogue.md#ve-065",
+      "origine": "Unciv, Antiyoy, itch.io"
+    },
+    {
+      "id": "VE-066",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Clans en plus payants une fois",
+      "resume": "Quelques clans gratuits, d'autres achetables une fois, jamais plus forts.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "jeter",
+      "raison": "Demande paiement et magasin, contraire à l'option tout gratuit recommandée.",
+      "fiche": "docs/veille/catalogue.md#ve-066",
+      "origine": "The Battle of Polytopia"
+    },
+    {
+      "id": "VE-067",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Essai gratuit puis achat unique",
+      "resume": "Les premières cartes sont gratuites, le reste se débloque en un achat.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "jeter",
+      "raison": "Demande paiement et magasin, sans objectif de revenu.",
+      "fiche": "docs/veille/catalogue.md#ve-067",
+      "origine": "Songs of Conquest, Google Play, Balatro"
+    },
+    {
+      "id": "VE-068",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Annoncer sans pub, sans IA générative",
+      "resume": "Une phrase sur la page du jeu dit ce qu'il n'y a pas et ce que fait vraiment l'IA.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Utile le jour où le jeu aura une page publique.",
+      "fiche": "docs/veille/catalogue.md#ve-068",
+      "origine": "Enquêtes sur la méfiance des joueurs, Polytopia"
+    },
+    {
+      "id": "VE-069",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Livrer l'APK directement",
+      "resume": "Le fichier à installer est publié sur GitHub, signé toujours de la même clé.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "La façon actuelle de livrer ; suffit pour l'utilisateur et ses proches.",
+      "fiche": "docs/veille/catalogue.md#ve-069",
+      "origine": "Pratique actuelle, règles Android 2026-2027"
+    },
+    {
+      "id": "VE-070",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Autres boutiques : itch.io, F-Droid, Play",
+      "resume": "Publier ailleurs le jour où l'on voudra des joueurs extérieurs.",
+      "interet": 1,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Pas utile tant que le jeu reste privé.",
+      "fiche": "docs/veille/catalogue.md#ve-070",
+      "origine": "itch.io, Unciv sur F-Droid, Google Play"
+    },
+    {
+      "id": "VE-071",
+      "groupe": "Modèle économique et distribution",
+      "titre": "Une version pour ordinateur",
+      "resume": "Le même moteur de règles avec un autre affichage, pour PC ou navigateur.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Idée pour plus tard, facilitée par le moteur séparé.",
+      "fiche": "docs/veille/catalogue.md#ve-071",
+      "origine": "Google Play Games sur PC, Polytopia"
+    },
+    {
+      "id": "VE-072",
+      "groupe": "Renvois à la session 2 (→ GD)",
+      "titre": "Clans très différents, même but",
+      "resume": "Chaque clan a sa façon de jouer et une voie de victoire favorite.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ GD : relève de la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-072",
+      "origine": "Endless Legend 2, Polytopia, Root, Northgard"
+    },
+    {
+      "id": "VE-073",
+      "groupe": "Renvois à la session 2 (→ GD)",
+      "titre": "Taille de l'arbre et des unités",
+      "resume": "Arbre plus long pour la fin de partie, ou au contraire réduit pour rester clair.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ GD : relève de la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-073",
+      "origine": "Polytopia, Into the Breach, Hoplite, Antiyoy"
+    },
+    {
+      "id": "VE-074",
+      "groupe": "Renvois à la session 2 (→ GD)",
+      "titre": "Jeu sur la mer",
+      "resume": "Une mécanique propre à la mer, comme des cases inondées.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ GD : relève de la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-074",
+      "origine": "The Battle of Polytopia"
+    },
+    {
+      "id": "VE-075",
+      "groupe": "Renvois à la session 2 (→ GD)",
+      "titre": "Commandants qui changent le style",
+      "resume": "Des chefs à débloquer qui changent la façon de jouer.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ GD : relève de la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-075",
+      "origine": "Wargroove 2"
+    },
+    {
+      "id": "VE-076",
+      "groupe": "Renvois à la session 2 (→ GD)",
+      "titre": "Factions internes qui réagissent",
+      "resume": "Des groupes internes réagissent aux lois et aux techniques choisies.",
+      "interet": 1,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ GD : relève de la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-076",
+      "origine": "Frostpunk 2"
+    },
+    {
+      "id": "VE-077",
+      "groupe": "Renvois à la session 2 (→ GD)",
+      "titre": "Unité d'infiltration invisible",
+      "resume": "Une unité invisible jusqu'à sa première action, risque de frustration.",
+      "interet": 1,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ GD : relève de la session 2.",
+      "fiche": "docs/veille/catalogue.md#ve-077",
+      "origine": "The Battle of Polytopia"
+    },
+    {
+      "id": "VE-078",
+      "groupe": "Renvois à la session 2 (→ GD)",
+      "titre": "Caractère des clans né des gènes",
+      "resume": "Le caractère des clans IA vient de l'évolution génétique, avec leur lignée visible.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ GD et → IA : sessions 2 et 3.",
+      "fiche": "docs/veille/catalogue.md#ve-078",
+      "origine": "Creatures"
+    },
+    {
+      "id": "VE-079",
+      "groupe": "Renvois à la session 3 (→ IA)",
+      "titre": "Entraîner l'IA avant, pas en direct",
+      "resume": "L'IA apprend avant la sortie ; le joueur ne règle que des choses lisibles.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ IA : choix d'architecture de la session 3.",
+      "fiche": "docs/veille/catalogue.md#ve-079",
+      "origine": "Black & White"
+    },
+    {
+      "id": "VE-080",
+      "groupe": "Renvois à la session 3 (→ IA)",
+      "titre": "Entraîner contre des adversaires variés",
+      "resume": "L'IA s'entraîne contre une ligue d'adversaires différents.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "→ IA : choix d'architecture de la session 3.",
+      "fiche": "docs/veille/catalogue.md#ve-080",
+      "origine": "AlphaStar, Naruto Mobile"
+    }
+  ],
+  "questions": [
+    {
+      "id": "VE-Q1",
+      "question": "Quel modèle économique pour le jeu ?",
+      "contexte": "La critique la plus constante faite à Polytopia est de vendre de la puissance.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Tout gratuit, sans pub",
+          "detail": "Aucun achat, aucune publicité, au plus un lien de soutien hors du jeu."
+        },
+        {
+          "id": "b",
+          "libelle": "Clans en plus payants",
+          "detail": "Quelques clans gratuits, d'autres achetables une fois, jamais plus forts."
+        },
+        {
+          "id": "c",
+          "libelle": "Essai puis achat unique",
+          "detail": "Les premières cartes gratuites, le reste en un seul achat."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "VE-064",
+        "VE-065",
+        "VE-066",
+        "VE-067"
+      ]
+    },
+    {
+      "id": "VE-Q2",
+      "question": "Comment gagne-t-on une partie dans la première version ?",
+      "contexte": "Chez Polytopia, la conquête reste la seule vraie voie et la fin de partie traîne.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Score en tours fixes",
+          "detail": "Par défaut un nombre de tours connu, avec capitale ou seuil de points comme victoires rapides."
+        },
+        {
+          "id": "b",
+          "libelle": "Conquête, score en option",
+          "detail": "La conquête reste le mode principal, le score est un mode à part."
+        },
+        {
+          "id": "c",
+          "libelle": "Plusieurs voies à étapes",
+          "detail": "Dès le départ, plusieurs chemins de victoire avec des étapes visibles."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "VE-015",
+        "VE-016",
+        "VE-017",
+        "VE-021"
+      ]
+    },
+    {
+      "id": "VE-Q3",
+      "question": "Quel premier rendez-vous régulier ?",
+      "contexte": "La même graine donne la même partie, ce qui rend un défi commun presque gratuit.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Défi daté, sans réseau",
+          "detail": "Défi du jour et de la semaine sur le téléphone, avec code et résumé à partager."
+        },
+        {
+          "id": "b",
+          "libelle": "Défi avec classement en ligne",
+          "detail": "Le même défi, avec un classement qui demande un serveur."
+        },
+        {
+          "id": "c",
+          "libelle": "Pas de défi pour l'instant",
+          "detail": "On se concentre sur la partie libre contre l'IA."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "VE-009",
+        "VE-040",
+        "VE-042",
+        "VE-044"
+      ]
+    },
+    {
+      "id": "VE-Q4",
+      "question": "Quel multijoueur en premier ?",
+      "contexte": "Le jeu à plusieurs sur un même téléphone ne demande aucun serveur.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Sur le même téléphone",
+          "detail": "On se passe le téléphone, l'IA tient les places vides."
+        },
+        {
+          "id": "b",
+          "libelle": "À distance par fichier",
+          "detail": "Chacun joue à son rythme en s'échangeant la partie."
+        },
+        {
+          "id": "c",
+          "libelle": "Solo seulement d'abord",
+          "detail": "Aucun multijoueur dans la première version."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "VE-011",
+        "VE-012"
+      ]
+    },
+    {
+      "id": "VE-Q5",
+      "question": "Que montrer de l'IA au joueur ?",
+      "contexte": "Aucun jeu trouvé n'affiche ce que son IA a appris ; promettre sans montrer a déçu ailleurs.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Compteur et mode spectateur",
+          "detail": "Nombre de parties jouées, progression, et parties IA contre IA à regarder."
+        },
+        {
+          "id": "b",
+          "libelle": "Seulement des niveaux honnêtes",
+          "detail": "Des niveaux sans avantage caché, sans rien afficher de plus."
+        },
+        {
+          "id": "c",
+          "libelle": "Aussi rival et mémoire",
+          "detail": "En plus, une IA qui imite un joueur et se souvient des parties."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": true,
+      "idees_liees": [
+        "VE-045",
+        "VE-046",
+        "VE-048",
+        "VE-049",
+        "VE-053",
+        "VE-055"
+      ]
+    }
+  ]
+}
