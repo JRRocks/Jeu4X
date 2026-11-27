@@ -2,6 +2,16 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Adversaire à brancher dans l'application (D-34), version 0
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`
+- **Objectif** : consigne D-34 : un adversaire jouable complet, une fonction simple pour S1.
+- **Réalisé** : `moteur/ia/src/adversaire.rs` : `jouer_tour(&Partie, Niveau) -> Vec<Action>` et `jouer_tour_numeros(...) -> Vec<u32>`, avec deux niveaux, facile (hasard) et normal (l'IA en service de la galerie, incluse à la compilation). La fonction ne modifie pas l'état reçu et rend le tour entier, fin du tour comprise.
+- **Vérifications** : `cargo test --release -p ia` est vert (22 tests). Des parties IA contre IA vont au bout ; le niveau normal bat le niveau facile (au moins 32 parties sur 40) ; même état, mêmes actions.
+- **Problèmes et dette** : règles V1 pas encore poussées par S1 (dernier commit de `s1-environnement` : 1eaba62) ; les critères de l'IA suivront.
+- **Prochaine étape** : fusionner `s1-environnement` dès que les règles V1 arrivent, puis adapter les critères (villes, combats, avancées, capitale, points).
+
 ## 2026-11-27 · Mission 2 : terrain d'essai des IA et première IA
 
 - **Auteur** : Claude, session S3

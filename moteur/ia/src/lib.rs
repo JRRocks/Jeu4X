@@ -1,5 +1,6 @@
 //! IA de Jeu4X (session 3).
 //!
+//! - `adversaire` : la fonction que l'application appelle pour le tour de l'IA (D-34).
 //! - `joueur` : ce qu'est un joueur IA, et les deux premiers (au hasard, à utilité).
 //! - `criteres` : ce que l'IA à utilité mesure dans un état ; seul endroit à reprendre
 //!   quand les règles de la première version arriveront.
@@ -12,6 +13,7 @@
 //! L'IA ne passe que par l'interface publique des règles : elle ne peut jouer qu'une
 //! action permise. Les nombres à virgule ne servent qu'au classement, jamais aux choix.
 
+pub mod adversaire;
 pub mod archive;
 pub mod criteres;
 pub mod elo;
