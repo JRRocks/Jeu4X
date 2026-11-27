@@ -75,6 +75,14 @@ jobs:
       - name: Tests de l'application (Kotlin, Robolectric, pont vers le moteur)
         run: ./gradlew :app:testDebugUnitTest --stacktrace
 
+      - name: Vérifier la compilation pour le téléphone, sans clé (APK de debug, jamais livré)
+        if: steps.cle.outputs.presente != 'oui'
+        run: |
+          set -euo pipefail
+          ./gradlew :app:assembleDebug --stacktrace
+          unzip -l app/build/outputs/apk/debug/app-debug.apk | grep -q "lib/arm64-v8a/libjeu4x_android.so" \
+            || { echo "::error::Bibliothèque Rust absente de l'APK"; exit 1; }
+
       - name: Compiler l'APK release
         if: steps.cle.outputs.presente == 'oui'
         env:
