@@ -1,0 +1,826 @@
+{
+  "session": "S2",
+  "domaine": "Game design",
+  "branche": "s2-game-design",
+  "commit_catalogue": "df97b33",
+  "groupes": [
+    "Boucle de jeu",
+    "Arbre d'évolution",
+    "Clans",
+    "Différences et équilibre",
+    "Première version"
+  ],
+  "idees": [
+    {
+      "id": "GD-001",
+      "groupe": "Boucle de jeu",
+      "titre": "Partie limitée en tours, gagnée au score",
+      "resume": "La partie s'arrête à un tour fixé, par exemple le trentième, et le meilleur score gagne. Le score de chacun reste visible.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Garantit des parties courtes et une fin à chaque partie.",
+      "fiche": "docs/game-design/catalogue.md#gd-001--limite-de-tours-et-score"
+    },
+    {
+      "id": "GD-002",
+      "groupe": "Boucle de jeu",
+      "titre": "Plusieurs façons de gagner",
+      "resume": "On gagne en prenant toutes les capitales, au score, ou plus tard par un objectif propre à son clan.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "Les clans pacifiques ont aussi une chance ; l'objectif de clan viendra plus tard.",
+      "fiche": "docs/game-design/catalogue.md#gd-002--trois-familles-de-victoire"
+    },
+    {
+      "id": "GD-003",
+      "groupe": "Boucle de jeu",
+      "titre": "Plusieurs tailles et formes de carte",
+      "resume": "Du duel sur petite carte au grand monde, en continent, archipel, anneau autour d'un lac ou carte qui rétrécit.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Une seule carte moyenne suffit pour la première version.",
+      "fiche": "docs/game-design/catalogue.md#gd-003--formats-et-formes-de-carte"
+    },
+    {
+      "id": "GD-004",
+      "groupe": "Boucle de jeu",
+      "titre": "Une seule monnaie pour tout",
+      "resume": "Une seule ressource paie les unités, les bâtiments et les avancées, avec le gain du prochain tour affiché.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Le plus lisible sur un téléphone, et chaque dépense devient un vrai choix.",
+      "fiche": "docs/game-design/catalogue.md#gd-004--une-seule-monnaie"
+    },
+    {
+      "id": "GD-005",
+      "groupe": "Boucle de jeu",
+      "titre": "S'étendre en ralliant des villages",
+      "resume": "Des villages neutres parsèment la carte ; une unité qui s'y arrête un tour en fait une de ses villes.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Expansion rapide et disputée, sans escorte de colons.",
+      "fiche": "docs/game-design/catalogue.md#gd-005--villages-neutres-à-rallier"
+    },
+    {
+      "id": "GD-006",
+      "groupe": "Boucle de jeu",
+      "titre": "Brume et lieux à découvrir",
+      "resume": "La carte est cachée ; ruines, sources et sommets récompensent ceux qui les trouvent les premiers.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Donne tout son sens à l'exploration dès les premiers tours.",
+      "fiche": "docs/game-design/catalogue.md#gd-006--brume-et-lieux-remarquables"
+    },
+    {
+      "id": "GD-007",
+      "groupe": "Boucle de jeu",
+      "titre": "Combat annoncé avant d'attaquer",
+      "resume": "Avant de frapper, on voit les dégâts qu'on va donner et recevoir.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Lisible et sans frustration ; dépend du choix sur le hasard.",
+      "fiche": "docs/game-design/catalogue.md#gd-007--combat-sans-hasard-prévisualisé"
+    },
+    {
+      "id": "GD-008",
+      "groupe": "Boucle de jeu",
+      "titre": "Coup de pouce au joueur en retard",
+      "resume": "Le dernier au score paie un peu moins ses avancées, pour revenir dans la partie.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Utile, mais à régler une fois les premières parties jouées.",
+      "fiche": "docs/game-design/catalogue.md#gd-008--rattrapage-doux"
+    },
+    {
+      "id": "GD-009",
+      "groupe": "Boucle de jeu",
+      "titre": "Un grand événement en milieu de partie",
+      "resume": "Vers le quinzième tour, annoncé à l'avance : la mer monte, des bêtes migrent, une éclipse cache tout.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Relance la fin de partie, mais demande un jeu de base qui tourne.",
+      "fiche": "docs/game-design/catalogue.md#gd-009--événement-de-mi-partie"
+    },
+    {
+      "id": "GD-010",
+      "groupe": "Boucle de jeu",
+      "titre": "Tours restants et objectifs affichés",
+      "resume": "On voit combien de tours il reste et où en est chacun de son objectif.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Crée la tension de fin de partie à peu de frais.",
+      "fiche": "docs/game-design/catalogue.md#gd-010--compte-à-rebours-et-objectifs-visibles"
+    },
+    {
+      "id": "GD-011",
+      "groupe": "Boucle de jeu",
+      "titre": "Nombre d'unités limité par ville",
+      "resume": "Chaque ville entretient autant d'unités que sa taille, pas plus.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Garde peu de pions sur la carte et des tours rapides.",
+      "fiche": "docs/game-design/catalogue.md#gd-011--plafond-dunités-par-ville"
+    },
+    {
+      "id": "GD-012",
+      "groupe": "Boucle de jeu",
+      "titre": "Bêtes sauvages qui gardent les ruines",
+      "resume": "Des bêtes protègent certains lieux et attaquent ce qui approche ; les vaincre rapporte.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Bon danger de début de partie, mais pas indispensable au départ.",
+      "fiche": "docs/game-design/catalogue.md#gd-012--bêtes-neutres"
+    },
+    {
+      "id": "GD-013",
+      "groupe": "Boucle de jeu",
+      "titre": "Ville qui grandit : deux cadeaux, un seul",
+      "resume": "À chaque croissance d'une ville, on choisit une récompense parmi deux.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Un vrai choix à chaque croissance, sans menu lourd.",
+      "fiche": "docs/game-design/catalogue.md#gd-013--croissance-à-choix"
+    },
+    {
+      "id": "GD-014",
+      "groupe": "Boucle de jeu",
+      "titre": "Tours rapides d'une seule main",
+      "resume": "Toucher une unité, voir où elle peut aller, toucher pour agir ; la fin de tour signale les unités oubliées.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Indispensable sur téléphone ; l'aspect sera montré avant d'être fait.",
+      "fiche": "docs/game-design/catalogue.md#gd-014--tours-rapides"
+    },
+    {
+      "id": "GD-015",
+      "groupe": "Boucle de jeu",
+      "titre": "Taille de la carte et nombre de joueurs",
+      "resume": "Fixer la plus grande carte et le nombre maximal de joueurs ; le choix est posé dans les questions.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "À trancher tôt : cela change la façon de construire l'adversaire ordinateur.",
+      "fiche": "docs/game-design/catalogue.md#gd-015--taille-maximale-de-la-carte-et-nombre-de-joueurs"
+    },
+    {
+      "id": "GD-016",
+      "groupe": "Boucle de jeu",
+      "titre": "Brouillard sur la carte ou non",
+      "resume": "Décider ce que chaque joueur voit de la carte ; le choix est posé dans les questions.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "À trancher tôt : cela change la façon de construire l'adversaire ordinateur.",
+      "fiche": "docs/game-design/catalogue.md#gd-016--brouillard-de-guerre--la-brume--ou-non"
+    },
+    {
+      "id": "GD-017",
+      "groupe": "Boucle de jeu",
+      "titre": "Combats avec ou sans part de chance",
+      "resume": "Décider si un même combat donne toujours le même résultat ; le choix est posé dans les questions.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "À trancher tôt : cela change la façon de construire l'adversaire ordinateur.",
+      "fiche": "docs/game-design/catalogue.md#gd-017--combats-avec-ou-sans-hasard"
+    },
+    {
+      "id": "GD-020",
+      "groupe": "Arbre d'évolution",
+      "titre": "Arbre en trois branches : force, croissance, savoir",
+      "resume": "Seize avancées en trois colonnes, avec un choix exclusif dans chaque branche et une merveille au bout.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "Tient sur un seul écran, et chaque branche correspond à un style de jeu.",
+      "fiche": "docs/game-design/catalogue.md#gd-020--arbre-a--les-trois-veines-"
+    },
+    {
+      "id": "GD-021",
+      "groupe": "Arbre d'évolution",
+      "titre": "Arbre en quatre ères, avancées tirées au sort",
+      "resume": "À chaque ère, cinq avancées tirées au sort ; en prendre trois fait passer à l'ère suivante.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Chaque partie diffère, mais c'est plus complexe pour commencer.",
+      "fiche": "docs/game-design/catalogue.md#gd-021--arbre-b--les-quatre-lunes-"
+    },
+    {
+      "id": "GD-022",
+      "groupe": "Arbre d'évolution",
+      "titre": "Arbre propre au clan, gagné par exploits",
+      "resume": "Chaque clan a son petit arbre, qui pousse quand on accomplit des exploits, sans rien dépenser.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Très beau, mais un arbre à créer par clan.",
+      "fiche": "docs/game-design/catalogue.md#gd-022--arbre-c--larbre-vivant-"
+    },
+    {
+      "id": "GD-023",
+      "groupe": "Arbre d'évolution",
+      "titre": "Savoirs qui circulent entre voisins",
+      "resume": "Une avancée déjà connue d'un voisin rencontré coûte un quart de moins.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Aide à rattraper, à ajouter une fois le jeu de base réglé.",
+      "fiche": "docs/game-design/catalogue.md#gd-023--le-puits-des-savoirs"
+    },
+    {
+      "id": "GD-024",
+      "groupe": "Arbre d'évolution",
+      "titre": "Comment montent les prix des avancées",
+      "resume": "Comparer trois façons de faire monter les prix : par palier, par nombre de villes, par avancées déjà prises.",
+      "interet": 2,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Se tranche en faisant jouer des parties, pas sur le papier.",
+      "fiche": "docs/game-design/catalogue.md#gd-024--montée-des-coûts"
+    },
+    {
+      "id": "GD-025",
+      "groupe": "Arbre d'évolution",
+      "titre": "Avancées qui en ferment une autre",
+      "resume": "À certains paliers, prendre une avancée ferme l'autre pour toute la partie.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Force de vrais choix ; deux joueurs du même clan ne jouent pas pareil.",
+      "fiche": "docs/game-design/catalogue.md#gd-025--avancées-exclusives"
+    },
+    {
+      "id": "GD-026",
+      "groupe": "Arbre d'évolution",
+      "titre": "Chaque clan démarre avec sa propre avancée",
+      "resume": "Une avancée propre au clan est acquise dès le premier tour.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "La différence la plus simple entre clans, visible tout de suite.",
+      "fiche": "docs/game-design/catalogue.md#gd-026--nœud-de-départ-du-clan"
+    },
+    {
+      "id": "GD-027",
+      "groupe": "Arbre d'évolution",
+      "titre": "Merveilles uniques au bout des branches",
+      "resume": "Au bout de chaque branche, une merveille que seul le premier qui la bâtit obtient.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "Une course visible entre joueurs pour la fin de partie.",
+      "fiche": "docs/game-design/catalogue.md#gd-027--grands-ouvrages"
+    },
+    {
+      "id": "GD-040",
+      "groupe": "Clans",
+      "titre": "Crocs-Rouges, le clan qui attaque",
+      "resume": "Des pillards qui frappent tôt et gagnent des ressources à chaque victoire, mais s'essoufflent s'ils échouent.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Le style le plus simple à comprendre, demandé.",
+      "fiche": "docs/game-design/catalogue.md#gd-040--crocs-rouges-agressif"
+    },
+    {
+      "id": "GD-041",
+      "groupe": "Clans",
+      "titre": "Murailliers, le clan qui se défend",
+      "resume": "Des bâtisseurs de forts dont le territoire ralentit et use les envahisseurs.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Demandé, et l'adversaire naturel du clan qui attaque.",
+      "fiche": "docs/game-design/catalogue.md#gd-041--murailliers-défensif"
+    },
+    {
+      "id": "GD-042",
+      "groupe": "Clans",
+      "titre": "Sèves, le clan dont les unités mutent",
+      "resume": "Leurs créatures choisissent une mutation après avoir combattu ou survécu, et deviennent redoutables avec le temps.",
+      "interet": 3,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Demandé et très original, mais coûteux ; le choix est posé dans les questions.",
+      "fiche": "docs/game-design/catalogue.md#gd-042--sèves-évolution"
+    },
+    {
+      "id": "GD-043",
+      "groupe": "Clans",
+      "titre": "Veilleurs d'Astres, le clan savant",
+      "resume": "Des savants qui paient moins leurs avancées et copient celles de leurs voisins.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Demandé et simple à faire.",
+      "fiche": "docs/game-design/catalogue.md#gd-043--veilleurs-dastres-recherche"
+    },
+    {
+      "id": "GD-044",
+      "groupe": "Clans",
+      "titre": "Vents-Errants, le clan explorateur",
+      "resume": "Des voyageurs rapides qui voient loin et tirent plus des ruines et des découvertes.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Demandé ; rend le début de partie vif.",
+      "fiche": "docs/game-design/catalogue.md#gd-044--vents-errants-exploration"
+    },
+    {
+      "id": "GD-045",
+      "groupe": "Clans",
+      "titre": "Guilde des Gués, le clan marchand",
+      "resume": "Des marchands qui ouvrent des comptoirs chez les autres et s'enrichissent avec eux.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Gagner sans détruire ; à ajouter après les quatre premiers.",
+      "fiche": "docs/game-design/catalogue.md#gd-045--guilde-des-gués-commerce"
+    },
+    {
+      "id": "GD-046",
+      "groupe": "Clans",
+      "titre": "Conseil des Plumes, le clan diplomate",
+      "resume": "Des émissaires qui gagnent par les pactes et rallient les villages sans combattre.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Demande tout un système de pactes, et plusieurs joueurs.",
+      "fiche": "docs/game-design/catalogue.md#gd-046--conseil-des-plumes-diplomatie"
+    },
+    {
+      "id": "GD-047",
+      "groupe": "Clans",
+      "titre": "Chanteurs du Soir, le clan qui convertit",
+      "resume": "Leur influence s'étend autour de leurs villes et fait basculer les villes voisines.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Conquête sans armes, belle idée pour une suite.",
+      "fiche": "docs/game-design/catalogue.md#gd-047--chanteurs-du-soir-culture"
+    },
+    {
+      "id": "GD-048",
+      "groupe": "Clans",
+      "titre": "Peuple des Chariots, le clan nomade",
+      "resume": "Leurs villes se replient en convoi et vont se réinstaller ailleurs.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Rare dans le genre, mais bouleverse les règles des villes.",
+      "fiche": "docs/game-design/catalogue.md#gd-048--peuple-des-chariots-nomade"
+    },
+    {
+      "id": "GD-049",
+      "groupe": "Clans",
+      "titre": "Fils de l'Écume, le clan marin",
+      "resume": "Des marins qui bâtissent sur l'eau et attaquent depuis la mer.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Demande d'abord les bateaux et les cartes d'îles.",
+      "fiche": "docs/game-design/catalogue.md#gd-049--fils-de-lécume-mer"
+    },
+    {
+      "id": "GD-050",
+      "groupe": "Clans",
+      "titre": "Racines, le clan de la forêt",
+      "resume": "Ils font pousser la forêt, s'y cachent et y sont plus forts.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "La carte change pendant la partie ; pour une suite.",
+      "fiche": "docs/game-design/catalogue.md#gd-050--racines-nature"
+    },
+    {
+      "id": "GD-051",
+      "groupe": "Clans",
+      "titre": "Tailleurs de Pierre, le clan bâtisseur",
+      "resume": "Des maîtres d'œuvre qui bâtissent moins cher et peuvent élever deux merveilles.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Style paisible, à ajouter après les merveilles.",
+      "fiche": "docs/game-design/catalogue.md#gd-051--tailleurs-de-pierre-bâtisseurs"
+    },
+    {
+      "id": "GD-052",
+      "groupe": "Clans",
+      "titre": "Ruche Grise, le clan de la multitude",
+      "resume": "Beaucoup d'unités faibles et bon marché qui se renforcent en restant groupées.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Bel opposé du clan des champions ; pour une suite.",
+      "fiche": "docs/game-design/catalogue.md#gd-052--ruche-grise-essaim"
+    },
+    {
+      "id": "GD-053",
+      "groupe": "Clans",
+      "titre": "Ordre des Lames, le clan des champions",
+      "resume": "Quelques champions très forts qui gagnent en renommée à chaque victoire.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Attachement aux héros ; pour une suite.",
+      "fiche": "docs/game-design/catalogue.md#gd-053--ordre-des-lames-élite"
+    },
+    {
+      "id": "GD-054",
+      "groupe": "Clans",
+      "titre": "Masques, le clan de la ruse",
+      "resume": "Leurres, espions et unités invisibles pour tromper l'adversaire.",
+      "interet": 1,
+      "cout": "L",
+      "recommandation": "jeter",
+      "raison": "Le bluff complique beaucoup l'adversaire ordinateur pour un plaisir surtout entre humains.",
+      "fiche": "docs/game-design/catalogue.md#gd-054--masques-ruse"
+    },
+    {
+      "id": "GD-055",
+      "groupe": "Clans",
+      "titre": "Voyants de la Brume, le clan mystique",
+      "resume": "Des prêtres qui lancent des rituels sur la brume, le terrain et le temps.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Magie bien liée à l'univers, mais lourde à faire.",
+      "fiche": "docs/game-design/catalogue.md#gd-055--voyants-de-la-brume-mystique"
+    },
+    {
+      "id": "GD-056",
+      "groupe": "Clans",
+      "titre": "Fouisseurs, le clan des tunnels",
+      "resume": "Des mineurs qui creusent des tunnels secrets entre leurs villes et exploitent les montagnes.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Surprise tactique ; pour une suite.",
+      "fiche": "docs/game-design/catalogue.md#gd-056--fouisseurs-souterrain"
+    },
+    {
+      "id": "GD-057",
+      "groupe": "Clans",
+      "titre": "Glaneurs, le clan des récupérateurs",
+      "resume": "Ils récupèrent les débris de toutes les batailles pour en tirer ressources et unités.",
+      "interet": 1,
+      "cout": "M",
+      "recommandation": "jeter",
+      "raison": "Fait doublon avec le butin du clan qui attaque.",
+      "fiche": "docs/game-design/catalogue.md#gd-057--glaneurs-recyclage"
+    },
+    {
+      "id": "GD-058",
+      "groupe": "Clans",
+      "titre": "Bergers des Cimes, le clan des dresseurs",
+      "resume": "Ils apprivoisent les bêtes sauvages au lieu de les tuer.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Dépend des bêtes sauvages, qui viendront plus tard.",
+      "fiche": "docs/game-design/catalogue.md#gd-058--bergers-des-cimes-bêtes"
+    },
+    {
+      "id": "GD-059",
+      "groupe": "Clans",
+      "titre": "Gardiens du Feu, le clan qui brûle",
+      "resume": "Ils incendient la forêt pour en faire des champs et brûlent le terrain devant l'ennemi.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Rival naturel du clan de la forêt ; à ajouter avec lui.",
+      "fiche": "docs/game-design/catalogue.md#gd-059--gardiens-du-feu-terre-brûlée"
+    },
+    {
+      "id": "GD-070",
+      "groupe": "Différences et équilibre",
+      "titre": "Clans de plus en plus différents, par étapes",
+      "resume": "D'abord un bonus de départ et une unité propre, puis une règle propre, enfin un objectif propre.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Avancer par petits pas, chaque étape testée avant la suivante.",
+      "fiche": "docs/game-design/catalogue.md#gd-070--échelle-dasymétrie-en-4-niveaux"
+    },
+    {
+      "id": "GD-071",
+      "groupe": "Différences et équilibre",
+      "titre": "Attaque, économie, défense : chacun bat l'autre",
+      "resume": "L'attaquant bat l'économe, l'économe bat le défenseur, le défenseur bat l'attaquant.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Aucune stratégie ne gagne toujours.",
+      "fiche": "docs/game-design/catalogue.md#gd-071--triangle-des-styles"
+    },
+    {
+      "id": "GD-072",
+      "groupe": "Différences et équilibre",
+      "titre": "Lances, cavaliers, archers : chacun bat l'autre",
+      "resume": "Les lances battent les cavaliers, les cavaliers les archers, les archers les lances ; plus des engins de siège et des navires.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Des combats tactiques et lisibles.",
+      "fiche": "docs/game-design/catalogue.md#gd-072--triangle-des-unités"
+    },
+    {
+      "id": "GD-073",
+      "groupe": "Différences et équilibre",
+      "titre": "Équilibrer les clans en simulant des parties",
+      "resume": "L'ordinateur joue des milliers de parties entre clans, et on ajuste les chiffres jusqu'à ce qu'aucun ne domine.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "L'équilibre se mesure au lieu de se deviner.",
+      "fiche": "docs/game-design/catalogue.md#gd-073--équilibrage-par-parties-simulées"
+    },
+    {
+      "id": "GD-074",
+      "groupe": "Différences et équilibre",
+      "titre": "Clans tirés au sort ou interdits",
+      "resume": "En partie à plusieurs, chacun reçoit deux clans tirés au sort ou en interdit un.",
+      "interet": 1,
+      "cout": "S",
+      "recommandation": "plus-tard",
+      "raison": "Utile seulement quand il y aura des parties entre amis.",
+      "fiche": "docs/game-design/catalogue.md#gd-074--tirage-et-interdiction-de-clans"
+    },
+    {
+      "id": "GD-075",
+      "groupe": "Différences et équilibre",
+      "titre": "Clans à assembler en deux pièces",
+      "resume": "Un clan se compose d'une origine et d'une tradition choisies séparément, pour des dizaines de combinaisons.",
+      "interet": 2,
+      "cout": "M",
+      "recommandation": "plus-tard",
+      "raison": "Beaucoup de variété, mais plus dur à équilibrer.",
+      "fiche": "docs/game-design/catalogue.md#gd-075--clans-à-deux-pièces"
+    },
+    {
+      "id": "GD-076",
+      "groupe": "Différences et équilibre",
+      "titre": "Un objectif de victoire propre à chaque clan",
+      "resume": "Chaque clan a son but, annoncé à tous, comme convertir trois villes ou accomplir un grand rite.",
+      "interet": 2,
+      "cout": "L",
+      "recommandation": "plus-tard",
+      "raison": "Très riche, mais demande d'abord un jeu bien équilibré.",
+      "fiche": "docs/game-design/catalogue.md#gd-076--victoire-propre-au-clan"
+    },
+    {
+      "id": "GD-077",
+      "groupe": "Différences et équilibre",
+      "titre": "Clans décrits par une simple fiche",
+      "resume": "Chaque clan est une fiche de chiffres et de capacités, ce qui permet d'ajouter ou de régler un clan facilement.",
+      "interet": 3,
+      "cout": "S",
+      "recommandation": "garder",
+      "raison": "Rend possible l'équilibrage par parties simulées.",
+      "fiche": "docs/game-design/catalogue.md#gd-077--clans-décrits-par-des-données"
+    },
+    {
+      "id": "GD-090",
+      "groupe": "Première version",
+      "titre": "Première version jouable : le socle",
+      "resume": "Carte moyenne, quatre clans, arbre en trois branches, victoire au score au trentième tour ou par conquête.",
+      "interet": 3,
+      "cout": "M",
+      "recommandation": "garder",
+      "raison": "Le plus petit jeu complet qui couvre tous les styles demandés.",
+      "fiche": "docs/game-design/catalogue.md#gd-090--socle-minimal-v1"
+    }
+  ],
+  "questions": [
+    {
+      "id": "GD-Q1",
+      "question": "Le clan dont les unités mutent entre-t-il dans la première version ?",
+      "contexte": "Il est demandé et très original, mais c'est le plus coûteux à faire.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Plus tard, en deuxième version",
+          "detail": "On commence par quatre clans simples, il arrive ensuite."
+        },
+        {
+          "id": "b",
+          "libelle": "Oui, à la place du savant",
+          "detail": "Quatre clans dont le mutant, le clan savant attend."
+        },
+        {
+          "id": "c",
+          "libelle": "Oui, en cinquième clan",
+          "detail": "Cinq clans dès le départ, première version plus longue à faire."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-042",
+        "GD-043",
+        "GD-090"
+      ]
+    },
+    {
+      "id": "GD-Q2",
+      "question": "Quel arbre d'évolution pour commencer ?",
+      "contexte": "Trois formes ont été esquissées.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Trois branches sur un écran",
+          "detail": "Seize avancées en trois colonnes : force, croissance, savoir."
+        },
+        {
+          "id": "b",
+          "libelle": "Quatre ères tirées au sort",
+          "detail": "Avancées tirées à chaque ère ; chaque partie diffère."
+        },
+        {
+          "id": "c",
+          "libelle": "Exploits propres à chaque clan",
+          "detail": "Pas de dépense ; l'arbre pousse quand on accomplit des exploits."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-020",
+        "GD-021",
+        "GD-022"
+      ]
+    },
+    {
+      "id": "GD-Q3",
+      "question": "Combien de monnaies dans le jeu ?",
+      "contexte": "Une monnaie est plus lisible ; deux donnent plus de profondeur.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Une seule monnaie",
+          "detail": "Elle paie tout : unités, bâtiments et avancées."
+        },
+        {
+          "id": "b",
+          "libelle": "Deux monnaies",
+          "detail": "Une pour produire, une autre pour le savoir."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-004"
+      ]
+    },
+    {
+      "id": "GD-Q4",
+      "question": "L'univers des îles sortant de la brume vous convient-il ?",
+      "contexte": "C'est un univers de travail provisoire, qui explique la brume et la mer qui monte.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Oui, comme base provisoire",
+          "detail": "On le garde le temps de construire le jeu."
+        },
+        {
+          "id": "b",
+          "libelle": "Non, proposer d'autres univers",
+          "detail": "La recherche et la direction artistique proposent d'autres pistes."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-006",
+        "GD-009"
+      ]
+    },
+    {
+      "id": "GD-Q5",
+      "question": "Jusqu'où les clans diffèrent-ils dans la première version ?",
+      "contexte": "Plus ils diffèrent, plus ils sont longs à faire et à équilibrer.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Bonus de départ et unité propre",
+          "detail": "Chaque clan a son avancée de départ et une unité à lui."
+        },
+        {
+          "id": "b",
+          "libelle": "Plus une règle propre",
+          "detail": "Chaque clan a en plus une règle qui n'appartient qu'à lui."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-070",
+        "GD-026"
+      ]
+    },
+    {
+      "id": "GD-Q6",
+      "question": "Quelle taille de carte et combien de joueurs au plus ?",
+      "contexte": "Ce choix fixe la façon de construire l'adversaire ordinateur.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Moyenne, jusqu'à quatre joueurs",
+          "detail": "Quatorze cases de côté au plus ; on commence à onze."
+        },
+        {
+          "id": "b",
+          "libelle": "Grande, jusqu'à six joueurs",
+          "detail": "Dix-huit cases de côté ; entraînement de l'ordinateur bien plus long."
+        },
+        {
+          "id": "c",
+          "libelle": "Petite, à deux seulement",
+          "detail": "Onze cases de côté, en un contre un uniquement."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-015",
+        "GD-003"
+      ]
+    },
+    {
+      "id": "GD-Q7",
+      "question": "Brouillard sur la carte ou non ?",
+      "contexte": "Ce choix fixe la façon de construire l'adversaire ordinateur.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Brouillard qui se souvient",
+          "detail": "Ce qui a été vu reste connu ; les ennemis ne se voient qu'à portée."
+        },
+        {
+          "id": "b",
+          "libelle": "Terrain caché, ennemis visibles",
+          "detail": "La carte se découvre, puis on y voit tout pour toujours."
+        },
+        {
+          "id": "c",
+          "libelle": "Aucun brouillard",
+          "detail": "Tout est visible tout le temps ; l'exploration perd son intérêt."
+        },
+        {
+          "id": "d",
+          "libelle": "Au choix à chaque partie",
+          "detail": "Deux façons de jouer, deux fois plus de travail pour l'ordinateur."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-016",
+        "GD-006"
+      ]
+    },
+    {
+      "id": "GD-Q8",
+      "question": "Les combats ont-ils une part de chance ?",
+      "contexte": "Ce choix fixe la façon de construire l'adversaire ordinateur.",
+      "options": [
+        {
+          "id": "a",
+          "libelle": "Aucune chance",
+          "detail": "Le résultat annoncé est exact ; la chance ne sert qu'à créer la carte."
+        },
+        {
+          "id": "b",
+          "libelle": "Un peu de chance",
+          "detail": "Les dégâts varient d'un dixième au plus."
+        },
+        {
+          "id": "c",
+          "libelle": "Beaucoup de chance",
+          "detail": "Chaque combat a une probabilité de victoire."
+        }
+      ],
+      "recommandation": "a",
+      "multiple": false,
+      "idees_liees": [
+        "GD-017",
+        "GD-007"
+      ]
+    }
+  ]
+}

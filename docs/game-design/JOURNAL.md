@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Fichier de tri pour la page à cocher
+
+- **Auteur** : Claude, session S2
+- **Branche et commit** : `s2-game-design`
+- **Objectif** : demande de la session maître : un `catalogue.json` pour la page de tri sur téléphone.
+- **Réalisé** : `catalogue.json` : les 54 idées avec groupe, titre, résumé, intérêt, coût, recommandation (27 garder, 25 plus tard, 2 jeter : GD-054 Masques, GD-057 Glaneurs) et lien vers la fiche ; 8 questions (les cinq du rapport, plus taille de carte, brouillard et hasard). Produit par un script de travail hors dépôt qui vérifie que toutes les idées du catalogue y sont et les longueurs demandées.
+- **Décisions** : aucune.
+- **Vérifications** : `python3 -m json.tool` passe ; contrôle « dépôt public ».
+- **Non vérifié sur téléphone** : l'affichage de la page de tri (construite par la session maître).
+- **Problèmes et dette** : les liens vers les fiches suivent la règle d'ancre de GitHub, non vérifiés dans un navigateur.
+- **Prochaine étape** : attendre le tri.
+
 ## 2026-11-27 · Trois fiches pour l'IA : taille de carte, brouillard, hasard
 
 - **Auteur** : Claude, session S2
