@@ -28,3 +28,12 @@ Clans, noms et univers s'inventent (D-03) : des noms de travail originaux, jamai
 ## Voisins
 
 La session 5 fait une veille large du monde du jeu vidéo (modes de jeu, social, modèle économique…) ; toi, tu conçois nos systèmes (arbre, clans, styles de jeu). La session 6 s'occupe des visuels, la session 3 de l'IA.
+
+## Mission 2 : les règles de la première version (2026-11-27)
+
+Le tri est fait : `docs/TRI.md` et `docs/DECISIONS.md` (D-22 à D-29) sur `main`. Écris `docs/game-design/regles-v1.md`, des règles assez précises pour que la session 1 les code dans le moteur Rust et que la session 3 les apprenne à l'IA :
+- tout ce que le tri a gardé et tout ce que les réponses ont fixé (D-23), avec la victoire de D-28 : capitale adverse ou seuil de points, sans fin au score à un tour fixé ;
+- les idées gardées que D-28 contredit (VE-015, GD-010 pour les tours restants, le socle GD-090) : dis comment tu les accordes ;
+- les chiffres (coûts, points de vie, dégâts, portées, seuil de points) dans des tables, en données que le moteur lira (GD-077, VE-061) ;
+- les cas limites, et ce qui reste à décider, en questions numérotées avec ta recommandation.
+Ajoute `docs/game-design/regles-v1-resume.md` : une page en français courant que l'utilisateur lira sur son téléphone. Rien de codé.

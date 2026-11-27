@@ -28,12 +28,28 @@ Une session maître pilote six sessions de travail (détail et règles : `docs/O
 
 ## Commandes
 
-À écrire par la session 1 quand la technologie sera choisie (D-04).
+Le code est pour l'instant sur la branche `s1-environnement` ; détail dans `docs/environnement/commandes.md`.
+
+| Dossier | Langage | Contenu |
+|---|---|---|
+| `moteur/regles` | Rust | Règles du jeu : sans écran, sans horloge, sans virgule, reproductibles par graine ; pour le téléphone et pour l'entraînement sur le PC |
+| `moteur/android` | Rust | Pont JNI vers l'application (`libjeu4x_android.so`) |
+| `app` | Kotlin + Compose | Application Android ; `fr.jeu4x.app.moteur.Moteur` appelle le pont |
+| `.github/workflows/apk.yml` | GitHub Actions | Tests, puis APK signé en pré-version |
+
+```bash
+cd moteur && cargo test                     # règles (Rust)
+./gradlew :app:testDebugUnitTest            # application, pont Kotlin ↔ Rust, captures d'écran
+./gradlew :app:assembleDebug                # APK de debug (jamais livré)
+```
+
+- `:app:testDebugUnitTest` compile d'abord le moteur pour le PC et le charge dans les tests ; `assemble*` le compile pour le téléphone par `cargo ndk` (`arm64-v8a`) ; captures dans `app/build/captures/*.png`.
+- En session cloud : SDK Android 35 et NDK 27.2.12479018 (Library, `docs/methodes/android-en-session-cloud.md`, § 1 et 2, miroir Maven compris), `rustup target add aarch64-linux-android`, `cargo install cargo-ndk --version 4.1.2 --locked`, et le pot Robolectric `android-all-instrumented:15-robolectric-12650502-i7` préchargé depuis le miroir de Google.
 
 ## Livraison
 
-- Canal, version et signature : à définir par la session 1 après le choix de la technologie, avec la Library (`maj-auto-github`, `docs/methodes/android-en-session-cloud.md`).
-- Fichier livré : `Jeu4X.<version>.apk`, qui s'installe par-dessus la version précédente, données gardées.
+- Version d'essai (D-17) : `Jeu4X-essai.<version>.apk`, identifiant d'application à part, clé d'essai fixe, pré-version dans les Releases du dépôt ; elle s'installe à côté du vrai jeu.
+- Vrai jeu : `Jeu4X.0.1.<n>.apk` (`fr.jeu4x.app`, D-18), pré-version `apercu-0.1.<n>` dès que la clé de signature est dans les secrets du dépôt (`docs/environnement/signature.md`). Il s'installe par-dessus la version précédente, données gardées.
 - Dépôt : **public** (D-01).
 
 ## Dépôt public : rien de privé
