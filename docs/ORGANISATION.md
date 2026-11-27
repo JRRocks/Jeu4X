@@ -6,7 +6,7 @@ L'utilisateur parle à la session maître, et à elle seule. La session maître 
 
 | N° | Rôle | Branche | Dossier | Préfixe des idées | État |
 |---|---|---|---|---|---|
-| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | version d'essai à livrer (D-17), puis le plateau (D-16) |
+| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | étape C livrée (essai 0.1.10), attend le tri |
 | S2 | Recherche de game design : arbre d'évolution, clans, styles de jeu | `s2-game-design` | `docs/game-design/` | `GD-` | livré, attend le tri |
 | S3 | IA évolutive : apprentissage par renforcement, algorithmes génétiques, pré-entraînement | `s3-ia` | `docs/ia/` | `IA-` | livré, attend le tri |
 | S4 | Regroupement des données : serveur, local ou mixte, pour suivre l'évolution de l'IA | `s4-donnees` | `docs/donnees/` | `DO-` | livré, attend le tri |
