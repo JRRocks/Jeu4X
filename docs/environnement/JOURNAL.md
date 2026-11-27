@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Essai 0.1.6 vert à l'émulateur
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`, `1449b5d`, exécution CI n° 6 (7 min 20)
+- **Objectif** : premier passage de l'essai à l'émulateur (D-19).
+- **Réalisé** : pré-version `essai-0.1.6` publiée avec l'APK, deux captures et le résumé.
+- **Décisions** : aucune.
+- **Vérifications** : résumé de la CI, Android 14 (API 34) x86_64 : installation OK ; ouverture OK, « Moteur de règles 1 : contrôle réussi » à l'écran ; plantage provoqué : écran « Jeu4X s'est arrêté » avec la cause « Plantage de test demandé », commit et appareil dans le rapport ; relance normale OK. Captures retéléchargées depuis la pré-version et regardées.
+- **Non vérifié sur téléphone** : processeur ARM réel (bibliothèque `arm64-v8a`), gestes, lisibilité, installation par-dessus une version précédente, boutons Copier et Partager du rapport.
+- **Problèmes et dette** : captures de l'émulateur en 320 × 640 (définition par défaut de l'appareil virtuel).
+- **Prochaine étape** : affichage du plateau en perspective, sans adresses (D-16), avec le même essai à l'émulateur à chaque version.
+
 ## 2026-11-27 · Essai vérifié à l'émulateur dans la CI (D-19)
 
 - **Auteur** : Claude, session S1
