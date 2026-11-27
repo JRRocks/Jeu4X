@@ -1,5 +1,5 @@
-//! Tables de données des règles V1 (`regles-v1.md`, § 12). Valeurs de départ, à régler
-//! par parties simulées. Identifiants en anglais dans le document, noms français ici (D-06 :
+//! Tables de données des règles V1 (`regles-v1.md`, § 12), réglées pour la durée des
+//! parties par S2 (`reglage-duree.md`, 2026-11-27). Valeurs à régler par parties simulées. Identifiants en anglais dans le document, noms français ici (D-06 :
 //! le code suit la convention du projet ; les noms affichés vivent dans l'application).
 
 use crate::plateau::Terrain;
@@ -296,13 +296,18 @@ impl Batiment {
 }
 
 /// Niveaux de ville (§ 12.4), indice = niveau - 1.
-pub const COUT_NIVEAU: [i32; 5] = [0, 5, 8, 11, 14];
-pub const REVENU_NIVEAU: [i32; 5] = [2, 3, 4, 5, 6];
+pub const COUT_NIVEAU: [i32; 5] = [0, 8, 14, 20, 26];
+pub const REVENU_NIVEAU: [i32; 5] = [2, 2, 3, 3, 4];
 pub const ENTRETIEN_NIVEAU: [i32; 5] = [2, 3, 4, 5, 6];
-pub const POINTS_NIVEAU: [i32; 5] = [2, 4, 6, 8, 10];
+pub const POINTS_NIVEAU: [i32; 5] = [1, 2, 3, 4, 5];
 pub const BONUS_REVENU_CAPITALE: i32 = 2;
 pub const BONUS_ENTRETIEN_CAPITALE: i32 = 1;
 pub const POINTS_MERVEILLE: i32 = 6;
+/// Vivres de départ, et en plus par rang dans l'ordre de jeu (§ 12.1).
+pub const VIVRES_DEPART: i32 = 5;
+pub const VIVRES_PAR_RANG: i32 = 2;
+/// Défense en plus pour une unité dans sa propre capitale, qui s'ajoute à celle de ville.
+pub const BONUS_DEFENSE_CAPITALE: i32 = 2;
 
 /// Trésors des ruines (§ 3.3), avec leur poids sur 100.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -328,8 +333,8 @@ impl Tresor {
 /// Réglages qui dépendent du nombre de joueurs (§ 12.1) : villages, ruines, seuil.
 pub fn villages_ruines_seuil(nb_joueurs: u8) -> (usize, usize, i32) {
     match nb_joueurs {
-        2 => (8, 4, 45),
-        3 => (10, 5, 45),
-        _ => (14, 7, 40),
+        2 => (8, 4, 58),
+        3 => (10, 5, 56),
+        _ => (14, 7, 56),
     }
 }

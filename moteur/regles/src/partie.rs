@@ -387,11 +387,11 @@ impl Partie {
             ruines[c as usize] = t as u8;
         }
         // Ordre des joueurs tiré par la graine (§ 2.6) : les capitales le sont déjà ;
-        // le joueur de rang k reçoit k vivres de plus.
+        // le joueur de rang k reçoit 2k vivres de plus.
         let joueurs: Vec<Joueur> = (0..r.nb_joueurs)
             .map(|j| Joueur {
                 clan: Clan::depuis_u8(r.clans[j as usize]),
-                vivres: 5 + j as i32,
+                vivres: VIVRES_DEPART + VIVRES_PAR_RANG * j as i32,
                 avancees: 0,
                 points_acquis: 0,
                 elimine: false,
@@ -882,11 +882,8 @@ impl Partie {
     fn defense_ville(&self, d: &Unite) -> i32 {
         match self.ville_sur(d.case) {
             Some(i) if self.villes[i].joueur == Some(d.joueur) => {
-                if self.villes[i].a(Batiment::Remparts) {
-                    4
-                } else {
-                    2
-                }
+                let v = &self.villes[i];
+                (if v.a(Batiment::Remparts) { 4 } else { 2 }) + if v.capitale() { BONUS_DEFENSE_CAPITALE } else { 0 }
             }
             _ => 0,
         }
