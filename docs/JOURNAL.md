@@ -22,6 +22,18 @@ Gabarit :
 
 ---
 
+## 2026-11-27 · Point de contrôle : plateau choisi, version d'essai demandée
+
+- **Auteur** : Claude, session maître
+- **Branche et commit** : `main`
+- **Objectif** : faire le point sur les six sessions et transmettre les réponses de l'utilisateur.
+- **Réalisé** : S1 a livré l'étape B sauf l'APK (moteur Rust et pont JNI, application Kotlin + Compose vide, rapport de plantage repris de la Library, CI verte à l'exécution 3, vérifiée par l'outil GitHub) ; l'APK attend la clé de signature de l'utilisateur. L'utilisateur a choisi le plateau en perspective sans adresse visible (D-16) et une version d'essai installable tout de suite (D-17) ; consignes transmises à S1, information transmise à S6. Sessions 2 à 6 en attente du tri ; aucun choix encore enregistré sur la page de tri.
+- **Décisions** : D-16, D-17, D-18 ; section « Commandes » de `CLAUDE.md` remplie d'après S1.
+- **Vérifications** : exécutions de la CI lues (1 et 3 vertes, 2 en échec réparée) ; collection `tri` de la page lue, vide.
+- **Non vérifié sur téléphone** : tout ; la version d'essai n'est pas encore livrée.
+- **Problèmes et dette** : retours de S1 pour la Library (rapport de plantage repris sans retouche ; blocage de `captureToImage()` sous Robolectric 4.14 ; NDK à installer par `sdkmanager` sur la machine GitHub) à reporter dans les fiches.
+- **Prochaine étape** : relayer le lien de la version d'essai ; lire les choix du tri.
+
 ## 2026-11-27 · Tous les catalogues livrés, page de tri publiée
 
 - **Auteur** : Claude, session maître
