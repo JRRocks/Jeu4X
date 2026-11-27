@@ -9,7 +9,11 @@ import androidx.compose.ui.test.onNodeWithText
 import fr.jeu4x.app.EcranAccueil
 import fr.jeu4x.app.EtatAccueil
 import fr.jeu4x.app.EtatMoteur
+import fr.jeu4x.app.moteur.ActionPermise
+import fr.jeu4x.app.moteur.Clan
 import fr.jeu4x.app.moteur.TypeUnite
+import fr.jeu4x.app.plateau.EcranNouvellePartie
+import fr.jeu4x.app.plateau.Reglage
 import fr.jeu4x.app.plateau.EcranPartie
 import fr.jeu4x.app.plateau.PartieViewModel
 import java.io.File
@@ -35,29 +39,47 @@ class CapturesTest {
     }
 
     @Test
-    fun plateau() {
-        val vm = PartieViewModel { 7L }
-        compose.setContent { MaterialTheme { EcranPartie(vm.affichage, vm::toucherCase, vm::finDuTour, vm::nouvellePartie) } }
+    fun partie() {
+        val vm = PartieViewModel({ 7L }, immediat = true)
+        compose.setContent {
+            MaterialTheme {
+                if (vm.enPartie) EcranPartie(vm.affichage, vm) else EcranNouvellePartie(vm.reglage, vm::choisirReglage, vm::commencer)
+            }
+        }
+        vm.choisirReglage(Reglage(3, Clan.MURAILLIERS))
+        compose.waitForIdle()
+        capturer("reglage")
+        vm.commencer()
         compose.onNodeWithText("Fin du tour").assertExists()
         capturer("plateau")
-        // Une unité choisie : sa portée en jaune.
-        vm.toucherCase(vm.affichage.etat.unites.first { it.joueur == 0 }.case)
-        compose.waitForIdle()
+        // Une unité choisie : pastilles blanches pour aller.
+        val h = vm.affichage.humain
+        vm.toucherCase(vm.affichage.etat.unites.first { it.joueur == h && it.type == TypeUnite.LANCIER }.case)
         capturer("plateau-choix")
-        // L'éclaireur part au plus loin : les cases qu'il quitte passent à « vue autrefois ».
-        val e = vm.affichage.etat
-        val eclaireur = e.unites.first { it.joueur == 0 && it.type == TypeUnite.ECLAIREUR }
-        vm.toucherCase(eclaireur.case)
-        val loin = vm.affichage.portee.maxBy { c ->
-            maxOf(kotlin.math.abs(e.colonne(c) - e.colonne(eclaireur.case)), kotlin.math.abs(e.rangee(c) - e.rangee(eclaireur.case))) * 1000 - c
+        // Sa capitale : produire, grandir, bâtir.
+        val cap = vm.affichage.etat.villes.first { it.joueur == h && it.capitale }.case
+        vm.toucherCase(cap)
+        if (vm.affichage.villeChoisie != cap) vm.toucherCase(cap)
+        capturer("ville")
+        vm.ouvrirArbre(true)
+        capturer("arbre")
+        vm.ouvrirArbre(false)
+        // L'ordinateur joue à notre place jusqu'à ce qu'une attaque soit possible : annonce du combat.
+        var n = 0
+        while (!vm.affichage.etat.finie && n++ < 60) {
+            val att = vm.affichage.permises.firstOrNull { it.genre == ActionPermise.ATTAQUER }
+            if (att != null) {
+                vm.toucherCase(att.a)
+                vm.toucherCase(att.b)
+                capturer("combat")
+                vm.annulerAttaque()
+                break
+            }
+            vm.jouerAMaPlace()
         }
-        vm.toucherCase(loin)
-        compose.waitForIdle()
-        capturer("plateau-souvenir")
-        // Tour du joueur Rouge : la vue glisse vers ses unités (D-21) et montre ce qu'il sait.
-        vm.finDuTour()
-        compose.waitForIdle()
-        capturer("plateau-tour-rouge")
+        n = 0
+        while (!vm.affichage.etat.finie && n++ < 200) vm.jouerAMaPlace()
+        capturer("fin")
     }
 
     private fun capturer(nom: String) {

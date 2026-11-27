@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import fr.jeu4x.app.crash.CrashActivity
 import fr.jeu4x.app.crash.CrashReporter
 import fr.jeu4x.app.moteur.Moteur
+import fr.jeu4x.app.plateau.EcranNouvellePartie
 import fr.jeu4x.app.plateau.EcranPartie
 import fr.jeu4x.app.plateau.PartieViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -39,7 +40,8 @@ class MainActivity : ComponentActivity() {
             MaterialTheme {
                 if (moteur is EtatMoteur.Ok) {
                     val vm: PartieViewModel = viewModel()
-                    EcranPartie(vm.affichage, vm::toucherCase, vm::finDuTour, vm::nouvellePartie)
+                    if (vm.enPartie) EcranPartie(vm.affichage, vm)
+                    else EcranNouvellePartie(vm.reglage, vm::choisirReglage, vm::commencer)
                 } else {
                     // Moteur absent ou faux : l'écran de contrôle dit pourquoi, plutôt qu'un plantage.
                     EcranAccueil(EtatAccueil(BuildConfig.VERSION_NAME, moteur))

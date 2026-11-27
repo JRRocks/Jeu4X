@@ -12,6 +12,8 @@
 
 pub mod aleatoire;
 pub mod carte;
+pub mod donnees;
+pub mod ia_simple;
 pub mod empreinte;
 pub mod hasard;
 pub mod partie;
@@ -19,7 +21,7 @@ pub mod plateau;
 pub mod replay;
 
 /// Version des règles, inscrite dans chaque replay et chaque modèle d'IA (E10).
-pub const VERSION_REGLES: u32 = 2;
+pub const VERSION_REGLES: u32 = 3;
 
 /// Auto-contrôle : tire `n` nombres depuis `graine` et rend l'empreinte de la suite.
 /// Sert au test de la frontière (même valeur sur le PC et sur le téléphone).

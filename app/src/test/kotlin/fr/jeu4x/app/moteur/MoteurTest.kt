@@ -8,7 +8,7 @@ import org.junit.Test
 class MoteurTest {
     @Test
     fun `la version des regles traverse le pont`() {
-        assertEquals(2, Moteur.versionRegles())
+        assertEquals(3, Moteur.versionRegles())
     }
 
     @Test

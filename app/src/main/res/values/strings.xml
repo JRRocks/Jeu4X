@@ -3,18 +3,152 @@
     <string name="app_name">Jeu4X</string>
     <string name="accueil_version">Version %1$s</string>
     <string name="accueil_moteur_ok">Moteur de règles %1$d : contrôle réussi</string>
-    <string name="partie_tour">Tour %1$d sur %2$d</string>
+    <string name="partie_tour">Tour %1$d</string>
+    <string name="partie_tour_limite">Tour %1$d sur %2$d</string>
     <string name="partie_joueur">Joueur %1$s</string>
+    <string name="partie_votre_tour">Votre tour</string>
+    <string name="partie_tour_de">Tour de %1$s…</string>
+    <string name="partie_vivres">Vivres %1$d (+%2$d)</string>
+    <string name="partie_score">Score %1$d / %2$d</string>
+    <string name="partie_unites">Unités %1$d / %2$d</string>
+    <string name="partie_annonce">%1$s a atteint le seuil : il gagne au début de son prochain tour s\'il le garde.</string>
     <string name="joueur_bleu">Bleu</string>
     <string name="joueur_rouge">Rouge</string>
     <string name="joueur_violet">Violet</string>
     <string name="joueur_jaune">Jaune</string>
+    <string name="partie_vous">vous</string>
     <string name="partie_fin_du_tour">Fin du tour</string>
     <string name="partie_nouvelle">Nouvelle partie</string>
-    <string name="partie_choisir_unite">Touchez une de vos unités.</string>
-    <string name="partie_choisir_case">Touchez une case jaune pour y aller.</string>
-    <string name="partie_unite_epuisee">Cette unité n\'a plus de déplacement ce tour-ci.</string>
+    <string name="partie_evolution">Évolution</string>
+    <string name="partie_choisir_unite">Touchez une de vos unités ou une de vos villes.</string>
+    <string name="partie_choisir_case">Points blancs : aller. Points rouges : attaquer.</string>
+    <string name="partie_unite_epuisee">Cette unité a fini pour ce tour.</string>
+    <string name="partie_unite_attend">Cette unité vient d\'arriver : elle agira au prochain tour.</string>
     <string name="partie_finie">Partie terminée.</string>
+    <string name="partie_ia_joue">L\'ordinateur joue…</string>
+    <string name="unite_resume">%1$s · %2$d / %3$d PV · %4$d pts</string>
+    <string name="unite_rallier">Rallier le village</string>
+    <string name="unite_prendre">Prendre la ville</string>
+    <string name="unite_renvoyer">Renvoyer</string>
+    <string name="combat_titre">Attaquer %1$s ?</string>
+    <string name="combat_degats">Vous infligez %1$d (il lui reste %2$d PV)</string>
+    <string name="combat_detruit">Vous infligez %1$d : détruit</string>
+    <string name="combat_riposte">Riposte : vous perdez %1$d (il vous reste %2$d PV)</string>
+    <string name="combat_sans_riposte">Pas de riposte</string>
+    <string name="combat_perdu">Riposte : %1$d, votre unité serait détruite</string>
+    <string name="combat_annuler">Annuler</string>
+    <string name="combat_attaquer">Attaquer</string>
+    <string name="ville_resume">Ville niveau %1$d · revenu %2$d</string>
+    <string name="ville_capitale">Capitale niveau %1$d · revenu %2$d</string>
+    <string name="ville_village">Village neutre : amenez une unité dessus, puis ralliez-le au tour suivant.</string>
+    <string name="ville_adverse">Ville de %1$s, niveau %2$d</string>
+    <string name="ville_produire">%1$s (%2$d)</string>
+    <string name="ville_grandir">Grandir (%1$d) : %2$s</string>
+    <string name="ville_batir">%1$s (%2$d)</string>
+    <string name="ville_rien">Rien à faire ici pour l\'instant.</string>
+    <string name="case_exploiter">%1$s (%2$d) : +%3$d revenu</string>
+    <string name="arbre_titre">Évolution · vivres %1$d</string>
+    <string name="arbre_fermer">Fermer</string>
+    <string name="arbre_acquise">acquise</string>
+    <string name="arbre_fermee">fermée</string>
+    <string name="arbre_prix">%1$d vivres</string>
+    <string name="fin_victoire">Victoire !</string>
+    <string name="fin_defaite">Défaite</string>
+    <string name="fin_nulle">Partie nulle</string>
+    <string name="fin_gagnant">%1$s gagne au tour %2$d.</string>
+    <string name="fin_nulle_detail">Personne n\'a gagné avant la fin du tour %1$d.</string>
+    <string name="reglage_titre">Nouvelle partie</string>
+    <string name="reglage_joueurs">Nombre de joueurs</string>
+    <string name="reglage_clan">Votre clan</string>
+    <string name="reglage_adversaires">Les autres joueurs sont tenus par l\'ordinateur. L\'ordre de jeu est tiré au sort.</string>
+    <string name="reglage_commencer">Commencer</string>
+    <string name="reglage_carte">Carte n° %1$d</string>
+    <string-array name="noms_unites">
+        <item>Éclaireur</item>
+        <item>Lancier</item>
+        <item>Archer</item>
+        <item>Cavalier</item>
+        <item>Catapulte</item>
+        <item>Coureur de crête</item>
+        <item>Porte-pavois</item>
+        <item>Astronome</item>
+        <item>Guetteur-planeur</item>
+    </string-array>
+    <string-array name="noms_clans">
+        <item>Crocs-Rouges</item>
+        <item>Murailliers</item>
+        <item>Veilleurs d\'Astres</item>
+        <item>Vents-Errants</item>
+    </string-array>
+    <string-array name="clans_resumes">
+        <item>Attaque : +2 vivres par unité détruite. Coureur de crête : bouge encore après avoir attaqué.</item>
+        <item>Défense : capitale à remparts, remparts à 3 vivres. Porte-pavois : +1 défense à ses voisins.</item>
+        <item>Savoir : avancées moins chères. Astronome : regarde au loin.</item>
+        <item>Exploration : +1 vision, ruines plus riches. Guetteur-planeur : passe les montagnes.</item>
+    </string-array>
+    <string-array name="branches">
+        <item>Fer</item>
+        <item>Terre</item>
+        <item>Souffle</item>
+    </string-array>
+    <string-array name="noms_avancees">
+        <item>Arcs</item>
+        <item>Dressage</item>
+        <item>Remparts</item>
+        <item>Forge</item>
+        <item>L\'Arène des Crêtes</item>
+        <item>Champs</item>
+        <item>Carrières</item>
+        <item>Marchés</item>
+        <item>Greniers</item>
+        <item>Le Grand Verger</item>
+        <item>Sentiers</item>
+        <item>Mécanique</item>
+        <item>Cartographes</item>
+        <item>Écoles</item>
+        <item>La Tour des Brumes</item>
+    </string-array>
+    <string-array name="effets_avancees">
+        <item>Archer</item>
+        <item>Cavalier</item>
+        <item>Bâtir des remparts (ferme Forge)</item>
+        <item>+1 attaque au contact (ferme Remparts)</item>
+        <item>Merveille : +2 PV à vos unités</item>
+        <item>Exploiter les plaines</item>
+        <item>Exploiter les collines</item>
+        <item>Bâtir des marchés (ferme Greniers)</item>
+        <item>Grandir coûte 2 de moins (ferme Marchés)</item>
+        <item>Merveille : +4 revenu</item>
+        <item>La forêt ne coûte que 1</item>
+        <item>Catapulte</item>
+        <item>+1 vision (ferme Écoles)</item>
+        <item>Avancées 2 de moins (ferme Cartographes)</item>
+        <item>Merveille : toute la carte découverte</item>
+    </string-array>
+    <string-array name="noms_batiments">
+        <item>Remparts</item>
+        <item>Marché</item>
+        <item>L\'Arène des Crêtes</item>
+        <item>Le Grand Verger</item>
+        <item>La Tour des Brumes</item>
+    </string-array>
+    <string-array name="noms_exploitations">
+        <item>Cueillette</item>
+        <item>Champ</item>
+        <item>Carrière</item>
+    </string-array>
+    <string-array name="cadeaux_a">
+        <item>+1 revenu</item>
+        <item>territoire agrandi</item>
+        <item>+2 revenu</item>
+        <item>+2 points</item>
+    </string-array>
+    <string-array name="cadeaux_b">
+        <item>un Lancier offert</item>
+        <item>remparts offerts</item>
+        <item>+2 unités entretenues</item>
+        <item>un Cavalier offert</item>
+    </string-array>
     <string name="accueil_moteur_ko">Moteur de règles : %1$s</string>
 
     <string name="crash_title">Jeu4X s\'est arrêté</string>

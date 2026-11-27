@@ -6,6 +6,7 @@
 //! départs équitables (§ 2.3). Entiers seulement.
 
 use crate::hasard::Hasard;
+use crate::donnees::{villages_ruines_seuil, Tresor};
 use crate::plateau::{Case, Plateau, Terrain};
 
 /// Parts de la carte, en pour cent (§ 12.2) : eau, montagne, colline, forêt ; le reste en plaine.
@@ -24,6 +25,10 @@ pub struct Carte {
     pub plateau: Plateau,
     /// Capitale de chaque joueur, dans l'ordre des joueurs.
     pub capitales: Vec<Case>,
+    /// Villages neutres (§ 2.4).
+    pub villages: Vec<Case>,
+    /// Ruines et leur trésor, tiré à la création (§ 2.5).
+    pub ruines: Vec<(Case, Tresor)>,
 }
 
 /// Champ de valeurs 0..1000 lissé deux fois (moyenne des 3 × 3 cases) : des taches, pas du bruit.
@@ -226,7 +231,59 @@ pub fn essayer(taille: u8, nb_joueurs: u8, distance_min: u8, h: &mut Hasard) -> 
     if capitales.iter().any(|&c| !r[c as usize]) {
         return None;
     }
-    Some(Carte { plateau: p, capitales })
+    let (nb_villages, nb_ruines, _) = villages_ruines_seuil(nb_joueurs);
+    let villages = placer_villages(&p, &capitales, nb_villages, h)?;
+    let mut libres: Vec<Case> = (0..p.nb_cases() as Case)
+        .filter(|&c| {
+            p.terrain(c).cout().is_some() && !villages.contains(&c) && capitales.iter().all(|&k| p.distance(k, c) >= 3)
+        })
+        .collect();
+    melanger(&mut libres, h);
+    if libres.len() < nb_ruines {
+        return None;
+    }
+    let ruines = libres[..nb_ruines].iter().map(|&c| (c, Tresor::tirer(h.sous(100)))).collect();
+    Some(Carte { plateau: p, capitales, villages, ruines })
+}
+
+/// Villages (§ 2.3 et 2.4) : d'abord deux par capitale, à distance 2 à 4, plus proches
+/// d'elle que de toute autre ; puis le reste. Sur plaine, forêt ou colline, à 2 au moins
+/// de toute ville et de tout autre village.
+fn placer_villages(p: &Plateau, capitales: &[Case], nombre: usize, h: &mut Hasard) -> Option<Vec<Case>> {
+    let mut villages: Vec<Case> = Vec::with_capacity(nombre);
+    let permis = |c: Case, villages: &[Case]| {
+        matches!(p.terrain(c), Terrain::Plaine | Terrain::Foret | Terrain::Colline)
+            && capitales.iter().chain(villages.iter()).all(|&k| p.distance(k, c) >= 2)
+    };
+    for (i, &cap) in capitales.iter().enumerate() {
+        for _ in 0..2 {
+            let mut proches: Vec<Case> = p
+                .carre(cap, 4)
+                .filter(|&c| {
+                    let d = p.distance(cap, c);
+                    d >= 2
+                        && permis(c, &villages)
+                        && capitales.iter().enumerate().all(|(j, &k)| j == i || p.distance(k, c) > d)
+                })
+                .collect();
+            if proches.is_empty() {
+                return None;
+            }
+            melanger(&mut proches, h);
+            villages.push(proches[0]);
+        }
+    }
+    let mut toutes: Vec<Case> = (0..p.nb_cases() as Case).collect();
+    melanger(&mut toutes, h);
+    for c in toutes {
+        if villages.len() >= nombre {
+            break;
+        }
+        if permis(c, &villages) {
+            villages.push(c);
+        }
+    }
+    (villages.len() >= nombre).then_some(villages)
 }
 
 #[cfg(test)]
