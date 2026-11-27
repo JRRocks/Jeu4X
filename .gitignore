@@ -1,0 +1,13 @@
+# Gradle et Android
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+# Rust
+moteur/target/
+# Clé de signature : jamais versionnée
+app/keystore-release/
+*.jks
+*.keystore

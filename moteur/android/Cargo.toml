@@ -1,0 +1,14 @@
+[package]
+name = "jeu4x_android"
+version = "0.1.0"
+edition = "2021"
+description = "Pont JNI entre les règles (Rust) et l'application Android (Kotlin)."
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+regles = { path = "../regles" }
+jni = { version = "0.21", default-features = false }

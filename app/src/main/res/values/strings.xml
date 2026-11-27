@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jeu4X</string>
+    <string name="accueil_version">Version %1$s</string>
+    <string name="accueil_moteur_ok">Moteur de règles %1$d : contrôle réussi</string>
+    <string name="accueil_moteur_ko">Moteur de règles : %1$s</string>
+
+    <string name="crash_title">Jeu4X s\'est arrêté</string>
+    <string name="crash_intro">Une erreur a arrêté l\'application. Le rapport ci-dessous indique le téléphone, la version de l\'application et l\'endroit de l\'erreur : copiez-le ou partagez-le pour qu\'elle soit corrigée. Relisez-le avant de l\'envoyer.</string>
+    <string name="crash_copy">Copier</string>
+    <string name="crash_share">Partager</string>
+    <string name="crash_restart">Relancer</string>
+    <string name="crash_copied">Rapport copié</string>
+    <string name="crash_subject">Rapport de plantage Jeu4X</string>
+    <string name="crash_none">Aucun rapport de plantage.</string>
+</resources>

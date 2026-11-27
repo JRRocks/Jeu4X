@@ -1,0 +1,68 @@
+package fr.jeu4x.app
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import fr.jeu4x.app.crash.CrashActivity
+import fr.jeu4x.app.crash.CrashReporter
+import fr.jeu4x.app.moteur.Moteur
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (CrashReporter.hasPending(this)) {
+            startActivity(CrashActivity.intent(this))
+            finish()
+            return
+        }
+        val etat = EtatAccueil(BuildConfig.VERSION_NAME, lireMoteur())
+        setContent { MaterialTheme { EcranAccueil(etat) } }
+    }
+
+    private fun lireMoteur(): EtatMoteur = try {
+        if (Moteur.controleReussi()) EtatMoteur.Ok(Moteur.versionRegles())
+        else EtatMoteur.Erreur("empreinte différente du PC")
+    } catch (e: UnsatisfiedLinkError) {
+        EtatMoteur.Erreur("bibliothèque introuvable")
+    }
+}
+
+sealed interface EtatMoteur {
+    data class Ok(val version: Int) : EtatMoteur
+    data class Erreur(val raison: String) : EtatMoteur
+}
+
+data class EtatAccueil(val version: String, val moteur: EtatMoteur)
+
+/** Écran provisoire de l'étape B : vérifie l'installation et le pont vers le moteur. */
+@Composable
+fun EcranAccueil(etat: EtatAccueil) {
+    Surface(Modifier.fillMaxSize()) {
+        Column(
+            Modifier.fillMaxSize().padding(24.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(R.string.accueil_version, etat.version))
+            Text(
+                when (val m = etat.moteur) {
+                    is EtatMoteur.Ok -> stringResource(R.string.accueil_moteur_ok, m.version)
+                    is EtatMoteur.Erreur -> stringResource(R.string.accueil_moteur_ko, m.raison)
+                },
+            )
+        }
+    }
+}

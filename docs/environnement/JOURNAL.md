@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Étape B : application vide, pont Rust, CI, aperçus du plateau
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : étape B de la mission (application qui s'installe, CI, version, signature, rapport de plantage, aperçus du plateau).
+- **Réalisé** : moteur Rust (`moteur/regles` : version des règles, hasard PCG32 dans l'état, empreinte FNV-1a ; `moteur/android` : pont JNI) ; application Kotlin + Compose `fr.jeu4x.app` (écran provisoire : nom, version, contrôle du moteur) ; rapport de plantage repris de la Library (`rapport-plantage`) ; workflow `.github/workflows/apk.yml` (tests Rust, tests Kotlin, APK release signé en pré-version `apercu-0.1.<n>`) ; `signature.md`, `commandes.md` ; trois aperçus du plateau (`apercus/plateau-a|b|c.png`, maquettes HTML rendues par Playwright, rien dans l'application).
+- **Décisions** (développeur) : identifiant d'application `fr.jeu4x.app`, définitif ; version `0.1.<numéro d'exécution de la CI>` ; seule architecture `arm64-v8a` ; minSdk 26 ; release non réduite (R8 plus tard) ; pas de mise à jour intégrée à cette étape (elle demande une interface, donc un aperçu).
+- **Vérifications** : `cargo test` 4/4 ; `./gradlew :app:testDebugUnitTest` 20/20 (dont 3 tests du pont Kotlin ↔ Rust sur la bibliothèque compilée pour le PC, 9 tests du rapport de plantage sous Robolectric, 1 capture d'écran) ; `assembleDebug` : APK avec `lib/arm64-v8a/libjeu4x_android.so` ; `assembleRelease` signé avec une clé jetable dont le mot de passe contient `\` et une espace : `apksigner verify` OK, `versionCode 7` / `0.1.7` lus depuis l'environnement ; clé jetable effacée.
+- **Non vérifié sur téléphone** : installation, chargement de la bibliothèque native (« contrôle réussi » à l'écran), rapport de plantage, installation par-dessus.
+- **Problèmes et dette** : Robolectric a reçu des 429 de Maven Central en session (pot préchargé depuis le miroir de Google) ; `captureToImage()` bloque sous Robolectric (remplacé par un dessin de la vue, comme la Library). Aucun APK tant que les secrets de signature manquent.
+- **Prochaine étape** : CI verte, clé de signature par l'utilisateur, choix de l'aperçu du plateau, puis étape C.
+
 ## 2026-11-27 · Décision : règles et IA en Rust, affichage en Kotlin + Compose
 
 - **Auteur** : Claude, session S1
