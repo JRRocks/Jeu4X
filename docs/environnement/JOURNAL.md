@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Version d'essai « Jeu4X essai » (D-16, D-17)
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : livrer tout de suite une version d'essai installable, en attendant la clé de l'utilisateur (D-17) ; noter le choix du plateau (D-16).
+- **Réalisé** : type de compilation `essai` : `fr.jeu4x.app.essai`, nom « Jeu4X essai » (`app/src/essai/res`), clé d'essai publique versionnée `app/essai/cle-essai.keystore` (mot de passe `essai-public`, expliqué dans `app/essai/LISEZMOI.md`). La CI publie à chaque push de code `Jeu4X-essai.0.1.<n>.apk` en pré-version `essai-0.1.<n>`. Le vrai `fr.jeu4x.app` ne change pas.
+- **Décisions** : D-16 (utilisateur) : plateau en perspective (variante C), aucune adresse à l'écran ; les adresses restent dans le moteur. D-17 (utilisateur) : essai maintenant, clé plus tard.
+- **Vérifications** : `assembleEssai` en session : `aapt2` lit `fr.jeu4x.app.essai`, « Jeu4X essai », `arm64-v8a` ; `apksigner` : certificat `CN=Jeu4X essai`. Tests `:app:testDebugUnitTest` verts. Contrôle `depot-public` : deux alertes attendues (mot de passe et clé d'essai publics), admises par D-17.
+- **Non vérifié sur téléphone** : installation, écran, mise à jour par-dessus.
+- **Problèmes et dette** : aucun.
+- **Prochaine étape** : lien de l'essai à la session maître, puis moteur Rust (plateau, terrains, déplacements, tours, interface d'actions).
+
 ## 2026-11-27 · CI verte, compilation Rust pour Android vérifiée sur GitHub
 
 - **Auteur** : Claude, session S1

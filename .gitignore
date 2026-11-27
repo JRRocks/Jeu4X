@@ -11,3 +11,5 @@ moteur/target/
 app/keystore-release/
 *.jks
 *.keystore
+# Exception : clé d'essai publique (app/essai/LISEZMOI.md)
+!app/essai/cle-essai.keystore

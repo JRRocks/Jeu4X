@@ -39,6 +39,13 @@ android {
     }
 
     signingConfigs {
+        // Clé d'essai publique, versionnée exprès (app/essai/LISEZMOI.md) : jamais pour le vrai jeu.
+        create("essai") {
+            storeFile = file("essai/cle-essai.keystore")
+            storePassword = "essai-public"
+            keyAlias = "essai"
+            keyPassword = "essai-public"
+        }
         if (signatureReleaseDisponible) {
             create("release") {
                 val proprietes = Properties().apply { load(FileInputStream(proprietesRelease)) }
@@ -57,6 +64,13 @@ android {
             if (signatureReleaseDisponible) {
                 signingConfig = signingConfigs.getByName("release")
             }
+        }
+        // Version d'essai (D-17) : s'installe à côté du vrai jeu, nom « Jeu4X essai ».
+        create("essai") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".essai"
+            signingConfig = signingConfigs.getByName("essai")
+            matchingFallbacks += listOf("release")
         }
     }
 
@@ -77,6 +91,7 @@ android {
 androidComponents {
     // ui-test-manifest n'existe qu'en debug : pas de tests unitaires en release.
     beforeVariants(selector().withBuildType("release")) { it.enableUnitTest = false }
+    beforeVariants(selector().withBuildType("essai")) { it.enableUnitTest = false }
 }
 
 // Bibliothèque Rust pour le téléphone (arm64-v8a), compilée par cargo-ndk.
