@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Mesures d'équilibre pour S2 (durée des parties)
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`
+- **Réalisé** : `moteur/ia/src/mesures.rs` et la commande `terrain duree`. La même IA joue à toutes les places, et les clans tournent pour occuper chaque place. Le rapport donne la durée, la façon dont la partie finit, les victoires par clan et par place, et les points et villes du gagnant. Rapport de référence : `docs/ia/equilibre/2026-11-27-reference.md`, sur 200 parties par format, avec `utilite-r3-v1` puis `simple-r3`.
+- **Résultat** : 8 à 10 tours en moyenne, 86 à 98 % des parties gagnées au seuil, et à deux, 64 % de victoires pour le premier joueur.
+- **Vérifications** : tests `ia` verts (24 tests).
+- **Prochaine étape** : attendre les réglages proposés par S2 ; deux ou trois essais au plus.
+
 ## 2026-11-27 · Évolution courte des poids (IA-003)
 
 - **Auteur** : Claude, session S3

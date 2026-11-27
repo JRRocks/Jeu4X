@@ -8,7 +8,8 @@
 //! cargo run --release -p ia -- galerie
 //! cargo run --release -p ia -- evoluer --depart <nom> --contre a,b [--generations 20]
 //!                                     [--enfants 6] [--parties 40] [--graine 7] [--nom x]
-//! cargo run --release -p ia -- chrono [--parties 10]   (temps de réflexion de l'adversaire)
+//! cargo run --release -p ia -- chrono [--parties 10]
+//! cargo run --release -p ia -- duree [--ia nom] [--joueurs 2,3,4] [--parties 200] [--rapport f.md]   (temps de réflexion de l'adversaire)
 //! ```
 //! Sans `--ia`, le tournoi oppose toute la galerie et toutes les candidates.
 
@@ -343,6 +344,42 @@ fn evoluer_cmd(o: &Options) -> Result<(), String> {
     Ok(())
 }
 
+/// Durée des parties et façon dont elles se gagnent, une IA à toutes les places (pour S2).
+fn duree(o: &Options) -> Result<(), String> {
+    let (g, c) = galerie_et_candidates(o)?;
+    let tous: Vec<Profil> = g.iter().cloned().chain(c).filter(|p| p.a_jour()).collect();
+    let profil = match o.texte("ia") {
+        Some(n) => tous.iter().find(|p| p.nom == n).cloned().ok_or(format!("IA inconnue : {n}"))?,
+        None => ia::adversaire::ia_en_service(),
+    };
+    let parties = o.nombre("parties", 200)?;
+    let graine = o.nombre("graine", 1)?;
+    let nf = fils(o)?;
+    let formats: Vec<u8> = match o.texte("joueurs") {
+        Some(j) => j.split(',').map(|x| x.trim().parse().map_err(|_| "--joueurs 2,3,4".to_string())).collect::<Result<_, _>>()?,
+        None => vec![2, 3, 4],
+    };
+    let mut s = format!(
+        "## Durée des parties (règles {VERSION_REGLES})\n\nIA à toutes les places : {} ({}). Commande : `cargo run --release -p ia -- duree --ia {} --parties {parties} --graine {graine}`.\n\n",
+        profil.nom,
+        decrire(&profil),
+        profil.nom
+    );
+    for nb in formats {
+        if !(2..=4).contains(&nb) {
+            return Err("2 à 4 joueurs".into());
+        }
+        let b = ia::mesures::jouer_tout(&profil, nb, parties, graine, nf);
+        s += &ia::mesures::rapport(nb, &b);
+        s += "\n";
+    }
+    match o.texte("rapport") {
+        Some(f) => std::fs::write(f, &s).map_err(|e| format!("{f} : {e}"))?,
+        None => print!("{s}"),
+    }
+    Ok(())
+}
+
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let o = Options::lire(&args);
@@ -352,6 +389,7 @@ fn main() -> ExitCode {
         Some("valider") => valider_cmd(&o),
         Some("galerie") => galerie_cmd(&o).map(|_| true),
         Some("chrono") => chrono(&o).map(|_| true),
+        Some("duree") => duree(&o).map(|_| true),
         Some("evoluer") => evoluer_cmd(&o).map(|_| true),
         _ => Err("commandes : tournoi, rejouer, valider, galerie (voir l'en-tête de src/main.rs)".into()),
     };

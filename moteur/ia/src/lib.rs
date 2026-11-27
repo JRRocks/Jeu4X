@@ -4,6 +4,7 @@
 //! - `joueur` : ce qu'est un joueur IA, et les deux premiers (au hasard, à utilité).
 //! - `criteres` : ce que l'IA à utilité mesure dans un état ; seul endroit à reprendre
 //!   quand les règles de la première version arriveront.
+//! - `mesures` : durée des parties et façon dont elles se gagnent (équilibre, pour S2).
 //! - `profil` : une IA décrite par une ligne de texte (galerie, candidates).
 //! - `tournoi` : parties entre IA, en parallèle, reproductibles par graine (IA-001).
 //! - `evolution` : pré-entraînement court des poids par évolution (IA-003).
@@ -20,6 +21,7 @@ pub mod criteres;
 pub mod elo;
 pub mod evolution;
 pub mod joueur;
+pub mod mesures;
 pub mod profil;
 pub mod tournoi;
 pub mod validation;
