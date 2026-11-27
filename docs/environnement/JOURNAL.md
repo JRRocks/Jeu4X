@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Moteur Rust : plateau, terrains, déplacements, tours, interface d'actions
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : avancer sur le moteur seul, testé sans appareil, en attendant le retour du téléphone sur l'essai (consigne de la session maître).
+- **Réalisé** : `moteur/regles` : `plateau` (carré de 6 à 16 cases de côté, adresses internes A1…, jamais à l'écran, D-16 ; plaine coût 1, forêt coût 2, montagne et eau infranchissables), `partie` (réglages en paramètre : taille 11 par défaut, 3 unités par joueur, 3 points de mouvement, 30 tours ; deux joueurs au tour par tour ; actions numérotées dans un espace fixe de 1 + 256 × 256 numéros ; masque ; copie par `Clone` ; scores provisoires ; empreinte ; codage en 8 plans 16 × 16 du point de vue du joueur ; actions en texte « B2>C3 » et « FIN »), `replay` (format texte versionné, empreintes de contrôle toutes les 50 actions), `aleatoire` (joueur au hasard), exemple `vitesse`.
+- **Décisions** (développeur, provisoires jusqu'au tri de S2) : un déplacement = une action (départ, arrivée) dans la portée restante ; les points non dépensés restent à l'unité jusqu'à la fin du tour ; score provisoire = unités dans la moitié adverse ; pas de brouillard ni de combat.
+- **Vérifications** : `cargo test` : 21 tests verts (adresses, coûts, portée, refus sans effet, tours et fin, numéros aller-retour pour 6, 11, 14, 16, masque, codage des deux points de vue, replays rejoués et relus, replay altéré détecté). Vitesse (`cargo run --release --example vitesse`, un cœur du conteneur) : 11 × 11 : 2 622 parties/s de 196 actions, 1,95 µs par action (liste des actions permises comprise) ; 14 × 14 : 2 053 parties/s, 2,49 µs.
+- **Non vérifié sur téléphone** : sans objet (moteur seul).
+- **Problèmes et dette** : une partie de 1 000 actions reviendrait à environ 500 parties/s : au-dessus du minimum de S3 (200), sous sa cible (1 000) ; la liste des actions alloue à chaque appel, à optimiser si besoin. Pont JNI pas encore étendu à cette interface (attendre l'affichage).
+- **Prochaine étape** : retour du téléphone sur l'essai, puis affichage en perspective sans adresses.
+
 ## 2026-11-27 · Version d'essai « Jeu4X essai » (D-16, D-17)
 
 - **Auteur** : Claude, session S1

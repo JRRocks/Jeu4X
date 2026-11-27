@@ -6,11 +6,16 @@
 //! - le générateur de hasard vit dans l'état et ne dépend que de la graine ;
 //! - aucun état global : une partie par valeur, plusieurs parties en parallèle.
 //!
-//! Étape B : seul le socle existe (version, hasard, empreinte). Le plateau et les
-//! unités arrivent à l'étape C.
+//! Contenu : plateau carré à adresses internes (`plateau`), partie au tour par tour
+//! (`partie`), replays (`replay`), joueur au hasard (`aleatoire`). Les adresses A1… ne
+//! sont jamais affichées au joueur (D-16).
 
-pub mod hasard;
+pub mod aleatoire;
 pub mod empreinte;
+pub mod hasard;
+pub mod partie;
+pub mod plateau;
+pub mod replay;
 
 /// Version des règles, inscrite dans chaque replay et chaque modèle d'IA (E10).
 pub const VERSION_REGLES: u32 = 1;
