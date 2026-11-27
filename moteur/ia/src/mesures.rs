@@ -99,9 +99,12 @@ pub fn rapport(nb: u8, b: &[Bilan]) -> String {
     let moy = tours.iter().map(|&t| t as f64).sum::<f64>() / n;
     let med = tours.get(tours.len() / 2).copied().unwrap_or(0);
     let pc = |f: Fin| 100.0 * b.iter().filter(|x| x.fin == f).count() as f64 / n;
+    // Durée des seules parties gagnées : les nulles au tour limite tirent la moyenne vers le haut.
+    let gagnees: Vec<u16> = b.iter().filter(|x| x.gagnant.is_some()).map(|x| x.tours).collect();
+    let moy_g = gagnees.iter().map(|&t| t as f64).sum::<f64>() / gagnees.len().max(1) as f64;
     let r = Reglages::pour(nb);
     let mut s = format!(
-        "### {nb} joueurs ({t}×{t}, seuil {seuil})\n\n{} parties. Durée : {moy:.1} tours en moyenne, médiane {med}, de {} à {}.\n\n",
+        "### {nb} joueurs ({t}×{t}, seuil {seuil})\n\n{} parties. Durée : {moy:.1} tours en moyenne, médiane {med}, de {} à {} ; {moy_g:.1} tours en moyenne pour les parties gagnées.\n\n",
         b.len(),
         tours.first().unwrap_or(&0),
         tours.last().unwrap_or(&0),
