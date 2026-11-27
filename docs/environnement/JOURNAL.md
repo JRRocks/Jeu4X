@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Essai 0.1.9 vert à l'émulateur, cadrage zoomé
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`, `a44f0b0`, exécution CI n° 9
+- **Objectif** : livrer D-20 en essai.
+- **Réalisé** : pré-version `essai-0.1.9` (APK 7,1 Mo, capture du plateau au lancement, capture du rapport, résumé). Le miroir de Google a tenu.
+- **Décisions** : aucune.
+- **Vérifications** : Android 14 x86_64 : installation, plateau (« Tour 1 sur 30 », « Joueur Bleu »), « Fin du tour » → « Joueur Rouge », plantage provoqué et rapport, relance : tout vert. Capture retéléchargée et regardée : les unités bleues au centre, cases deux fois plus grandes.
+- **Non vérifié sur téléphone** : pincer pour dézoomer, confort du zoom, ARM réel.
+- **Problèmes et dette** : tour du Rouge, unités hors de l'écran (voir l'entrée du cadrage).
+- **Prochaine étape** : avis de l'utilisateur sur le changement de tour.
+
 ## 2026-11-27 · CI n° 8 rouge : Maven Central 429, miroir de Google ajouté
 
 - **Auteur** : Claude, session S1
