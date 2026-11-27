@@ -94,6 +94,7 @@ fn fils(o: &Options) -> Result<usize, String> {
 fn decrire(p: &Profil) -> String {
     match &p.sorte {
         Sorte::Hasard => "au hasard".to_string(),
+        Sorte::Perimee { .. } => format!("faite pour les règles {}", p.version_regles),
         Sorte::Utilite { poids } => {
             let v: Vec<String> = NOMS.iter().zip(poids).map(|(n, w)| format!("{n} {w}")).collect();
             format!("utilité : {}", v.join(", "))
@@ -103,7 +104,8 @@ fn decrire(p: &Profil) -> String {
 
 fn tournoi(o: &Options) -> Result<(), String> {
     let (g, c) = galerie_et_candidates(o)?;
-    let tous: Vec<Profil> = g.into_iter().chain(c).collect();
+    // Les IA faites pour d'autres règles ne jouent pas : elles sont à requalifier.
+    let tous: Vec<Profil> = g.into_iter().chain(c).filter(|p| p.a_jour()).collect();
     let profils: Vec<Profil> = match o.texte("ia") {
         None => tous,
         Some(liste) => liste
@@ -147,8 +149,8 @@ fn tournoi(o: &Options) -> Result<(), String> {
         r.taille
     );
     s += &format!(
-        "Règles version {VERSION_REGLES} ; plateau {t}×{t}, {} unités par joueur, {} tours. {parties} parties par paire, chaque carte jouée des deux côtés ; {} parties en tout, {forfaits} forfait(s).\n\n",
-        r.unites_par_joueur,
+        "Règles version {VERSION_REGLES} ; plateau {t}×{t}, {} joueurs, limite {} tours. {parties} parties par paire, chaque carte jouée des deux côtés ; {} parties en tout, {forfaits} forfait(s).\n\n",
+        r.nb_joueurs,
         r.limite_tours,
         issues.len(),
         t = r.taille

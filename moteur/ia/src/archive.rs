@@ -2,9 +2,9 @@
 //!
 //! ```text
 //! jeu4x-tournoi 1
-//! ia hasard-v1 1 hasard                 (une ligne par profil, dans l'ordre des indices)
-//! ia utilite-v1 1 utilite/1 100 -100 10 0
-//! partie 0 1 gagnant 1 forfait - scores 0 3
+//! ia hasard-r2 2 hasard                 (une ligne par profil, dans l'ordre des indices)
+//! ia utilite-r2-v1 2 utilite/2 100 -50 5 3
+//! partie 0 1 gagnant 1 forfait - scores 20 31
 //! jeu4x-replay 1                        (le replay de la partie, format des règles)
 //! …
 //! fin 1234
@@ -29,13 +29,12 @@ pub fn ecrire(profils: &[Profil], issues: &[Issue]) -> String {
     let opt = |o: Option<u8>| o.map_or("-".to_string(), |v| v.to_string());
     for i in issues {
         s += &format!(
-            "partie {} {} gagnant {} forfait {} scores {} {}\n",
+            "partie {} {} gagnant {} forfait {} scores {}\n",
             i.rencontre.place0,
             i.rencontre.place1,
             opt(i.gagnant),
             opt(i.forfait),
-            i.scores[0],
-            i.scores[1]
+            i.scores.iter().map(|s| s.to_string()).collect::<Vec<_>>().join(" ")
         );
         s += &i.replay.vers_texte();
     }
@@ -67,7 +66,7 @@ pub fn rejouer(texte: &str) -> Result<(Vec<Profil>, Vec<Issue>, Controle), Strin
     let mut c = Controle::default();
     while k < lignes.len() {
         let entete: Vec<&str> = lignes[k].split_whitespace().collect();
-        if entete.len() != 10 || entete[0] != "partie" {
+        if entete.len() < 9 || entete[0] != "partie" || entete[7] != "scores" {
             return Err(format!("ligne {} : « partie » attendu", k + 1));
         }
         let num = |m: &str| m.parse::<usize>().map_err(|_| format!("ligne {} illisible", k + 1));
@@ -81,7 +80,7 @@ pub fn rejouer(texte: &str) -> Result<(Vec<Profil>, Vec<Issue>, Controle), Strin
         let (place0, place1) = (num(entete[1])?, num(entete[2])?);
         let gagnant = opt(entete[4])?;
         let forfait = opt(entete[6])?;
-        let scores = [entete[8].parse::<i32>().map_err(|e| e.to_string())?, entete[9].parse::<i32>().map_err(|e| e.to_string())?];
+        let scores = entete[8..].iter().map(|m| m.parse::<i32>().map_err(|e| e.to_string())).collect::<Result<Vec<_>, _>>()?;
         if place0 >= profils.len() || place1 >= profils.len() {
             return Err(format!("ligne {} : IA inconnue", k + 1));
         }
@@ -116,7 +115,7 @@ mod tests {
     use regles::partie::Reglages;
 
     fn petit() -> (Vec<Profil>, Vec<Issue>) {
-        let p = vec![Profil::hasard("h"), Profil::utilite("u", [100, -100, 10, 0])];
+        let p = vec![Profil::hasard("h"), Profil::utilite("u", [100, -50, 5, 3])];
         let i = jouer_tout(&p, &rencontres(&[(0, 1)], 6, 2), Reglages::default(), 2);
         (p, i)
     }

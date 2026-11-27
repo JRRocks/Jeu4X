@@ -29,7 +29,7 @@ pub struct Issue {
     pub gagnant: Option<u8>,
     /// Place fautive si une IA a joué une action refusée ou n'a pas fini son tour.
     pub forfait: Option<u8>,
-    pub scores: [i32; 2],
+    pub scores: Vec<i32>,
     pub replay: Replay,
 }
 
@@ -139,7 +139,7 @@ mod tests {
     use super::*;
 
     fn deux() -> Vec<Profil> {
-        vec![Profil::hasard("hasard"), Profil::utilite("utilite", [100, -100, 10, 0])]
+        vec![Profil::hasard("hasard"), Profil::utilite("utilite", [100, -50, 5, 3])]
     }
 
     #[test]
@@ -167,7 +167,9 @@ mod tests {
         let issues = jouer_tout(&p, &rencontres(&[(0, 1)], 200, 1), Reglages::default(), 4);
         assert!(issues.iter().all(|i| i.forfait.is_none()), "une IA a joué une action refusée");
         let (v, e, d) = bilan(&issues, 1, 0);
-        assert!(v >= 180, "utilité contre hasard : {v} victoires, {e} égalités, {d} défaites");
+        // Score provisoire des règles 2 (cases découvertes) : les deux camps finissent souvent
+        // par tout découvrir, d'où beaucoup d'égalités. On compte donc les points.
+        assert!(2 * v + e >= 2 * 200 * 7 / 10 && d <= 10, "utilité contre hasard : {v} victoires, {e} égalités, {d} défaites");
     }
 
     #[test]

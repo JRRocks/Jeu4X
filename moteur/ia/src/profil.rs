@@ -1,6 +1,7 @@
 //! Profil d'une IA : une ligne de texte, lisible et versionnée.
 //!
-//! `nom version_regles type poids…`, par exemple `utilite-v1 1 utilite/1 100 -100 10 0`.
+//! `nom version_regles type poids…`, par exemple `utilite-r2-v1 2 utilite/2 100 -50 5 3`.
+//! Une ligne d'autres règles est gardée telle quelle (`Sorte::Perimee`), jamais jouée.
 //! Lignes vides et lignes commençant par `#` ignorées.
 
 use crate::criteres::{NB_CRITERES, VERSION_CRITERES};
@@ -11,6 +12,8 @@ use regles::VERSION_REGLES;
 pub enum Sorte {
     Hasard,
     Utilite { poids: [i32; NB_CRITERES] },
+    /// Profil fait pour d'autres règles : gardé tel quel dans la galerie, jamais joué.
+    Perimee { ligne: String },
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -37,6 +40,9 @@ impl Profil {
         }
         let nom = mots[0].to_string();
         let version_regles: u32 = mots[1].parse().map_err(|_| format!("{nom} : version des règles illisible"))?;
+        if version_regles != VERSION_REGLES {
+            return Ok(Profil { nom, version_regles, sorte: Sorte::Perimee { ligne: mots.join(" ") } });
+        }
         let sorte = match mots[2] {
             "hasard" => Sorte::Hasard,
             t if t.starts_with("utilite/") => {
@@ -61,6 +67,7 @@ impl Profil {
     pub fn vers_ligne(&self) -> String {
         match &self.sorte {
             Sorte::Hasard => format!("{} {} hasard", self.nom, self.version_regles),
+            Sorte::Perimee { ligne } => ligne.clone(),
             Sorte::Utilite { poids } => {
                 let p: Vec<String> = poids.iter().map(|x| x.to_string()).collect();
                 format!("{} {} utilite/{} {}", self.nom, self.version_regles, VERSION_CRITERES, p.join(" "))
@@ -76,7 +83,7 @@ impl Profil {
     /// Fabrique le joueur ; `graine` ne sert qu'aux IA qui tirent au sort.
     pub fn fabriquer(&self, graine: u64) -> Box<dyn Joueur> {
         match &self.sorte {
-            Sorte::Hasard => Box::new(JoueurHasard::new(graine)),
+            Sorte::Hasard | Sorte::Perimee { .. } => Box::new(JoueurHasard::new(graine)),
             Sorte::Utilite { poids } => Box::new(JoueurUtilite::new(*poids)),
         }
     }
@@ -106,9 +113,14 @@ mod tests {
 
     #[test]
     fn criteres_d_une_autre_version_refuses() {
-        assert!(Profil::depuis_ligne("x 1 utilite/999 1 2 3 4").is_err());
-        assert!(Profil::depuis_ligne("x 1 utilite/1 1 2").is_err());
-        assert!(Profil::depuis_ligne("x 1 inconnu").is_err());
+        let r = VERSION_REGLES;
+        assert!(Profil::depuis_ligne(&format!("x {r} utilite/999 1 2 3 4")).is_err());
+        assert!(Profil::depuis_ligne(&format!("x {r} utilite/{VERSION_CRITERES} 1 2")).is_err());
+        assert!(Profil::depuis_ligne(&format!("x {r} inconnu")).is_err());
+        // Une ligne d'autres règles est gardée, mais pas jouable.
+        let vieille = Profil::depuis_ligne("v 0 utilite/1 1 2 3 4").unwrap();
+        assert!(!vieille.a_jour());
+        assert_eq!(vieille.vers_ligne(), "v 0 utilite/1 1 2 3 4");
     }
 
     #[test]

@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · IA adaptée aux règles 2 (étape a de S1)
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`, après fusion de `s1-environnement` (99595a6)
+- **Réalisé** : critères version 2, calculés sur la vue du joueur (brouillard respecté) : score provisoire, meilleur score adverse, exploration, menace sur les villes adverses connues. Les tournois et les archives acceptent N scores. Les profils faits pour d'autres règles sont gardés dans la galerie mais ne jouent plus. Galerie : `hasard-r2`, puis `utilite-r2-v1` admise (74,3 % des points). Le rapport est dans `tournois/2026-11-27-regles-2.md`.
+- **Vérifications** : `cargo test --release --workspace` est vert (21 tests `ia`, 32 tests `regles`). Rejeu : 200 parties sur 200 conformes.
+- **Problèmes et dette** : avec le score provisoire (cases découvertes), environ la moitié des parties finissent à égalité ; les tests comptent donc les points. Le classement n'aura de sens qu'avec la victoire D-28 (étape e).
+- **Prochaine étape** : étape b de S1 (villes et vivres).
+
 ## 2026-11-27 · Adversaire à brancher dans l'application (D-34), version 0
 
 - **Auteur** : Claude, session S3

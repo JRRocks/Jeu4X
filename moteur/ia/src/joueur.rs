@@ -1,6 +1,6 @@
 //! Joueurs IA.
 
-use crate::criteres::{cartes, noter, NB_CRITERES};
+use crate::criteres::{noter, NB_CRITERES};
 use regles::hasard::Hasard;
 use regles::partie::{Action, Partie};
 
@@ -50,8 +50,7 @@ impl Joueur for JoueurUtilite {
     fn choisir(&mut self, partie: &Partie) -> Action {
         let moi = partie.joueur_courant();
         let mut meilleure = Action::FinDuTour;
-        let cartes = cartes(partie);
-        let mut note_max = noter(partie, moi, &self.poids, &cartes);
+        let mut note_max = noter(partie, moi, &self.poids);
         for a in partie.actions_permises() {
             if a == Action::FinDuTour {
                 continue;
@@ -60,7 +59,7 @@ impl Joueur for JoueurUtilite {
             if essai.appliquer(a).is_err() {
                 continue;
             }
-            let note = noter(&essai, moi, &self.poids, &cartes);
+            let note = noter(&essai, moi, &self.poids);
             if note > note_max {
                 note_max = note;
                 meilleure = a;
