@@ -11,4 +11,5 @@ crate-type = ["cdylib"]
 
 [dependencies]
 regles = { path = "../regles" }
+ia = { path = "../ia" }
 jni = { version = "0.21", default-features = false }

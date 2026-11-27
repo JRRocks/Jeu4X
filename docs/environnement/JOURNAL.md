@@ -2,6 +2,10 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · IA de S3 fusionnée et branchée
+
+*Claude, session S1.* `s3-ia` ab33186 fusionnée (avance rapide, elle contenait 0fa9c01). Le pont `tourIa` appelle `ia::adversaire::jouer_tour_numeros(…, Niveau normal)` au lieu de `ia_simple` (gardé pour les tests et les mesures). `cargo test --workspace` vert (ia compris, 30 s), tests Kotlin verts.
+
 ## 2026-11-27 · Version jouable de bout en bout (D-34) : règles V1 complètes, adversaire simple
 
 *Claude, session S1.* Consigne de la maître (D-34) : une version d'essai jouable de la nouvelle partie à la fin, sans aperçu à valider, graphismes provisoires, tests légers.

@@ -211,12 +211,12 @@ pub extern "system" fn Java_fr_jeu4x_app_moteur_Moteur_annonce(mut env: JNIEnv, 
 }
 
 /// Tour entier de l'adversaire tenu par l'ordinateur pour le joueur courant (numéros
-/// d'actions, fin du tour comprise). Ne change rien : l'application les applique une à une.
+/// d'actions, fin du tour comprise) : l'IA de la session 3 (`ia::adversaire`, niveau
+/// normal). Ne change rien : l'application les applique une à une.
 #[no_mangle]
 pub extern "system" fn Java_fr_jeu4x_app_moteur_Moteur_tourIa(mut env: JNIEnv, _c: JClass, h: jlong) -> jintArray {
     let p = partie(h);
-    let t = p.reglages().taille;
-    let v: Vec<i32> = regles::ia_simple::jouer_tour(p).into_iter().map(|a| a.numero(t) as i32).collect();
+    let v: Vec<i32> = ia::adversaire::jouer_tour_numeros(p, ia::adversaire::Niveau::depuis_u8(1)).into_iter().map(|n| n as i32).collect();
     tableau(&mut env, &v)
 }
 
