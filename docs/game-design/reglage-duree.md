@@ -57,3 +57,10 @@ Lecture : `chrono` opposait toujours Crocs-Rouges et Murailliers sur 20 parties,
 Essai 2 demandé :
 - **variante A** : seuils 62, 60 et 60 ;
 - **variante B** : A, plus +2 de défense dans sa propre capitale et 2 vivres de départ par rang au lieu de 1.
+
+| 2 A (seuils 62/60/60) | IA de S3 | moyenne 37,0 / 43,0 / 39,1 ; médiane 26 / 29 / 26 ; parties gagnées 25,6 / 30,0 / 29,9 | 14/65/21, 22/52/26, 28/54/18 | 47/31/53/27 % à 2 ; 24/21/22/16 % à 4 | 49 % contre 30 % |
+| 2 B (A + capitale +2 et 2 vivres par rang) | IA de S3 | moyenne 36,7 / 43,0 / 35,2 ; médiane 26 / 28 / 25 ; parties gagnées 23,8 / 32,3 / 28,0 | 16/60/23, 20/58/22, 28/58/14 | 40/43/52/19 % à 2 ; 20/22/26/18 % à 4 | 43 % contre 34 % |
+
+Lecture de l'essai 2 : la médiane et les parties gagnées tombent dans l'intervalle de 25 à 35 tours. Mais 14 à 26 % des parties finissent nulles au tour 80, sans doute parce que le score plafonne quand toutes les villes sont au maximum, peut-être aussi à cause de l'IA. B équilibre mieux le premier joueur.
+
+Essai 3 demandé (le dernier) : B avec des seuils de 58, 56 et 56, plus le score du meilleur joueur dans les parties nulles.
