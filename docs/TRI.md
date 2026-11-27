@@ -196,3 +196,4 @@
 - **Victoire** : GD-001 (partie limitée en tours, gagnée au score) a été mise en « plus tard », mais la réponse VE-Q2 (score en tours fixes) et le socle GD-090 (score au trentième tour ou conquête) la supposent. Question posée à l'utilisateur le 2026-11-27.
 - **Carte entière à l'écran (VE-026)** : D-20 (départ zoomé sur ses unités) prévaut ; la carte entière reste visible en dézoomant.
 - **GD-017 jetée** : c'était la fiche-question sur le hasard des combats ; la réponse GD-Q8 (aucune chance) tient, comme VE-003 (combat sans dé).
+- **Tranché le 2026-11-27 (D-28)** : victoire par la capitale adverse ou par un seuil de points, sans fin au score à un tour fixé.
