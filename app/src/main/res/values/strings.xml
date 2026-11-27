@@ -7,6 +7,8 @@
     <string name="partie_joueur">Joueur %1$s</string>
     <string name="joueur_bleu">Bleu</string>
     <string name="joueur_rouge">Rouge</string>
+    <string name="joueur_violet">Violet</string>
+    <string name="joueur_jaune">Jaune</string>
     <string name="partie_fin_du_tour">Fin du tour</string>
     <string name="partie_nouvelle">Nouvelle partie</string>
     <string name="partie_choisir_unite">Touchez une de vos unités.</string>

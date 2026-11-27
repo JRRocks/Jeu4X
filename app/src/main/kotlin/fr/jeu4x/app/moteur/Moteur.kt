@@ -17,7 +17,7 @@ object Moteur {
     @JvmStatic external fun versionRegles(): Int
     @JvmStatic external fun autoControle(graine: Long, n: Int): Long
 
-    @JvmStatic external fun nouvellePartie(graine: Long, taille: Int): Long
+    @JvmStatic external fun nouvellePartie(graine: Long, nbJoueurs: Int): Long
     @JvmStatic external fun liberer(partie: Long)
     @JvmStatic external fun etat(partie: Long): IntArray
     @JvmStatic external fun atteignables(partie: Long, depart: Int): IntArray

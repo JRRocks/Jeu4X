@@ -49,10 +49,13 @@ mod tests {
     }
 
     #[test]
-    fn toutes_les_tailles_de_carte_jouent() {
-        for taille in [6u8, 11, 14, 16] {
-            let (p, _) = jouer_au_hasard(Reglages { taille, ..Reglages::default() }, 3, 3);
+    fn de_deux_a_quatre_joueurs_tout_joue() {
+        for nb in 2..=4 {
+            let (p, _) = jouer_au_hasard(Reglages::pour(nb), 3, 3);
             assert!(p.est_finie());
         }
+        // Plateau plus grand que la V1 (grille interne de 16) : il joue aussi.
+        let (p, _) = jouer_au_hasard(Reglages { taille: 16, ..Reglages::pour(4) }, 3, 3);
+        assert!(p.est_finie());
     }
 }

@@ -39,15 +39,15 @@ fn tableau(env: &mut JNIEnv, v: &[i32]) -> jintArray {
     }
 }
 
+/// Nouvelle partie de `nb_joueurs` joueurs (2 à 4), réglages de la V1.
 #[no_mangle]
 pub extern "system" fn Java_fr_jeu4x_app_moteur_Moteur_nouvellePartie(
     _env: JNIEnv,
     _c: JClass,
     graine: jlong,
-    taille: jint,
+    nb_joueurs: jint,
 ) -> jlong {
-    let taille = taille.clamp(regles::plateau::TAILLE_MIN as i32, regles::plateau::TAILLE_MAX as i32) as u8;
-    let r = Reglages { taille, ..Reglages::default() };
+    let r = Reglages::pour(nb_joueurs.clamp(2, regles::partie::JOUEURS_MAX as i32) as u8);
     Box::into_raw(Box::new(Partie::nouvelle(r, graine as u64))) as jlong
 }
 
@@ -59,23 +59,32 @@ pub extern "system" fn Java_fr_jeu4x_app_moteur_Moteur_liberer(_env: JNIEnv, _c:
     }
 }
 
-/// État en un seul bloc : [taille, tour, joueur courant, finie, limite de tours,
-/// nombre d'unités, terrains (taille²)…, puis par unité : joueur, case, points restants].
+/// Vue du joueur courant en un seul bloc (rien de ce qu'il ne sait pas) :
+/// [taille, tour, joueur courant, finie, limite de tours, nombre de joueurs,
+/// nombre d'unités, nombre de villes, terrains (taille², -1 = inconnue)…,
+/// visibilité (taille² : 0 inconnue, 1 vue autrefois, 2 visible)…,
+/// par unité : joueur, case, type, points restants…, par ville : case, joueur (-1 neutre), capitale].
 #[no_mangle]
 pub extern "system" fn Java_fr_jeu4x_app_moteur_Moteur_etat(mut env: JNIEnv, _c: JClass, h: jlong) -> jintArray {
     let p = partie(h);
-    let r = p.reglages();
+    let vue = p.vue(p.joueur_courant());
     let mut v = vec![
-        r.taille as i32,
-        p.tour() as i32,
-        p.joueur_courant() as i32,
-        p.est_finie() as i32,
-        r.limite_tours as i32,
-        p.unites().len() as i32,
+        vue.taille as i32,
+        vue.tour as i32,
+        vue.joueur_courant as i32,
+        vue.finie as i32,
+        vue.limite_tours as i32,
+        vue.nb_joueurs as i32,
+        vue.unites.len() as i32,
+        vue.villes.len() as i32,
     ];
-    v.extend(p.plateau().terrains_bruts().map(|t| t as i32));
-    for u in p.unites() {
-        v.extend([u.joueur as i32, u.case as i32, u.points_restants as i32]);
+    v.extend(vue.terrains.iter().map(|t| t.map_or(-1, |t| t as i32)));
+    v.extend(vue.cases.iter().map(|&e| e as i32));
+    for u in &vue.unites {
+        v.extend([u.joueur as i32, u.case as i32, u.type_unite as i32, u.points_restants as i32]);
+    }
+    for vi in &vue.villes {
+        v.extend([vi.case as i32, vi.joueur.map_or(-1, |j| j as i32), vi.capitale as i32]);
     }
     tableau(&mut env, &v)
 }
