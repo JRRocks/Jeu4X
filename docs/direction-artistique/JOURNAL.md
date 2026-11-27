@@ -2,6 +2,13 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Information reçue : vue du plateau en perspective (D-16)
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : rien de nouveau. La session maître signale que l'utilisateur a choisi un plateau en perspective, en cases losanges (variante C de la session 1), sans adresse de case visible (D-16). Mes aperçus sont en vue de dessus, avec les adresses en marge.
+- **Conséquence** : une éventuelle deuxième série (DA-Q4) se fera dans cette vue en perspective, sans adresses à l'écran, en restant loin de l'allure de Polytopia (D-03). Point d'attention : Polytopia utilise lui aussi des losanges ; l'originalité devra venir du trait, des couleurs et des volumes, pas de la grille.
+- **Prochaine étape** : attendre le résultat du tri.
+
 ## 2026-11-27 · Question DA-Q4 ajoutée au catalogue
 
 - **Auteur** : Claude, session S6
