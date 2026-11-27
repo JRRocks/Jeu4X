@@ -24,3 +24,13 @@ Original (D-03) : rien qui ressemble à l'allure d'un jeu existant, Polytopia co
 - Images rendues depuis HTML ou SVG avec le Playwright de la session, à l'échelle 2 (`deviceScaleFactor: 2`), sans métadonnées, rangées dans `docs/direction-artistique/apercus/`.
 - `docs/direction-artistique/README.md` : une ligne par image (numéro `DA-NNN`, ce qu'elle montre) ; `catalogue.md` au format commun ; `sources.md` ; `JOURNAL.md`.
 - Rapport à la session maître : la liste des images avec leur chemin et une ligne chacune, ta recommandation, les questions pour l'utilisateur. Puis attendre ses choix.
+
+## Mission 2 : deuxième série d'images (2026-11-27)
+
+Le tri est fait : `docs/TRI.md` et `docs/DECISIONS.md` (D-22 à D-29) sur `main`. Style papier découpé, palette « Jour franc » et « Nuit » pour le mode sombre, interface « Pouce » (D-27), plateau en perspective sans adresse visible (D-16), départ zoomé (D-20). Montre, sur des écrans de téléphone :
+- les terrains en perspective, des villages, une ville à plusieurs tailles ;
+- les unités des quatre clans retenus (Crocs-Rouges, Murailliers, Veilleurs d'Astres, Vents-Errants ; voir `clans.md` sur `s2-game-design`), reconnaissables par la forme autant que par la couleur ;
+- le brouillard qui se souvient : jamais vu, déjà vu, en vue ;
+- une unité choisie avec ses cases atteignables, et l'annonce d'un combat avant d'attaquer ;
+- l'écran de jeu « Pouce », de jour et de nuit.
+Deux ou trois variantes là où un choix existe. Les cases en losange existent aussi chez Polytopia : l'originalité vient du papier, des ombres, des couleurs et des volumes (D-03). Images, rapport, puis attendre les choix.

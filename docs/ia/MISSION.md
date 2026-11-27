@@ -29,3 +29,13 @@ Le moteur de jeu n'existe pas encore (la session 1 compare les technologies) : r
 ## Voisins
 
 La session 4 étudie où et comment regrouper les données des parties ; elle lira `besoins-donnees.md`. La session 2 conçoit les clans : les personnalités d'IA par clan sont un point de rencontre.
+
+## Mission 2 : terrain d'essai et première IA (2026-11-27)
+
+Le tri est fait : `docs/TRI.md` et `docs/DECISIONS.md` (D-22 à D-29) sur `main`. Tu passes au code, sans rien d'affiché (D-24) :
+- une bibliothèque Rust `moteur/ia`, sur ta branche, partie de `s1-environnement` pour avoir le moteur ; tu n'écris que dans `moteur/ia/`, `docs/ia/` et, si besoin, la liste des membres de l'espace Cargo ; tu ne touches pas aux règles (`moteur/regles`) : un besoin envers elles passe par la session maître ;
+- IA-001 : le terrain d'essai, des tournois entre IA lancés par une commande, un classement Elo, des parties rejouables ;
+- IA-002 : une première IA simple et rapide, qui bat nettement l'IA au hasard ;
+- IA-004 : la règle « une nouvelle IA doit battre l'ancienne », vérifiable par une commande ;
+- tests verts, résultat d'un tournoi écrit dans `docs/ia/`.
+Le moteur n'a aujourd'hui que le plateau, les terrains et les déplacements ; les règles de la première version viendront (S2 les écrit, S1 les codera) : prévois que l'IA suive leur arrivée. Pas d'entraînement long, rien sur GitHub Actions (D-15).
