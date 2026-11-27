@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Décision : règles et IA en Rust, affichage en Kotlin + Compose
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : revoir le choix avec le facteur de l'utilisateur (entraînement sur PC en Rust, IA pré-entraînée sur le téléphone), et l'écrire : l'utilisateur m'a autorisé à suivre ma recommandation.
+- **Réalisé** : section « Décision retenue » en tête du comparatif (mélange par domaine).
+- **Décisions** : règles, IA du téléphone et entraînement en Rust ; affichage Kotlin + Compose ; pont JNI à la main ; CI cargo test → cargo ndk → Gradle. À reporter par la session maître dans `docs/DECISIONS.md`.
+- **Vérifications** : SDK 35, NDK 27.2 et `cargo-ndk` 4.1.2 installés dans le scratchpad ; bibliothèque Rust + crate `jni` compilée pour `arm64-v8a` (8 s).
+- **Non vérifié sur téléphone** : chargement de la bibliothèque native.
+- **Problèmes et dette** : InnovAdapt-CRM (antécédent) non relu, dépôt hors de la session.
+- **Prochaine étape** : étape B.
+
 ## 2026-11-27 · Comparatif revu avec les besoins de la session 3
 
 - **Auteur** : Claude, session S1

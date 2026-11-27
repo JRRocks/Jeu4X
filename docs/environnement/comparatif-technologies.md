@@ -1,5 +1,23 @@
 # Comparatif des technologies
 
+## Décision retenue (2026-11-27)
+
+> L'utilisateur, par la session maître : « L'entraînement de base de l'IA peut se faire sur ordinateur, idéalement en Rust. Le téléphone aura l'IA pré-entraînée. Fais un mélange des technologies selon leurs points forts, et suis les recommandations. » Ce nouveau facteur retire le seul argument fort pour des règles en Kotlin (l'appel depuis Python) : un cœur en Rust devient le seul moyen de garder un seul code de règles (E11) pour le PC et le téléphone. Le reste du document est l'analyse d'avant ce facteur ; il n'est pas réécrit.
+
+| Domaine | Technologie retenue | Point fort | Coût |
+|---|---|---|---|
+| Règles du jeu | **Rust**, bibliothèque `regles` sans entrée ni sortie, sans virgule, hasard dans l'état | Un seul code pour le PC et le téléphone ; le plus rapide (§ 2, § 2 bis) ; déterministe | Une chaîne Rust en plus |
+| Entraînement sur le PC | **Rust**, programme qui utilise la même bibliothèque `regles` (Python reste possible plus tard par PyO3, essayé § 2 bis) | Pas de pont du tout ; parties en parallèle sur tous les cœurs | — |
+| IA sur le téléphone | **Rust**, dans la même bibliothèque : le joueur IA lit des poids pré-entraînés, livrés avec l'APK, et ne s'entraîne jamais sur l'appareil | Même code que sur le PC : l'IA joue sur le téléphone exactement comme à l'entraînement | Format des poids à fixer avec la session 3 |
+| Affichage | **Kotlin + Jetpack Compose**, plateau dessiné dans un `Canvas` | Interface native, gestes, toute la Library | — |
+| Pont entre les deux | **JNI écrit à la main** (crate `jni`), interface étroite : une poignée de partie, actions en numéros, état et masque passés en tableaux d'un seul bloc | Pas de générateur ni de JNA ; un appel par geste, jamais par case | Une couche de liaison à tester (test de la frontière) |
+| Compilation et CI | GitHub Actions : `cargo test`, puis `cargo ndk` (bibliothèque `arm64-v8a`), puis tests Gradle et APK | Tout automatique depuis le dépôt public | NDK dans la CI, quelques minutes de plus |
+| Écrans sans téléphone | Captures Compose par Robolectric (Library), avec la bibliothèque Rust compilée pour le PC | Méthode déjà éprouvée | La bibliothèque est compilée deux fois (PC et téléphone) |
+
+Vérifié en session le 2026-11-27 : bibliothèque Rust avec la crate `jni` compilée pour `arm64-v8a` par `cargo ndk` (NDK 27.2, 8 s, fichier ELF ARM aarch64). Non vérifié : son chargement sur un vrai téléphone (pas d'appareil ni d'émulateur), à voir dès le premier APK.
+
+Antécédent : la Library cite InnovAdapt-CRM (branche `claude/android-rust-mobile`, `cargo ndk` et pont JNI) ; d'après sa fiche, le premier lancement sur Android y restait à valider. Ce dépôt privé n'est pas joint à cette session : non relu.
+
 > Session 1, étape A (D-04). Écrit le 2026-11-27 par Claude, session S1. Skill `revue-langages`.
 > Rien n'est codé : ce document prépare le choix de l'utilisateur.
 
