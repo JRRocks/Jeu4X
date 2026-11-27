@@ -2,6 +2,10 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · CI n° 16 rouge : profil pixel_6 trop lent, retiré
+
+*Claude, session S1.* Avec le profil `pixel_6`, plus rien ne répond à temps à l'émulateur, même l'écran de plantage, qui passait avant. Le profil est retiré. Le bouton « Commencer » fixé en bas reste, et doit suffire sur le petit écran par défaut. Le script affiche désormais dans le journal de la CI les textes visibles à l'écran quand une étape échoue, pour voir au lieu de deviner.
+
 ## 2026-11-27 · CI n° 12 à 15 rouges : « Commencer » hors de l'écran de l'émulateur
 
 *Claude, session S1.* Les quatre exécutions depuis la version jouable échouent au même endroit : l'émulateur (écran 320 × 640, mdpi) ne montre pas le bouton « Commencer », placé au bas d'une colonne qui défile, et uiautomator ne voit que l'écran visible. Les tests, la compilation et le plantage provoqué sont verts. Réparation durable : le bouton reste fixé en bas de l'écran « Nouvelle partie » ; l'émulateur prend le profil `pixel_6` (1080 × 2400), plus proche d'un vrai téléphone. Les essais 0.1.12 à 0.1.15 n'ont pas été publiés.

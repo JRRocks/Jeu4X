@@ -15,6 +15,12 @@ RESUME="$SORTIE/resume-emulateur.txt"
 echec=0
 note() { echo "$1" | tee -a "$RESUME"; }
 
+montrer_ecran() { # diagnostic : textes visibles à l'écran, dans le journal de la CI
+  echo "--- textes à l'écran ($1) ---"
+  adb shell uiautomator dump /sdcard/ecran.xml 2>&1 | tail -1
+  adb shell cat /sdcard/ecran.xml 2>/dev/null | grep -oE '(text|content-desc)="[^"]+"' | head -40
+}
+
 ecran_contient() { # attend jusqu'à 30 s qu'un texte soit à l'écran
   local texte=$1
   for _ in $(seq 1 15); do
@@ -49,13 +55,14 @@ if ecran_contient "Nouvelle partie" && toucher "Commencer"; then
   note "OK  écran « Nouvelle partie », « Commencer » touché"
 else
   note "ÉCHEC écran « Nouvelle partie » ou bouton « Commencer » absent"
+  montrer_ecran "nouvelle partie"
   if ecran_contient "Moteur de règles"; then note "      l'écran de contrôle du moteur s'affiche à la place : bibliothèque Rust en défaut"; fi
   echec=1
 fi
 if ecran_contient "Votre tour" && ecran_contient "Fin du tour"; then
   note "OK  partie lancée depuis le moteur Rust : « Votre tour », l'ordinateur a joué avant si besoin"
 else
-  note "ÉCHEC plateau absent (« Votre tour » introuvable)"; echec=1
+  note "ÉCHEC plateau absent (« Votre tour » introuvable)"; montrer_ecran "plateau"; echec=1
 fi
 sleep 2
 adb exec-out screencap -p > "$SORTIE/capture-accueil.png"
