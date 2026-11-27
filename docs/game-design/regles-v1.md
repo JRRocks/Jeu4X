@@ -491,3 +491,16 @@ Avec les déplacements vers n'importe quelle case d'arrivée, l'espace « case d
 - S1 : ajuster le moteur d'essai (4 joueurs, plateau de 14 au plus, 8 directions si GD-Q11 a, terrains du § 1.3), puis coder ces règles et les tables du § 12.
 - S3 : premières parties simulées pour régler les seuils (durée visée : 25 à 35 tours) et vérifier l'équilibre des quatre clans (aucun au-delà de 55 % de victoires en moyenne, GD-073).
 - S2 : reprendre les chiffres d'après ces mesures.
+
+## 17. Réglage du 2026-11-27 (mission 3)
+
+Les valeurs suivantes remplacent celles des § 1.2, 2.6, 4.1, 12.1 et 12.4. Mesures et raisons : `reglage-duree.md`.
+
+| Donnée | Ancienne valeur | Nouvelle valeur |
+|---|---|---|
+| Coût pour monter aux niveaux 2 à 5 (`grow_cost`) | 5, 8, 11, 14 | 8, 14, 20, 26 |
+| Revenu d'une ville, niveaux 1 à 5 (`income`) | 2, 3, 4, 5, 6 | 2, 2, 3, 3, 4 |
+| Points tenus, niveaux 1 à 5 (`held_points`) | 2, 4, 6, 8, 10 | 1, 2, 3, 4, 5 |
+| Seuil de points à 2 / 3 / 4 joueurs | 45 / 45 / 40 | 58 / 56 / 56 |
+| Vivres de départ en plus par rang | 1 | 2 |
+| Défense en plus pour une unité dans sa propre capitale (`capital_defense_bonus`), qui s'ajoute à la défense de ville du § 6.3 | — | 2 (capitale +4, avec remparts +6) |

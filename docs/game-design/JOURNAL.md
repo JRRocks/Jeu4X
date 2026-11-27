@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Mission 3 : réglage de la durée des parties
+
+- **Auteur** : Claude, session S2
+- **Branche et commit** : `s2-game-design`
+- **Objectif** : ramener les parties entre IA d'environ 10 tours vers 25 à 35 tours, en ne touchant que les données (demande de la session maître).
+- **Réalisé** : diagnostic sur une copie de travail du moteur de `s3-ia` (ab33186), hors dépôt, avec l'exemple `parties_ia` et la commande `chrono`. Les villes grandissaient trop vite pour trop peu, l'économie s'emballait et toutes les parties finissaient au seuil. Trois essais de S3, à 200 parties par format avec les clans en rotation. Valeurs retenues envoyées à S1, session maître en copie. `reglage-duree.md` écrit ; § 17 ajouté à `regles-v1.md`.
+- **Décisions** : aucune décision de l'utilisateur. Réglage de données ; une valeur nouvelle, le bonus de défense des capitales, autorisée par la consigne (« défense des capitales »).
+- **Vérifications** : essai 3 de S3 (b4c36fd) : 29,6 / 33,7 / 30,1 tours en moyenne à 2 / 3 / 4 joueurs.
+- **Non vérifié sur téléphone** : sans objet.
+- **Problèmes et dette** : mes premières mesures avec `chrono` étaient trop optimistes, car il oppose toujours les deux mêmes clans. Il reste 10 à 12 % de nulles par palier de score, et les Vents-Errants sont faibles.
+- **Prochaine étape** : attendre ; reprendre les nulles et les Vents-Errants si la session maître le demande.
+
 ## 2026-11-27 · Mission 2 : règles précises de la première version
 
 - **Auteur** : Claude, session S2

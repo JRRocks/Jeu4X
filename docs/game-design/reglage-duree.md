@@ -64,3 +64,22 @@ Essai 2 demandé :
 Lecture de l'essai 2 : la médiane et les parties gagnées tombent dans l'intervalle de 25 à 35 tours. Mais 14 à 26 % des parties finissent nulles au tour 80, sans doute parce que le score plafonne quand toutes les villes sont au maximum, peut-être aussi à cause de l'IA. B équilibre mieux le premier joueur.
 
 Essai 3 demandé (le dernier) : B avec des seuils de 58, 56 et 56, plus le score du meilleur joueur dans les parties nulles.
+| 3 (B, seuils 58/56/56) | IA de S3 | moyenne 29,6 / 33,7 / 30,1 ; médiane 25 / 25 / 24 ; parties gagnées 23,1 / 27,4 / 24,8 | 16/72/12, 20/68/12, 28/62/10 | 47/48/59/23 % à 2 ; 22/24/30/14 % à 4 | 48 % contre 40 % |
+
+Nulles de l'essai 3 : le meilleur joueur finit en moyenne 3 à 4 points sous le seuil (de 48 à 57 points). C'est un palier : son score plafonne, peut-être aussi parce que l'IA cesse d'acheter des avancées.
+
+## 6. Valeurs retenues, envoyées à S1 le 2026-11-27
+
+| Donnée | Avant | Retenu |
+|---|---|---|
+| `grow_cost`, niveaux 2 à 5 | 5, 8, 11, 14 | **8, 14, 20, 26** |
+| `income`, niveaux 1 à 5 | 2, 3, 4, 5, 6 | **2, 2, 3, 3, 4** |
+| `held_points`, niveaux 1 à 5 | 2, 4, 6, 8, 10 | **1, 2, 3, 4, 5** |
+| `points_threshold`, 2 / 3 / 4 joueurs | 45 / 45 / 40 | **58 / 56 / 56** |
+| `start_food_per_rank` | 1 | **2** |
+| `capital_defense_bonus` (nouveau, dans sa propre capitale, en plus de la défense de ville) | — | **2** |
+
+À reprendre plus tard :
+- 10 à 12 % de parties nulles par palier de score ;
+- les Vents-Errants, les plus faibles (14 à 25 %) ;
+- la défense des capitales est une valeur nouvelle, qui précise la règle du § 6.3 de `regles-v1.md`.
