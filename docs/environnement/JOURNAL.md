@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · CI n° 8 rouge : Maven Central 429, miroir de Google ajouté
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : réparer l'exécution n° 8 (commit `8e56a05`), rouge avant tout test.
+- **Réalisé** : cause lue dans le journal de la CI : « Could not GET …kotlin-reflect-2.0.21.pom … status code 429 Too Many Requests » sur `repo.maven.apache.org`, à la configuration de Gradle ; le code n'y est pour rien. Parade durable plutôt qu'une relance : `settings.gradle.kts` interroge d'abord le miroir de Maven Central chez Google (`maven-central.storage-download.googleapis.com`), Maven Central en repli.
+- **Décisions** (développeur) : miroir de Google en premier pour les deux listes de dépôts.
+- **Vérifications** : `./gradlew --refresh-dependencies help` en session : OK.
+- **Non vérifié sur téléphone** : sans objet.
+- **Problèmes et dette** : aucun essai 0.1.8 publié (l'exécution a échoué avant la compilation) ; le numéro 0.1.8 est sauté, le prochain essai sera 0.1.9.
+- **Prochaine étape** : CI verte, essai 0.1.9 à l'émulateur, rapport.
+
 ## 2026-11-27 · Cadrage au lancement zoomé sur ses unités (D-20)
 
 - **Auteur** : Claude, session S1
