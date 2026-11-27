@@ -27,4 +27,4 @@ Poser les fondations d'un jeu de stratégie 4X original pour Android : un platea
 
 | N° | Depuis la version | Ce qu'il fait | Ce qu'il doit voir | État |
 |---|---|---|---|---|
-| — | | | | |
+| R1 | essai 0.1.4 | Installe « Jeu4X essai » depuis le lien de la pré-version `essai-0.1.4`, puis l'ouvre | Trois lignes : « Jeu4X », « Version 0.1.4 », « Moteur de règles 1 : contrôle réussi » ; en cas d'arrêt, l'écran « Jeu4X s'est arrêté » avec Copier et Partager | à essayer |
