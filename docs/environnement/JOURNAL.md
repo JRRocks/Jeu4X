@@ -2,6 +2,34 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Version jouable de bout en bout (D-34) : règles V1 complètes, adversaire simple
+
+*Claude, session S1.* Consigne de la maître (D-34) : une version d'essai jouable de la nouvelle partie à la fin, sans aperçu à valider, graphismes provisoires, tests légers.
+
+- Moteur (VERSION_REGLES 3, codage 3, replay 3 avec les clans) :
+  - `donnees.rs` : tables du § 12 (9 unités, 4 clans, 15 avancées, exploitations, bâtiments, niveaux de ville, trésors).
+  - Carte : villages (deux par capitale à distance 2 à 4, plus proches d'elle), ruines à trésor tiré à la création.
+  - Villes et villages, rallier/prendre, territoire, revenu, entretien, croissance avec cadeau a/b, exploitations, remparts, marché, trois merveilles (une seule de chaque, détruite à l'élimination).
+  - Combat sans hasard (§ 6.3) avec annonce (`annonce_combat`), triangle, siège, Forge, Porte-pavois, riposte, Razzia ; repos et soins.
+  - Arbre en trois branches avec choix exclusifs ; prix des Veilleurs et des Écoles ; ruines (réserve, savoir, recrue, carte) ; lunette de l'Astronome.
+  - Victoire : capitale prise (élimination ; dernier debout), seuil annoncé à la fin du tour et gagné au début du suivant, nulle après le tour 80.
+  - Espace d'actions fixe en blocs (`B_DEPLACER` … `B_RECHERCHER`, 103 k numéros).
+  - `ia_simple.rs` : adversaire provisoire (prendre, attaquer si rentable, grandir, produire, exploiter, rechercher, avancer vers le but connu le plus proche). L'IA de S3 (`s3-ia`, 977f5f2) attend l'adaptation à ces règles : pas encore fusionnée.
+  - 30 tests Rust verts.
+- Cas non tranchés par les règles, décidés ici (à revoir avec S2) :
+  - pas de revenu au début du tour 1 (les vivres de départ suffisent) ;
+  - défense de ville seulement pour une unité dans une ville de son camp ;
+  - le Savoir d'une ruine donne la moins chère des avancées ouvertes ;
+  - la ruine et les exploitations se voient sur toute case connue, même vue autrefois ;
+  - une ville prise garde ses remparts gratuits (c'est un bâtiment) mais perd les autres cadeaux ;
+  - la place du joueur humain est tirée de la graine ; les autres clans vont à l'ordinateur dans l'ordre.
+- Mesure (`examples/parties_ia.rs`, 40 parties par nombre de joueurs, adversaires simples) : toutes gagnées au seuil, en 8 à 10 tours en moyenne, loin des 25 à 35 visés par S2. À signaler : l'économie et le seuil sont à régler.
+- Application : écran « Nouvelle partie » (2 à 4 joueurs, clan), partie contre l'ordinateur qui joue action par action, barre (tour, vivres et revenu, unités, scores et seuil, annonce), pastilles blanches et rouges, panneau d'annonce du combat (D-31), panneaux de ville et d'exploitation, arbre d'évolution plein écran, écran de fin (victoire, défaite, nulle, n° de carte). Toucher : la silhouette de l'unité d'abord, puis le losange (guide S6). Montagne grise froide, colline ocre (S6).
+- Pont JNI : `nouvellePartie(graine, nbJoueurs, clans)`, `etat(h, joueur)`, `permises`, `appliquer(numéro)`, `annonce`, `tourIa`.
+- Émulateur (`outils/essai-emulateur.sh`) : « Nouvelle partie » → « Commencer » → « Votre tour » → « Fin du tour » → retour à notre tour au tour suivant, puis plantage provoqué.
+- Tests Kotlin verts ; captures en session : réglage, plateau, unité choisie, ville, arbre, combat, fin.
+- Non fait : annuler un coup, recommencer son tour (coûteux), code de carte saisissable (seul le n° de carte s'affiche).
+
 ## 2026-11-27 · Règles V1, étape a : 8 directions, 2 à 4 joueurs, collines, brouillard
 
 *Claude, session S1.* Consigne de la maître : coder les règles validées (D-30), étape a d'abord.

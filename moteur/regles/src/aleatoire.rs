@@ -1,7 +1,7 @@
 //! Joueur au hasard : sert aux tests, aux mesures de vitesse et de base aux IA.
 
 use crate::hasard::Hasard;
-use crate::partie::{Partie, Reglages};
+use crate::partie::{Action, Partie, Reglages};
 
 /// Joue une partie entière au hasard. Rend l'état final et la suite des numéros d'actions.
 /// `graine_joueur` est séparée de la graine de la partie : même carte, autres coups.
@@ -10,7 +10,8 @@ pub fn jouer_au_hasard(reglages: Reglages, graine_partie: u64, graine_joueur: u6
     let mut h = Hasard::new(graine_joueur);
     let mut actions = Vec::new();
     while !p.est_finie() {
-        let permises = p.actions_permises();
+        // Renvoyer une unité est permis mais ne sert qu'à perdre : le joueur au hasard l'évite.
+        let permises: Vec<Action> = p.actions_permises().into_iter().filter(|a| !matches!(a, Action::Renvoyer { .. })).collect();
         // La fin du tour est toujours permise ; on la tire moins souvent pour que les unités bougent.
         let choix = if permises.len() > 1 && h.sous(4) != 0 {
             permises[1 + h.sous(permises.len() as u32 - 1) as usize]

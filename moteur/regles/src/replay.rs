@@ -4,11 +4,11 @@
 //! d'entraînement :
 //!
 //! ```text
-//! jeu4x-replay 2
-//! regles 2
-//! codage 2
+//! jeu4x-replay 3
+//! regles 3
+//! codage 3
 //! graine 42
-//! reglages 2 11 6 80          (joueurs, côté, distance des capitales, limite de tours)
+//! reglages 2 11 6 80 0 1 2 3  (joueurs, côté, distance des capitales, limite de tours, clans)
 //! actions 0 245 0 …
 //! controle 2 1234567890 …     (tous les N actions : numéro d'action, empreinte)
 //! fin 9876543210
@@ -17,7 +17,7 @@
 use crate::partie::{ActionRefusee, Partie, Reglages, VERSION_CODAGE};
 use crate::VERSION_REGLES;
 
-pub const VERSION_FORMAT: u32 = 2;
+pub const VERSION_FORMAT: u32 = 3;
 /// Une empreinte de contrôle toutes les `PAS_CONTROLE` actions.
 pub const PAS_CONTROLE: usize = 50;
 
@@ -90,7 +90,7 @@ impl Replay {
         let actions: Vec<String> = self.actions.iter().map(|a| a.to_string()).collect();
         let controles: Vec<String> = self.controles.iter().map(|(n, e)| format!("{n} {e}")).collect();
         format!(
-            "jeu4x-replay {VERSION_FORMAT}\nregles {}\ncodage {}\ngraine {}\nreglages {} {} {} {}\nactions {}\ncontrole {}\nfin {}\n",
+            "jeu4x-replay {VERSION_FORMAT}\nregles {}\ncodage {}\ngraine {}\nreglages {} {} {} {} {} {} {} {}\nactions {}\ncontrole {}\nfin {}\n",
             self.version_regles,
             self.version_codage,
             self.graine,
@@ -98,6 +98,10 @@ impl Replay {
             r.taille,
             r.distance_capitales,
             r.limite_tours,
+            r.clans[0],
+            r.clans[1],
+            r.clans[2],
+            r.clans[3],
             actions.join(" "),
             controles.join(" "),
             self.empreinte_finale
@@ -123,7 +127,7 @@ impl Replay {
         let codage = *champ("codage")?.first().ok_or_else(|| err("codage"))? as u32;
         let graine = *champ("graine")?.first().ok_or_else(|| err("graine"))?;
         let rg = champ("reglages")?;
-        if rg.len() != 4 {
+        if rg.len() != 8 {
             return Err(err("reglages"));
         }
         if !(2..=4).contains(&rg[0]) || rg[1] > crate::plateau::TAILLE_MAX as u64 {
@@ -134,6 +138,7 @@ impl Replay {
             taille: rg[1] as u8,
             distance_capitales: rg[2] as u8,
             limite_tours: rg[3] as u16,
+            clans: [rg[4] as u8 % 4, rg[5] as u8 % 4, rg[6] as u8 % 4, rg[7] as u8 % 4],
         };
         let actions = champ("actions")?.into_iter().map(|a| a as u32).collect();
         let c = champ("controle")?;
