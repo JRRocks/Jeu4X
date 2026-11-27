@@ -1,0 +1,15 @@
+# Sources
+
+> Session 2. Ce qui vient d'ailleurs, résumé (jamais recopié), avec le lien et la date de consultation.
+> Citer un jeu sert à l'analyser ; rien de ses noms, textes ou images n'est repris (D-03).
+> Consultation : par recherche web, le 2026-11-27 ; les résumés portent sur les extraits lus.
+
+| N° | Sujet | Liens | Consulté | Ce qu'on en retient |
+|---|---|---|---|---|
+| S-01 | La référence de genre (petite carte, une monnaie, arbre commun) | [Wikipédia](https://www.wikiwand.com/en/articles/The_Battle_of_Polytopia) ; [analyse d'architecture](https://notlsd.github.io/2017/06/13/polytopia-a-mobilized-civilization) ; [stratégies, wiki de fans](https://polytopia.fandom.com/wiki/Strategies) ; [critique sur l'équilibre](https://mechanicsofmagic.com/2022/05/22/critical-play-is-this-game-balanced-polytopia-tristan-wang/) | 2026-11-27 | Une monnaie unique pour tout ; arbre commun à tous, les camps diffèrent surtout par leur avancée de départ ; coût des avancées qui monte avec le nombre de villes ; économie du début décisive. Critiques : arbre petit, fin de partie répétitive, ressources qui s'accumulent, camps qui finissent avec les mêmes unités. |
+| S-02 | Asymétrie totale entre factions (jeu de plateau Root) | [revue après cinq ans](https://gamingtrend.com/reviews/root-review-a-perspective-after-five-years-in-the-woods/) ; [revue et extensions](https://punchboard.co.uk/root-review-expansions/) | 2026-11-27 | Chaque faction a ses règles et son objectif ; parties plus serrées qu'attendu ; mais l'asymétrie est la plus dure à équilibrer et devient prévisible pour les joueurs aguerris. D'où l'échelle d'asymétrie progressive et l'équilibrage mesuré (GD-070, GD-073). |
+| S-03 | Ères qui découpent la partie (Civilization VII, « Ages ») | [journal de développement](https://civilization.2k.com/civ-vii/archive/dev-diary/ages/) ; [explication](https://civilization.2k.com/civ-vii/game-guide/gameplay/ages-explanation) | 2026-11-27 | Les ères bornent les avancées, unités et bâtiments disponibles ; motivation affichée : la fin de partie des 4X demande de plus en plus d'actions ; découper en ères rend chaque tranche plus resserrée. Inspire l'arbre B et l'événement de mi-partie (GD-021, GD-009). |
+| S-04 | Les « décisions intéressantes » (Sid Meier, GDC 2012) | [résumé Game Developer](https://gamedeveloper.com/design/gdc-2012-sid-meier-on-how-to-see-games-as-sets-of-interesting-decisions) ; [GDC Vault](https://gdcvault.com/play/1016165/contactUs) | 2026-11-27 | Un jeu est une suite de décisions intéressantes : arbitrages, court terme contre long terme, personnalisation. Principe directeur de la boucle (GD-013, GD-025). |
+| S-05 | Analyse générale de la référence de genre | [revue Nintendo Life](https://nintendolife.com/reviews/switch-eshop/the-battle-of-polytopia) ; [comparaison avec les échecs](https://chess.com/blog/midjitoo/comparing-chess-with-the-battle-of-polytopia) | 2026-11-27 | Partie courte et lisible, plateau à cases comme un jeu d'échecs, mode à score sur un nombre de tours fixé. |
+
+Le reste (clans, arbres, mécaniques) est conçu ici, sans source extérieure.
