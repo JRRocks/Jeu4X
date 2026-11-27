@@ -6,12 +6,12 @@ L'utilisateur parle à la session maître, et à elle seule. La session maître 
 
 | N° | Rôle | Branche | Dossier | Préfixe des idées | État |
 |---|---|---|---|---|---|
-| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | lancée le 2026-11-27 |
-| S2 | Recherche de game design : arbre d'évolution, clans, styles de jeu | `s2-game-design` | `docs/game-design/` | `GD-` | lancée le 2026-11-27 |
-| S3 | IA évolutive : apprentissage par renforcement, algorithmes génétiques, pré-entraînement | `s3-ia` | `docs/ia/` | `IA-` | lancée le 2026-11-27 |
-| S4 | Regroupement des données : serveur, local ou mixte, pour suivre l'évolution de l'IA | `s4-donnees` | `docs/donnees/` | `DO-` | lancée le 2026-11-27 |
-| S5 | Veille dans le monde du jeu vidéo : idées de gameplay et autres | `s5-veille` | `docs/veille/` | `VE-` | lancée le 2026-11-27 |
-| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` | `DA-` | lancée le 2026-11-27 |
+| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | code les règles de la première version (P1.6) |
+| S2 | Recherche de game design : arbre d'évolution, clans, styles de jeu | `s2-game-design` | `docs/game-design/` | `GD-` | règles validées (D-30), en pause |
+| S3 | IA évolutive : apprentissage par renforcement, algorithmes génétiques, pré-entraînement | `s3-ia` | `docs/ia/` et `moteur/ia/` | `IA-` | terrain d'essai livré, attend les règles codées |
+| S4 | Regroupement des données : serveur, local ou mixte, pour suivre l'évolution de l'IA | `s4-donnees` | `docs/donnees/` | `DO-` | trié, en pause |
+| S5 | Veille dans le monde du jeu vidéo : idées de gameplay et autres | `s5-veille` | `docs/veille/` | `VE-` | trié, mission terminée |
+| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` | `DA-` | deuxième série d'images (P6.2) |
 
 ## Règles communes aux sessions de travail
 
