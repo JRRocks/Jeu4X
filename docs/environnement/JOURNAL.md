@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Vérification des développeurs Android
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : vérifier à la source l'information de la veille (S5) transmise par la session maître.
+- **Réalisé** : section ajoutée à `signature.md`, avec les sources. Obligatoire depuis le 30/09/2026 dans quatre pays (boutiques participantes), partout en 2027 ; APK installé directement pas encore concerné ; compte à distribution limitée (20 appareils, sans pièce d'identité) suffisant pour un usage privé ; il faudra déclarer `fr.jeu4x.app` et l'empreinte SHA-256 de la clé release.
+- **Décisions** : aucune ; identifiant et clé déjà compatibles. Aucun compte créé.
+- **Vérifications** : pages officielles Google (blog, guide, FAQ, aide), consultées le 2026-11-27.
+- **Non vérifié sur téléphone** : sans objet.
+- **Problèmes et dette** : versions d'Android concernées (7 ou 8 et plus) différentes selon les pages.
+- **Prochaine étape** : résultat de la CI, rapport d'étape B.
+
 ## 2026-11-27 · Étape B : application vide, pont Rust, CI, aperçus du plateau
 
 - **Auteur** : Claude, session S1
