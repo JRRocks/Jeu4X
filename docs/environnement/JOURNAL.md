@@ -2,6 +2,22 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Règles V1, étape a : 8 directions, 2 à 4 joueurs, collines, brouillard
+
+*Claude, session S1.* Consigne de la maître : coder les règles validées (D-30), étape a d'abord.
+
+- Moteur (`moteur/regles`, VERSION_REGLES 2, codage 2, format de replay 2) :
+  - `Reglages::pour(n)` : 2 joueurs 11×11, 3 joueurs 12×12, 4 joueurs 14×14 ; distance des capitales 6, 6, 7 ; limite 80 tours. `Default` = 2 joueurs.
+  - Terrain `Colline` (coût 2, vision +1 ; montagne vision +1 aussi). Voisines dans 8 directions, distance = plus grand écart.
+  - Carte (`carte.rs`) : deux champs lissés (altitude, humidité), classés pour des parts exactes (15 % eau, 8 % montagne, 12 % colline, 20 % forêt). Capitales tirées puis abords retouchés par échanges avec des cases lointaines (parts gardées) ; conditions du § 2.3 vérifiées (voisines, plaines à 2 près, chemin) ; sinon graine dérivée `graine + k·0x9E3779B97F4A7C15` (pas `graine + 1`, qui faisait retomber 42 sur 43). Mesure (`examples/essais_carte.rs`) : 1,0 essai en moyenne, 2 au plus, sur 2 000 graines à 2, 3 et 4 joueurs.
+  - Départ : capitale (vision 2), un Lancier (1 point, vision 2) et un Éclaireur (3 points, vision 3) sur deux voisines.
+  - Brouillard par joueur (inconnue, vue autrefois, visible) avec souvenir du dernier propriétaire des villes. Déplacements d'après ce que sait le joueur : cases connues seulement, zone de contrôle des adverses visibles, premier pas toujours permis, arrêt sur surprise case par case.
+  - `Partie::vue(joueur)` pour S3 ; `coder` lit la vue (14 canaux, retourné pour mettre sa capitale en bas à gauche). Scores et gagnant provisoires (cases découvertes) jusqu'à l'étape e.
+  - 32 tests verts. Vitesse : 973 parties/s à 2 joueurs (80 tours), 412 à 4 joueurs.
+- Pont JNI : `nouvellePartie(graine, nbJoueurs)`, `etat` rend la vue du joueur courant (terrain -1 si inconnu).
+- Application : brouillard du joueur dont c'est le tour, cases vues autrefois assombries, collines, capitale (maison), signe de l'Éclaireur. Graphismes provisoires. L'application reste à 2 joueurs : un choix du nombre de joueurs demanderait un aperçu.
+- Captures en session : `plateau`, `plateau-choix`, `plateau-souvenir` (nouvelle), `plateau-tour-rouge`. 33 tests Kotlin verts.
+
 ## 2026-11-27 · Essai 0.1.10 vert à l'émulateur, glissement de début de tour (D-21)
 
 *Claude, session S1.*

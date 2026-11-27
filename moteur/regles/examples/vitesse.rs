@@ -5,8 +5,9 @@ use regles::partie::Reglages;
 use std::time::Instant;
 
 fn main() {
-    for taille in [11u8, 14] {
-        let r = Reglages { taille, ..Reglages::default() };
+    for nb in 2..=4u8 {
+        let r = Reglages::pour(nb);
+        let taille = r.taille;
         let n = 2000u64;
         let debut = Instant::now();
         let mut actions = 0usize;
@@ -18,7 +19,7 @@ fn main() {
         }
         let s = debut.elapsed().as_secs_f64();
         println!(
-            "{taille}×{taille} : {:.0} parties/s, {:.0} actions par partie, {:.2} µs par action (contrôle {controle:x})",
+            "{nb} joueurs, {taille}×{taille} : {:.0} parties/s, {:.0} actions par partie, {:.2} µs par action (contrôle {controle:x})",
             n as f64 / s,
             actions as f64 / n as f64,
             s * 1e6 / actions as f64

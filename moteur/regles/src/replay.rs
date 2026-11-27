@@ -4,11 +4,11 @@
 //! d'entraînement :
 //!
 //! ```text
-//! jeu4x-replay 1
-//! regles 1
-//! codage 1
+//! jeu4x-replay 2
+//! regles 2
+//! codage 2
 //! graine 42
-//! reglages 11 3 3 30
+//! reglages 2 11 6 80          (joueurs, côté, distance des capitales, limite de tours)
 //! actions 0 245 0 …
 //! controle 2 1234567890 …     (tous les N actions : numéro d'action, empreinte)
 //! fin 9876543210
@@ -17,7 +17,7 @@
 use crate::partie::{ActionRefusee, Partie, Reglages, VERSION_CODAGE};
 use crate::VERSION_REGLES;
 
-pub const VERSION_FORMAT: u32 = 1;
+pub const VERSION_FORMAT: u32 = 2;
 /// Une empreinte de contrôle toutes les `PAS_CONTROLE` actions.
 pub const PAS_CONTROLE: usize = 50;
 
@@ -94,9 +94,9 @@ impl Replay {
             self.version_regles,
             self.version_codage,
             self.graine,
+            r.nb_joueurs,
             r.taille,
-            r.unites_par_joueur,
-            r.points_mouvement,
+            r.distance_capitales,
             r.limite_tours,
             actions.join(" "),
             controles.join(" "),
@@ -126,10 +126,13 @@ impl Replay {
         if rg.len() != 4 {
             return Err(err("reglages"));
         }
+        if !(2..=4).contains(&rg[0]) || rg[1] > crate::plateau::TAILLE_MAX as u64 {
+            return Err(err("reglages"));
+        }
         let reglages = Reglages {
-            taille: rg[0] as u8,
-            unites_par_joueur: rg[1] as u8,
-            points_mouvement: rg[2] as u8,
+            nb_joueurs: rg[0] as u8,
+            taille: rg[1] as u8,
+            distance_capitales: rg[2] as u8,
             limite_tours: rg[3] as u16,
         };
         let actions = champ("actions")?.into_iter().map(|a| a as u32).collect();
@@ -150,8 +153,14 @@ mod tests {
 
     #[test]
     fn rejouer_donne_le_meme_etat() {
-        let (fin, actions) = jouer_au_hasard(Reglages::default(), 42, 7);
-        let r = enregistrer(Reglages::default(), 42, &actions).unwrap();
+        for nb in 2..=4 {
+            rejouer_a(Reglages::pour(nb));
+        }
+    }
+
+    fn rejouer_a(reglages: Reglages) {
+        let (fin, actions) = jouer_au_hasard(reglages, 42, 7);
+        let r = enregistrer(reglages, 42, &actions).unwrap();
         assert!(r.actions.len() > PAS_CONTROLE);
         let rejouee = r.rejouer().unwrap();
         assert_eq!(rejouee, fin);

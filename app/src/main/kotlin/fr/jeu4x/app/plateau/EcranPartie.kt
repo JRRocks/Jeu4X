@@ -44,6 +44,8 @@ import androidx.compose.ui.unit.sp
 import fr.jeu4x.app.R
 import fr.jeu4x.app.moteur.Etat
 import fr.jeu4x.app.moteur.Terrain
+import fr.jeu4x.app.moteur.TypeUnite
+import fr.jeu4x.app.moteur.Visibilite
 
 /** Couleurs provisoires, reprises de l'aperçu C (le style définitif revient à la session 6). */
 private object Teintes {
@@ -52,6 +54,8 @@ private object Teintes {
     val plaine = Color(0xFFB9D98C)
     val foret = Color(0xFF5F9A55)
     val sapin = Color(0xFF3D6E3A)
+    val colline = Color(0xFFA7BF72)
+    val collineBosse = Color(0xFF8AA35A)
     val montagne = Color(0xFFA59E93)
     val montagneFlancG = Color(0xFF857E74)
     val montagneFlancD = Color(0xFF6F695F)
@@ -62,14 +66,30 @@ private object Teintes {
     val bord = Color(0x22000000)
     val portee = Color(0x55FFFFFF)
     val choix = Color(0xFFFFD34D)
+    val inconnue = Color(0xFF2A3A29)
+    val souvenir = Color(0x66000000)
     val bleu = Color(0xFF2F6FD0)
     val rouge = Color(0xFFD0482F)
+    val violet = Color(0xFF8E4FC0)
+    val jaune = Color(0xFFD9A21B)
     val ombre = Color(0x33000000)
     val info = Color(0xFFFFFFFF)
     val creme = Color(0xFFF6F3EC)
 }
 
-fun couleurJoueur(joueur: Int) = if (joueur == 0) Teintes.bleu else Teintes.rouge
+fun couleurJoueur(joueur: Int) = when (joueur) {
+    0 -> Teintes.bleu
+    1 -> Teintes.rouge
+    2 -> Teintes.violet
+    else -> Teintes.jaune
+}
+
+private fun nomCouleur(joueur: Int) = when (joueur) {
+    0 -> R.string.joueur_bleu
+    1 -> R.string.joueur_rouge
+    2 -> R.string.joueur_violet
+    else -> R.string.joueur_jaune
+}
 
 /** État affiché : la partie, l'unité choisie et ses cases atteignables. */
 data class Affichage(val etat: Etat, val choisie: Int? = null, val portee: Set<Int> = emptySet(), val numeroPartie: Int = 0)
@@ -82,7 +102,7 @@ fun EcranPartie(
     surNouvellePartie: () -> Unit,
 ) {
     val etat = affichage.etat
-    val nomJoueur = stringResource(if (etat.joueurCourant == 0) R.string.joueur_bleu else R.string.joueur_rouge)
+    val nomJoueur = stringResource(nomCouleur(etat.joueurCourant))
     Column(Modifier.fillMaxSize().background(Teintes.creme)) {
         Row(
             Modifier.fillMaxWidth().height(56.dp).background(Teintes.barre).padding(horizontal = 16.dp),
@@ -205,19 +225,32 @@ private fun DrawScope.dessinerPlateau(p: Perspective, a: Affichage) {
         val case = y * etat.taille + x
         val (sx, sy0) = p.sommet(x, y)
         val terrain = etat.terrains[case]
+        // Case inconnue (brouillard) : une dalle sombre, rien de ce qu'elle contient.
+        if (terrain == null || etat.visibilite[case] == Visibilite.INCONNUE) {
+            val forme = losange(sx, sy0, dl, dh)
+            drawPath(forme, Teintes.inconnue)
+            drawPath(forme, Teintes.bord, style = Stroke(1f))
+            continue
+        }
+        val souvenir = etat.visibilite[case] == Visibilite.VUE_AUTREFOIS
         val haut = if (terrain == Terrain.MONTAGNE) sy0 - relief else sy0
         if (terrain == Terrain.MONTAGNE) {
-            drawPath(Path().apply {
-                moveTo(sx - dl, haut + dh); lineTo(sx, haut + 2 * dh); lineTo(sx, sy0 + 2 * dh); lineTo(sx - dl, sy0 + dh); close()
-            }, Teintes.montagneFlancG)
-            drawPath(Path().apply {
-                moveTo(sx + dl, haut + dh); lineTo(sx, haut + 2 * dh); lineTo(sx, sy0 + 2 * dh); lineTo(sx + dl, sy0 + dh); close()
-            }, Teintes.montagneFlancD)
+            val flancs = listOf(
+                Path().apply { moveTo(sx - dl, haut + dh); lineTo(sx, haut + 2 * dh); lineTo(sx, sy0 + 2 * dh); lineTo(sx - dl, sy0 + dh); close() } to Teintes.montagneFlancG,
+                Path().apply { moveTo(sx + dl, haut + dh); lineTo(sx, haut + 2 * dh); lineTo(sx, sy0 + 2 * dh); lineTo(sx + dl, sy0 + dh); close() } to Teintes.montagneFlancD,
+            )
+            for ((chemin, teinte) in flancs) {
+                drawPath(chemin, teinte)
+                if (souvenir) drawPath(chemin, Teintes.souvenir)
+            }
         }
         val forme = losange(sx, haut, dl, dh)
         drawPath(forme, couleurTerrain(terrain))
         drawPath(forme, Teintes.bord, style = Stroke(1f))
         decor(terrain, sx, haut + dh)
+        etat.villeSur(case)?.let { dessinerVille(sx, haut + dh, if (it.joueur >= 0) couleurJoueur(it.joueur) else Color.White) }
+        // Vue autrefois : le terrain et les villes tels qu'on s'en souvient, assombris.
+        if (souvenir) drawPath(forme, Teintes.souvenir)
         if (case in a.portee) {
             val l = losange(sx, haut, dl, dh, retrait = 3f)
             drawPath(l, Teintes.portee)
@@ -230,13 +263,22 @@ private fun DrawScope.dessinerPlateau(p: Perspective, a: Affichage) {
         val u = etat.uniteSur(case) ?: continue
         val (cx, cy) = p.centre(x, y)
         val haut = if (etat.terrains[case] == Terrain.MONTAGNE) relief else 0f
-        dessinerUnite(cx, cy - 14f - haut, couleurJoueur(u.joueur), choisie = a.choisie == case, epuisee = u.pointsRestants == 0)
+        dessinerUnite(cx, cy - 14f - haut, couleurJoueur(u.joueur), u.type, choisie = a.choisie == case, epuisee = u.pointsRestants == 0)
     }
+}
+
+/** Ville, provisoire : une maison à la couleur de son propriétaire. */
+private fun DrawScope.dessinerVille(cx: Float, cy: Float, couleur: Color) {
+    drawRect(Teintes.ombre, topLeft = Offset(cx - 9f, cy - 4f), size = androidx.compose.ui.geometry.Size(20f, 12f))
+    drawRect(couleur, topLeft = Offset(cx - 10f, cy - 6f), size = androidx.compose.ui.geometry.Size(20f, 12f))
+    drawPath(Path().apply { moveTo(cx - 13f, cy - 6f); lineTo(cx, cy - 17f); lineTo(cx + 13f, cy - 6f); close() }, Teintes.creme)
+    drawRect(Teintes.creme, topLeft = Offset(cx - 3f, cy - 1f), size = androidx.compose.ui.geometry.Size(6f, 7f))
 }
 
 private fun couleurTerrain(t: Terrain) = when (t) {
     Terrain.PLAINE -> Teintes.plaine
     Terrain.FORET -> Teintes.foret
+    Terrain.COLLINE -> Teintes.colline
     Terrain.MONTAGNE -> Teintes.montagne
     Terrain.EAU -> Teintes.eau
 }
@@ -247,6 +289,12 @@ private fun DrawScope.decor(t: Terrain, cx: Float, cy: Float) {
             drawPath(Path().apply {
                 moveTo(cx + dx - 6f, cy + dy + 5f); lineTo(cx + dx, cy + dy - 8f); lineTo(cx + dx + 6f, cy + dy + 5f); close()
             }, Teintes.sapin)
+        }
+        Terrain.COLLINE -> for ((dx, dy, r) in listOf(Triple(-7f, 3f, 9f), Triple(7f, -1f, 7f))) {
+            drawArc(
+                Teintes.collineBosse, startAngle = 180f, sweepAngle = 180f, useCenter = true,
+                topLeft = Offset(cx + dx - r, cy + dy - r * 0.8f), size = androidx.compose.ui.geometry.Size(2 * r, 1.6f * r),
+            )
         }
         Terrain.MONTAGNE -> {
             drawPath(Path().apply { moveTo(cx - 14f, cy + 6f); lineTo(cx, cy - 14f); lineTo(cx + 14f, cy + 6f); close() }, Teintes.roche)
@@ -261,16 +309,23 @@ private fun DrawScope.decor(t: Terrain, cx: Float, cy: Float) {
     }
 }
 
-private fun DrawScope.dessinerUnite(cx: Float, cy: Float, couleur: Color, choisie: Boolean, epuisee: Boolean) {
+private fun DrawScope.dessinerUnite(cx: Float, cy: Float, couleur: Color, type: TypeUnite, choisie: Boolean, epuisee: Boolean) {
     val r = 11f
     if (choisie) drawCircle(Teintes.choix, radius = r + 4f, center = Offset(cx, cy), style = Stroke(3.5f))
     drawCircle(Teintes.ombre, radius = r, center = Offset(cx, cy + 2f))
     drawCircle(if (epuisee) couleur.copy(alpha = 0.55f) else couleur, radius = r, center = Offset(cx, cy))
     drawCircle(Color.White, radius = r, center = Offset(cx, cy), style = Stroke(2f))
-    drawRoundRect(
-        Color.White,
-        topLeft = Offset(cx - 3f, cy - 6f),
-        size = androidx.compose.ui.geometry.Size(6f, 12f),
-        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f),
-    )
+    when (type) {
+        // Lancier : un trait debout. Éclaireur : une pointe de flèche. Signes provisoires.
+        TypeUnite.LANCIER -> drawRoundRect(
+            Color.White,
+            topLeft = Offset(cx - 3f, cy - 6f),
+            size = androidx.compose.ui.geometry.Size(6f, 12f),
+            cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f),
+        )
+        TypeUnite.ECLAIREUR -> drawPath(
+            Path().apply { moveTo(cx - 6f, cy + 4f); lineTo(cx, cy - 6f); lineTo(cx + 6f, cy + 4f); lineTo(cx, cy + 1f); close() },
+            Color.White,
+        )
+    }
 }

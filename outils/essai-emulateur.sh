@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Vérifie l'APK d'essai sur un émulateur Android (CI, D-19) :
 #   1. il s'installe et s'ouvre ;
-#   2. le plateau s'affiche (état lu dans le moteur Rust : « Tour 1 sur 30 », « Joueur Bleu ») ;
+#   2. le plateau s'affiche (état lu dans le moteur Rust : « Tour 1 sur 80 », « Joueur Bleu ») ;
 #      toucher « Fin du tour » passe la main au joueur Rouge ;
 #   3. un plantage provoqué ouvre l'écran « … s'est arrêté ».
 # Usage : outils/essai-emulateur.sh <apk> <dossier de sortie>
@@ -35,10 +35,10 @@ if adb install -r "$APK" >/dev/null; then note "OK  installation"; else note "É
 
 adb logcat -c
 adb shell am start -W -n "$PAQUET/fr.jeu4x.app.MainActivity" >/dev/null
-if ecran_contient "Tour 1 sur 30" && ecran_contient "Joueur Bleu"; then
-  note "OK  ouverture, plateau affiché depuis le moteur Rust : « Tour 1 sur 30 », « Joueur Bleu »"
+if ecran_contient "Tour 1 sur 80" && ecran_contient "Joueur Bleu"; then
+  note "OK  ouverture, plateau affiché depuis le moteur Rust : « Tour 1 sur 80 », « Joueur Bleu »"
 else
-  note "ÉCHEC plateau absent (« Tour 1 sur 30 » / « Joueur Bleu » introuvables)"
+  note "ÉCHEC plateau absent (« Tour 1 sur 80 » / « Joueur Bleu » introuvables)"
   if ecran_contient "Moteur de règles"; then note "      l'écran de contrôle du moteur s'affiche à la place : bibliothèque Rust en défaut"; fi
   echec=1
 fi

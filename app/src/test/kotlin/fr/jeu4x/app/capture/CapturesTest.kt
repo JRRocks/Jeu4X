@@ -9,6 +9,7 @@ import androidx.compose.ui.test.onNodeWithText
 import fr.jeu4x.app.EcranAccueil
 import fr.jeu4x.app.EtatAccueil
 import fr.jeu4x.app.EtatMoteur
+import fr.jeu4x.app.moteur.TypeUnite
 import fr.jeu4x.app.plateau.EcranPartie
 import fr.jeu4x.app.plateau.PartieViewModel
 import java.io.File
@@ -43,7 +44,17 @@ class CapturesTest {
         vm.toucherCase(vm.affichage.etat.unites.first { it.joueur == 0 }.case)
         compose.waitForIdle()
         capturer("plateau-choix")
-        // Tour du joueur Rouge : la vue ne bouge pas (D-20 ne dit rien du changement de tour).
+        // L'éclaireur part au plus loin : les cases qu'il quitte passent à « vue autrefois ».
+        val e = vm.affichage.etat
+        val eclaireur = e.unites.first { it.joueur == 0 && it.type == TypeUnite.ECLAIREUR }
+        vm.toucherCase(eclaireur.case)
+        val loin = vm.affichage.portee.maxBy { c ->
+            maxOf(kotlin.math.abs(e.colonne(c) - e.colonne(eclaireur.case)), kotlin.math.abs(e.rangee(c) - e.rangee(eclaireur.case))) * 1000 - c
+        }
+        vm.toucherCase(loin)
+        compose.waitForIdle()
+        capturer("plateau-souvenir")
+        // Tour du joueur Rouge : la vue glisse vers ses unités (D-21) et montre ce qu'il sait.
         vm.finDuTour()
         compose.waitForIdle()
         capturer("plateau-tour-rouge")
