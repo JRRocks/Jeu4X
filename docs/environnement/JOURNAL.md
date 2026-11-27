@@ -2,6 +2,10 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Essai jouable 0.1.17 vert à l'émulateur
+
+*Claude, session S1.* CI n° 17 (b0fa065) verte, pré-version `essai-0.1.17` publiée. Résumé de l'émulateur : installation, « Nouvelle partie » puis « Commencer », « Votre tour », « Fin du tour » (l'ordinateur joue, retour au tour 2), plantage provoqué, rapport et relance, tout vert. Les captures, regardées : le Rouge (le joueur humain) au tour 1, puis au tour 2, avec 7 puis 11 vivres. Contenu : règles V1 complètes, IA `utilite-r3-v3` de S3, réglage de durée de S2. Non vérifié : une partie entière sur un téléphone, les gestes, la lisibilité, l'installation par-dessus.
+
 ## 2026-11-27 · CI n° 16 rouge : profil pixel_6 trop lent, retiré
 
 *Claude, session S1.* Avec le profil `pixel_6`, plus rien ne répond à temps à l'émulateur, même l'écran de plantage, qui passait avant. Le profil est retiré. Le bouton « Commencer » fixé en bas reste, et doit suffire sur le petit écran par défaut. Le script affiche désormais dans le journal de la CI les textes visibles à l'écran quand une étape échoue, pour voir au lieu de deviner.
