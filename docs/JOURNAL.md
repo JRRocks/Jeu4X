@@ -22,6 +22,18 @@ Gabarit :
 
 ---
 
+## 2026-11-27 · Page de tri : boutons qui bloquaient, corrigé
+
+- **Auteur** : Claude, session maître
+- **Branche et commit** : hors dépôt (page de tri privée, version 3)
+- **Objectif** : l'utilisateur signale que les boutons de la page de tri ne répondent pas toujours et que la page bloque pendant ses choix.
+- **Réalisé** : défaut reproduit sur un banc d'essai (téléphone émulé, processeur ralenti, base simulée qui renvoie parfois un état en retard) : chaque toucher reconstruisait toute la liste deux à trois fois, et un état en retard venu de la base pouvait effacer les derniers choix, puis enregistrer cet effacement (2 à 3 choix perdus sur 6). Correction : un toucher ne redessine que sa carte ; la base ne remplace l'écran que par un état plus récent ; rien n'est écrit avant d'avoir relu les choix déjà enregistrés ; nouvel essai automatique en cas d'échec ; état de l'enregistrement affiché en haut ; brouillon gardé sur l'appareil.
+- **Décisions** : aucune.
+- **Vérifications** : même banc, avant et après : 6 choix sur 6 affichés et enregistrés, choix d'une visite précédente conservés, 0 ou 1 reconstruction de la liste au lieu de 21 ou 22, réponse au toucher en 80 à 115 ms au lieu de 130 à 330 ms. Non vérifié : la base réelle sur le téléphone de l'utilisateur.
+- **Non vérifié sur téléphone** : la page corrigée.
+- **Problèmes et dette** : les validations déjà faites (game design avec un seul changement, IA sans changement) ont pu perdre des choix à cause du défaut ; l'utilisateur est prévenu.
+- **Prochaine étape** : l'utilisateur reprend le tri.
+
 ## 2026-11-27 · Point de contrôle : plateau choisi, version d'essai demandée
 
 - **Auteur** : Claude, session maître
