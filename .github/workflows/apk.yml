@@ -45,6 +45,13 @@ jobs:
           rustup target add aarch64-linux-android
           cargo install cargo-ndk --version 4.1.2 --locked
 
+      - name: NDK Android (version fixée par app/build.gradle.kts)
+        run: |
+          set -euo pipefail
+          gestionnaire=$(ls "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | tail -1)
+          "$gestionnaire" --install "ndk;27.2.12479018" > /dev/null
+          ls "$ANDROID_HOME/ndk"
+
       - name: Tests du moteur (Rust)
         working-directory: moteur
         run: cargo test --locked
