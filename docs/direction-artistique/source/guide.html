@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Planches du guide V1</title>
+<style>
+  @font-face { font-family: Fredoka; font-weight: 400; src: url(fonts/fredoka-latin-400-normal.woff2); }
+  @font-face { font-family: Fredoka; font-weight: 600; src: url(fonts/fredoka-latin-600-normal.woff2); }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #E9E7E2; font-family: Inter, sans-serif; color: #1C1E24; }
+  #shot { display: inline-flex; flex-direction: column; gap: 16px; padding: 28px; background: #E9E7E2; }
+  .head h1 { font-size: 28px; } .head h1 span { font-size: 15px; color: #6A6458; letter-spacing: .06em; margin-right: 8px; } .head p { font-size: 16px; color: #3C3A35; max-width: 1240px; }
+  .planche { background: #FFFFFF; border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .planche.kraft { background: #F3E6CC; } .planche.nuit { background: #141A24; color: #EEF1F5; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .06em; color: #6A6458; } .nuit h2 { color: #A9B1BD; }
+  .grid { display: grid; gap: 8px 12px; align-items: end; }
+  .sw { display: flex; flex-direction: column; gap: 3px; font-size: 13px; } .sw i { display: block; height: 40px; border-radius: 8px; border: 1px solid #0002; }
+  code { font: 12.5px 'JetBrains Mono'; color: inherit; opacity: .8; }
+  .lbl { font: 600 13px Fredoka; text-align: center; } .sub { font: 400 12px Fredoka; opacity: .75; text-align: center; }
+  .row { display: flex; gap: 24px; align-items: flex-start; }
+  .phone { width: 380px; padding: 10px; border-radius: 46px; background: #15161A; box-shadow: 0 10px 30px #0004; }
+  .screen { width: 360px; height: 780px; border-radius: 36px; overflow: hidden; position: relative; font-family: Fredoka, sans-serif; color: var(--text); background: var(--table); }
+  .screen > svg { position: absolute; left: 0; top: 0; }
+  .top { position: absolute; top: 12px; left: 10px; right: 10px; height: 62px; background: var(--surf); border-radius: 20px; box-shadow: 0 3px 6px #0003; display: flex; align-items: center; gap: 10px; padding: 0 12px; z-index: 2; }
+  .turn { display: flex; flex-direction: column; line-height: 1; } .turn small { font-size: 11px; } .turn b { font-size: 20px; font-weight: 600; }
+  .res { display: flex; gap: 12px; margin-left: auto; font-size: 17px; font-weight: 600; } .res span { display: flex; align-items: center; gap: 4px; } .res small { font-size: 12px; font-weight: 400; opacity: .8; }
+  .menu { width: 48px; height: 48px; display: grid; place-items: center; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--surf); border-radius: 24px 24px 0 0; box-shadow: 0 -4px 14px #0003; padding: 8px 14px 20px; display: flex; flex-direction: column; gap: 10px; z-index: 2; }
+  .handle { width: 40px; height: 5px; border-radius: 3px; background: var(--line); align-self: center; }
+  .card { display: flex; gap: 10px; align-items: center; } .card b { font-size: 18px; font-weight: 600; } .card small { display: block; font-size: 13px; color: var(--text2); }
+  .hp { height: 7px; border-radius: 4px; background: var(--line); overflow: hidden; width: 130px; margin-top: 4px; display: flex; } .hp i { display: block; height: 100%; }
+  .btns { display: flex; gap: 10px; }
+  .sq { flex: 1; height: 56px; border-radius: 16px; background: var(--bg); border: 1.5px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font-size: 13px; font-weight: 600; color: var(--text); }
+  .end { height: 58px; border-radius: 29px; background: var(--btn); color: var(--btnText); font-size: 21px; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px #0003; }
+  .end.alt { background: var(--alert); color: var(--alertText); }
+  .vs { display: grid; grid-template-columns: 1fr 28px 1fr; gap: 6px; align-items: center; }
+  .vs .side { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 13px; text-align: center; } .vs .side b { font-size: 15px; font-weight: 600; } .vs .x { font-size: 20px; text-align: center; }
+  .verdict { text-align: center; font-size: 16px; font-weight: 600; }
+  .ov { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+  .notes { font-size: 14.5px; line-height: 1.45; color: #2C2A26; max-width: 520px; } .notes li { margin-bottom: 3px; }
+</style>
+<script src="couleurs.js"></script>
+<script src="scene.js"></script>
+<script src="styles.js"></script>
+<script src="palettes.js"></script>
+<script src="iso.js"></script>
+</head>
+<body>
+<div id="shot"></div>
+<script>
+  const q = new URLSearchParams(location.search), vue = q.get('vue');
+  const shot = document.getElementById('shot');
+  const { PALV1, CLANS, plateau, figure, ville, etiquette, clanCol, pts, diamond, prism, tile, ruine, exploitation, emblem } = Iso;
+  const J = PALV1.jour, N = PALV1.nuit, mix = Scene.mix;
+  const W0 = 72, H0 = 36;   // case au zoom de départ (dp)
+  const defs = pal => `<defs><filter id="ombre" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.2" flood-color="${pal.shadow}" flood-opacity="${pal.night ? .6 : .35}"/></filter><pattern id="hach-${pal.id}" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 0V6" stroke="#000" stroke-opacity=".3"/></pattern></defs>`;
+  const head = (num, t, p) => `<div class="head"><h1><span>${num}</span>${t}</h1><p>${p}</p></div>`;
+  // Une case seule, avec ce qu'on y pose (fn reçoit le centre du dessus).
+  function caseSvg(pal, t, fn, opt = {}) {
+    const w = opt.w || 118, h = opt.h || 120, cx = w / 2, cy = h * .66, R = Scene.rng(5);
+    const z = opt.state === 'jamais' ? 0 : Iso.SURF.popup[t];
+    return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${defs(pal)}${tile('popup', t, cx, cy, W0 * 1.2, H0 * 1.2, pal, R, opt.state || 'vue', 'calque')}${fn ? fn(cx, cy - z, W0 * 1.2) : ''}</svg>`;
+  }
+  const cell = (svg, l, s) => `<div style="display:flex;flex-direction:column;align-items:center;gap:2px">${svg}<div class="lbl">${l}</div>${s ? `<div class="sub">${s}</div>` : ''}</div>`;
+  const TN = { P: 'Plaine', F: 'Forêt', C: 'Colline', M: 'Montagne', E: 'Eau' };
+
+  const V = {};
+
+  // ---------- DA-019 Couleurs ----------
+  V.couleurs = () => {
+    const sw = (c, n) => `<div class="sw"><i style="background:${c}"></i>${n}<code>${c}</code></div>`;
+    const bloc = (pal, nom) => {
+      const u = pal.ui, t = pal.terr;
+      const terr = ['P', 'F', 'C', 'M', 'E'].map(k => sw(t[k], TN[k])).join('');
+      const papier = [[pal.table, 'Table'], [pal.edge, 'Tranche des cases'], [mix(pal.edge, '#000000', .12), 'Tranche, côté droit'], [pal.night ? '#3A4254' : '#FFFFFF', 'Nuage (jamais vu)'], [pal.night ? '#0C1018' : '#FFFFFF', `Calque (déjà vu) à ${pal.night ? 55 : 58} %`], [pal.skin, 'Visages']].map(([c, n]) => sw(c, n)).join('');
+      const clans = Object.keys(CLANS).map(k => sw(clanCol(k, pal), CLANS[k].nom)).join('');
+      const ui = [[u.bg, 'Fond des boutons'], [u.surf, 'Cartes et panneaux'], [u.text, 'Texte'], [u.text2, 'Texte secondaire'], [u.btn, '« Fin du tour »'], [u.btnText, 'Texte du bouton'], [u.alert, '« Attaquer », alerte'], [pal.night ? '#0B1220' : '#FFFFFF', 'Texte d’« Attaquer »'], [u.line, 'Traits, bords']].map(([c, n]) => sw(c, n)).join('');
+      const ct = [['Texte / carte', u.text, u.surf], ['Texte secondaire / carte', u.text2, u.surf], ['Fin du tour', u.btnText, u.btn], ['Attaquer', pal.night ? '#0B1220' : '#FFFFFF', u.alert]].map(([n, f, b]) => `${n} : <b>${Couleurs.contrast(f, b).toFixed(1)}:1</b>`).join(' · ');
+      return `<div class="planche ${pal.night ? 'nuit' : ''}"><h2>${nom}</h2>
+        <div class="grid" style="grid-template-columns:repeat(8,1fr)">${terr}</div>
+        <div class="grid" style="grid-template-columns:repeat(8,1fr)">${papier}</div>
+        <div class="grid" style="grid-template-columns:repeat(8,1fr)">${clans}</div>
+        <div class="grid" style="grid-template-columns:repeat(8,1fr)">${ui}</div>
+        <div style="font-size:13.5px">Contrastes mesurés : ${ct}</div></div>`;
+    };
+    return head('DA-019', 'Couleurs exactes de la V1', 'Les deux palettes retenues (D-27, D-33). La colline est nouvelle (règles V1) ; pour qu’elle se distingue de la montagne chez les daltoniens, la montagne passe à un gris plus froid (à valider). « Jour franc » sert au mode clair du téléphone, « Nuit » au mode sombre.')
+      + bloc(J, 'Jour franc (mode clair)') + bloc(N, 'Nuit (mode sombre du téléphone)');
+  };
+
+  // ---------- DA-020 Terrains ----------
+  V.terrains = () => {
+    const ligne = pal => ['P', 'F', 'C', 'M', 'E'].map(t => cell(caseSvg(pal, t), TN[t])).join('')
+      + cell(caseSvg(pal, 'P', (x, y, W) => ruine(x, y, W, pal)), 'Ruine', 'sur plaine')
+      + cell(caseSvg(pal, 'P', (x, y, W) => exploitation('champ', x, y, W, pal)), 'Champ', 'plaine')
+      + cell(caseSvg(pal, 'F', (x, y, W) => exploitation('cueillette', x, y, W, pal)), 'Cueillette', 'forêt')
+      + cell(caseSvg(pal, 'C', (x, y, W) => exploitation('carriere', x, y, W, pal)), 'Carrière', 'colline');
+    const etats = pal => ['vue', 'souvenir', 'jamais'].map(st => cell(caseSvg(pal, 'F', null, { state: st }), { vue: 'Visible', souvenir: 'Vue autrefois', jamais: 'Inconnue' }[st], { vue: 'tout, unités comprises', souvenir: 'calque blanc par-dessus', jamais: 'nuages de papier' }[st])).join('');
+    // coupe cotée d'une case
+    const w = 440, h = 200, cx = 150, cy = 130, Wd = W0 * 2, Hd = H0 * 2, z = 8;
+    const R = Scene.rng(3);
+    const cote = (x1, y1, x2, y2, t, dx = 0, dy = 0) => `<path d="M${x1} ${y1}L${x2} ${y2}" stroke="#B3261E" stroke-width="1.2" marker-start="url(#fl)" marker-end="url(#fl)"/><text x="${(x1 + x2) / 2 + dx}" y="${(y1 + y2) / 2 + dy}" font-family="Fredoka" font-size="12.5" fill="#B3261E" text-anchor="middle">${t}</text>`;
+    const coupe = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><marker id="fl" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L6 3L0 6Z" fill="#B3261E"/></marker></defs>${defs(J)}
+      ${prism(cx, cy, Wd - 5, Hd - 2.4, 0, z, J.terr.F, J.edge, mix(J.edge, '#000000', .12), R)}${Iso.decorOnly('popup', 'F', cx, cy - z, Wd, Hd, J, c => c, R)}
+      <path d="M${cx - Wd / 2} ${cy - z - Hd * 1.25}H${cx + Wd / 2 + 10}" stroke="#1F5FBF" stroke-dasharray="4 3"/><text x="${cx + Wd / 2 + 14}" y="${cy - z - Hd * 1.25 + 4}" font-family="Fredoka" font-size="12.5" fill="#1F5FBF">plafond des décors : 1,25 H</text>
+      ${cote(cx - Wd / 2, cy + Hd / 2 + 14, cx + Wd / 2, cy + Hd / 2 + 14, 'W = 72 dp au départ', 0, 16)}
+      ${cote(cx + Wd / 2 + 10, cy - z - Hd / 2, cx + Wd / 2 + 10, cy - z + Hd / 2, 'H = W / 2', 38, 4)}
+      ${cote(cx - Wd / 2 - 10, cy - z, cx - Wd / 2 - 10, cy, 'tranche', -26, 4)}</svg>`;
+    return head('DA-020', 'Terrains en livre animé', 'Chaque case est une feuille posée sur la table, avec une tranche crème. Arbres, collines et montagnes sont des découpes qui se dressent, mais elles ne montent jamais au-dessus du plafond (1,25 H) : la moitié arrière de la case de derrière reste toujours visible et touchable.')
+      + `<div class="planche kraft"><h2>Jour franc</h2><div class="row" style="gap:6px">${ligne(J)}</div></div>`
+      + `<div class="planche nuit"><h2>Nuit</h2><div class="row" style="gap:6px">${ligne(N)}</div></div>`
+      + `<div class="row"><div class="planche kraft"><h2>Brouillard : trois états (forêt)</h2><div class="row" style="gap:6px">${etats(J)}</div><div class="row" style="gap:6px">${etats(N).replace(/class="lbl"/g, 'class="lbl" style="color:#3A2A1C"')}</div></div>
+        <div class="planche"><h2>Coupe cotée d’une case</h2>${coupe}</div></div>`;
+  };
+
+  // ---------- DA-021 Villes ----------
+  V.villes = () => {
+    const ligne = pal => cell(caseSvg(pal, 'P', (x, y, W) => ville('village', 1, null, x, y, W, pal), { h: 130 }), 'Village neutre', 'sans couleur')
+      + [1, 2, 3, 4, 5].map(n => cell(caseSvg(pal, 'P', (x, y, W) => ville('debout', n, 'veil', x, y, W, pal, { remparts: false }), { h: 130 }), 'Niveau ' + n, (n + 1 > 6 ? 6 : n + 1) + ' maisons' + (n === 5 ? ' + tour' : ''))).join('')
+      + cell(caseSvg(pal, 'P', (x, y, W) => ville('debout', 1, 'veil', x, y, W, pal, { remparts: false, capitale: true }), { h: 130 }), 'Capitale', 'couronne au mât')
+      + cell(caseSvg(pal, 'P', (x, y, W) => ville('debout', 3, 'veil', x, y, W, pal, { remparts: true }), { h: 130 }), 'Remparts', 'bâtiment')
+      + cell(caseSvg(pal, 'P', (x, y, W) => ville('debout', 3, 'veil', x, y, W, pal, { remparts: false, marche: true }), { h: 130 }), 'Marché', 'auvent rouge');
+    const clans = Object.keys(CLANS).map(k => cell(caseSvg(J, 'P', (x, y, W) => ville('debout', 3, k, x, y, W, J, { remparts: false }), { h: 130 }), CLANS[k].nom)).join('');
+    const tags = `<svg width="300" height="60" viewBox="0 0 300 60">${defs(J)}${etiquette('Astrelle', 2, 'veil', 70, 30, J)}${etiquette('Brisecol', 5, 'crocs', 210, 30, J)}</svg>`;
+    return head('DA-021', 'Villages et villes, niveaux 1 à 5', 'Maisons découpées (D-31). Une maison de plus par niveau, une tour au niveau 5. Les remparts et le marché sont des bâtiments (règles V1, § 5.4), pas des niveaux. Toit, drapeau et emblème prennent la couleur du clan ; le village neutre n’en a pas.')
+      + `<div class="planche kraft"><h2>Jour franc</h2><div class="row" style="gap:4px">${ligne(J)}</div></div>`
+      + `<div class="planche nuit"><h2>Nuit</h2><div class="row" style="gap:4px">${ligne(N)}</div></div>`
+      + `<div class="planche kraft"><h2>Une ville de niveau 3 par clan, et l’étiquette (nom + niveau en pastilles)</h2><div class="row" style="gap:8px;align-items:center">${clans}${tags}</div></div>`;
+  };
+
+  // ---------- DA-022 Unités ----------
+  V.unites = () => {
+    const types = [['eclaireur', 'Éclaireur'], ['lancier', 'Lancier'], ['archer', 'Archer'], ['cavalier', 'Cavalier'], ['catapulte', 'Catapulte']];
+    const one = (pal, t, k, gris) => { const s = caseSvg(pal, 'P', (x, y) => figure(t, k, x, y, pal, 1.08), { w: 104, h: 112 }); return gris ? `<div style="filter:grayscale(1)">${s}</div>` : s; };
+    const th = `<div></div>${types.map(t => `<div class="lbl">${t[1]}</div>`).join('')}<div class="lbl">Unité propre</div><div class="lbl">En gris</div>`;
+    let rows = '';
+    for (const k of Object.keys(CLANS)) {
+      const C = CLANS[k], col = clanCol(k, J);
+      rows += `<div style="display:flex;gap:8px;align-items:center;font:600 14px Fredoka;color:#3A2A1C"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" fill="${col}"/>${emblem(k, 15, 15, 1.5, Iso.inkOn(col))}</svg><div>${C.nom}<br><small style="font-weight:400">${C.nomPropre}</small></div></div>`
+        + types.map(([t]) => one(J, t, k)).join('') + one(J, C.propre, k) + one(J, 'lancier', k, true);
+    }
+    const nuit = Object.keys(CLANS).map(k => one(N, 'lancier', k) + one(N, CLANS[k].propre, k)).join('');
+    return head('DA-022', 'Unités des quatre clans (règles V1, § 12.3)', 'Personnages de papier debout (D-31). Le clan se lit au socle (dents, carré, étoile, goutte), à la coiffe et à l’emblème ; le type se lit à l’arme ou à la monture. Hauteur maximale 1,25 H au-dessus du centre de la case.')
+      + `<div class="planche kraft"><div class="grid" style="grid-template-columns:190px repeat(7,104px);gap:4px 10px;align-items:center">${th}${rows}</div></div>`
+      + `<div class="planche nuit"><h2>Nuit : lancier et unité propre de chaque clan</h2><div class="row" style="gap:4px">${nuit}</div></div>`;
+  };
+
+  // ---------- Scène commune des planches d'écran ----------
+  const UNITS = [{ c: 5, r: 6, type: 'lancier', k: 'veil', sel: true }, { c: 3, r: 5, type: 'archer', k: 'veil' }, { c: 6, r: 4, type: 'eclaireur', k: 'veil' }, { c: 6, r: 6, type: 'coureur', k: 'crocs' }];
+  const CITY = { c: 4, r: 3, nom: 'Astrelle', size: 2, k: 'veil' }, VIL = { c: 7, r: 7 }, RUINE = { c: 2, r: 6 };
+  const SEL = UNITS[0], CIBLE = UNITS[3];
+  const cheb = (a, b, c, r) => Math.max(Math.abs(a - c), Math.abs(b - r));
+  const st = (c, r) => UNITS.filter(u => u.k === 'veil').some(u => cheb(u.c, u.r, c, r) <= 2) || cheb(CITY.c, CITY.r, c, r) <= 2 ? 'vue' : cheb(5, 5, c, r) <= 4 && !(c >= 8 && r <= 3) ? 'souvenir' : 'jamais';
+  const reach = (c, r) => cheb(SEL.c, SEL.r, c, r) === 1 && !(c === CIBLE.c && r === CIBLE.r) && !'EM'.includes(Iso.T(c, r));
+  // carte V1 : on remplace une partie des montagnes par des collines
+  Iso.MAP.splice(0, 11, ...['EEEPPFFMMPP', 'EEPPPFFCPPC', 'ECPPPPFPPCC', 'EPPFPPPPFPE', 'CPPFFPPMMPE', 'EPPPPPFMCPE', 'EEPPCPPPPFE', 'EEPPPPFFPPE', 'EECPPPFMCPE', 'EEECPPPPPEE', 'EEEECPPPEEE']);
+  function board(pal, layers = 9, o = {}) {
+    return plateau({
+      v: 'popup', pal, W: W0, w: 360, h: 780, cy: 330, view: [5, 5.6], fog: 'calque', state: layers >= 7 ? st : null,
+      under(c, r, cx, cy, W) {
+        if (layers < 4) return '';
+        const H = W / 2; let g = '';
+        if (reach(c, r)) g += `<ellipse cx="${cx}" cy="${cy}" rx="9" ry="4.5" fill="#FFFFFF" filter="url(#ombre)"/>`;
+        if (c === CIBLE.c && r === CIBLE.r) g += `<polygon points="${pts(diamond(cx, cy, W - 6, H - 3))}" fill="${pal.ui.alert}" fill-opacity=".25" stroke="${pal.ui.alert}" stroke-width="2.6"/>`;
+        if (c === SEL.c && r === SEL.r) g += `<polygon points="${pts(diamond(cx, cy, W - 4, H - 2))}" fill="none" stroke="#FFFFFF" stroke-width="3.5"/>`;
+        return g;
+      },
+      objects(c, r, cx, cy, W, s) {
+        let g = '';
+        if (layers >= 5 && c === 5 && r === 5) g += exploitation('champ', cx, cy, W, pal);
+        if (layers >= 6) {
+          if (c === CITY.c && r === CITY.r) g += ville('debout', CITY.size, CITY.k, cx, cy, W, pal, { remparts: false, capitale: true });
+          if (c === VIL.c && r === VIL.r && s !== 'jamais') g += ville('village', 1, null, cx, cy, W, pal);
+          if (c === RUINE.c && r === RUINE.r && s !== 'jamais') g += ruine(cx, cy, W, pal);
+          if (s === 'vue' || layers < 7) for (const u of UNITS) if (u.c === c && u.r === r) g += figure(u.type, u.k, cx, cy, pal, .9, { sel: u.sel && layers >= 4 });
+        }
+        return g;
+      },
+      late(c, r, cx, cy) { return layers >= 8 && c === CITY.c && r === CITY.r ? etiquette(CITY.nom, CITY.size, CITY.k, cx, cy + 22, pal) : ''; },
+      ...o,
+    });
+  }
+  const vars = pal => { const u = pal.ui; return `--table:${pal.table};--surf:${u.surf};--bg:${u.bg};--text:${u.text};--text2:${u.text2};--btn:${u.btn};--btnText:${u.btnText};--line:${u.line};--alert:${u.alert};--alertText:${pal.night ? '#0B1220' : '#FFFFFF'}`; };
+  const miniFig = (type, k, pal) => `<svg width="50" height="60" viewBox="-25 -52 50 60">${defs(pal)}${figure(type, k, 0, 0, pal, 1)}</svg>`;
+  const topBar = pal => `<div class="top"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="${clanCol('veil', pal)}"/>${emblem('veil', 17, 17, 1.8, '#FFFFFF')}</svg><div class="turn"><small>Tour</small><b>7</b></div><div class="res"><span><span style="color:${pal.night ? '#FFE14A' : '#E0A21A'}">${Scene.ICON.or}</span>12<small>+3</small></span><span><span style="color:${pal.ui.accent}">${Scene.ICON.savoir}</span>4<small>+1</small></span></div><div class="menu">${Scene.ICON.menu}</div></div>`;
+  const sheetUnit = pal => `<div class="sheet"><div class="handle"></div><div class="card">${miniFig('lancier', 'veil', pal)}<div style="flex:1"><b>Lancier</b><small>PV 10/10 · Attaque 3 · Défense 3 · Pas 1</small><div class="hp"><i style="width:100%;background:#2E8B57"></i></div></div></div><div class="btns"><div class="sq">${Scene.ICON.bouclier}Fortifier</div><div class="sq">${Scene.ICON.soin}Soigner</div><div class="sq">${Scene.ICON.fleche}Plus</div></div><div class="end">Fin du tour</div></div>`;
+  const sheetCombat = pal => `<div class="sheet"><div class="handle"></div><div class="verdict">Attaquer le Coureur de crête ?</div>
+      <div class="vs"><div class="side">${miniFig('lancier', 'veil', pal)}<b>Ton lancier</b>PV 10 ➜ 7<div class="hp" style="width:110px"><i style="width:70%;background:#2E8B57"></i><i style="width:30%;background:#F2B8B0"></i></div></div><div class="x">⚔</div>
+      <div class="side">${miniFig('coureur', 'crocs', pal)}<b>Coureur de crête</b>PV 8 ➜ 0 · détruit<div class="hp" style="width:110px"><i style="width:0%"></i><i style="width:100%;background:#F2B8B0"></i></div></div></div>
+      <div class="btns"><div class="sq" style="height:56px;font-size:17px">Annuler</div><div class="end alt" style="flex:2">Attaquer</div></div></div>`;
+  const phone = (pal, inner) => `<div class="phone"><div class="screen" style="${vars(pal)}">${inner}</div></div>`;
+
+  // ---------- DA-023 Ordre de dessin ----------
+  V.couches = () => {
+    const steps = [[1, 'Table', 'fond uni de la table'], [3, 'Cases', 'tranches puis dessus, de l’arrière vers l’avant, et décors debout de chaque case dans le même ordre'], [4, 'Marques', 'pastilles, case choisie, ennemi visé'], [6, 'Objets', 'exploitations, ruines, villes, unités'], [7, 'Brouillard', 'calque sur « vue autrefois », nuages sur « inconnue » ; pas d’unité sous le brouillard'], [8, 'Étiquettes', 'noms de ville, toujours au-dessus']];
+    const mini = (n, i) => `<div style="display:flex;flex-direction:column;gap:6px;width:250px"><div style="width:250px;height:300px;overflow:hidden;border-radius:14px;position:relative"><div style="transform:scale(.8);transform-origin:-40px -150px;width:360px;height:780px;position:absolute">${n === 1 ? `<svg width="360" height="780"><rect width="360" height="780" fill="${J.table}"/></svg>` : board(J, n)}</div></div><div style="font:600 15px Fredoka">${i + 1}. ${steps[i][1]}</div><div style="font-size:13.5px;color:#3C3A35">${steps[i][2]}</div></div>`;
+    return head('DA-023', 'Ordre de dessin', 'Les vignettes montrent ce qu’apporte chaque couche. Dans le code : la table, puis un seul parcours des cases de l’arrière vers l’avant (colonne + rangée croissante, puis colonne croissante) ; pour chaque case, dans l’ordre : tranche et dessus, décor debout, voile de brouillard, marques, exploitation, ruine ou ville, unité. Ensuite les étiquettes de ville, enfin l’interface.')
+      + `<div class="planche"><div class="row" style="gap:14px;flex-wrap:wrap;width:1580px">${steps.map((s, i) => mini(s[0], i)).join('')}</div></div>`;
+  };
+
+  // ---------- DA-024 Disposition Pouce et panneau du combat ----------
+  V.mesures = () => {
+    const tag = (x, y, t, c = '#B3261E') => `<div style="position:absolute;left:${x}px;top:${y}px;background:${c};color:#fff;font:600 11px Inter;padding:1px 5px;border-radius:5px;white-space:nowrap">${t}</div>`;
+    const box = (x, y, w, h, c = '#B3261E') => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;border:1.5px dashed ${c};border-radius:4px"></div>`;
+    const ovA = `<div class="ov">${box(10, 12, 340, 62)}${tag(14, 76, 'barre : marge 10, haut 12, 62 dp, rayon 20')}${box(0, 541, 360, 239)}${tag(8, 524, 'panneau : 239 dp, rayon 24, marges 14')}${box(14, 638, 104, 56, '#1F5FBF')}${tag(16, 620, 'bouton 56 dp, rayon 16', '#1F5FBF')}${box(14, 704, 332, 58, '#1F5FBF')}${tag(150, 764, '« Fin du tour » 58 dp', '#1F5FBF')}${box(0, 86, 360, 455, '#2E8B57')}${tag(200, 92, 'zone du plateau : 86 → 541', '#2E8B57')}</div>`;
+    const ovB = `<div class="ov">${tag(110, 524, 'panneau du combat, même hauteur')}${box(14, 704, 104, 58, '#1F5FBF')}${tag(14, 764, 'Annuler 1/3', '#1F5FBF')}${box(128, 704, 218, 58, '#1F5FBF')}${tag(250, 764, 'Attaquer 2/3', '#1F5FBF')}</div>`;
+    const a = phone(J, board(J) + topBar(J) + sheetUnit(J) + ovA);
+    const b = phone(J, board(J) + topBar(J) + sheetCombat(J) + ovB);
+    const c = phone(N, board(N) + topBar(N) + sheetCombat(N));
+    const notes = `<div class="notes"><ul>
+      <li>Mesures en dp, pour un écran de 360 × 780 dp ; le plateau occupe tout l’écran, sous l’interface.</li>
+      <li>Au départ, la vue est cadrée sur les unités du joueur, avec des cases de 72 × 36 dp (D-20).</li>
+      <li>Toucher une unité à soi : elle se soulève de 5 dp, sa case est cerclée de blanc, les cases atteignables reçoivent une pastille.</li>
+      <li>Toucher un ennemi à portée : le panneau du bas devient le face-à-face (D-31), avec les PV avant ➜ après de chaque côté, la part perdue en rose sur la barre, et « détruit » si c’est le cas.</li>
+      <li>« Attaquer » prend la couleur d’alerte ; « Annuler » ou un toucher sur le plateau referme le panneau.</li>
+      <li>Polices : Fredoka 400 et 600 (SIL OFL), embarquées dans l’APK.</li></ul></div>`;
+    return head('DA-024', 'Disposition « Pouce » et panneau du combat', 'Écran de jeu au zoom de départ, cotes en dp. À gauche l’unité choisie, au milieu l’annonce du combat de jour, à droite la même annonce de nuit.')
+      + `<div class="row">${a}${b}${c}</div>${notes}`;
+  };
+
+  shot.innerHTML = V[vue]();
+  document.fonts.ready.then(() => setTimeout(() => document.body.dataset.pret = '1', 150));
+</script>
+</body>
+</html>

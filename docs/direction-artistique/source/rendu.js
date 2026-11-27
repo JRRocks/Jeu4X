@@ -18,6 +18,9 @@ const jobs = [
   // Deuxième série (mission 2), page apercu2.html
   ['DA-013-terrains-perspective', 'vue=terrains', 2], ['DA-014-villes', 'vue=villes', 2], ['DA-015-unites-clans', 'vue=unites', 2],
   ['DA-016-brouillard', 'vue=brouillard', 2], ['DA-017-unite-choisie-combat', 'vue=combat', 2], ['DA-018-pouce-jour-nuit', 'vue=pouce', 2],
+  // Planches du guide V1 (mission 3), page guide.html
+  ['DA-019-guide-couleurs', 'vue=couleurs', 3], ['DA-020-guide-terrains', 'vue=terrains', 3], ['DA-021-guide-villes', 'vue=villes', 3],
+  ['DA-022-guide-unites', 'vue=unites', 3], ['DA-023-guide-ordre-de-dessin', 'vue=couches', 3], ['DA-024-guide-pouce-combat', 'vue=mesures', 3],
 ];
 (async () => {
   const b = await chromium.launch();
@@ -25,7 +28,7 @@ const jobs = [
   p.on('pageerror', e => console.log('ERREUR', e.message));
   for (const [name, qs, serie] of jobs) {
     if (process.argv[3] && !new RegExp(process.argv[3]).test(name)) continue;
-    await p.goto('file://' + path.join(here, serie === 2 ? 'apercu2.html' : 'apercu.html') + '?' + qs);
+    await p.goto('file://' + path.join(here, serie === 3 ? 'guide.html' : serie === 2 ? 'apercu2.html' : 'apercu.html') + '?' + qs);
     await p.waitForSelector('body[data-pret="1"]');
     await p.locator('#shot').screenshot({ path: path.join(out, name + '.png') });
     console.log('ok', name);

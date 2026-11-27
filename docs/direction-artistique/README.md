@@ -25,10 +25,16 @@ Aperçus à comparer : rien n'est codé dans le jeu (D-11). Détail de chaque pr
 | DA-016 | `DA-016-brouillard.png` | Série 2 : brouillard qui se souvient, trois variantes |
 | DA-017 | `DA-017-unite-choisie-combat.png` | Série 2 : unité choisie et annonce du combat, trois variantes |
 | DA-018 | `DA-018-pouce-jour-nuit.png` | Série 2 : écran Pouce de jour et de nuit |
+| DA-019 | `DA-019-guide-couleurs.png` | Guide V1 : couleurs exactes, Jour franc et Nuit |
+| DA-020 | `DA-020-guide-terrains.png` | Guide V1 : terrains en livre animé, ruine, exploitations, brouillard, coupe cotée |
+| DA-021 | `DA-021-guide-villes.png` | Guide V1 : village neutre, villes de niveau 1 à 5, bâtiments, étiquette |
+| DA-022 | `DA-022-guide-unites.png` | Guide V1 : les 9 unités pour les quatre clans, test en gris, nuit |
+| DA-023 | `DA-023-guide-ordre-de-dessin.png` | Guide V1 : ordre de dessin |
+| DA-024 | `DA-024-guide-pouce-combat.png` | Guide V1 : disposition Pouce cotée et panneau du combat |
 
 ## Refaire les images
 
-Le dossier `source/` contient la scène type (`scene.js`), les styles (`styles.js`), les palettes (`palettes.js`), les interfaces (`interfaces.js`), les calculs de couleur (`couleurs.js`) et le script de rendu. La série 2 utilise `iso.js` et `apercu2.html`.
+Le dossier `source/` contient la scène type (`scene.js`), les styles (`styles.js`), les palettes (`palettes.js`), les interfaces (`interfaces.js`), les calculs de couleur (`couleurs.js`) et le script de rendu. La série 2 utilise `iso.js` et `apercu2.html` ; les planches du guide V1, `iso.js` et `guide.html`.
 
 ```
 npm i @fontsource/fredoka @fontsource/im-fell-french-canon @fontsource/pixelify-sans @fontsource/chakra-petch @fontsource/bitter @fontsource/atkinson-hyperlegible @fontsource/nunito
@@ -37,10 +43,12 @@ node source/rendu.js <chemin>/node_modules/@fontsource
 
 Les polices (licence SIL OFL 1.1) sont copiées dans `source/fonts/`, qui n'est pas versionné.
 
-`DA-000`, `DA-001` et `DA-013` sont ensuite réduites à 256 couleurs (Pillow, tramage) pour rester sous 1 Mo.
+`DA-000`, `DA-001`, `DA-013` et `DA-024` sont ensuite réduites à 256 couleurs (Pillow, tramage) pour rester sous 1 Mo.
 
 ## Catalogue pour la page de choix
 
 `catalogue.json` reprend les idées et les questions au format demandé par la session maître.
 
 `catalogue-2.json` fait de même pour la deuxième série (questions DA-Q5 à DA-Q10).
+
+**Guide de dessin pour S1 : [`guide-v1.md`](guide-v1.md).**

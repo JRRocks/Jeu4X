@@ -45,7 +45,7 @@
   }
 
   // Hauteur du dessus de la case, selon la variante de terrain.
-  const SURF = { carton: { E: 1, S: 5, P: 7, F: 7, M: 7 }, popup: { E: 2, S: 4, P: 4, F: 4, M: 4 }, plat: { E: 0, S: 0, P: 0, F: 0, M: 0 } };
+  const SURF = { carton: { E: 1, S: 5, C: 7, P: 7, F: 7, M: 7 }, popup: { E: 2, S: 4, C: 4, P: 4, F: 4, M: 4 }, plat: { E: 0, S: 0, C: 0, P: 0, F: 0, M: 0 } };
 
   // ---------- Décors ----------
   function tree(x, y, s, pal, col, flat) {
@@ -80,6 +80,12 @@
     if (t === 'E') {
       const c = colf(mix(terr.E, '#FFFFFF', .4));
       for (const [dx, dy] of [[-.12, -.06], [.1, .08]]) { const x = cx + dx * W, y = cy + dy * W; g += `<path d="M${x - 10 * k} ${y + 2.5 * k}q${3.3 * k} -4 ${6.6 * k} -1.6t${6.6 * k} -1.6t${6.6 * k} -1.6" stroke="${c}" stroke-width="${2.4 * k}" fill="none" stroke-linecap="round"/>`; }
+    }
+    if (t === 'C') {
+      const c = colf(terr.C), ed = colf(pal.edge);
+      g += `<ellipse cx="${cx}" cy="${cy + 2}" rx="${W * .3}" ry="${H * .18}" fill="${pal.shadow}" opacity=".18"/>`;
+      g += `<path d="M${cx - W * .32} ${cy + 3}Q${cx - W * .17} ${cy - H * .62} ${cx - W * .02} ${cy + 3}Z" fill="${mix(c, '#000000', .06)}" stroke="${ed}" stroke-width="2"/>`;
+      g += `<path d="M${cx - W * .1} ${cy + 5}Q${cx + W * .1} ${cy - H * .78} ${cx + W * .3} ${cy + 5}Z" fill="${mix(c, '#FFFFFF', .08)}" stroke="${ed}" stroke-width="2"/>`;
     }
     if (t === 'S') g += `<path d="M${cx - W * .22} ${cy + H * .1}q${W * .14} ${-H * .3} ${W * .3} ${-H * .08}q${W * .06} ${-H * .08} ${W * .14} ${H * .02}" stroke="${colf(mix(terr.S, '#000000', .18))}" stroke-width="${2.2 * k}" fill="none" stroke-linecap="round"/>`;
     if (t === 'P') for (const [dx, dy] of [[-.14, .02], [.12, -.06], [.04, .14]]) { const x = cx + dx * W, y = cy + dy * W; g += `<path d="M${x - 3 * k} ${y}l${1 * k} ${-4.5 * k}M${x} ${y}v${-6 * k}M${x + 3 * k} ${y}l${-1 * k} ${-4.5 * k}" stroke="${colf(mix(terr.P, '#000000', .3))}" stroke-width="${1.6 * k}" stroke-linecap="round"/>`; }
@@ -146,13 +152,15 @@
     const by = v => Y(v) - lift;
     let back = '', front = '';
     // armes et attributs
+    if (type === 'lancier') front += `<path d="M${X(10)} ${by(-1)}L${X(12)} ${by(-40)}" stroke="#7A5232" stroke-width="${2.4 * s}" stroke-linecap="round"/><path d="M${X(12)} ${by(-46)}L${X(14.6)} ${by(-38)}L${X(9.6)} ${by(-38.4)}Z" fill="#8C96A8" stroke="${wh}" stroke-width="${1 * s}"/>`;
     if (type === 'guerrier') front += `<path d="M${X(9)} ${by(-6)}L${X(14)} ${by(-30)}" stroke="#8C96A8" stroke-width="${3 * s}" stroke-linecap="round"/><path d="M${X(7.5)} ${by(-12)}L${X(12.5)} ${by(-10.5)}" stroke="#5A4128" stroke-width="${2.4 * s}" stroke-linecap="round"/>`;
     if (type === 'archer') front += `<path d="M${X(-11)} ${by(-34)}Q${X(-20)} ${by(-20)} ${X(-11)} ${by(-6)}" stroke="#7A5232" stroke-width="${2.6 * s}" fill="none" stroke-linecap="round"/><path d="M${X(-11)} ${by(-34)}L${X(-11)} ${by(-6)}" stroke="${wh}" stroke-width="${1 * s}"/>`;
     if (type === 'eclaireur') back += `<path d="M${X(-9)} ${by(-2)}L${X(-12)} ${by(-40)}" stroke="#7A5232" stroke-width="${2.4 * s}" stroke-linecap="round"/><path d="M${X(-12)} ${by(-40)}L${X(-1)} ${by(-36)}L${X(-11)} ${by(-31)}Z" fill="${col}" stroke="${wh}" stroke-width="${1.2 * s}"/>`;
     if (type === 'coureur') front += `<path d="M${X(-10)} ${by(-14)}L${X(-17)} ${by(-24)}M${X(10)} ${by(-14)}L${X(17)} ${by(-24)}" stroke="#8C96A8" stroke-width="${2.6 * s}" stroke-linecap="round"/>`, back += `<path d="M${X(-22)} ${by(-12)}h${-6 * s}M${X(-22)} ${by(-18)}h${-9 * s}M${X(-22)} ${by(-24)}h${-6 * s}" stroke="${col}" stroke-width="${2 * s}" stroke-linecap="round" opacity=".8"/>`;
     if (type === 'pavois') front += `<path d="M${X(-11)} ${by(-34)}H${X(11)}V${by(-8)}Q${X(0)} ${by(0)} ${X(-11)} ${by(-8)}Z" fill="${dk}" stroke="${wh}" stroke-width="${2 * s}"/>` + emblem(k, X(0), by(-21), 1.3 * s, wh);
     if (type === 'astronome') front += `<path d="M${X(4)} ${by(-18)}L${X(20)} ${by(-34)}" stroke="#C99A3A" stroke-width="${4.5 * s}" stroke-linecap="round"/><path d="M${X(4)} ${by(-18)}L${X(20)} ${by(-34)}" stroke="#F2D27A" stroke-width="${1.6 * s}" stroke-linecap="round"/>`;
-    if (type === 'planeur') back += `<path d="M${X(-26)} ${by(-40)}Q${X(0)} ${by(-54)} ${X(26)} ${by(-40)}L${X(0)} ${by(-46)}Z" fill="${col}" stroke="${wh}" stroke-width="${1.8 * s}" stroke-linejoin="round"/><path d="M${X(0)} ${by(-46)}V${by(-30)}" stroke="#7A5232" stroke-width="${1.6 * s}"/>`;
+    if (type === 'planeur') back += `<path d="M${X(-26)} ${by(-36)}Q${X(0)} ${by(-48)} ${X(26)} ${by(-36)}L${X(0)} ${by(-42)}Z" fill="${col}" stroke="${wh}" stroke-width="${1.8 * s}" stroke-linejoin="round"/><path d="M${X(0)} ${by(-42)}V${by(-30)}" stroke="#7A5232" stroke-width="${1.6 * s}"/>`;
+    if (type === 'cavalier' || type === 'catapulte') return g + monture(type, k, cx, cy, pal, s, lift, col, dk, wh, sk, opt);
     // corps
     const body = `<path d="M${X(-8)} ${by(-3)}L${X(-5.5)} ${by(-22)}Q${X(0)} ${by(-25)} ${X(5.5)} ${by(-22)}L${X(8)} ${by(-3)}Z" fill="${col}" stroke="${wh}" stroke-width="${2.2 * s}" stroke-linejoin="round"/>`;
     const chest = type === 'pavois' ? '' : emblem(k, X(0), by(-13), 1 * s, inkOn(col));
@@ -165,6 +173,57 @@
     if (k === 'vents') hat = `<path d="M${X(-10)} ${by(-32)}Q${X(0)} ${by(-38)} ${X(10)} ${by(-32)}Q${X(0)} ${by(-35)} ${X(-10)} ${by(-32)}Z" fill="${dk}" stroke="${wh}" stroke-width="${1.2 * s}"/><path d="M${X(4)} ${by(-22)}Q${X(14)} ${by(-24)} ${X(19)} ${by(-18)}Q${X(13)} ${by(-20)} ${X(5)} ${by(-19)}Z" fill="${mix(col, '#FFFFFF', .35)}" stroke="${wh}" stroke-width="${1 * s}"/>`;
     g += `<g filter="url(#ombre)">${back}${body}${chest}${head}${hat}${front}</g>`;
     return g;
+  }
+  // Cavalier (personnage sur un cheval de papier) et catapulte (machine de bois au fanion du clan).
+  function monture(type, k, cx, cy, pal, s, lift, col, dk, wh, sk, opt) {
+    const X = v => cx + v * s, by = v => cy + v * s - lift;
+    let g = '';
+    if (type === 'cavalier') {
+      const horse = '#C9A27A', hd = '#9C7650';
+      g += `<g filter="url(#ombre)">`
+        + `<path d="M${X(-12)} ${by(-13)}L${X(-14)} ${by(-1)}M${X(-7)} ${by(-13)}L${X(-6)} ${by(-1)}M${X(5)} ${by(-13)}L${X(4)} ${by(-1)}M${X(9)} ${by(-13)}L${X(11)} ${by(-1)}" stroke="${hd}" stroke-width="${2.6 * s}" stroke-linecap="round"/>`
+        + `<path d="M${X(-15)} ${by(-17)}Q${X(-22)} ${by(-14)} ${X(-20)} ${by(-5)}" stroke="${hd}" stroke-width="${3 * s}" fill="none" stroke-linecap="round"/>`
+        + `<ellipse cx="${X(-2)}" cy="${by(-16)}" rx="${14 * s}" ry="${5.5 * s}" fill="${horse}" stroke="${wh}" stroke-width="${2 * s}"/>`
+        + `<path d="M${X(7)} ${by(-19)}L${X(13)} ${by(-31)}L${X(17)} ${by(-31)}L${X(13)} ${by(-15)}Z" fill="${horse}" stroke="${wh}" stroke-width="${1.8 * s}" stroke-linejoin="round"/>`
+        + `<path d="M${X(12)} ${by(-31)}L${X(21)} ${by(-28)}Q${X(23)} ${by(-25)} ${X(20)} ${by(-24)}L${X(14)} ${by(-25)}Z" fill="${horse}" stroke="${wh}" stroke-width="${1.6 * s}" stroke-linejoin="round"/>`
+        + `<path d="M${X(13)} ${by(-31)}L${X(14)} ${by(-35)}L${X(16)} ${by(-31)}" fill="${hd}"/><path d="M${X(11)} ${by(-30)}L${X(8)} ${by(-19)}" stroke="${hd}" stroke-width="${2 * s}" stroke-linecap="round"/>`
+        + `<path d="M${X(-7)} ${by(-20)}L${X(-5)} ${by(-34)}Q${X(0)} ${by(-36)} ${X(4)} ${by(-34)}L${X(5)} ${by(-20)}Z" fill="${col}" stroke="${wh}" stroke-width="${2 * s}" stroke-linejoin="round"/>`
+        + emblem(k, X(-.5), by(-27), .8 * s, inkOn(col))
+        + `<circle cx="${X(-.5)}" cy="${by(-40)}" r="${5 * s}" fill="${sk}" stroke="${wh}" stroke-width="${1.6 * s}"/>`
+        + coiffe(k, v => X(v - 1), v => by(v - 11), s, dk, wh)
+        + `<path d="M${X(-9)} ${by(-24)}L${X(-12)} ${by(-46)}" stroke="#7A5232" stroke-width="${2 * s}" stroke-linecap="round"/><path d="M${X(-12)} ${by(-50)}L${X(-10)} ${by(-44)}L${X(-14)} ${by(-44)}Z" fill="#8C96A8"/></g>`;
+      return g;
+    }
+    // catapulte
+    g += `<g filter="url(#ombre)"><path d="M${X(-16)} ${by(-8)}H${X(14)}" stroke="#7A5232" stroke-width="${5 * s}" stroke-linecap="round"/>`
+      + `<circle cx="${X(-11)}" cy="${by(-4)}" r="${5 * s}" fill="#9C7650" stroke="${wh}" stroke-width="${1.6 * s}"/><circle cx="${X(9)}" cy="${by(-4)}" r="${5 * s}" fill="#9C7650" stroke="${wh}" stroke-width="${1.6 * s}"/>`
+      + `<path d="M${X(-4)} ${by(-9)}L${X(0)} ${by(-24)}L${X(4)} ${by(-9)}" stroke="#7A5232" stroke-width="${3 * s}" fill="none" stroke-linejoin="round"/>`
+      + `<path d="M${X(0)} ${by(-22)}L${X(-16)} ${by(-36)}" stroke="#A47A50" stroke-width="${3 * s}" stroke-linecap="round"/><circle cx="${X(-17)}" cy="${by(-37)}" r="${3.6 * s}" fill="#8C96A8" stroke="${wh}" stroke-width="${1 * s}"/>`
+      + `<path d="M${X(12)} ${by(-9)}V${by(-34)}" stroke="#5A4128" stroke-width="${1.6 * s}"/><path d="M${X(12)} ${by(-34)}h${12 * s}l${-3 * s} ${4 * s}l${3 * s} ${4 * s}h${-12 * s}z" fill="${col}" stroke="${wh}" stroke-width="${1.2 * s}"/>`
+      + emblem(k, X(17), by(-30), .5 * s, inkOn(col)) + `</g>`;
+    return g;
+  }
+  // Coiffe de clan, réutilisée par le cavalier.
+  function coiffe(k, X, by, s, dk, wh) {
+    if (k === 'crocs') return `<path d="M${X(-5)} ${by(-31)}L${X(-4)} ${by(-38)}L${X(-1.5)} ${by(-33)}L${X(.5)} ${by(-41)}L${X(2.5)} ${by(-33)}L${X(5)} ${by(-38)}L${X(6)} ${by(-31)}Z" fill="${dk}" stroke="${wh}" stroke-width="${1.1 * s}" stroke-linejoin="round"/>`;
+    if (k === 'mur') return `<path d="M${X(-6)} ${by(-30)}V${by(-36)}H${X(7)}V${by(-30)}Z" fill="${dk}" stroke="${wh}" stroke-width="${1.1 * s}"/>`;
+    if (k === 'veil') return `<path d="M${X(-5.5)} ${by(-28)}Q${X(-5)} ${by(-36)} ${X(.5)} ${by(-44)}Q${X(6)} ${by(-36)} ${X(6.5)} ${by(-28)}Q${X(.5)} ${by(-33)} ${X(-5.5)} ${by(-28)}Z" fill="${dk}" stroke="${wh}" stroke-width="${1.1 * s}"/>`;
+    return `<path d="M${X(-8.5)} ${by(-32)}Q${X(.5)} ${by(-37)} ${X(9.5)} ${by(-32)}Q${X(.5)} ${by(-34.5)} ${X(-8.5)} ${by(-32)}Z" fill="${dk}" stroke="${wh}" stroke-width="${1.1 * s}"/>`;
+  }
+  // Ruine : deux colonnes brisées et un bloc tombé.
+  function ruine(cx, cy, W, pal) {
+    const st = pal.night ? '#8A8A96' : '#B9B4AA', H = W / 2;
+    return `<g filter="url(#ombre)">` + prism(cx - W * .12, cy - 2, W * .1, H * .1, 0, 16, mix(st, '#FFFFFF', .2), mix(st, '#000000', .05), mix(st, '#000000', .2))
+      + prism(cx + W * .1, cy - 5, W * .1, H * .1, 0, 9, mix(st, '#FFFFFF', .2), mix(st, '#000000', .05), mix(st, '#000000', .2))
+      + prism(cx + W * .02, cy + 6, W * .16, H * .1, 0, 4, mix(st, '#FFFFFF', .2), mix(st, '#000000', .05), mix(st, '#000000', .2)) + `</g>`
+      + `<ellipse cx="${cx - W * .12}" cy="${cy - 18}" rx="3" ry="1.5" fill="#6F9A4A"/>`;
+  }
+  // Exploitations, posées à plat sur la case (champ, cueillette, carrière).
+  function exploitation(kind, cx, cy, W, pal) {
+    const H = W / 2;
+    if (kind === 'champ') { const P = (a, b) => [cx + (a - b) * W / 2, cy + (a + b) * H / 2]; let g = ''; for (const f of [-.22, 0, .22]) { const [x1, y1] = P(-.34, f), [x2, y2] = P(.34, f); g += `<path d="M${x1} ${y1}L${x2} ${y2}" stroke="#E8C65A" stroke-width="${W / 16}" stroke-linecap="round"/>`; } return g; }
+    if (kind === 'cueillette') return `<g filter="url(#ombre)"><path d="M${cx + W * .1} ${cy + H * .18}h${12}l-2 7h-8z" fill="#B8864E" stroke="#FFFFFF" stroke-width="1.2"/><circle cx="${cx + W * .1 + 3}" cy="${cy + H * .18 - 1}" r="2.2" fill="#C8102E"/><circle cx="${cx + W * .1 + 8}" cy="${cy + H * .18 - 1.5}" r="2.2" fill="#7A2E8E"/></g>`;
+    return `<g filter="url(#ombre)">` + prism(cx + W * .14, cy + H * .16, W * .12, H * .12, 0, 5, '#D8D4CC', '#BDB8AE', '#A39E94') + prism(cx + W * .24, cy + H * .06, W * .1, H * .1, 0, 4, '#D8D4CC', '#BDB8AE', '#A39E94') + `</g>`;
   }
   // Variante « jeton à plat » : la forme du socle agrandie, symbole de l'unité dessus.
   function jeton(type, k, cx, cy, pal, s = 1) {
@@ -195,15 +254,17 @@
       g += `</g>` + flag(cx, cy - size * 7 - 2, col, pal, k);
       return g;
     }
-    const spots = [[0, -.12, 1], [-.2, .02, .9], [.2, .02, .9], [0, .15, .85], [-.06, -.25, .8]];
-    const n = kind === 'village' ? 2 : Math.min(5, size + 1);
-    const order = [3, 1, 2, 0, 4].slice(0, n).sort((a, b) => spots[a][1] - spots[b][1]);
-    if (kind !== 'village' && size >= 3) g += `<polyline points="${pts([[cx - W * .4, cy], [cx, cy + H * .4], [cx + W * .4, cy]])}" fill="none" stroke="${mix(wall, '#000000', .25)}" stroke-width="5" stroke-linejoin="round"/>`;
+    const spots = [[0, -.12, 1], [-.2, .02, .9], [.2, .02, .9], [0, .15, .85], [-.06, -.25, .8], [.14, -.2, .75]];
+    const n = kind === 'village' ? 2 : Math.min(6, size + 1);
+    const order = [3, 1, 2, 0, 4, 5].slice(0, n).sort((a, b) => spots[a][1] - spots[b][1]);
+    if (kind !== 'village' && (opt.remparts ?? size >= 3)) g += `<polyline points="${pts([[cx - W * .4, cy], [cx, cy + H * .4], [cx + W * .4, cy]])}" fill="none" stroke="${mix(wall, '#000000', .25)}" stroke-width="5" stroke-linejoin="round"/>`;
     for (const i of order) { const [dx, dy, f] = spots[i]; g += house(cx + dx * W, cy + dy * W, W * .24 * f, 10 * f, wall, kind === 'village' ? col : col, pal); }
-    if (kind !== 'village' && size >= 3) g += `<polyline points="${pts([[cx - W * .4, cy + 1], [cx, cy + H * .4 + 1], [cx + W * .4, cy + 1]])}" fill="none" stroke="${wall}" stroke-width="3" stroke-linejoin="round"/>`;
-    if (kind !== 'village' && size >= 4) g += prism(cx + W * .26, cy - W * .1, W * .14, H * .14, 0, 24, col, mix(wall, '#000000', .1), mix(wall, '#000000', .22));
+    if (kind !== 'village' && (opt.remparts ?? size >= 3)) g += `<polyline points="${pts([[cx - W * .4, cy + 1], [cx, cy + H * .4 + 1], [cx + W * .4, cy + 1]])}" fill="none" stroke="${wall}" stroke-width="3" stroke-linejoin="round"/>`;
+    if (kind !== 'village' && size >= 5) g += prism(cx + W * .26, cy - W * .1, W * .14, H * .14, 0, 22, col, mix(wall, '#000000', .1), mix(wall, '#000000', .22));
     g += `</g>`;
+    if (kind !== 'village' && opt.marche) g += `<g filter="url(#ombre)"><path d="M${cx - W * .02} ${cy + H * .3}v-7M${cx + W * .16} ${cy + H * .2}v-7" stroke="#7A5232" stroke-width="1.5"/><path d="M${cx - W * .05} ${cy + H * .3 - 7}l${W * .24} ${-H * .12}l-2 -4l${-W * .24} ${H * .12}z" fill="#E04A3A" stroke="#FFFFFF" stroke-width="1"/></g>`;
     if (kind !== 'village') g += flag(cx - W * .3, cy - 4, col, pal, k);
+    if (kind !== 'village' && opt.capitale) g += `<path d="M${cx - W * .3 - 4} ${cy - 36}l2.5 -6l2.5 4l2.5 -4l2.5 6z" fill="#F3B01D" stroke="#FFFFFF" stroke-width="1"/>`;
     return g;
   }
   // Étiquette de ville : nom et niveau en pastilles.
@@ -239,5 +300,10 @@
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${o.w}" height="${o.h}" viewBox="0 0 ${o.w} ${o.h}">${defs}${g}${late}</svg>`;
   }
 
-  window.Iso = { MAP, N, T, CLANS, PAL, clanCol, inkOn, pts, diamond, prism, tile, figure, jeton, ville, etiquette, plateau, emblem, socle, SURF };
+  // Palettes V1 : Jour franc et Nuit, avec la colline ajoutée et la montagne refroidie (guide-v1.md, § 2).
+  const PALV1 = {
+    jour: { ...PAL.jour, terr: { ...PAL.jour.terr, M: '#8E8C99', C: '#C98A3E' } },
+    nuit: { ...PAL.nuit, terr: { ...PAL.nuit.terr, M: '#8C8A9A', C: '#AB8C2C' } },
+  };
+  window.Iso = { MAP, N, T, CLANS, PAL, PALV1, clanCol, inkOn, pts, diamond, prism, tile, figure, jeton, ville, etiquette, plateau, emblem, socle, SURF, ruine, exploitation, decorOnly: decor };
 })();

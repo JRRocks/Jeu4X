@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Mission 3 : guide de dessin de la V1 pour S1
+
+- **Auteur** : Claude, session S6
+- **Branche et commit** : `s6-direction-artistique`, voir `git log` ; `main` fusionnée avant de commencer
+- **Objectif** : après D-31 à D-33, écrire `guide-v1.md` pour que S1 dessine le jeu dans Compose sans deviner, avec des planches de référence.
+- **Réalisé** : `guide-v1.md` (couleurs, projection et toucher, terrains, villes 1 à 5, 9 unités × 4 clans, brouillard, ordre de dessin, marques, Pouce, panneau du combat) ; planches DA-019 à DA-024 ; `iso.js` complété (colline, lancier, cavalier, catapulte, villes niveau 5, capitale, remparts, marché, ruine, exploitations) ; page `source/guide.html`.
+- **Décisions** : aucune décision de l'utilisateur. Choix de travail, à valider : la colline (nouvelle) en `#C98A3E` / `#AB8C2C`, et la montagne refroidie (`#8E8C99` / `#8C8A9A`) pour rester distincte de la colline chez les daltoniens ; texte foncé sur « Attaquer » de nuit (le blanc n'atteignait pas 3:1) ; plafond des décors et des unités à 1,25 H ; toucher par silhouette d'unité puis par losange.
+- **Vérifications** : chaque planche regardée après rendu ; contrastes calculés (`couleurs.js`) ; images sous 1 Mo (DA-024 réduite à 256 couleurs).
+- **Non vérifié sur téléphone** : toucher des cases de 36 dp de haut, lisibilité des personnages au zoom le plus petit, fluidité des ombres.
+- **Problèmes et dette** : la transparence des décors devant une case marquée est décrite mais pas dessinée ; la merveille n'est pas dessinée ; les images de la série 2 gardent les anciennes formes (guerrier, ailes plus hautes).
+- **Prochaine étape** : attendre les retours de la session maître et de S1.
+
 ## 2026-11-27 · Mission 2 : deuxième série, en perspective
 
 - **Auteur** : Claude, session S6
