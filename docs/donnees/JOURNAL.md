@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-11-27 · Étude revue avec les besoins de l'IA, règles de GitHub Actions
+
+- **Auteur** : Claude, session S4
+- **Branche et commit** : `s4-donnees` (voir le dernier commit de la branche)
+- **Objectif** : demandes de la session maître : confronter les hypothèses à `docs/ia/besoins-donnees.md` (S3, commits a3e1385 et 9c5ecd0) ; vérifier ce que GitHub permet pour les tournois IA contre IA.
+- **Réalisé** : `schema-donnees.md` reçoit une section « Revue S3 » : champs `replay_hash`, `checks`, `encoding_version`, `think_time` ajoutés ; renommages `player_id` et `rules_version` ; rythme de jeu relevé jusqu'à 10 parties par jour. Volumes et coûts recalculés dans le schéma, l'étude et la recommandation : 0 € jusqu'à environ 1 000 joueurs, jusqu'à 8 $ par mois à 10 000 joueurs très actifs. IA fantôme ajoutée au volet RGPD. Nouvelle section 7 de l'étude sur GitHub Actions, avec la limite à ne pas franchir.
+- **Décisions** : aucune (propositions).
+- **Vérifications** : conditions et limites GitHub relues sur les pages officielles le 2026-11-27 (`sources.md`).
+- **Non vérifié sur téléphone** : rien (étude).
+- **Problèmes et dette** : les seuils anti-abus de GitHub ne sont pas publiés.
+- **Prochaine étape** : attendre le tri groupé de l'utilisateur.
+
 ## 2026-11-27 · Première étude : où regrouper les parties pour suivre l'IA
 
 - **Auteur** : Claude, session S4

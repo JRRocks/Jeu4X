@@ -38,11 +38,11 @@ Un compte Cloudflare gratuit à créer par l'utilisateur, le moment venu.
 Alternative si l'utilisateur préfère rester chez Google : Firebase (Firestore + App Check),
 gratuit aussi à cette échelle, mais avec une dépendance plus forte.
 
-## Étape 2 : des milliers de joueurs — 0 à 5 $ par mois
+## Étape 2 : des milliers de joueurs — 0 à 8 $ par mois
 
 | Quoi | Idées |
 |---|---|
-| Même architecture ; Workers Paid à 5 $ par mois si les quotas gratuits sont dépassés | DO-009 |
+| Même architecture ; Workers Paid à 5 $ par mois et stockage R2 au-delà de 10 Go (≈ 0 à 3 $) quand les quotas gratuits sont dépassés, vers 1 000 à 10 000 joueurs très actifs | DO-009 |
 | Déploiement progressif des modèles | DO-016 |
 | Écran « progrès de l'IA » dans le jeu | DO-018 |
 | Facultatif : jeu de données public sur Hugging Face | DO-017 |
@@ -52,7 +52,7 @@ gratuit aussi à cette échelle, mais avec une dépendance plus forte.
 
 - **GitHub pour recevoir les parties** : le dépôt est public et il faudrait un secret dans l'APK.
 - **Le PC comme serveur exposé à Internet** : fragile et risqué pour un non-codeur (le PC reste le bon endroit pour *entraîner* l'IA).
-- **Supabase gratuit** : s'endort après une semaine sans activité ; Pro à 25 $ trop cher pour 6 Go par an.
+- **Supabase gratuit** : s'endort après une semaine sans activité ; Pro à 25 $ trop cher pour ce volume.
 - **Drive pour regrouper plusieurs joueurs** : chacun écrit dans son propre Drive, invisible des autres.
 
 ## Questions pour l'utilisateur

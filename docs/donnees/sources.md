@@ -25,5 +25,11 @@
 | CNIL, mineurs | https://www.cnil.fr/fr/recommandation-4-rechercher-le-consentement-dun-parent-pour-les-mineurs-de-moins-de-15-ans | Moins de 15 ans : consentement conjoint avec un parent |
 | Library, brique Drive | `JRRocks/Library`, `moteurs/google-drive-appdata/README.md` (fiche du 2026-10-27) | Dépôt manuel éprouvé ; envoi périodique non vérifié ; SHA-1 release seul en dépôt public |
 | OpenSkill | https://github.com/vivekjoshy/openskill.py | Classement multi-joueurs, licence MIT (non relu en détail ce jour) |
+| GitHub, conditions Actions | https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features | Interdits : minage, revente, charge disproportionnée, activité sans rapport avec le projet |
+| GitHub, usage acceptable | https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies | Pas d'activité automatisée excessive (section 4) |
+| GitHub Actions, limites | https://docs.github.com/en/actions/reference/limits | 6 h par tâche, 35 jours par chaîne, 20 tâches simultanées, matrice de 256 |
+| GitHub, exécuteurs | https://docs.github.com/en/actions/reference/runners/github-hosted-runners | Dépôt public : 4 vCPU, 16 Go |
+| GitHub, réglages Actions | https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository | Rétention des artefacts de 1 à 90 jours |
+| Témoignage de blocage | https://github.com/orgs/community/discussions/184661 | Actions désactivé par un filtre anti-abus après un usage intensif, puis rétabli par le support |
 
-Non vérifiés : `appDataFolder` dans les 15 Go ; tarif Firestore au-delà de la gratuité ; prix de Hugging Face PRO.
+Non vérifiés : seuils des filtres anti-abus de GitHub (non publiés) ; absence de tout plafond caché de minutes en dépôt public ; `appDataFolder` dans les 15 Go ; tarif Firestore au-delà de la gratuité ; prix de Hugging Face PRO.

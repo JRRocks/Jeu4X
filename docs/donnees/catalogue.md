@@ -19,7 +19,7 @@
 | DO-011 | Jeton d'intégrité Play | Chaque lot porte un jeton Play Integrity vérifié au serveur | Écarte les APK modifiés et les robots | M | 1 |
 | DO-012 | Quarantaine anti-empoisonnement | Les parties humaines n'entrent dans l'entraînement qu'après filtres, plafond par joueur et pondération | L'IA ne peut pas être « dressée » par quelques tricheurs | M | 1 |
 | DO-013 | Consentement et effacement | Question claire à la première partie, réglage pour changer d'avis, bouton « effacer mes données » | Obligatoire (RGPD) dès qu'on collecte | S | 1 |
-| DO-014 | Identifiant d'installation jetable | UUID aléatoire, sans lien avec le téléphone ni le compte, réinitialisé à l'effacement | Minimisation : on ne sait jamais qui joue | S | 1 |
+| DO-014 | Identifiant de joueur jetable | UUID aléatoire, sans lien avec le téléphone ni le compte, réinitialisé à l'effacement | Minimisation : on ne sait jamais qui joue | S | 1 |
 | DO-015 | Modèles d'IA en fichiers de Release | Le modèle part en fichier joint d'une Release GitHub, avec un manifeste (version, empreinte) | Nouvelle IA sans nouvel APK ; réutilise `maj-auto-github` | M | 1 |
 | DO-016 | Déploiement progressif d'un modèle | La nouvelle IA ne va d'abord qu'à 20 % des joueurs ; on compare, puis on généralise ou on revient | Pas de mauvaise surprise pour tous | M | 2 |
 | DO-017 | Jeu de données public | Parties anonymisées et agrégées publiées sur Hugging Face | Visibilité, aide d'autres chercheurs ; facultatif | M | 2 |
@@ -100,7 +100,7 @@
 
 ## DO-012 · Quarantaine anti-empoisonnement
 
-- **Description** : une partie humaine n'entre dans un jeu d'entraînement qu'après DO-010, avec un plafond de parties par `install_id`, l'écart des parties absurdes (abandon au tour 1, coups répétés) et un poids faible face aux parties IA contre IA.
+- **Description** : une partie humaine n'entre dans un jeu d'entraînement qu'après DO-010, avec un plafond de parties par `player_id`, l'écart des parties absurdes (abandon au tour 1, coups répétés) et un poids faible face aux parties IA contre IA.
 - **Pourquoi** : un petit groupe ne peut pas « dresser » l'IA à perdre d'une certaine façon. Chaque nouveau modèle passe le banc DO-005 contre l'ancien avant d'être livré.
 - **Coût** : M. **Dépendances** : S3.
 
@@ -110,9 +110,9 @@
 - **Pourquoi** : le RGPD l'exige pour des données pseudonymes ; le Play Store exige la politique et le formulaire « sécurité des données ».
 - **Coût** : S. Visible : aperçu d'abord.
 
-## DO-014 · Identifiant d'installation jetable
+## DO-014 · Identifiant de joueur jetable
 
-- **Description** : `install_id` tiré au hasard, sans lien avec l'identifiant publicitaire, le téléphone ou le compte Google.
+- **Description** : `player_id` tiré au hasard, sans lien avec l'identifiant publicitaire, le téléphone ou le compte Google.
 - **Coût** : S.
 
 ## DO-015 · Modèles d'IA en fichiers de Release
@@ -128,7 +128,7 @@
 
 ## DO-017 · Jeu de données public
 
-- **Description** : chaque trimestre, un extrait sans `install_id` (agrégats et replays sans lien entre eux) publié sur Hugging Face.
+- **Description** : chaque trimestre, un extrait sans `player_id` (agrégats et replays sans lien entre eux) publié sur Hugging Face.
 - **Pourquoi** : facultatif ; à n'envisager qu'avec un consentement qui le mentionne.
 - **Coût** : M.
 

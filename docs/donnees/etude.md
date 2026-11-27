@@ -6,20 +6,24 @@
 
 ## 1. Ce qu'on regroupe, et ce qu'on ne regroupe pas
 
-- **Les parties des joueurs** : replay compact (graine + actions), résultat, versions (app, moteur, IA), clans, durée. **≈ 2 Ko par partie** (1 à 5 Ko).
+- **Les parties des joueurs** : replay compact (graine + actions + empreintes de contrôle), résultat, versions (app, règles, codage, IA), clans, durée. **≈ 2 à 3 Ko par partie** (1 à 5 Ko). Format revu avec les besoins de S3 (`schema-donnees.md`, « Revue S3 »).
 - **Les évaluations IA contre IA** : seulement leurs résumés (quelques centaines d'octets par série de 1 000 parties).
 - **Les modèles d'IA** : 100 Ko à 5 Mo chacun, dans l'autre sens (serveur → téléphones).
 - **Pas** les parties d'entraînement de l'IA contre elle-même : elles naissent et restent sur la machine d'entraînement (PC ou session cloud, S3). C'est de loin le plus gros volume, et il n'a rien à faire sur un serveur de collecte.
 
-| Échelle | Volume brut par an | Envois par jour (lots quotidiens) |
-|---|---|---|
-| 1 joueur | < 5 Mo | 1 |
-| 100 joueurs | ≈ 60 Mo | ≈ 100 |
-| 10 000 joueurs | ≈ 6 Go | ≈ 10 000 |
+Fourchette basse : 300 parties par joueur et par an ; haute : 10 par jour et par joueur actif (S3).
 
-**Conclusion du volume** : même à 10 000 joueurs, les données tiennent dans les offres gratuites.
-Ce qui décide du choix, ce n'est donc pas le stockage mais **la vie privée, la triche, l'entretien
-et la dépendance à un fournisseur**.
+| Échelle | Volume brut par an (basse – haute) | Envois par jour (lots quotidiens) |
+|---|---|---|
+| 1 joueur | < 11 Mo | 1 |
+| 100 joueurs | 60 Mo – 1 Go | ≈ 100 |
+| 1 000 joueurs | 0,6 – 11 Go | ≈ 1 000 |
+| 10 000 joueurs | 6 – 110 Go | ≈ 10 000 |
+
+**Conclusion du volume** : jusqu'à environ 1 000 joueurs, les données tiennent dans les offres
+gratuites ; à 10 000 joueurs très actifs, il faut compter quelques dollars par mois. Ce qui décide
+du choix, ce n'est donc pas le stockage mais **la vie privée, la triche, l'entretien et la
+dépendance à un fournisseur**.
 
 ## 2. Les formules comparées
 
@@ -33,7 +37,7 @@ Notes de 1 (mauvais) à 5 (très bon). Coûts mensuels.
 | D. GitHub (dépôt, Issues, Releases) comme réception | Oui | 0 | **1** (public) | 1 | 3 | 4 | 3 |
 | E. Firebase (Firestore + App Check) | Oui | 0 / 0 / 0 à quelques $ | 3 | 4 | 4 | 4 | 2 |
 | F. Supabase | Oui | 0 / 0 ou 25 $ / 25 $ | 3 | 3 | 3 | 4 | 3 |
-| G. Cloudflare (Worker + R2 + D1) | Oui | 0 / 0 / 0 à 5 $ | 4 | 4 | 4 | 4 | 3 |
+| G. Cloudflare (Worker + R2 + D1) | Oui | 0 / 0 / 0 à 8 $ | 4 | 4 | 4 | 4 | 3 |
 | H. Petit serveur loué (PocketBase ou PostgreSQL) | Oui | 4,57 à 7 € TTC à toute échelle | 4 | 4 | **1** | 4 | 5 |
 | I. Mixte : téléphone qui garde et envoie vers E, F, G ou H | Oui | celui du service | 4 | 4 | 4 | **5** | selon le service |
 
@@ -84,8 +88,10 @@ trop cher pour ce que le projet a à stocker.
 ### G. Cloudflare : Worker + R2 + D1
 
 Gratuit : 100 000 requêtes par jour (Workers), 10 Go et sortie gratuite (R2), 5 Go et 100 000
-lignes écrites par jour (D1). À 10 000 joueurs, on reste dans la gratuité ; sinon, Workers Paid à
-5 $ par mois couvre très largement. Pas de mise en veille, pas de carte bancaire pour l'offre
+lignes écrites par jour (D1). Jusqu'à 1 000 joueurs, tout est gratuit. À 10 000 joueurs très actifs
+(100 000 parties par jour, 110 Go par an), D1 atteint sa limite d'écritures et R2 dépasse 10 Go :
+Workers Paid à 5 $ par mois (50 millions de lignes écrites incluses) plus le stockage R2 au-delà de
+10 Go à 0,015 $ le Go par mois, soit environ 5 à 8 $ par mois avec 24 mois de conservation. Pas de mise en veille, pas de carte bancaire pour l'offre
 gratuite. Les lots bruts sont de simples fichiers dans R2 : faciles à télécharger ailleurs, d'où une
 dépendance modérée. Il faut un petit programme (le Worker, écrit par S1), mais une fois en place,
 rien à entretenir.
@@ -108,16 +114,19 @@ Le téléphone garde tout (A), le jeu reste jouable hors ligne, et un lot part q
   le RGPD s'applique dès qu'on collecte, même sans nom ni e-mail.
 - **Minimisation** : rien d'autre que la partie (`schema-donnees.md`, « ce qu'on ne met pas ») ; le
   serveur ne garde pas l'adresse IP ; date au jour près.
-- **Consentement** : question explicite à la première partie, modifiable ensuite (DO-013). Base légale
-  à confirmer : le consentement est le plus simple à défendre. *L'intérêt légitime* pourrait suffire
+- **Consentement** : question explicite à la première partie, modifiable ensuite (DO-013). S3 propose
+  aussi l'envoi désactivé par défaut. Base légale à confirmer : le consentement est le plus simple à défendre. *L'intérêt légitime* pourrait suffire
   pour des statistiques de jeu sans identifiant, mais c'est une appréciation juridique que cette
   étude ne tranche pas.
 - **Mineurs** : en France, en dessous de 15 ans, le consentement doit être donné conjointement avec
   un parent. Un jeu de stratégie attirera des moins de 15 ans : soit on demande l'âge (« moins de
   15 ans ? alors rien n'est envoyé »), soit le partage reste désactivé par défaut. Question pour
   l'utilisateur.
+- **IA fantôme** (proposée par S3 : une IA qui joue comme un joueur donné) : accord à part,
+  distinct du partage des parties ; elle suppose de garder le lien entre les parties d'un même
+  `player_id`, et s'efface avec lui.
 - **Durée de conservation** : 24 mois pour les replays bruts, puis agrégats seulement (DO-019).
-- **Effacement** : bouton « Effacer mes données » qui envoie l'`install_id` à supprimer puis en tire un
+- **Effacement** : bouton « Effacer mes données » qui envoie le `player_id` à supprimer puis en tire un
   nouveau (DO-014). Sans compte, l'obligation Play Store d'un lien web de suppression de compte ne
   s'applique pas.
 - **Play Store, formulaire « Sécurité des données »** : les données pseudonymes se déclarent. À
@@ -169,3 +178,43 @@ identifiant. Plus tard, un écran dans le jeu (DO-018). Les deux sont visibles :
    pour héberger les modèles avec leur fiche descriptive, sans intérêt tant que GitHub suffit.
 
 Format et taille du modèle : à arrêter avec S3.
+
+## 7. GitHub Actions : ce qui est permis pour les tournois IA contre IA
+
+> Ajouté le 2026-11-27 à la demande de la session maître. Sources dans `sources.md`.
+
+**Ce que disent les conditions.** La section Actions des conditions des produits additionnels
+de GitHub interdit le minage de cryptomonnaie et la revente d'Actions comme service. Elle
+interdit aussi toute charge sur les serveurs « disproportionnée par rapport au bénéfice pour les
+utilisateurs », par exemple servir de réseau de diffusion ou de serveur d'application. Enfin,
+sur les exécuteurs de GitHub, elle interdit toute activité sans rapport avec la production, le
+**test**, le déploiement ou la publication du projet. Les règles d'usage acceptable visent en plus
+l'activité automatisée excessive. Aucun texte ne parle d'apprentissage automatique.
+
+**Lecture.** Un tournoi qui **teste** une version d'IA du jeu avant de la livrer se défend comme un
+test du projet. Un **entraînement** long et continu ressemble davantage à du calcul général et
+s'approche du « fardeau disproportionné ». C'est une appréciation : GitHub juge seul, et ses
+filtres anti-abus sont automatiques et non publiés. Des comptes ont vu Actions désactivé après un
+usage intensif, sans règle enfreinte, puis rétabli par le support.
+
+**Limites techniques** (exécuteurs standard, dépôt public, gratuits) :
+- 4 processeurs et 16 Go de mémoire par exécuteur ;
+- 6 h au plus par tâche, 35 jours par chaîne ;
+- 20 tâches en même temps (plan gratuit), 256 tâches au plus dans une matrice ;
+- cache de 10 Go par dépôt ;
+- artefacts gardés de 1 à 90 jours.
+
+**La limite à ne pas franchir** (proposition S4) :
+
+| Permis : ça teste le projet | À ne pas faire sur Actions |
+|---|---|
+| Banc d'essai d'une nouvelle version d'IA contre l'ancienne et contre les IA de référence, avant chaque livraison de modèle | Entraînement de l'IA (algorithme génétique, jeu contre soi-même) : il va sur le PC de l'utilisateur ou sur une machine louée (S3) |
+| Un tournoi de suivi programmé une fois par nuit au plus | Des tournois en boucle, ou relancés automatiquement en chaîne |
+| Moins d'une heure par exécution et 4 tâches en parallèle au plus, très loin des 6 h et des 20 tâches | Remplir les 20 tâches simultanées ou atteindre les 6 h de façon régulière |
+| Ne garder que les résumés (quelques Ko) dans le dépôt, et les artefacts 7 jours | Recevoir des parties de joueurs, servir des modèles ou des pages (Actions comme serveur) |
+
+Exemple de budget : 2 000 parties à 1 000 parties par seconde et par cœur (objectif de S3,
+`besoins-moteur.md`) prennent quelques secondes ; 100 000 parties sur 4 cœurs prennent moins
+d'une minute. Le banc d'essai tient donc largement dans la limite, même avec un moteur dix fois
+plus lent. Si le moteur est cent fois plus lent que l'objectif, on réduit le nombre de parties
+au lieu de dépasser la limite.
