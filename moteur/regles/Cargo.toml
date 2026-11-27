@@ -1,0 +1,9 @@
+[package]
+name = "regles"
+version = "0.1.0"
+edition = "2021"
+description = "Règles de Jeu4X : sans écran, sans horloge, sans virgule, reproductibles par graine."
+license = "MIT"
+publish = false
+
+[dependencies]

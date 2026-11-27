@@ -1,0 +1,180 @@
+name: APK
+
+# À chaque push qui touche le code : tests du moteur (Rust), tests de l'application (Kotlin),
+# puis, si la clé de signature est dans les secrets, APK release signé `Jeu4X.<version>.apk`
+# attaché à une pré-version `apercu-<version>` de ce dépôt. Une pré-version n'est jamais
+# « la dernière version » pour l'API GitHub : rien n'est publié tant que l'utilisateur ne
+# l'a pas décidé. Mise en place de la clé : docs/environnement/signature.md.
+
+on:
+  push:
+    branches: [main, s1-environnement]
+    paths:
+      - "moteur/**"
+      - "outils/**"
+      - "app/**"
+      - "*.gradle.kts"
+      - "gradle/**"
+      - "gradle.properties"
+      - ".github/workflows/apk.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    # D-15 : moins de 20 minutes par exécution.
+    timeout-minutes: 20
+    env:
+      # Version qui monte seule : le numéro d'exécution de ce workflow, unique et croissant.
+      JEU4X_VERSION_CODE: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Outils Rust pour Android
+        run: |
+          set -euo pipefail
+          rustup target add aarch64-linux-android x86_64-linux-android
+          cargo install cargo-ndk --version 4.1.2 --locked
+
+      - name: NDK Android (version fixée par app/build.gradle.kts)
+        run: |
+          set -euo pipefail
+          gestionnaire=$(ls "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | tail -1)
+          "$gestionnaire" --install "ndk;27.2.12479018" > /dev/null
+          ls "$ANDROID_HOME/ndk"
+
+      - name: Tests du moteur (Rust)
+        working-directory: moteur
+        run: cargo test --locked
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Restaurer la clé de signature release
+        id: cle
+        env:
+          KEYSTORE_BASE64: ${{ secrets.SIGNATURE_KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.SIGNATURE_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          if [ -z "${KEYSTORE_BASE64:-}" ]; then
+            echo "::warning::Clé de signature absente des secrets : tests seulement, aucun APK (docs/environnement/signature.md)."
+            echo "presente=non" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          mkdir -p app/keystore-release
+          echo "$KEYSTORE_BASE64" | base64 -d --ignore-garbage > app/keystore-release/jeu4x-release.jks
+          # Mots de passe : seulement par l'environnement de l'étape de compilation.
+          {
+            printf '%s\n' "storeFile=jeu4x-release.jks"
+            printf '%s\n' "keyAlias=$KEY_ALIAS"
+          } > app/keystore-release/keystore.properties
+          echo "presente=oui" >> "$GITHUB_OUTPUT"
+
+      - name: Tests de l'application (Kotlin, Robolectric, pont vers le moteur)
+        run: ./gradlew :app:testDebugUnitTest --stacktrace
+
+      - name: Compiler l'APK d'essai (Jeu4X essai, clé d'essai publique)
+        run: |
+          set -euo pipefail
+          ./gradlew :app:assembleEssai --stacktrace
+          source=app/build/outputs/apk/essai/app-essai.apk
+          [ -f "$source" ] || { echo "::error::APK d'essai introuvable : $source"; exit 1; }
+          unzip -l "$source" | grep -q "lib/arm64-v8a/libjeu4x_android.so" \
+            || { echo "::error::Bibliothèque Rust absente de l'APK d'essai"; exit 1; }
+          mv "$source" "app/build/outputs/apk/essai/Jeu4X-essai.0.1.${JEU4X_VERSION_CODE}.apk"
+
+      - name: Activer KVM pour l'émulateur
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Essai à l'émulateur (installation, moteur Rust, rapport de plantage)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          arch: x86_64
+          target: google_apis
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: bash outils/essai-emulateur.sh app/build/outputs/apk/essai/Jeu4X-essai.0.1.${{ env.JEU4X_VERSION_CODE }}.apk app/build/emulateur
+
+      - name: Publier l'essai en pré-version (APK, captures, résumé)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          nom="0.1.${JEU4X_VERSION_CODE}"
+          balise="essai-$nom"
+          apk="app/build/outputs/apk/essai/Jeu4X-essai.$nom.apk"
+          e=app/build/emulateur
+          mv "$e/capture-accueil.png" "$e/Jeu4X-essai.$nom.emulateur-plateau.png"
+          mv "$e/capture-tour-rouge.png" "$e/Jeu4X-essai.$nom.emulateur-tour-rouge.png"
+          mv "$e/capture-plantage.png" "$e/Jeu4X-essai.$nom.emulateur-plantage.png"
+          mv "$e/resume-emulateur.txt" "$e/Jeu4X-essai.$nom.emulateur-resume.txt"
+          gh release create "$balise" "$apk" "$e"/Jeu4X-essai.$nom.emulateur-* \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "Jeu4X essai $nom" \
+            --notes "Version d'essai (fr.jeu4x.app.essai), branche ${GITHUB_REF_NAME}, commit ${GITHUB_SHA::7}. S'installe à côté du vrai jeu. Vérifiée à l'émulateur Android avant publication : voir le résumé et les captures."
+          echo "Lien : https://github.com/$GITHUB_REPOSITORY/releases/tag/$balise" >> "$GITHUB_STEP_SUMMARY"
+          cat "$e/Jeu4X-essai.$nom.emulateur-resume.txt" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Compiler l'APK release
+        if: steps.cle.outputs.presente == 'oui'
+        env:
+          SIGNATURE_STORE_PASSWORD: ${{ secrets.SIGNATURE_STORE_PASSWORD }}
+          SIGNATURE_KEY_PASSWORD: ${{ secrets.SIGNATURE_KEY_PASSWORD }}
+        run: ./gradlew :app:assembleRelease --stacktrace
+
+      - name: Nommer l'APK
+        if: steps.cle.outputs.presente == 'oui'
+        id: apk
+        run: |
+          set -euo pipefail
+          sortie=app/build/outputs/apk/release
+          if ls "$sortie"/*-unsigned.apk >/dev/null 2>&1; then
+            echo "::error::APK non signé produit : la clé release n'a pas été prise en compte."
+            exit 1
+          fi
+          source="$sortie/app-release.apk"
+          [ -f "$source" ] || { echo "::error::APK introuvable : $source"; exit 1; }
+          nom="0.1.${JEU4X_VERSION_CODE}"
+          cible="$sortie/Jeu4X.$nom.apk"
+          mv "$source" "$cible"
+          echo "nom=$nom" >> "$GITHUB_OUTPUT"
+          echo "chemin=$cible" >> "$GITHUB_OUTPUT"
+
+      - name: Publier en pré-version (aperçu)
+        if: steps.cle.outputs.presente == 'oui'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          balise="apercu-${{ steps.apk.outputs.nom }}"
+          apk="${{ steps.apk.outputs.chemin }}"
+          gh release create "$balise" "$apk" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "Aperçu ${{ steps.apk.outputs.nom }}" \
+            --notes "APK d'essai Jeu4X ${{ steps.apk.outputs.nom }}, branche ${GITHUB_REF_NAME}, commit ${GITHUB_SHA::7}."
+          echo "Lien : https://github.com/$GITHUB_REPOSITORY/releases/download/$balise/$(basename "$apk")" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Effacer la clé de signature
+        if: always()
+        run: rm -rf app/keystore-release
