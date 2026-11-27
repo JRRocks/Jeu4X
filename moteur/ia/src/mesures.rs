@@ -144,6 +144,17 @@ pub fn rapport(nb: u8, b: &[Bilan]) -> String {
         let g = b.iter().filter(|x| x.gagnant == Some(j)).count();
         s += &format!("| {} | {:.0} % |\n", j + 1, 100.0 * g as f64 / n);
     }
+    let nulles: Vec<&Bilan> = b.iter().filter(|x| x.fin == Fin::Nulle).collect();
+    if !nulles.is_empty() {
+        let k = nulles.len() as f64;
+        let meilleur = nulles.iter().map(|x| *x.scores.iter().max().unwrap_or(&0) as f64).sum::<f64>() / k;
+        let mini = nulles.iter().map(|x| *x.scores.iter().max().unwrap_or(&0)).min().unwrap_or(0);
+        let maxi = nulles.iter().map(|x| *x.scores.iter().max().unwrap_or(&0)).max().unwrap_or(0);
+        s += &format!(
+            "\nParties nulles : le meilleur joueur finit en moyenne avec {meilleur:.1} points (de {mini} à {maxi}), pour un seuil de {}.\n",
+            r.seuil()
+        );
+    }
     let gagnes: Vec<&Bilan> = b.iter().filter(|x| x.gagnant.is_some()).collect();
     if !gagnes.is_empty() {
         let k = gagnes.len() as f64;
