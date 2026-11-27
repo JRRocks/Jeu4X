@@ -6,6 +6,7 @@
 //! cargo run --release -p ia -- rejouer <archive>
 //! cargo run --release -p ia -- valider <nom> [--parties 400] [--graine 1] [--inscrire]
 //! cargo run --release -p ia -- galerie
+//! cargo run --release -p ia -- chrono [--parties 10]   (temps de réflexion de l'adversaire)
 //! ```
 //! Sans `--ia`, le tournoi oppose toute la galerie et toutes les candidates.
 
@@ -94,6 +95,7 @@ fn fils(o: &Options) -> Result<usize, String> {
 fn decrire(p: &Profil) -> String {
     match &p.sorte {
         Sorte::Hasard => "au hasard".to_string(),
+        Sorte::Simple => "adversaire provisoire des règles (S1)".to_string(),
         Sorte::Perimee { .. } => format!("faite pour les règles {}", p.version_regles),
         Sorte::Utilite { poids } => {
             let v: Vec<String> = NOMS.iter().zip(poids).map(|(n, w)| format!("{n} {w}")).collect();
@@ -276,6 +278,41 @@ fn galerie_cmd(o: &Options) -> Result<(), String> {
     Ok(())
 }
 
+/// Temps de réflexion de l'adversaire normal (`adversaire::jouer_tour`) : moyenne et pire
+/// tour, sur des parties entières à 2, 3 et 4 joueurs. Mesure du PC, pas du téléphone.
+fn chrono(o: &Options) -> Result<(), String> {
+    use ia::adversaire::{jouer_tour, Niveau};
+    use regles::partie::Partie;
+    let parties = o.nombre("parties", 10)?;
+    for nb in 2..=4u8 {
+        let r = Reglages::pour(nb);
+        let (mut total, mut pire, mut tours, mut fins) = (0f64, 0f64, 0u64, 0u64);
+        for g in 0..parties {
+            let mut p = Partie::nouvelle(r, g);
+            while !p.est_finie() {
+                let debut = Instant::now();
+                let actions = jouer_tour(&p, Niveau::Normal);
+                let t = debut.elapsed().as_secs_f64();
+                total += t;
+                pire = pire.max(t);
+                tours += 1;
+                for a in actions {
+                    p.appliquer(a).map_err(|e| format!("action refusée : {e:?}"))?;
+                }
+            }
+            fins += p.tour() as u64;
+        }
+        println!(
+            "{nb} joueurs ({t}×{t}) : {tours} tours d'IA, {:.1} ms en moyenne, {:.1} ms au pire ; parties de {:.1} tours en moyenne",
+            1000.0 * total / tours as f64,
+            1000.0 * pire,
+            fins as f64 / parties as f64,
+            t = r.taille
+        );
+    }
+    Ok(())
+}
+
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let o = Options::lire(&args);
@@ -284,6 +321,7 @@ fn main() -> ExitCode {
         Some("rejouer") => rejouer(&o),
         Some("valider") => valider_cmd(&o),
         Some("galerie") => galerie_cmd(&o).map(|_| true),
+        Some("chrono") => chrono(&o).map(|_| true),
         _ => Err("commandes : tournoi, rejouer, valider, galerie (voir l'en-tête de src/main.rs)".into()),
     };
     match r {

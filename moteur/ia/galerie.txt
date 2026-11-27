@@ -7,3 +7,7 @@ utilite-v1 1 utilite/1 100 -100 10 0
 # --- Règles 2 (S1, étape a : brouillard, capitales, 8 directions), 2026-11-27 ---
 hasard-r2 2 hasard
 utilite-r2-v1 2 utilite/2 100 -50 5 3
+# --- Règles 3 (S1 : V1 complète), 2026-11-27 ---
+hasard-r3 3 hasard
+simple-r3 3 simple
+utilite-r3-v1 3 utilite/3 100000 100 -60 2 15 8 -8 150 6 3 120

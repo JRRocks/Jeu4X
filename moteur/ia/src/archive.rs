@@ -115,7 +115,7 @@ mod tests {
     use regles::partie::Reglages;
 
     fn petit() -> (Vec<Profil>, Vec<Issue>) {
-        let p = vec![Profil::hasard("h"), Profil::utilite("u", [100, -50, 5, 3])];
+        let p = vec![Profil::hasard("h"), Profil::utilite("u", crate::criteres::POIDS_ESSAI)];
         let i = jouer_tout(&p, &rencontres(&[(0, 1)], 6, 2), Reglages::default(), 2);
         (p, i)
     }

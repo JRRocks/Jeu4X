@@ -7,3 +7,5 @@ utilite-recul 1 utilite/1 100 -100 -10 0
 # --- Règles 2 ---
 # utilite-r2-v1 : découvre la carte (score provisoire) et se rapproche des villes adverses connues.
 utilite-r2-v1 2 utilite/2 100 -50 5 3
+# --- Règles 3 ---
+utilite-r3-v1 3 utilite/3 100000 100 -60 2 15 8 -8 150 6 3 120

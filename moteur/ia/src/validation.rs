@@ -80,13 +80,13 @@ mod tests {
 
     #[test]
     fn l_ia_a_utilite_est_admise_contre_le_hasard() {
-        let v = valider(&Profil::utilite("u1", [100, -50, 5, 3]), &galerie(), 100, 1, Reglages::default(), 4);
+        let v = valider(&Profil::utilite("u1", crate::criteres::POIDS_ESSAI), &galerie(), 100, 1, Reglages::default(), 4);
         assert!(v.admise, "{:?}", v.confrontations);
     }
 
     #[test]
     fn le_hasard_ne_detrone_pas_l_ia_a_utilite() {
-        let g = vec![Profil::hasard("hasard-v1"), Profil::utilite("u1", [100, -50, 5, 3])];
+        let g = vec![Profil::hasard("hasard-v1"), Profil::utilite("u1", crate::criteres::POIDS_ESSAI)];
         let v = valider(&Profil::hasard("hasard-v2"), &g, 100, 1, Reglages::default(), 4);
         assert!(!v.admise);
         assert!(v.confrontations.last().unwrap().champion);
@@ -94,8 +94,8 @@ mod tests {
 
     #[test]
     fn une_ia_qui_recule_est_refusee() {
-        let g = vec![Profil::hasard("hasard-v1"), Profil::utilite("u1", [100, -50, 5, 3])];
-        let v = valider(&Profil::utilite("recul", [-100, 50, -5, -3]), &g, 100, 1, Reglages::default(), 4);
+        let g = vec![Profil::hasard("hasard-v1"), Profil::utilite("u1", crate::criteres::POIDS_ESSAI)];
+        let v = valider(&Profil::utilite("recul", crate::criteres::POIDS_RECUL), &g, 100, 1, Reglages::default(), 4);
         assert!(!v.admise);
     }
 
@@ -104,7 +104,7 @@ mod tests {
         let mut vieille = Profil::hasard("vieille");
         vieille.version_regles = 0;
         let g = vec![vieille, Profil::hasard("hasard-v1")];
-        let v = valider(&Profil::utilite("u1", [100, -50, 5, 3]), &g, 20, 1, Reglages::default(), 2);
+        let v = valider(&Profil::utilite("u1", crate::criteres::POIDS_ESSAI), &g, 20, 1, Reglages::default(), 2);
         assert_eq!(v.ecartees, vec!["vieille".to_string()]);
         assert_eq!(v.confrontations.len(), 1);
     }

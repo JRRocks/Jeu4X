@@ -5,12 +5,14 @@
 //! Lignes vides et lignes commençant par `#` ignorées.
 
 use crate::criteres::{NB_CRITERES, VERSION_CRITERES};
-use crate::joueur::{Joueur, JoueurHasard, JoueurUtilite};
+use crate::joueur::{Joueur, JoueurHasard, JoueurSimple, JoueurUtilite};
 use regles::VERSION_REGLES;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Sorte {
     Hasard,
+    /// L'adversaire provisoire écrit avec les règles (`regles::ia_simple`).
+    Simple,
     Utilite { poids: [i32; NB_CRITERES] },
     /// Profil fait pour d'autres règles : gardé tel quel dans la galerie, jamais joué.
     Perimee { ligne: String },
@@ -45,6 +47,7 @@ impl Profil {
         }
         let sorte = match mots[2] {
             "hasard" => Sorte::Hasard,
+            "simple" => Sorte::Simple,
             t if t.starts_with("utilite/") => {
                 let v: u32 = t[8..].parse().map_err(|_| format!("{nom} : version des critères illisible"))?;
                 if v != VERSION_CRITERES {
@@ -67,6 +70,7 @@ impl Profil {
     pub fn vers_ligne(&self) -> String {
         match &self.sorte {
             Sorte::Hasard => format!("{} {} hasard", self.nom, self.version_regles),
+            Sorte::Simple => format!("{} {} simple", self.nom, self.version_regles),
             Sorte::Perimee { ligne } => ligne.clone(),
             Sorte::Utilite { poids } => {
                 let p: Vec<String> = poids.iter().map(|x| x.to_string()).collect();
@@ -84,6 +88,7 @@ impl Profil {
     pub fn fabriquer(&self, graine: u64) -> Box<dyn Joueur> {
         match &self.sorte {
             Sorte::Hasard | Sorte::Perimee { .. } => Box::new(JoueurHasard::new(graine)),
+            Sorte::Simple => Box::new(JoueurSimple::new()),
             Sorte::Utilite { poids } => Box::new(JoueurUtilite::new(*poids)),
         }
     }
@@ -105,7 +110,7 @@ mod tests {
 
     #[test]
     fn aller_retour_texte() {
-        let p = Profil::utilite("essai", [1, -2, 3, 4]);
+        let p = Profil::utilite("essai", [1, -2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
         assert_eq!(Profil::depuis_ligne(&p.vers_ligne()).unwrap(), p);
         let h = Profil::hasard("h");
         assert_eq!(Profil::depuis_ligne(&h.vers_ligne()).unwrap(), h);

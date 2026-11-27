@@ -68,3 +68,30 @@ impl Joueur for JoueurUtilite {
         meilleure
     }
 }
+
+/// L'adversaire provisoire des règles (`regles::ia_simple`, S1), comme référence à battre.
+/// Il calcule tout son tour d'un coup ; on le rend action par action.
+pub struct JoueurSimple {
+    file: std::collections::VecDeque<Action>,
+}
+
+impl JoueurSimple {
+    pub fn new() -> Self {
+        JoueurSimple { file: Default::default() }
+    }
+}
+
+impl Default for JoueurSimple {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl Joueur for JoueurSimple {
+    fn choisir(&mut self, partie: &Partie) -> Action {
+        if self.file.is_empty() {
+            self.file = regles::ia_simple::jouer_tour(partie).into();
+        }
+        self.file.pop_front().unwrap_or(Action::FinDuTour)
+    }
+}

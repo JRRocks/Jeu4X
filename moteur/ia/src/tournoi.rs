@@ -139,7 +139,7 @@ mod tests {
     use super::*;
 
     fn deux() -> Vec<Profil> {
-        vec![Profil::hasard("hasard"), Profil::utilite("utilite", [100, -50, 5, 3])]
+        vec![Profil::hasard("hasard"), Profil::utilite("utilite", crate::criteres::POIDS_ESSAI)]
     }
 
     #[test]

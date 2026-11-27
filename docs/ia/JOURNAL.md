@@ -2,6 +2,16 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · IA pour les règles V1 complètes (règles 3)
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`, après fusion de `s1-environnement` (0fa9c01)
+- **Réalisé** : critères version 3, onze au total : issue, score D-28, meilleur score adverse, vivres, revenu, armée, armée adverse vue, villes, approche des buts, exploration, unités prêtes à rallier. Ils sont lus sur la vue du joueur. Nouvelle référence `simple`, l'adversaire provisoire de S1 (`regles::ia_simple`). `utilite-r3-v1` est admise et en service : 59,5 % contre `simple-r3`, 100 % contre le hasard. Nouvelle commande `terrain chrono` pour le temps de réflexion. Rapport : `tournois/2026-11-27-regles-3.md`.
+- **Vérifications** : `cargo test --release --workspace` est vert (21 tests `ia`, 30 tests `regles`). Rejeu : 600 parties sur 600 conformes. `chrono` (PC, 10 parties par format) : 1 à 2 ms par tour en moyenne, 7,5 ms au pire.
+- **Non vérifié sur téléphone** : le temps de réflexion réel ; il devrait rester bien en dessous d'une seconde.
+- **Problèmes et dette** : les parties durent environ 10 tours au lieu des 25 à 35 visés par S2 ; c'est un point d'équilibre des règles, à remonter à la session maître.
+- **Prochaine étape** : courte évolution automatique des poids (IA-003) contre `simple-r3`.
+
 ## 2026-11-27 · IA adaptée aux règles 2 (étape a de S1)
 
 - **Auteur** : Claude, session S3
