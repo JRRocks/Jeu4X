@@ -35,7 +35,7 @@
 - **Pourquoi** : sans lui, impossible de savoir si une IA progresse. Il sert à toutes les autres idées.
 - **Coût** : S, une fois le moteur prototype disponible.
 - **Dépendances** : `besoins-moteur.md` respecté par la session 1.
-- **Sources** : OpenSpiel (interface), Tribes (cadre de recherche d'un 4X sur petite carte).
+- **Sources** : OpenSpiel (interface), Tribes et Stratega (cadres de recherche pour jeux de stratégie au tour par tour).
 
 ## IA-002 · IA à utilité
 - **Description** : pour chaque action permise, une note = somme de critères pondérés (valeur de
@@ -61,8 +61,8 @@
 - **Description** : pendant un temps fixé, l'IA fait évoluer des séquences complètes d'actions de
   son tour et garde la meilleure selon l'évaluation (IA-002 puis réseau).
 - **Pourquoi** : conçue pour les jeux où l'on bouge plusieurs unités par tour.
-- **Coût** : M. **Dépendances** : IA-001, IA-002. **Sources** : Online Evolutionary Planning
-  (Justesen et al.), RHEA.
+- **Coût** : M. **Dépendances** : IA-001, IA-002. **Sources** : « Online Evolution for
+  Multi-Action Adversarial Games » (Justesen et al., 2016), Tribes (RHEA meilleure IA).
 
 ## IA-006 · Niveaux par budget de réflexion
 - **Description** : le niveau règle le temps ou le nombre d'essais de la planification.
@@ -97,7 +97,6 @@
 - **Description** : un réseau apprend à prédire le coup joué par les bons joueurs.
 - **Pourquoi** : IA au style humain ; point de départ du réseau d'IA-012.
 - **Coût** : M. **Dépendances** : IA-010, codage de l'état (E7).
-- **Sources** : AlphaGo (première version), imitation comportementale.
 
 ## IA-012 · Réseau et jeu contre soi-même
 - **Description** : réseau valeur + politique, entraîné par jeu contre soi-même avec une

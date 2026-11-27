@@ -146,7 +146,7 @@ sauver(état) / charger(octets)
 
 L'entraînement se fera en **Python** (PyTorch ou JAX : c'est là que sont les outils, les
 exemples et les machines louées). Sur le téléphone, le modèle entraîné tourne avec un moteur
-d'inférence mobile (ONNX Runtime ou LiteRT, ex-TensorFlow Lite), qui existe pour Kotlin, C++ et
+d'inférence mobile (ONNX Runtime ou LiteRT, successeur de TensorFlow Lite), qui existe pour Kotlin, C++ et
 la plupart des moteurs de jeu. La question est donc : **en quoi écrire les règles pour qu'elles
 tournent vite, à la fois sur Android et sous Python ?**
 

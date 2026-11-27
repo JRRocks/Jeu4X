@@ -10,9 +10,12 @@ Un 4X au tour par tour sur petite carte ressemble aux jeux de plateau (tour par 
 courtes), mais avec trois difficultés que les échecs ou le go n'ont pas :
 
 1. **Beaucoup d'actions par tour.** Un joueur bouge plusieurs unités, attaque, produit,
-   recherche, puis finit son tour. Le nombre de combinaisons d'un tour est énorme. Les travaux
-   sur des jeux de ce genre (Hero Academy, le cadre de recherche *Tribes*, *Stratega*) montrent
-   que la recherche arborescente classique s'y noie ; on décompose le tour en actions simples
+   recherche, puis finit son tour. Le nombre de combinaisons d'un tour est énorme : de l'ordre
+   de 10^15 tours possibles en moyenne dans le cadre de recherche *Tribes* (cartes de 11×11).
+   Dans *Tribes*, la planification par évolution (RHEA) bat la recherche Monte-Carlo (63 % de
+   victoires) et une IA à règles, qui arrive deuxième, devant MCTS ; toutes restent loin d'un
+   humain. Sur Hero Academy, la planification du tour par évolution bat aussi MCTS de loin
+   (Justesen et al., 2016). On décompose donc le tour en actions simples
    (une par décision, voir `besoins-moteur.md`, E4) ou on planifie le tour entier par évolution
    (IA-005).
 2. **Plusieurs adversaires** (2 à 4 joueurs) : pas de simple « gagner/perdre » à deux. Les
@@ -110,7 +113,7 @@ population règle en plus les réglages d'apprentissage au fil de l'eau.
 - **Difficulté** : moyenne, par-dessus 1.6.
 
 ### 1.10 Apprentissage par imitation des parties humaines
-Le réseau apprend à prédire le coup qu'un humain a joué (comme la première version d'AlphaGo).
+Le réseau apprend à prédire le coup qu'un humain a joué (clonage de comportement).
 - **Apport** : c'est le cœur de « l'IA qui progresse avec les joueurs » : chaque partie
   envoyée enrichit le jeu de données. Donne une IA au jeu « humain » ; sert d'amorce au jeu
   contre soi-même. Les mauvais coups humains se filtrent par niveau du joueur.
@@ -150,7 +153,7 @@ de la ligue.
 
 | Lieu | Ce qui s'y fait | Coût | Avis |
 |---|---|---|---|
-| **Hors ligne, PC ou machine louée** | pré-entraînement : évolution des IA à utilité, jeu contre soi-même | gratuit sur le PC ; GPU gratuits limités (Kaggle, Colab) ; GPU loué quelques euros l'heure | **indispensable** (D-10 : ne pas partir de zéro) |
+| **Hors ligne, PC ou machine louée** | pré-entraînement : évolution des IA à utilité, jeu contre soi-même | gratuit sur le PC ; GPU gratuits limités (Colab, Kaggle) ; GPU loué quelques euros l'heure | **indispensable** (D-10 : ne pas partir de zéro) |
 | **Central, à partir des parties de tous** | les parties remontent ; l'imitation et la ligue s'entraînent dessus ; une nouvelle version sort régulièrement | un lieu de stockage (session 4) + des sessions d'entraînement périodiques | **le moteur de la progression collective** |
 | **Sur le téléphone** | adaptation légère : estimation du style du joueur, choix du niveau, petits ajustements de poids d'une IA à utilité | batterie négligeable si on n'entraîne pas de réseau | **oui, mais léger** |
 | **Apprentissage fédéré** | chaque téléphone entraîne et ne renvoie que des mises à jour du modèle | infrastructure lourde, gain de confidentialité réel mais complexe, batterie | **non pour l'instant** : un replay de quelques kilooctets, anonyme, suffit |
@@ -193,11 +196,13 @@ Détail dans `architecture.md`.
    humaines.
 6. **Reproductibilité** : graine dans chaque partie, entraînement noté (version du code, graine,
    données utilisées), tout modèle publié peut être reconstruit ou au moins rejoué.
-7. **Coût de calcul et options gratuites** : PC de l'utilisateur ; GPU gratuits de Kaggle et
-   Colab (quotas hebdomadaires, à vérifier au moment de s'en servir) ; machines de GitHub
-   Actions, gratuites pour un dépôt public mais limitées en durée par tâche et à réserver à du
-   calcul léger (tournois, évolution d'IA à utilité) : leurs conditions d'usage sont à relire
-   avant. Les GPU loués seulement pour l'étape AlphaZero, si l'utilisateur l'accepte.
+7. **Coût de calcul et options gratuites** : PC de l'utilisateur ; GPU gratuits de Colab
+   (limites variables, sans garantie, d'après sa FAQ) et de Kaggle (quota hebdomadaire : aucun
+   chiffre officiel trouvé, à lire dans le compte au moment de s'en servir) ; machines de GitHub
+   Actions, gratuites et sans décompte de minutes pour un dépôt public, 6 heures au plus par
+   tâche. Leurs conditions interdisent sur ces machines toute activité sans rapport avec la
+   production, le test ou la publication du projet : des tournois de validation y ont leur place,
+   un long entraînement pourrait être jugé hors règles, donc à éviter. Les GPU loués seulement pour l'étape AlphaZero, si l'utilisateur l'accepte.
 
 ## 5. Feuille de route proposée
 

@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Sources vérifiées une à une
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`
+- **Objectif** : consigne de la session maître : sources réellement consultées (règle 8).
+- **Réalisé** : 24 sources ouvertes (par un sous-agent, pages lues le 2026-11-27). 19 tenaient telles quelles. 3 ont été corrigées : le titre de l'article de Justesen et al. ; le résultat de Tribes, où RHEA est première et MCTS troisième ; LiteRT, qui succède à TensorFlow Lite et n'en est pas un renommage. Une source n'a pas pu être vérifiée : le quota GPU de Kaggle, pour lequel aucun chiffre officiel n'a été trouvé. Une affirmation sans source a été retirée de l'étude et du catalogue : la mention d'AlphaGo. Ajouts : EvoTorch, ainsi que les conditions d'usage de GitHub Actions dans les garde-fous.
+- **Décisions** : aucune.
+- **Vérifications** : contrôle `depot-public`.
+- **Non vérifié sur téléphone** : sans objet.
+- **Problèmes et dette** : OpenReview, Science, MIT Press et Springer refusent la lecture automatique ; ces notices ont été lues par Crossref ou par une page miroir.
+- **Prochaine étape** : attendre le tri de l'utilisateur.
+
 ## 2026-11-27 · Les cas ouverts dans l'architecture (brouillard, hasard, taille)
 
 - **Auteur** : Claude, session S3
