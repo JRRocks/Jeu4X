@@ -9,3 +9,9 @@ utilite-recul 1 utilite/1 100 -100 -10 0
 utilite-r2-v1 2 utilite/2 100 -50 5 3
 # --- Règles 3 ---
 utilite-r3-v1 3 utilite/3 100000 100 -60 2 15 8 -8 150 6 3 120
+# utilite-r3-v2 : utilite-r3-v1 après 25 générations d'évolution (terrain evoluer, graine 7,
+# 6 enfants, 40 parties contre simple-r3 et utilite-r3-v1).
+utilite-r3-v2 3 utilite/3 148951 113 -59 3 15 11 -2 91 7 3 201
+# utilite-r3-v3 : utilite-r3-v1 après 30 générations (graine 11, 6 enfants, 100 parties
+# contre simple-r3 et utilite-r3-v1).
+utilite-r3-v3 3 utilite/3 57899 113 -55 4 19 13 -4 185 6 1 138

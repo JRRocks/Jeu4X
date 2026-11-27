@@ -6,6 +6,8 @@
 //! cargo run --release -p ia -- rejouer <archive>
 //! cargo run --release -p ia -- valider <nom> [--parties 400] [--graine 1] [--inscrire]
 //! cargo run --release -p ia -- galerie
+//! cargo run --release -p ia -- evoluer --depart <nom> --contre a,b [--generations 20]
+//!                                     [--enfants 6] [--parties 40] [--graine 7] [--nom x]
 //! cargo run --release -p ia -- chrono [--parties 10]   (temps de réflexion de l'adversaire)
 //! ```
 //! Sans `--ia`, le tournoi oppose toute la galerie et toutes les candidates.
@@ -313,6 +315,34 @@ fn chrono(o: &Options) -> Result<(), String> {
     Ok(())
 }
 
+/// Fait évoluer une IA à utilité contre des adversaires (IA-003) et affiche la ligne de
+/// la meilleure, à copier dans `candidats.txt` puis à `valider`.
+fn evoluer_cmd(o: &Options) -> Result<(), String> {
+    use ia::evolution::{evoluer, Reglage};
+    let (g, c) = galerie_et_candidates(o)?;
+    let tous: Vec<Profil> = g.into_iter().chain(c).filter(|p| p.a_jour()).collect();
+    let trouver = |n: &str| tous.iter().find(|p| p.nom == n.trim()).cloned().ok_or(format!("IA inconnue : {n}"));
+    let depart = trouver(o.texte("depart").ok_or("--depart <nom> attendu")?)?;
+    let adversaires: Vec<Profil> =
+        o.texte("contre").ok_or("--contre a,b attendu")?.split(',').map(trouver).collect::<Result<_, _>>()?;
+    let r = Reglage {
+        generations: o.nombre("generations", 20)? as u32,
+        enfants: o.nombre("enfants", 6)? as u32,
+        parties: o.nombre("parties", 40)? as u32,
+        graine: o.nombre("graine", 7)?,
+        fils: fils(o)?,
+    };
+    let nom = o.texte("nom").unwrap_or("evoluee");
+    let debut = Instant::now();
+    let (meilleur, journal) = evoluer(&depart, &adversaires, &r, reglages(o)?, nom);
+    for l in journal {
+        println!("{l}");
+    }
+    println!("Durée : {:.0} s", debut.elapsed().as_secs_f64());
+    println!("{}", meilleur.vers_ligne());
+    Ok(())
+}
+
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
     let o = Options::lire(&args);
@@ -322,6 +352,7 @@ fn main() -> ExitCode {
         Some("valider") => valider_cmd(&o),
         Some("galerie") => galerie_cmd(&o).map(|_| true),
         Some("chrono") => chrono(&o).map(|_| true),
+        Some("evoluer") => evoluer_cmd(&o).map(|_| true),
         _ => Err("commandes : tournoi, rejouer, valider, galerie (voir l'en-tête de src/main.rs)".into()),
     };
     match r {

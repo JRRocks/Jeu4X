@@ -6,6 +6,7 @@
 //!   quand les règles de la première version arriveront.
 //! - `profil` : une IA décrite par une ligne de texte (galerie, candidates).
 //! - `tournoi` : parties entre IA, en parallèle, reproductibles par graine (IA-001).
+//! - `evolution` : pré-entraînement court des poids par évolution (IA-003).
 //! - `elo` : classement des IA à partir des résultats (IA-001).
 //! - `archive` : fichier de replays d'un tournoi, et son rejeu de contrôle (IA-001).
 //! - `validation` : une nouvelle IA doit battre l'ancienne (IA-004).
@@ -17,6 +18,7 @@ pub mod adversaire;
 pub mod archive;
 pub mod criteres;
 pub mod elo;
+pub mod evolution;
 pub mod joueur;
 pub mod profil;
 pub mod tournoi;

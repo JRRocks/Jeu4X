@@ -2,6 +2,14 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Évolution courte des poids (IA-003)
+
+- **Auteur** : Claude, session S3
+- **Branche et commit** : `s3-ia`
+- **Réalisé** : `moteur/ia/src/evolution.rs` et la commande `terrain evoluer`, une stratégie (1 + λ) reproductible par graine. J'ai fait deux essais. Le premier dure 73 s (25 générations, 40 parties) et donne `utilite-r3-v2`. Le second dure 218 s (30 générations, 100 parties) et donne `utilite-r3-v3`.
+- **Vérifications** : validation sur 400 parties. `utilite-r3-v2` marque 61,5 % des points contre `simple-r3` et 52,7 % contre v1 : refusée. `utilite-r3-v3` marque 66 % contre `simple-r3` et 54 % contre v1 : refusée, car 55 % sont exigés. `utilite-r3-v1` reste en service. Tests `ia` verts.
+- **Prochaine étape** : attendre les retours de S1 sur le branchement ; une IA qui prépare son tour entier (IA-005) donnerait un vrai saut de niveau.
+
 ## 2026-11-27 · IA pour les règles V1 complètes (règles 3)
 
 - **Auteur** : Claude, session S3

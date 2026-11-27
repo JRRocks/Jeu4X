@@ -61,3 +61,10 @@ combats sans chance, monnaie, arbre, victoire par capitale ou par points, D-23, 
 - Aucune IA ne réfléchit plus d'un coup à l'avance : c'est l'étape suivante (planification du tour, IA-005).
 - Les poids de `utilite-v1` sont réglés à la main ; leur évolution automatique (IA-003) viendra avec les règles V1, quand il y aura de quoi apprendre.
 - L'archive d'un tournoi pèse environ 600 Ko pour 1 200 parties : elle n'est pas versionnée ; elle se refait à l'identique avec la même graine.
+
+## Règles V1 complètes (règles 3), 2026-11-27
+
+- Adversaire à brancher : `ia::adversaire::jouer_tour(&Partie, Niveau)` (facile = hasard, normal = l'IA en service).
+- En service : `utilite-r3-v1` (onze critères lus sur la vue du joueur). Contre l'adversaire provisoire de S1 (`simple-r3`) : 119-0-81 sur 200 parties ; contre le hasard : 200-0-0. Rapport : `tournois/2026-11-27-regles-3.md`.
+- Temps de réflexion (PC, `terrain chrono`) : 1 à 2 ms par tour en moyenne, 7,5 ms au pire.
+- Évolution courte des poids (IA-003, `terrain evoluer`) : deux essais de 1 et 4 minutes donnent `utilite-r3-v2` et `utilite-r3-v3`. Elles battent mieux `simple-r3` (61,5 % et 66 % des points), mais pas assez `utilite-r3-v1` : 52,7 % et 54 % pour 55 % exigés. Elles sont **refusées** et restent candidates ; la règle IA-004 a joué son rôle.
