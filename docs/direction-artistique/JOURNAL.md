@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Mission 2 : deuxième série, en perspective
+
+- **Auteur** : Claude, session S6
+- **Branche et commit** : `s6-direction-artistique`, voir `git log` ; `main` fusionnée dans la branche avant de commencer
+- **Objectif** : mission 2 (`MISSION.md`) après le tri D-27 : terrains en perspective, villages et villes, unités des quatre clans, brouillard, unité choisie et combat, écran Pouce de jour et de nuit.
+- **Réalisé** : 6 images DA-013 à DA-018 (variantes A/B/C), moteur de rendu `source/iso.js` et page `source/apercu2.html`, catalogue complété, `catalogue-2.json` (questions DA-Q5 à DA-Q10).
+- **Décisions** : aucune décision de l'utilisateur. Choix de travail : cases de 72 × 36 px au départ (environ deux fois la vue d'ensemble, D-20), aucune adresse affichée (D-16), clans en couleurs Jour franc (Crocs-Rouges rouge, Murailliers or, Veilleurs indigo, Vents-Errants ciel).
+- **Vérifications** : chaque image regardée après rendu ; JSON validé ; chemins d'image vérifiés ; DA-013 réduite à 256 couleurs pour passer sous 1 Mo.
+- **Non vérifié sur téléphone** : taille des cases (36 px de haut, sous les 48 dp) et des personnages en main, lisibilité du « déjà vu » en mode Nuit.
+- **Problèmes et dette** : les montagnes en couches de carton peuvent rappeler des pyramides à gradins ; noms d'unités provisoires, à caler sur les règles de S2.
+- **Prochaine étape** : attendre les choix DA-Q5 à DA-Q10.
+
 ## 2026-11-27 · Information reçue : vue du plateau en perspective (D-16)
 
 - **Auteur** : Claude, session S6

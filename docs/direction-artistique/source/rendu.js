@@ -15,14 +15,17 @@ const jobs = [
   ['DA-004-style-bois', 'vue=style&id=bois'], ['DA-005-style-tactique', 'vue=style&id=tactique'],
   ['DA-006-palette-jour', 'vue=palette&id=jour'], ['DA-007-palette-nuit', 'vue=palette&id=nuit'], ['DA-008-palette-lavis', 'vue=palette&id=lavis'], ['DA-009-palette-soleil', 'vue=palette&id=soleil'],
   ['DA-010-interface-pouce', 'vue=interface&id=pouce'], ['DA-011-interface-anneau', 'vue=interface&id=anneau'], ['DA-012-interface-onglets', 'vue=interface&id=onglets'],
+  // Deuxième série (mission 2), page apercu2.html
+  ['DA-013-terrains-perspective', 'vue=terrains', 2], ['DA-014-villes', 'vue=villes', 2], ['DA-015-unites-clans', 'vue=unites', 2],
+  ['DA-016-brouillard', 'vue=brouillard', 2], ['DA-017-unite-choisie-combat', 'vue=combat', 2], ['DA-018-pouce-jour-nuit', 'vue=pouce', 2],
 ];
 (async () => {
   const b = await chromium.launch();
   const p = await b.newPage({ deviceScaleFactor: 2, viewport: { width: 1600, height: 1200 } });
   p.on('pageerror', e => console.log('ERREUR', e.message));
-  for (const [name, qs] of jobs) {
-    if (process.argv[3] && !name.includes(process.argv[3])) continue;
-    await p.goto('file://' + path.join(here, 'apercu.html') + '?' + qs);
+  for (const [name, qs, serie] of jobs) {
+    if (process.argv[3] && !new RegExp(process.argv[3]).test(name)) continue;
+    await p.goto('file://' + path.join(here, serie === 2 ? 'apercu2.html' : 'apercu.html') + '?' + qs);
     await p.waitForSelector('body[data-pret="1"]');
     await p.locator('#shot').screenshot({ path: path.join(out, name + '.png') });
     console.log('ok', name);

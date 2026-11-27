@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Aperçus Jeu4X, série 2</title>
+<style>
+  @font-face { font-family: Fredoka; font-weight: 400; src: url(fonts/fredoka-latin-400-normal.woff2); }
+  @font-face { font-family: Fredoka; font-weight: 600; src: url(fonts/fredoka-latin-600-normal.woff2); }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #E9E7E2; font-family: Inter, sans-serif; color: #1C1E24; }
+  #shot { display: inline-flex; flex-direction: column; gap: 18px; padding: 28px; background: #E9E7E2; }
+  .row { display: flex; gap: 28px; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; gap: 12px; width: 380px; }
+  .head h1 { font-size: 28px; } .head h1 span { font-size: 15px; color: #6A6458; letter-spacing: .06em; margin-right: 8px; } .head p { font-size: 16px; color: #3C3A35; max-width: 1180px; }
+  .vt { font-size: 19px; font-weight: 700; } .vt span { display: inline-block; background: #1C1E24; color: #fff; border-radius: 8px; padding: 1px 9px; margin-right: 8px; font-size: 16px; }
+  .notes { font-size: 15px; line-height: 1.4; color: #2C2A26; } .notes ul { padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
+  .phone { width: 380px; padding: 10px; border-radius: 46px; background: #15161A; box-shadow: 0 10px 30px #0004; }
+  .screen { width: 360px; height: 780px; border-radius: 36px; overflow: hidden; position: relative; font-family: Fredoka, sans-serif; color: var(--text); background: var(--table); }
+  .screen > svg { position: absolute; left: 0; top: 0; }
+  .top { position: absolute; top: 12px; left: 10px; right: 10px; height: 62px; background: var(--surf); border-radius: 20px; box-shadow: 0 3px 6px #0003; display: flex; align-items: center; gap: 10px; padding: 0 12px; z-index: 2; }
+  .turn { display: flex; flex-direction: column; line-height: 1; } .turn small { font-size: 11px; } .turn b { font-size: 20px; font-weight: 600; }
+  .res { display: flex; gap: 12px; margin-left: auto; font-size: 17px; font-weight: 600; } .res span { display: flex; align-items: center; gap: 4px; } .res small { font-size: 12px; font-weight: 400; opacity: .8; }
+  .menu { width: 48px; height: 48px; display: grid; place-items: center; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--surf); border-radius: 24px 24px 0 0; box-shadow: 0 -4px 14px #0003; padding: 8px 14px 20px; display: flex; flex-direction: column; gap: 10px; z-index: 2; }
+  .handle { width: 40px; height: 5px; border-radius: 3px; background: var(--line); align-self: center; }
+  .card { display: flex; gap: 10px; align-items: center; }
+  .card b { font-size: 18px; font-weight: 600; } .card small { display: block; font-size: 13px; color: var(--text2); }
+  .hp { height: 7px; border-radius: 4px; background: var(--line); overflow: hidden; width: 130px; margin-top: 4px; display: flex; } .hp i { display: block; height: 100%; }
+  .btns { display: flex; gap: 10px; }
+  .sq { flex: 1; height: 56px; border-radius: 16px; background: var(--bg); border: 1.5px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font-size: 13px; font-weight: 600; color: var(--text); }
+  .end { height: 58px; border-radius: 29px; background: var(--btn); color: var(--btnText); font-size: 21px; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px #0003; }
+  .end.alt { background: var(--alert); color: #fff; }
+  .hint { position: absolute; top: 86px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--surf); padding: 6px 14px; border-radius: 14px; font-size: 14px; white-space: nowrap; z-index: 3; }
+  .vs { display: grid; grid-template-columns: 1fr 28px 1fr; gap: 6px; align-items: center; }
+  .vs .side { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 13px; text-align: center; }
+  .vs .side b { font-size: 15px; font-weight: 600; } .vs .x { font-size: 22px; text-align: center; }
+  .verdict { text-align: center; font-size: 16px; font-weight: 600; }
+  .planche { background: #F3E6CC; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .planche .lbl { font: 600 15px Fredoka; color: #3A2A1C; }
+  .lg { display: flex; gap: 8px; align-items: center; font: 600 14px Fredoka; color: #3A2A1C; }
+</style>
+<script src="couleurs.js"></script>
+<script src="scene.js"></script>
+<script src="styles.js"></script>
+<script src="palettes.js"></script>
+<script src="iso.js"></script>
+</head>
+<body>
+<div id="shot"></div>
+<script>
+  const q = new URLSearchParams(location.search), vue = q.get('vue');
+  const shot = document.getElementById('shot');
+  const { PAL, CLANS, plateau, figure, jeton, ville, etiquette, clanCol, pts, diamond } = Iso;
+  const mix = Scene.mix;
+
+  // ----- La scène commune de la série 2 -----
+  const MOI = 'veil', LUI = 'crocs';
+  const UNITS = [
+    { c: 5, r: 6, type: 'guerrier', k: MOI, sel: true }, { c: 3, r: 5, type: 'archer', k: MOI }, { c: 6, r: 4, type: 'eclaireur', k: MOI },
+    { c: 6, r: 6, type: 'coureur', k: LUI },
+  ];
+  const CITY = { c: 4, r: 3, nom: 'Astrelle', size: 2, k: MOI }, VILLAGE = { c: 7, r: 7 };
+  const SEL = UNITS[0], CIBLE = UNITS[3];
+  const cheb = (a, b, c, r) => Math.max(Math.abs(a - c), Math.abs(b - r));
+  const visible = (c, r) => UNITS.filter(u => u.k === MOI).some(u => cheb(u.c, u.r, c, r) <= 2) || cheb(CITY.c, CITY.r, c, r) <= 2;
+  const stateFog = (c, r) => visible(c, r) ? 'vue' : cheb(5, 5, c, r) <= 4 && !(c >= 8 && r <= 3) ? 'souvenir' : 'jamais';
+  const reach = (c, r) => cheb(SEL.c, SEL.r, c, r) === 1 && !(c === CIBLE.c && r === CIBLE.r) && Iso.T(c, r) !== 'E';
+
+  function cssVars(pal) {
+    const u = pal.ui;
+    return `--table:${pal.table};--surf:${u.surf};--bg:${u.bg};--text:${u.text};--text2:${u.text2};--btn:${u.btn};--btnText:${u.btnText};--line:${u.line};--alert:${u.alert}`;
+  }
+  const miniFig = (type, k, pal, s = 1.1) => `<svg width="${46 * s}" height="${56 * s}" viewBox="-23 -50 46 56"><defs><filter id="ombre"><feDropShadow dx="0" dy="1.2" stdDeviation="1" flood-opacity=".3"/></filter></defs>${figure(type, k, 0, 0, pal, .95)}</svg>`;
+
+  // Plateau en plein écran sous l'interface, cadré sur les unités (départ zoomé, D-20).
+  function board(o) {
+    const pal = o.pal;
+    return plateau({
+      v: o.v || 'carton', pal, W: o.W || 72, w: 360, h: 780, cy: o.cy || 330, view: o.view || [5, 5.6], fog: o.fog || 'papier',
+      state: o.noFog ? null : stateFog,
+      extra: (c, r) => o.reachMode === 'lift' && reach(c, r) ? { lift: 4, tint: .28 } : null,
+      under(c, r, cx, cy, W, st) {
+        let g = '';
+        const H = W / 2;
+        if (o.reachMode === 'pointille' && reach(c, r)) g += `<polygon points="${pts(diamond(cx, cy, W - 9, H - 4.5))}" fill="#FFFFFF" fill-opacity=".22" stroke="#FFFFFF" stroke-width="2.4" stroke-dasharray="6 4"/>`;
+        if (o.reachMode === 'pastille' && reach(c, r)) g += `<ellipse cx="${cx}" cy="${cy}" rx="9" ry="4.5" fill="#FFFFFF" filter="url(#ombre)"/>`;
+        if (o.reachMode && c === CIBLE.c && r === CIBLE.r) g += `<polygon points="${pts(diamond(cx, cy, W - 6, H - 3))}" fill="${pal.ui.alert}" fill-opacity=".25" stroke="${pal.ui.alert}" stroke-width="2.6"/>`;
+        if (o.reachMode && c === SEL.c && r === SEL.r) g += `<polygon points="${pts(diamond(cx, cy, W - 4, H - 2))}" fill="none" stroke="#FFFFFF" stroke-width="3.5"/>`;
+        return g;
+      },
+      objects(c, r, cx, cy, W, st) {
+        let g = '';
+        if (c === CITY.c && r === CITY.r) g += ville('debout', CITY.size, CITY.k, cx, cy, W, pal);
+        if (c === VILLAGE.c && r === VILLAGE.r && st !== 'jamais') g += ville('village', 1, null, cx, cy, W, pal);
+        if (st === 'vue') for (const u of UNITS) if (u.c === c && u.r === r) g += o.jetons ? jeton(u.type, u.k, cx, cy, pal, .8) : figure(u.type, u.k, cx, cy, pal, .9, { sel: o.reachMode && u.sel });
+        return g;
+      },
+      late(c, r, cx, cy, W) {
+        let g = '';
+        if (c === CITY.c && r === CITY.r) g += etiquette(CITY.nom, CITY.size, CITY.k, cx, cy + 22, pal);
+        if (o.late) g += o.late(c, r, cx, cy, W) || '';
+        return g;
+      },
+    });
+  }
+
+  function topBar(pal) {
+    const col = clanCol(MOI, pal);
+    return `<div class="top"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="${col}"/>${Iso.emblem(MOI, 17, 17, 1.8, '#FFFFFF')}</svg>
+      <div class="turn"><small>Tour</small><b>7</b></div>
+      <div class="res"><span><span style="color:${pal.night ? '#FFE14A' : '#E0A21A'}">${Scene.ICON.or}</span>12<small>+3</small></span><span><span style="color:${pal.ui.accent}">${Scene.ICON.savoir}</span>4<small>+1</small></span></div>
+      <div class="menu">${Scene.ICON.menu}</div></div>`;
+  }
+  function sheetUnit(pal) {
+    return `<div class="sheet"><div class="handle"></div>
+      <div class="card">${miniFig('guerrier', MOI, pal)}<div style="flex:1"><b>Guerrier</b><small>Veilleurs d’Astres · PV 10/10 · Pas 1 · Force 2</small><div class="hp"><i style="width:100%;background:#2E8B57"></i></div></div></div>
+      <div class="btns"><div class="sq">${Scene.ICON.bouclier}Fortifier</div><div class="sq">${Scene.ICON.soin}Soigner</div><div class="sq">${Scene.ICON.fleche}Plus</div></div>
+      <div class="end">Fin du tour</div></div>`;
+  }
+  const phone = (pal, inner) => `<div class="phone"><div class="screen" style="${cssVars(pal)}">${inner}</div></div>`;
+  const head = (num, titre, txt) => `<div class="head"><h1><span>${num}</span>${titre}</h1><p>${txt}</p></div>`;
+  const variante = (l, t, notes, ph) => `<div class="col"><div class="vt"><span>${l}</span>${t}</div>${ph}<div class="notes"><ul>${notes.map(n => `<li>${n}</li>`).join('')}</ul></div></div>`;
+
+  // ----- Vues -----
+  const V = {};
+
+  V.terrains = () => {
+    const p = PAL.jour;
+    const mk = v => phone(p, board({ pal: p, v, noFog: true }) + topBar(p) + sheetUnit(p));
+    return head('DA-013', 'Terrains en perspective : trois façons de faire le papier', 'Même carte, même cadrage zoomé au départ (D-20), aucune adresse affichée (D-16). Seule change la manière de poser le papier.')
+      + `<div class="row">${variante('A', 'Maquette en carton', ['Chaque case est une plaque de carton peinte, la tranche crème visible.', 'Le relief se fait en couches : la montagne est une pile de plaques de plus en plus petites, coiffée de neige.', 'Original : on dirait une maquette de géographie, pas des blocs.'], mk('carton'))}
+        ${variante('B', 'Livre animé', ['Cases en feuille mince ; arbres et montagnes se dressent comme dans un livre animé.', 'Montagnes en arrondi de papier, pas en pyramide.', 'Plus vivant, mais les décors debout cachent un peu les cases de derrière.'], mk('popup'))}
+        ${variante('C', 'Collage à plat', ['Rien ne dépasse : terrains et décors sont collés à plat.', 'Le plus lisible et le moins cher, mais le relief ne se voit plus.', 'Les unités restent debout pour se détacher.'], mk('plat'))}</div>`;
+  };
+
+  V.villes = () => {
+    const p = PAL.jour, W = 84, H = 42;
+    const cellSvg = (fn, lbl, w = 130, h = 130) => {
+      const cx = w / 2, cy = h * .62, z = Iso.SURF.carton.P;
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><filter id="ombre" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.2" flood-color="#3b2a1a" flood-opacity=".35"/></filter></defs>${Iso.prism(cx, cy, W, H, 0, z, p.terr.P, p.side1, p.side2, null, p.edge)}${fn(cx, cy - z, W)}</svg><span class="lbl">${lbl}</span></div>`;
+    };
+    const rowA = [cellSvg((x, y, W) => ville('village', 1, null, x, y, W, p), 'Village libre')]
+      .concat([1, 2, 3, 4].map(n => cellSvg((x, y, W) => ville('debout', n, MOI, x, y, W, p), 'Ville niveau ' + n))).join('');
+    const rowB = [cellSvg((x, y, W) => ville('village', 1, null, x, y, W, p), 'Village libre')]
+      .concat([1, 2, 3, 4].map(n => cellSvg((x, y, W) => ville('empile', n, MOI, x, y, W, p), 'Ville niveau ' + n))).join('');
+    const clansRow = Object.keys(CLANS).map(k => cellSvg((x, y, W) => ville('debout', 3, k, x, y, W, p), CLANS[k].nom)).join('');
+    const tag = `<svg width="260" height="40" viewBox="0 0 260 40"><defs><filter id="ombre"><feDropShadow dx="0" dy="1.6" stdDeviation="1.2" flood-opacity=".3"/></filter></defs>${etiquette('Astrelle', 2, MOI, 70, 20, p)}${etiquette('Brisecol', 3, LUI, 190, 20, p)}</svg>`;
+    return head('DA-014', 'Villages et villes', 'Taille réelle à l’écran, au zoom de départ. Le village libre n’a ni couleur ni drapeau ; une ville prise prend la couleur et l’emblème de son clan.')
+      + `<div class="planche"><div class="vt"><span>A</span>Maisons découpées : une maison de plus par niveau, un rempart au niveau 3, une tour au niveau 4</div><div class="row" style="gap:14px">${rowA}</div></div>`
+      + `<div class="planche"><div class="vt"><span>B</span>Ville en gradins : un étage par niveau, plus abstrait, se lit de loin</div><div class="row" style="gap:14px">${rowB}</div></div>`
+      + `<div class="planche"><div class="vt">Même ville de niveau 3 pour chaque clan, et l’étiquette de nom (niveau en pastilles)</div><div class="row" style="gap:14px;align-items:center">${clansRow}${tag}</div></div>`;
+  };
+
+  V.unites = () => {
+    const p = PAL.jour, W = 84, H = 42;
+    const cell = (inner, w = 110, h = 112) => { const cx = w / 2, cy = h * .72, z = Iso.SURF.carton.P; return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><filter id="ombre" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="1.6" stdDeviation="1.2" flood-color="#3b2a1a" flood-opacity=".35"/></filter></defs>${Iso.prism(cx, cy, W, H, 0, z, p.terr.P, p.side1, p.side2, null, p.edge)}${inner(cx, cy - z)}</svg>`; };
+    const types = [['guerrier', 'Guerrier'], ['archer', 'Archer'], ['eclaireur', 'Éclaireur']];
+    const th = `<div></div>${types.map(t => `<div class="lbl" style="text-align:center">${t[1]}</div>`).join('')}<div class="lbl" style="text-align:center">Unité propre</div><div class="lbl" style="text-align:center">En gris</div><div class="lbl" style="text-align:center">Jeton à plat</div>`;
+    let rows = '';
+    for (const k of Object.keys(CLANS)) {
+      const C = CLANS[k], col = clanCol(k, p);
+      rows += `<div class="lg"><svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13" fill="${col}"/>${Iso.emblem(k, 15, 15, 1.5, Iso.inkOn(col))}</svg><div>${C.nom}<br><small style="font-weight:400">${C.nomPropre}</small></div></div>`
+        + types.map(([t]) => cell((x, y) => figure(t, k, x, y, p, 1.15))).join('')
+        + cell((x, y) => figure(C.propre, k, x, y, p, 1.15))
+        + `<div style="filter:grayscale(1)">${cell((x, y) => figure('guerrier', k, x, y, p, 1.15))}</div>`
+        + cell((x, y) => jeton('guerrier', k, x, y, p, 1));
+    }
+    return head('DA-015', 'Unités des quatre clans', 'Personnages en papier découpé, debout sur un socle. Chaque clan se reconnaît sans la couleur : forme du socle, coiffe et emblème sur la poitrine. La colonne « en gris » le prouve. Dernière colonne : la variante « jeton à plat ».')
+      + `<div class="planche"><div style="display:grid;grid-template-columns:200px repeat(6,110px);gap:6px 12px;align-items:center">${th}${rows}</div></div>`
+      + `<div class="notes" style="max-width:1100px"><ul><li>Socles : <b>dents</b> (Crocs-Rouges), <b>carré</b> (Murailliers), <b>étoile</b> (Veilleurs d’Astres), <b>goutte</b> (Vents-Errants).</li><li>Coiffes : crête à pointes, casque carré, capuche pointue avec étoile, chapeau large et écharpe au vent.</li><li>Le type d’unité se lit à l’arme ou à l’objet : épée, arc, fanion, et pour l’unité propre lames doubles, grand bouclier, longue-vue, ailes de planeur.</li><li>Noms d’unités provisoires, à caler sur les règles de S2.</li></ul></div>`;
+  };
+
+  V.brouillard = () => {
+    const p = PAL.jour;
+    const mk = fog => phone(p, board({ pal: p, fog }) + topBar(p) + sheetUnit(p));
+    return head('DA-016', 'Le brouillard qui se souvient', 'Trois états : jamais vu, déjà vu (on se souvient du terrain et des villes, pas des unités), en vue. Les cases autour de nos unités et de la ville sont en vue.')
+      + `<div class="row">${variante('A', 'Papier vierge', ['Jamais vu : du papier blanc, rien n’est encore peint.', 'Déjà vu : couleurs passées, comme décolorées par le soleil.', 'En vue : couleurs pleines, unités visibles.'], mk('papier'))}
+        ${variante('B', 'Nuages et calque', ['Jamais vu : boules de papier froissé posées sur la carte.', 'Déjà vu : un papier calque blanchit les cases.', 'Le plus « jeu » des trois, un peu plus chargé.'], mk('calque'))}
+        ${variante('C', 'Encre et hachures', ['Jamais vu : cases d’encre sombre.', 'Déjà vu : couleurs ternies et hachures.', 'Le plus contrasté ; la limite du connu saute aux yeux.'], mk('encre'))}</div>`;
+  };
+
+  V.combat = () => {
+    const p = PAL.jour, ac = p.ui.alert;
+    const bulle = (c, r, cx, cy) => {
+      if (c !== CIBLE.c || r !== CIBLE.r) return '';
+      const x = cx + 6, y = cy - 128;
+      return `<g filter="url(#ombre)"><rect x="${x - 92}" y="${y}" width="184" height="78" rx="14" fill="#FFFDF8"/><path d="M${cx - 8} ${y + 78}l8 12l8 -12z" fill="#FFFDF8"/></g>
+        <text x="${x}" y="${y + 21}" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="14" fill="${p.ui.text}">Si tu attaques :</text>
+        <text x="${x - 80}" y="${y + 43}" font-family="Fredoka" font-size="13.5" fill="${p.ui.text}">Coureur  10 ➜ 4</text><text x="${x + 80}" y="${y + 43}" text-anchor="end" font-family="Fredoka" font-weight="600" font-size="13.5" fill="${ac}">−6</text>
+        <text x="${x - 80}" y="${y + 63}" font-family="Fredoka" font-size="13.5" fill="${p.ui.text}">Ton guerrier  10 ➜ 7</text><text x="${x + 80}" y="${y + 63}" text-anchor="end" font-family="Fredoka" font-weight="600" font-size="13.5" fill="${p.ui.text2}">−3</text>`;
+    };
+    const tags = (c, r, cx, cy) => {
+      const tg = (x, y, txt, bg, fg) => `<g filter="url(#ombre)"><rect x="${x - 34}" y="${y - 13}" width="68" height="26" rx="13" fill="${bg}"/></g><text x="${x}" y="${y + 5}" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="14" fill="${fg}">${txt}</text>`;
+      if (c === CIBLE.c && r === CIBLE.r) return tg(cx, cy - 66, '10 ➜ 4', ac, '#FFFFFF');
+      if (c === SEL.c && r === SEL.r) return tg(cx, cy - 70, '10 ➜ 7', '#FFFDF8', p.ui.text);
+      return '';
+    };
+    const panneau = `<div class="sheet"><div class="handle"></div>
+      <div class="verdict">Attaquer le Coureur de crête ?</div>
+      <div class="vs"><div class="side">${miniFig('guerrier', MOI, p, 1)}<b>Ton guerrier</b>PV 10 ➜ 7<div class="hp" style="width:110px"><i style="width:70%;background:#2E8B57"></i><i style="width:30%;background:#F2B8B0"></i></div></div><div class="x">⚔</div>
+        <div class="side">${miniFig('coureur', LUI, p, 1)}<b>Coureur de crête</b>PV 10 ➜ 4<div class="hp" style="width:110px"><i style="width:40%;background:#2E8B57"></i><i style="width:60%;background:#F2B8B0"></i></div></div></div>
+      <div class="btns"><div class="sq" style="flex:1;height:56px;font-size:17px">Annuler</div><div class="end alt" style="flex:2">Attaquer</div></div></div>`;
+    const a = phone(p, board({ pal: p, reachMode: 'pointille', late: bulle }) + topBar(p) + sheetUnit(p));
+    const b = phone(p, board({ pal: p, reachMode: 'pastille' }) + topBar(p) + panneau);
+    const c = phone(p, board({ pal: p, reachMode: 'lift', late: tags }) + topBar(p) + `<div class="hint">Touche encore l’ennemi pour attaquer</div>` + sheetUnit(p));
+    return head('DA-017', 'Unité choisie et annonce du combat', 'Le guerrier choisi se soulève ; ses cases atteignables et l’ennemi attaquable sont marqués. Comme le combat n’a aucune chance (D-23), le résultat est annoncé avant d’attaquer. Trois façons de le montrer.')
+      + `<div class="row">${variante('A', 'Pointillés et bulle', ['Cases atteignables en pointillés blancs, comme un « découper ici ».', 'Toucher l’ennemi ouvre une bulle avec les points de vie avant et après.', 'Toucher encore pour confirmer.'], a)}
+        ${variante('B', 'Pastilles et panneau', ['Cases atteignables marquées d’une pastille.', 'Le panneau du bas devient le face-à-face, avec Annuler et Attaquer.', 'Le plus clair, à portée du pouce.'], b)}
+        ${variante('C', 'Cases soulevées et étiquettes', ['Cases atteignables légèrement soulevées et éclaircies.', 'Une étiquette au-dessus de chaque unité donne ses points de vie après le combat.', 'Le plus rapide, mais moins d’explications.'], c)}</div>`;
+  };
+
+  V.pouce = () => {
+    const j = PAL.jour, n = PAL.nuit;
+    const a = phone(j, board({ pal: j, reachMode: 'pastille' }) + topBar(j) + sheetUnit(j));
+    const b = phone(n, board({ pal: n, reachMode: 'pastille' }) + topBar(n) + sheetUnit(n));
+    return head('DA-018', 'Écran « Pouce », de jour et de nuit', 'L’écran de jeu complet avec les choix recommandés : maquette en carton, brouillard « papier vierge », pastilles. Palette Jour franc à gauche, Nuit à droite.')
+      + `<div class="row">${variante('Jour', 'Palette Jour franc', ['Table en papier kraft, cases en carton peint.', 'Barre du haut et panneau du bas en papier blanc.', 'Tout ce qu’on touche souvent est en bas.'], a)}
+        ${variante('Nuit', 'Palette Nuit', ['Table bleu nuit, carton sombre, couleurs de clans éclaircies.', 'Le « jamais vu » devient un papier bleu nuit.', 'Même disposition, mêmes gestes.'], b)}</div>`;
+  };
+
+  shot.innerHTML = V[vue]();
+  document.fonts.ready.then(() => setTimeout(() => document.body.dataset.pret = '1', 150));
+</script>
+</body>
+</html>

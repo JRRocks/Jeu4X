@@ -1,0 +1,250 @@
+{
+ "session": "S6",
+ "domaine": "Direction artistique, deuxième série",
+ "branche": "s6-direction-artistique",
+ "commit_catalogue": "à venir",
+ "groupes": [
+  "Terrains",
+  "Villes et unités",
+  "Brouillard et combat",
+  "Écran de jeu"
+ ],
+ "idees": [
+  {
+   "id": "DA-013",
+   "groupe": "Terrains",
+   "titre": "Terrains en perspective, trois papiers",
+   "resume": "Carton en couches, livre animé ou collage à plat, sur la même carte zoomée.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Ce choix fixe l’allure de tout le plateau.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-013-terrains-en-perspective",
+   "image": "docs/direction-artistique/apercus/DA-013-terrains-perspective.png"
+  },
+  {
+   "id": "DA-014",
+   "groupe": "Villes et unités",
+   "titre": "Villages et villes",
+   "resume": "Village libre sans couleur, villes de niveau 1 à 4 en maisons ou en gradins.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "La taille d’une ville se lit d’un coup d’œil.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-014-villages-et-villes",
+   "image": "docs/direction-artistique/apercus/DA-014-villes.png"
+  },
+  {
+   "id": "DA-015",
+   "groupe": "Villes et unités",
+   "titre": "Unités des quatre clans",
+   "resume": "Personnages en papier debout, socle, coiffe et emblème propres à chaque clan.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Chaque clan se reconnaît même sans couleur.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-015-unités-des-quatre-clans",
+   "image": "docs/direction-artistique/apercus/DA-015-unites-clans.png"
+  },
+  {
+   "id": "DA-016",
+   "groupe": "Brouillard et combat",
+   "titre": "Brouillard qui se souvient",
+   "resume": "Jamais vu, déjà vu et en vue, en papier vierge, calque ou encre.",
+   "interet": 3,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "On voit ce qu’on sait, sans cacher la carte.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-016-brouillard-qui-se-souvient",
+   "image": "docs/direction-artistique/apercus/DA-016-brouillard.png"
+  },
+  {
+   "id": "DA-017",
+   "groupe": "Brouillard et combat",
+   "titre": "Unité choisie et annonce du combat",
+   "resume": "Cases atteignables marquées et résultat du combat montré avant d’attaquer.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Le combat n’a pas de hasard, autant le montrer.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-017-unité-choisie-et-annonce-du-combat",
+   "image": "docs/direction-artistique/apercus/DA-017-unite-choisie-combat.png"
+  },
+  {
+   "id": "DA-018",
+   "groupe": "Écran de jeu",
+   "titre": "Écran Pouce de jour et de nuit",
+   "resume": "L’écran de jeu complet avec les choix recommandés, en palette Jour franc et Nuit.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "Vue d’ensemble avant de lancer le dessin.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-018-écran-pouce-de-jour-et-de-nuit",
+   "image": "docs/direction-artistique/apercus/DA-018-pouce-jour-nuit.png"
+  }
+ ],
+ "questions": [
+  {
+   "id": "DA-Q5",
+   "question": "Comment poser le papier des terrains ?",
+   "contexte": "Trois variantes sur la même carte zoomée, image DA-013.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Maquette en carton",
+     "detail": "Plaques de carton, relief en couches.",
+     "image": "docs/direction-artistique/apercus/DA-013-terrains-perspective.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Livre animé",
+     "detail": "Décors qui se dressent comme un livre animé.",
+     "image": "docs/direction-artistique/apercus/DA-013-terrains-perspective.png"
+    },
+    {
+     "id": "c",
+     "libelle": "Collage à plat",
+     "detail": "Tout à plat, le plus lisible.",
+     "image": "docs/direction-artistique/apercus/DA-013-terrains-perspective.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-013"
+   ]
+  },
+  {
+   "id": "DA-Q6",
+   "question": "Comment dessiner les villes ?",
+   "contexte": "Image DA-014, lignes A et B.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Maisons découpées",
+     "detail": "Une maison de plus par niveau.",
+     "image": "docs/direction-artistique/apercus/DA-014-villes.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Ville en gradins",
+     "detail": "Un étage par niveau.",
+     "image": "docs/direction-artistique/apercus/DA-014-villes.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-014"
+   ]
+  },
+  {
+   "id": "DA-Q7",
+   "question": "Comment montrer les unités ?",
+   "contexte": "Image DA-015 ; les clans se reconnaissent aussi sans couleur.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Personnages debout",
+     "detail": "Personnage en papier sur un socle de clan.",
+     "image": "docs/direction-artistique/apercus/DA-015-unites-clans.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Jetons à plat",
+     "detail": "Socle agrandi avec le symbole de l’unité.",
+     "image": "docs/direction-artistique/apercus/DA-015-unites-clans.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-015"
+   ]
+  },
+  {
+   "id": "DA-Q8",
+   "question": "Quel brouillard ?",
+   "contexte": "Image DA-016 : jamais vu, déjà vu, en vue.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Papier vierge",
+     "detail": "Blanc pour l’inconnu, couleurs passées pour le connu.",
+     "image": "docs/direction-artistique/apercus/DA-016-brouillard.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Nuages et calque",
+     "detail": "Papier froissé et papier calque.",
+     "image": "docs/direction-artistique/apercus/DA-016-brouillard.png"
+    },
+    {
+     "id": "c",
+     "libelle": "Encre et hachures",
+     "detail": "Encre sombre et hachures.",
+     "image": "docs/direction-artistique/apercus/DA-016-brouillard.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-016"
+   ]
+  },
+  {
+   "id": "DA-Q9",
+   "question": "Comment annoncer un combat ?",
+   "contexte": "Image DA-017 ; le résultat est connu d’avance (D-23).",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Pastilles et panneau",
+     "detail": "Face-à-face dans le panneau du bas.",
+     "image": "docs/direction-artistique/apercus/DA-017-unite-choisie-combat.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Pointillés et bulle",
+     "detail": "Bulle au-dessus de l’ennemi.",
+     "image": "docs/direction-artistique/apercus/DA-017-unite-choisie-combat.png"
+    },
+    {
+     "id": "c",
+     "libelle": "Cases soulevées et étiquettes",
+     "detail": "Étiquettes au-dessus des unités.",
+     "image": "docs/direction-artistique/apercus/DA-017-unite-choisie-combat.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-017"
+   ]
+  },
+  {
+   "id": "DA-Q10",
+   "question": "Le mode Nuit convient-il ?",
+   "contexte": "Image DA-018, même écran de jour et de nuit.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Oui, tel quel",
+     "detail": "La palette Nuit est gardée comme montrée.",
+     "image": "docs/direction-artistique/apercus/DA-018-pouce-jour-nuit.png"
+    },
+    {
+     "id": "b",
+     "libelle": "À retoucher",
+     "detail": "Je propose des variantes plus claires.",
+     "image": "docs/direction-artistique/apercus/DA-018-pouce-jour-nuit.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-018"
+   ]
+  }
+ ]
+}

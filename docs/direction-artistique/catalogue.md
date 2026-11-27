@@ -136,3 +136,73 @@ Les modèles se combinent : par exemple DA-010 pour le tour, et les onglets de D
 ## Ce qui reste à vérifier sur le téléphone
 
 Taille réelle des cases et des symboles en main, lisibilité en plein soleil (DA-009), confort du pouce (DA-010 et DA-011), fluidité des ombres et lueurs (DA-003, DA-005), lecture par des personnes daltoniennes.
+
+---
+
+# Deuxième série (mission 2, 2026-11-27)
+
+> Après le tri (D-27) : papier découpé, palettes Jour franc et Nuit, interface Pouce. Plateau en perspective, en cases losange, sans adresse visible (D-16), départ zoomé (D-20). Clans de `clans.md` (branche `s2-game-design`). Noms d'unités et de villes provisoires.
+> Toutes les images sont dessinées par le code (`source/iso.js`, `source/apercu2.html`), sans image extérieure.
+
+| N° | Titre | L'idée en une ligne | Intérêt | Coût |
+|---|---|---|---|---|
+| DA-013 | Terrains en perspective | Trois façons de poser le papier : carton en couches, livre animé, collage à plat | Fixe le rendu de tout le plateau | M |
+| DA-014 | Villages et villes | Village libre, ville de niveau 1 à 4, en maisons ou en gradins | Taille de ville lisible d'un coup d'œil | S |
+| DA-015 | Unités des quatre clans | Personnages découpés debout : socle, coiffe et emblème propres à chaque clan | Reconnaissables même en gris | M |
+| DA-016 | Brouillard qui se souvient | Jamais vu, déjà vu, en vue : papier vierge, calque, ou encre | Montre ce qu'on sait sans le cacher | S |
+| DA-017 | Unité choisie et annonce du combat | Cases atteignables et résultat du combat montré avant d'attaquer | Combat sans surprise (D-23) | M |
+| DA-018 | Écran Pouce de jour et de nuit | L'écran de jeu complet avec les choix recommandés | Vue d'ensemble avant le dessin | S |
+
+## Points communs
+
+- **Loin de Polytopia (D-03)** : les losanges sont communs, alors l'originalité vient du matériau. Ce sont des plaques de carton à tranche crème posées sur une table kraft, des personnages en papier à bord blanc, et des montagnes en couches de carton plutôt qu'en blocs à facettes. Les couleurs sont celles de « Jour franc », et l'interface reprend les cartes de papier blanc.
+- **Taille** : au zoom de départ, une case mesure 72 × 36 px (environ deux fois la vue d'ensemble, D-20). En hauteur, c'est moins que les 48 dp conseillés pour une cible tactile. On touche donc la case entière et l'unité qui la dépasse. C'est à vérifier sur le téléphone.
+- **Couleur jamais seule** : chaque clan a un socle (dents, carré, étoile, goutte), une coiffe et un emblème. L'unité choisie se soulève et sa case est cerclée de blanc ; l'ennemi attaquable est cerclé d'un rouge épais.
+- **Poids** : tout se dessine par le code, sans image. Si on préfère pré-rendre les dessins, une feuille de dessins pour les 4 clans et 7 unités pèse moins de 300 Ko.
+
+## DA-013 Terrains en perspective
+
+![DA-013](apercus/DA-013-terrains-perspective.png)
+
+- **A Maquette en carton** (ma recommandation) : chaque case est une plaque de carton peinte, avec sa tranche visible. Le relief monte par couches, la montagne étant une pile de plaques de plus en plus petites. C'est le plus original, et le relief se lit bien. Coût M.
+- **B Livre animé** : la case est une feuille mince, et arbres et montagnes se dressent comme dans un livre animé. C'est plus vivant, mais les décors cachent les cases situées derrière eux. Coût M.
+- **C Collage à plat** : tout est collé à plat. C'est le plus lisible et le moins cher, mais le relief disparaît. Coût S.
+
+## DA-014 Villages et villes
+
+![DA-014](apercus/DA-014-villes.png)
+
+- **A Maisons découpées** (ma recommandation) : la ville gagne une maison par niveau, un rempart au niveau 3 et une tour au niveau 4. Le toit, le drapeau et l'emblème portent la couleur du clan.
+- **B Ville en gradins** : un étage par niveau. C'est plus abstrait, se compte de loin, mais a moins de charme.
+- Le village libre est gris-beige, sans drapeau. Sous chaque ville, une étiquette blanche donne son nom, et ses pastilles son niveau.
+
+## DA-015 Unités des quatre clans
+
+![DA-015](apercus/DA-015-unites-clans.png)
+
+- **Personnages debout** (ma recommandation) : un personnage en papier sur un socle. Chaque clan a son socle, sa coiffe et son emblème sur la poitrine, et le type d'unité se lit à l'arme ou à l'objet. La colonne « en gris » montre que les clans se distinguent sans la couleur.
+- **Jetons à plat** : le socle agrandi avec le symbole de l'unité. C'est plus sobre, mais on reconnaît moins bien le type d'unité.
+- Unités propres : Coureur de crête (lames doubles), Porte-pavois (grand bouclier), Astronome (longue-vue), Guetteur-planeur (ailes).
+
+## DA-016 Brouillard qui se souvient
+
+![DA-016](apercus/DA-016-brouillard.png)
+
+- **A Papier vierge** (ma recommandation) : ce qu'on n'a jamais vu est du papier blanc. Ce qu'on a déjà vu garde des couleurs passées, avec ses villes mais sans ses unités. C'est la plus douce et la plus cohérente avec le papier.
+- **B Nuages et calque** : boules de papier froissé sur l'inconnu, papier calque sur ce qu'on a déjà vu.
+- **C Encre et hachures** : encre sombre sur l'inconnu, hachures sur ce qu'on a déjà vu. C'est le plus contrasté.
+
+## DA-017 Unité choisie et annonce du combat
+
+![DA-017](apercus/DA-017-unite-choisie-combat.png)
+
+- **A Pointillés et bulle** : les cases atteignables sont en pointillés. Une bulle au-dessus de l'ennemi annonce les points de vie après le combat, et on touche encore pour confirmer.
+- **B Pastilles et panneau** (ma recommandation) : les cases atteignables portent une pastille. Le panneau du bas devient un face-à-face avec les deux barres de vie et les boutons Annuler et Attaquer. Tout reste à portée du pouce, et le choix est explicite.
+- **C Cases soulevées et étiquettes** : les cases atteignables sont soulevées. Une étiquette au-dessus de chaque unité donne ses points de vie après le combat. C'est le plus rapide, mais il explique le moins.
+
+## DA-018 Écran Pouce de jour et de nuit
+
+![DA-018](apercus/DA-018-pouce-jour-nuit.png)
+
+- Il assemble les choix recommandés : carton, maisons, personnages debout, papier vierge et pastilles. La version Nuit garde la même disposition sur une table bleu nuit.
+- À vérifier sur le téléphone : taille des cases et des personnages en main, et lecture du « déjà vu » de nuit, qui reste sombre.
