@@ -39,3 +39,18 @@ class PerspectiveTest {
         assertEquals(profondeurs.sorted(), profondeurs)
     }
 }
+
+class CadrageTest {
+    private val p = Perspective(taille = 11, demiLargeur = 44f)
+
+    @Test
+    fun `le lancement grossit deux fois et centre les unites`() {
+        val unites = listOf(0 to 0, 1 to 0, 2 to 0)
+        val (e, dx, dy) = p.cadrageSur(unites, 1080f, 1700f)
+        assertEquals(p.echelleEnsemble(1080f, 1700f) * 2f, e, 1e-4f)
+        // Le centre moyen des unités tombe au milieu de la vue.
+        val (cx, cy) = p.centre(1, 0)
+        assertEquals(540f, cx * e + dx, 1f)
+        assertEquals(850f, cy * e + dy, 1f)
+    }
+}

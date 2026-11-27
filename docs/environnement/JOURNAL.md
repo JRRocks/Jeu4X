@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-27 · Cadrage au lancement zoomé sur ses unités (D-20)
+
+- **Auteur** : Claude, session S1
+- **Branche et commit** : `s1-environnement`
+- **Objectif** : réponse de l'utilisateur sur le cadrage : b), zoomé sur ses unités (D-20).
+- **Réalisé** : `Perspective.cadrageSur` (échelle = 2 × la vue d'ensemble, centre = moyenne des unités du joueur qui commence) ; appliqué au lancement et à chaque « Nouvelle partie » (`Affichage.numeroPartie`). Changement de tour inchangé, comme demandé. Captures : `docs/environnement/captures/plateau.png` (lancement), `plateau-choix.png`, `plateau-tour-rouge.png`.
+- **Décisions** : aucune nouvelle.
+- **Vérifications** : `:app:testDebugUnitTest` 30 verts (dont `CadrageTest`) ; captures regardées : au lancement les trois unités bleues sont au centre, cases deux fois plus grandes.
+- **Non vérifié sur téléphone** : confort du zoom de départ, pincer pour dézoomer.
+- **Problèmes et dette** : au tour du Rouge, la vue reste sur les unités bleues ; les unités rouges sont hors de l'écran (en haut à droite) : il doit faire glisser la vue pour les trouver. Solution proposée, non codée : au début de chaque tour, faire glisser la vue en douceur vers les unités du joueur dont c'est le tour, sans changer le zoom.
+- **Prochaine étape** : essai à l'émulateur, rapport.
+
 ## 2026-11-27 · Essai 0.1.7 : plateau vert à l'émulateur
 
 - **Auteur** : Claude, session S1

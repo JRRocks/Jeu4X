@@ -12,6 +12,7 @@ import fr.jeu4x.app.moteur.Partie
  */
 class PartieViewModel(private val nouvelleGraine: () -> Long = { System.nanoTime() }) : ViewModel() {
     private var partie = Partie(nouvelleGraine())
+    private var numero = 0
     var affichage by mutableStateOf(Affichage(partie.etat()))
         private set
 
@@ -23,26 +24,27 @@ class PartieViewModel(private val nouvelleGraine: () -> Long = { System.nanoTime
         if (choisie != null && case in a.portee) {
             if (partie.deplacer(choisie, case)) {
                 val apres = partie.etat()
-                affichage = Affichage(apres, choisie = case, portee = partie.atteignables(case))
+                affichage = Affichage(apres, choisie = case, portee = partie.atteignables(case), numeroPartie = numero)
             }
             return
         }
         val u = etat.uniteSur(case)
         affichage = if (u != null && u.joueur == etat.joueurCourant) {
-            Affichage(etat, choisie = case, portee = partie.atteignables(case))
+            Affichage(etat, choisie = case, portee = partie.atteignables(case), numeroPartie = numero)
         } else {
-            Affichage(etat)
+            Affichage(etat, numeroPartie = numero)
         }
     }
 
     fun finDuTour() {
-        if (partie.finDuTour()) affichage = Affichage(partie.etat())
+        if (partie.finDuTour()) affichage = Affichage(partie.etat(), numeroPartie = numero)
     }
 
     fun nouvellePartie() {
         partie.fermer()
         partie = Partie(nouvelleGraine())
-        affichage = Affichage(partie.etat())
+        numero++
+        affichage = Affichage(partie.etat(), numeroPartie = numero)
     }
 
     override fun onCleared() {

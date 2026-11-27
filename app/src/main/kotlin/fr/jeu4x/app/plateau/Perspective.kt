@@ -46,4 +46,23 @@ class Perspective(val taille: Int, val demiLargeur: Float, val demiHauteur: Floa
         (taille - 1) * demiLargeur + demiLargeur,
         2 * (taille - 1) * demiHauteur + 2 * demiHauteur,
     )
+
+    /** Échelle à laquelle tout le plateau tient dans une vue de `largeur` × `hauteur`. */
+    fun echelleEnsemble(largeur: Float, hauteur: Float): Float {
+        val l = limites()
+        return minOf(largeur / (l[2] - l[0]), hauteur / (l[3] - l[1])) * 0.95f
+    }
+
+    /**
+     * Cadrage au lancement d'une partie (D-20) : cases deux fois plus grosses que la vue
+     * d'ensemble, centrées sur les cases données (les unités du joueur qui commence).
+     * Rend l'échelle et le décalage (x, y) à appliquer au repère plateau.
+     */
+    fun cadrageSur(cases: List<Pair<Int, Int>>, largeur: Float, hauteur: Float, grossissement: Float = 2f): Triple<Float, Float, Float> {
+        val echelle = echelleEnsemble(largeur, hauteur) * grossissement
+        val centres = if (cases.isEmpty()) listOf(centre((taille - 1) / 2, (taille - 1) / 2)) else cases.map { (x, y) -> centre(x, y) }
+        val cx = centres.map { it.first }.average().toFloat()
+        val cy = centres.map { it.second }.average().toFloat()
+        return Triple(echelle, largeur / 2f - cx * echelle, hauteur / 2f - cy * echelle)
+    }
 }

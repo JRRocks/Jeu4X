@@ -17,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +36,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fr.jeu4x.app.R
@@ -68,7 +70,7 @@ private object Teintes {
 fun couleurJoueur(joueur: Int) = if (joueur == 0) Teintes.bleu else Teintes.rouge
 
 /** État affiché : la partie, l'unité choisie et ses cases atteignables. */
-data class Affichage(val etat: Etat, val choisie: Int? = null, val portee: Set<Int> = emptySet())
+data class Affichage(val etat: Etat, val choisie: Int? = null, val portee: Set<Int> = emptySet(), val numeroPartie: Int = 0)
 
 @Composable
 fun EcranPartie(
@@ -126,24 +128,25 @@ fun EcranPartie(
 private fun Plateau(affichage: Affichage, surToucherCase: (Int) -> Unit) {
     val etat = affichage.etat
     val perspective = remember(etat.taille) { Perspective(etat.taille, demiLargeur = 44f) }
-    var echelle by remember { mutableFloatStateOf(0f) } // 0 : pas encore cadré
-    var decalage by remember { mutableStateOf(Offset.Zero) }
+    // Remis à zéro à chaque nouvelle partie : le cadrage de lancement se refait.
+    var echelle by remember(affichage.numeroPartie) { mutableFloatStateOf(0f) } // 0 : pas encore cadré
+    var decalage by remember(affichage.numeroPartie) { mutableStateOf(Offset.Zero) }
+    var tailleVue by remember { mutableStateOf(IntSize.Zero) }
+
+    // Lancement d'une partie (D-20) : vue zoomée sur les unités du joueur qui commence.
+    LaunchedEffect(affichage.numeroPartie, tailleVue) {
+        if (echelle == 0f && tailleVue.width > 0 && tailleVue.height > 0) {
+            val miennes = etat.unites.filter { it.joueur == etat.joueurCourant }
+                .map { etat.colonne(it.case) to etat.rangee(it.case) }
+            val (e, dx, dy) = perspective.cadrageSur(miennes, tailleVue.width.toFloat(), tailleVue.height.toFloat())
+            echelle = e
+            decalage = Offset(dx, dy)
+        }
+    }
 
     Canvas(
         Modifier.fillMaxSize().background(Teintes.fond).testTag("plateau")
-            .onSizeChanged { taille ->
-                // Premier cadrage : tout le plateau tient dans la vue, centré.
-                if (echelle == 0f && taille.width > 0 && taille.height > 0) {
-                    val l = perspective.limites()
-                    val largeur = l[2] - l[0]
-                    val hauteur = l[3] - l[1]
-                    echelle = minOf(taille.width / largeur, taille.height / hauteur) * 0.95f
-                    decalage = Offset(
-                        taille.width / 2f - (l[0] + largeur / 2f) * echelle,
-                        taille.height / 2f - (l[1] + hauteur / 2f) * echelle,
-                    )
-                }
-            }
+            .onSizeChanged { tailleVue = it }
             .pointerInput(perspective) {
                 detectTransformGestures { centroide, deplacement, zoom, _ ->
                     val nouvelle = (echelle * zoom).coerceIn(0.4f, 4f)

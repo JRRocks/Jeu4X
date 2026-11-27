@@ -43,6 +43,10 @@ class CapturesTest {
         vm.toucherCase(vm.affichage.etat.unites.first { it.joueur == 0 }.case)
         compose.waitForIdle()
         capturer("plateau-choix")
+        // Tour du joueur Rouge : la vue ne bouge pas (D-20 ne dit rien du changement de tour).
+        vm.finDuTour()
+        compose.waitForIdle()
+        capturer("plateau-tour-rouge")
     }
 
     private fun capturer(nom: String) {
