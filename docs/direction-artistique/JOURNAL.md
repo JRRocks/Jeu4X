@@ -2,6 +2,13 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Guide transmis à S1, questions en attente
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : rien de nouveau. La session maître a reçu la mission 3 (e796775) et transmet le guide à S1. L'utilisateur veut une version jouable au plus vite, même avec un visuel provisoire (D-34).
+- **En attente** : les deux questions de la mission 3 (couleurs de la montagne et de la colline, nouvelles formes) seront posées à l'utilisateur quand il aura joué. D'ici là, S1 applique mes recommandations à titre provisoire.
+- **Prochaine étape** : ne rien entamer ; attendre la suite.
+
 ## 2026-11-27 · Mission 3 : guide de dessin de la V1 pour S1
 
 - **Auteur** : Claude, session S6
