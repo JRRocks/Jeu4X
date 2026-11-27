@@ -69,6 +69,16 @@ Ajoutée après réception des besoins de la session 3. Deuxième essai jetable,
 - Le coût du pont Kotlin ↔ Python se paie à chaque appel ; il disparaît quand la boucle tourne dans le moteur (algorithmes génétiques, jeu contre soi-même écrivant des replays). Pour un entraînement à réseau de neurones, le temps d'évaluation du réseau (des dizaines à des centaines de µs) écrase les 3,8 µs du pont.
 - Les chiffres valent pour un cœur de PC (conteneur de la session) et des règles très simples : de vraies règles (combat, villes) coûteront plus, dans les deux langages.
 
+### Comment Python appellera les règles Kotlin (option 1)
+
+Trois chemins, tous sur le même code `:rules` (E11) :
+
+1. **Pas à pas, par JPype** (essayé ici) : Python démarre une JVM dans son propre processus et appelle `legal()`, `apply()`, `copy()` directement ; 3,8 µs par appel. Pour une recherche arborescente ou un entraînement à réseau pilotés depuis Python. En parallèle : un processus Python par cœur, une JVM chacun (non essayé).
+2. **Par lots, par JPype** : `:rules` offre des fonctions qui font tourner la boucle dans la JVM (jouer N parties au hasard, évaluer une population de poids, jouer une partie entière avec une IA à poids) et rendent des tableaux ; même vitesse que Rust (§ 2 bis). Pour les algorithmes génétiques et l'évaluation.
+3. **Par fichiers de replay** : un petit programme JVM en ligne de commande joue des parties et écrit des replays (E9) que Python lit ensuite. Sans aucun pont ; pour le pré-entraînement par imitation et les données des téléphones (session 4).
+
+Pour les échanges en masse (masques d'actions, plans d'état), le pont passe des tableaux d'entiers ou d'octets d'un seul bloc, jamais élément par élément. Si le chemin 1 freine un jour l'entraînement de façon mesurée, `:rules` se porte en Rust (EN-002) sans toucher à l'interface.
+
 ### Les besoins de la session 3 et l'option 1
 
 | Besoin | Réponse avec un module `:rules` en Kotlin pur |
