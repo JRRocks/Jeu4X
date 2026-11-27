@@ -16,9 +16,11 @@
 
 La recommandation tient en trois raisons :
 
-1. **Les règles en Kotlin pur sont assez rapides pour l'IA** : 12 800 parties d'essai par seconde sur un seul cœur, contre 15 200 en Rust (mesure du § 2). L'écart ne justifie pas un second langage.
+1. **Les règles en Kotlin pur tiennent les besoins de la session 3** (`docs/ia/besoins-moteur.md`, branche `s3-ia`) : appelées depuis Python action par action, elles coûtent 3,8 µs par action, soit environ 260 parties de 1 000 actions par seconde (minimum demandé : 200) ; appelées par lots, elles vont aussi vite que Rust (§ 2 bis). Rust fait mieux action par action (0,7 µs, environ 1 300 parties par seconde, au-dessus de la cible de 1 000) : c'est le seul vrai écart.
 2. **Tout ce que la Library sait faire est en Kotlin/Compose** : mise à jour intégrée (`maj-auto-github`), rapport de plantage (`rapport-plantage`), compilation en session cloud, captures d'écran sans émulateur (`captures-compose-robolectric`). Avec Godot ou le web, il faudrait tout refaire.
-3. **Les règles vont changer souvent au début** (game design à trier, D-07) : un second langage et une frontière à traverser coûteraient à chaque changement. Le module de règles restera étanche (aucune dépendance Android, interface étroite) : s'il fallait un jour un moteur Rust (pour l'entraînement en Python, par exemple), le portage serait un pas isolé, vérifié par les mêmes tests et la même graine.
+3. **Les règles vont changer souvent au début** (game design à trier, D-07) : un second langage et une frontière à traverser coûteraient à chaque changement. Le module de règles restera étanche (aucune dépendance Android, interface de la session 3) : si l'entraînement mesure un frein réel, le portage en Rust est un pas isolé, vérifié par les mêmes tests et les mêmes empreintes (EN-002).
+
+**Avis contraire, à présenter à l'utilisateur** : la session 3 recommande un cœur de règles en Rust dès le départ, seul choix qui coche vitesse, Android et Python d'un seul code. L'essai lui donne raison sur la vitesse action par action ; il montre aussi que Kotlin reste au-dessus du minimum et que les règles restent écrites une seule fois (Python appelle le même code Kotlin), ce qui respecte E11.
 
 ## 1. Ce que le projet demande, domaine par domaine
 
@@ -53,6 +55,34 @@ Ce qu'on en tire :
 - GDScript : il est connu pour être nettement plus lent que C# ou C++ dans Godot (langage interprété à typage dynamique) ; chiffre non vérifié ici. Dans Godot, les règles iraient donc en C# ou en Rust.
 - Sur téléphone, la JVM Android (ART) est plus lente que la JVM du PC ; pas de mesure sur appareil. Avec des centaines de parties par seconde, une IA qui réfléchit un tour garde une large marge.
 
+## 2 bis. Mesure : appeler les règles depuis Python
+
+Ajoutée après réception des besoins de la session 3. Deuxième essai jetable, non versionné : les mêmes règles, écrites une fois en Rust (liaison PyO3, construite par `maturin`) et une fois en Kotlin (appelé depuis Python par JPype, qui démarre une JVM dans le processus Python). Interface de la session 3 réduite à l'essentiel : `legal()`, `apply(action)`, `copy()`, `over()`, `hash()`. Une partie : 30 tours, 180 actions. Python choisit chaque action au hasard, comme le ferait une recherche arborescente écrite en Python.
+
+| Moteur, appelé depuis Python | Pas à pas | Pas à pas, avec copie de l'état à chaque action | Par lots (la boucle tourne dans le moteur) |
+|---|---|---|---|
+| Rust + PyO3 | 7 800 parties/s · **0,7 µs par action** | 6 300 parties/s | 13 500 parties/s |
+| Kotlin + JPype | 1 460 parties/s · **3,8 µs par action** | 740 parties/s | 14 100 parties/s |
+
+- Les deux moteurs donnent, à chaque pas, la même liste d'actions permises et la même empreinte finale pour la graine 42.
+- Rapporté à la partie de 1 000 actions que la session 3 suppose : Rust pas à pas ≈ 1 300 parties/s (cible : 1 000), Kotlin pas à pas ≈ 260 parties/s (minimum : 200), les deux par lots ≈ 2 500 parties/s.
+- Le coût du pont Kotlin ↔ Python se paie à chaque appel ; il disparaît quand la boucle tourne dans le moteur (algorithmes génétiques, jeu contre soi-même écrivant des replays). Pour un entraînement à réseau de neurones, le temps d'évaluation du réseau (des dizaines à des centaines de µs) écrase les 3,8 µs du pont.
+- Les chiffres valent pour un cœur de PC (conteneur de la session) et des règles très simples : de vraies règles (combat, villes) coûteront plus, dans les deux langages.
+
+### Les besoins de la session 3 et l'option 1
+
+| Besoin | Réponse avec un module `:rules` en Kotlin pur |
+|---|---|
+| E1 sans écran, aucun état global | Module JVM sans Android, une partie par objet, testé en ligne de commande |
+| E2 vitesse | Atteinte par lots ; minimum atteint pas à pas depuis Python (§ 2 bis) |
+| E3 reproductibilité | Générateur écrit dans le projet et rangé dans l'état, entiers seulement, empreinte de 64 bits, test « même graine, même empreinte » en CI |
+| E4 actions numérotées, masque | Espace fixe `type × case × case` calculé pour la plus grande carte, masque en tableau d'octets |
+| E5 copie | État en tableaux d'entiers, copie d'un bloc (`copyOf`) |
+| E6 vue par joueur | Prévue dans l'interface ; dépend du brouillard (session 2) |
+| E7 codage en plans | Tableau plat `canaux × hauteur × largeur`, versionné |
+| E8 à E10 fin de partie, replay, version | Dans l'interface dès le premier prototype |
+| E11 un seul code | Le même module sert au jeu et, par JPype ou par lots, à Python |
+
 ## 3. Les options en détail
 
 ### Option 1 : Kotlin + Compose, règles dans un module Kotlin pur (recommandée)
@@ -60,7 +90,7 @@ Ce qu'on en tire :
 - **Règles** : module Gradle `:rules` en Kotlin/JVM sans Android. Testé par JUnit en quelques secondes, en session et en CI. Interface prévue pour la session 3 : `legalActions(state)`, `apply(state, action)`, `copy()`, état et actions codés en entiers, partie rejouée depuis `graine + liste d'actions`.
 - **Affichage** : Compose, plateau dessiné dans un `Canvas` (cases, petites images, adresses), gestes de déplacement et de zoom (`transformable`), animations courtes (`Animatable`). Largement suffisant pour un jeu au tour par tour de 10 × 10 à 20 × 20 cases.
 - **IA sur le téléphone** : même module `:rules`, appelé directement, sans frontière. Un petit réseau de neurones peut tourner avec TensorFlow Lite ou ONNX Runtime pour Android, ou en Kotlin pur s'il est petit.
-- **Entraînement** : directement sur la JVM (12 800 parties par seconde et par cœur dans l'essai, évolution ou jeu contre soi-même sans Python), ou depuis Python en lançant le moteur comme processus qui joue des lots de parties (un appel pour mille parties, jamais mille appels). Le choix revient à la session 3.
+- **Entraînement** : en Python avec PyTorch, le moteur appelé par JPype (même code, 3,8 µs par action pas à pas) ou par lots ; ou directement sur la JVM pour les méthodes sans réseau (§ 2 bis).
 - **Chaîne** : Gradle et GitHub Actions, déjà éprouvés sur quatre projets de l'utilisateur ; SDK installable en session (≈ 20 s) ; miroir Maven contre les erreurs 429 (Library).
 - **Écrans sans émulateur** : captures Compose par Robolectric en PNG (méthode de la Library, déjà utilisée).
 - **Briques reprises telles quelles** : `maj-auto-github`, `rapport-plantage`, `android-en-session-cloud`, `captures-compose-robolectric`.
@@ -69,9 +99,9 @@ Ce qu'on en tire :
 
 ### Option 2 : règles en Rust + interface Kotlin/Compose
 
-- **Gain** : le même moteur pour le téléphone et pour Python (PyO3) sans processus intermédiaire ; vitesse un peu meilleure (+20 % dans l'essai) ; mémoire maîtrisée.
+- **Gain** : le même moteur pour le téléphone et pour Python (PyO3), sans JVM dans le processus Python ; vitesse un peu meilleure seul (+20 %), cinq fois meilleure appelé pas à pas depuis Python (0,7 µs contre 3,8 µs par action, § 2 bis) ; mémoire maîtrisée. C'est l'option que recommande la session 3.
 - **Coût** : NDK et `cargo-ndk` dans la CI et dans chaque session ; une bibliothèque native par architecture ; une frontière Kotlin ↔ Rust (JNI ou UniFFI) à traverser pour chaque action jouée par l'humain et pour chaque calcul des cases atteignables ; plantages natifs moins lisibles (la brique `rapport-plantage` ne les couvre qu'à moitié, 🟡) ; tests des deux côtés plus un test de la frontière.
-- **Verdict** (grille `revue-langages`) : un moteur Rust se justifie pour un calcul lourd ou un moteur partagé entre plateformes. Ici le calcul reste léger et les règles vont changer chaque semaine au début : **pas maintenant**. L'option 1 garde la porte ouverte : le module `:rules` étanche pourra être porté en Rust en un pas isolé, si la session 3 mesure que le passage Kotlin → Python freine l'entraînement.
+- **Verdict** (grille `revue-langages`) : un moteur Rust se justifie pour un calcul lourd ou un moteur partagé entre plateformes. Ici le calcul reste léger, Kotlin tient le minimum de la session 3 et les règles vont changer chaque semaine au début : **pas maintenant, sauf si l'utilisateur fait passer l'entraînement de l'IA avant tout**. L'option 1 garde la porte ouverte : le module `:rules` étanche pourra être porté en Rust en un pas isolé, si la session 3 mesure que le passage Kotlin → Python freine l'entraînement.
 
 ### Option 3 : Godot 4
 
@@ -107,7 +137,8 @@ Ce qu'on en tire :
 
 - Vitesse de GDScript (exécution de Godot refusée dans la session) et export Godot en CI (non essayé).
 - Toute mesure sur téléphone (pas d'appareil, pas d'émulateur).
-- Les besoins précis de la session 3 (`docs/ia/besoins-moteur.md`) ne sont pas encore arrivés : la recommandation sera revue à leur lecture, surtout s'ils exigent PyTorch avec des appels pas à pas.
+- Les besoins de la session 3 sont des cibles, pas des mesures ; la taille réelle des parties dépend de la session 2. La vitesse sera remesurée sur le premier prototype de `:rules` (« parties aléatoires par seconde », demandé par la session 3).
+- JPype n'a été essayé que dans un seul processus ; plusieurs processus d'entraînement en parallèle (une JVM chacun) n'ont pas été essayés.
 
 ## 6. Idées pour plus tard
 
