@@ -2,6 +2,10 @@
 
 > À ne lire que sur demande de l'utilisateur. Rien d'ici n'est dans le plan.
 
+## Prévu juste après la première version (D-32)
+
+- La nuit comme mécanique de jeu, avec des monstres de nuit et une allure propre aux nuits (D-33). À concevoir par S2, à valider par l'utilisateur, puis à coder en premier dans la version suivante.
+
 ## Tri du 2026-11-27 : idées mises « plus tard »
 
 > Venues des catalogues des sessions 2 à 6 ; fiche complète sur la branche de chaque session.
