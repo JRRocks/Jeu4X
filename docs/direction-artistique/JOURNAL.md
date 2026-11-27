@@ -2,12 +2,20 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-27 · Question DA-Q4 ajoutée au catalogue
+
+- **Auteur** : Claude, session S6
+- **Branche et commit** : `s6-direction-artistique`, a55c81d
+- **Réalisé** : à la demande de la session maître, ajout dans `catalogue.json` de la question 4 du rapport (deuxième série de variantes avant la session 1), en DA-Q4 avec les options a et b, recommandation a.
+- **Vérifications** : `python3 -m json.tool` passe.
+- **Note** : le commit a55c81d avait aussi modifié l'entrée précédente du journal ; cette modification est annulée ici, le passé du journal ne se réécrit pas.
+
 ## 2026-11-27 · Catalogue au format de la page de choix
 
 - **Auteur** : Claude, session S6
 - **Branche et commit** : `s6-direction-artistique`, voir `git log`
 - **Objectif** : demande de la session maître : fichier `catalogue.json` pour la page où l'utilisateur coche ses choix.
-- **Réalisé** : `catalogue.json` (12 idées, 3 questions, une image par option ; DA-Q4 ajoutée ensuite à la demande de la session maître) ; DA-000 et DA-001 réduites à 256 couleurs pour passer sous 1 Mo (1,5 et 1,3 Mo avant, 0,3 et 0,5 Mo après).
+- **Réalisé** : `catalogue.json` (12 idées, 3 questions, une image par option) ; DA-000 et DA-001 réduites à 256 couleurs pour passer sous 1 Mo (1,5 et 1,3 Mo avant, 0,3 et 0,5 Mo après).
 - **Vérifications** : `python3 -m json.tool` passe ; chaque chemin d'image existe ; limites de mots contrôlées par script ; DA-001 réduite regardée, pas de défaut visible.
 - **Prochaine étape** : attendre les choix de l'utilisateur.
 
