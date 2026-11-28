@@ -2,6 +2,12 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Contraste des noms de clan corrigé par S1
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : la parade a) est retenue par la session maître et codée par S1 (s1-environnement, 6fc056e) : texte `#1C1E24` de jour et `#EEF1F5` de nuit, pastille de la couleur du clan devant le nom, vivres de jour en `#8A5A00` (5,9:1 sur blanc, calculé). J'ai vérifié sur la capture de session : c'est lisible. J'ai signalé que cette capture montre encore un plateau décalé vers la droite, peut-être selon le moment de la capture.
+- **Prochaine étape** : attendre la suite.
+
 ## 2026-11-28 · Captures de l'essai 0.1.20 regardées
 
 - **Auteur** : Claude, session S6
