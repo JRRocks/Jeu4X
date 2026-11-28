@@ -22,6 +22,18 @@ Gabarit :
 
 ---
 
+## 2026-11-28 · Le jeu passe en 3D low poly (essai 0.1.19)
+
+- **Auteur** : Claude, session maître
+- **Branche et commit** : `s1-environnement`, pré-version `essai-0.1.19` ; modèles sur `s6-direction-artistique` (a0d53a4)
+- **Objectif** : remplacer les dessins provisoires par le style 3D low poly retenu (D-36, D-37).
+- **Réalisé** : S6 a modélisé dans Blender, par scripts, terrains, villes, constructions, merveilles (trois, une par branche, déclinées par clan), unités des quatre clans, anneau sous les unités et brouillard en nuages, rendus en sprites de jour et de nuit ; S1 les a intégrés (192 px seulement dans l'APK).
+- **Décisions** : D-36, D-37.
+- **Vérifications** : lien de l'APK vérifié (9,7 Mo) ; captures de l'émulateur de jour et de nuit relues ; test à l'émulateur vert (installation, partie, fin du tour, mode sombre, rapport de plantage).
+- **Non vérifié sur téléphone** : le toucher, la lisibilité des unités, qui paraissent petites quand on voit toute la carte, la fluidité ; aucune merveille n'a encore été vue à l'écran dans une partie.
+- **Problèmes et dette** : les deux questions de style du papier découpé (couleur de la montagne et de la colline, nouvelles formes) n'ont plus d'objet depuis D-36.
+- **Prochaine étape** : retours de jeu de l'utilisateur.
+
 ## 2026-11-27 · Première version jouable de bout en bout (essai 0.1.17)
 
 - **Auteur** : Claude, session maître
