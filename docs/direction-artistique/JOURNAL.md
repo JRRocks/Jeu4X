@@ -2,6 +2,12 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Captures de l'essai 0.1.20 regardées
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : la table, les panneaux de nuit et le cadrage sont corrigés par S1. Un écart d'accessibilité est signalé à S1 et à la session maître : de jour, les textes dans la couleur d'un clan, sur le panneau blanc, sont sous le seuil de 4,5:1 (or `#F3B01D` à 2:1 environ, ciel `#5CCBFA` de même). Parade proposée : texte `#1C1E24` et une pastille ou un socle de la couleur du clan devant le nom ; à défaut, une teinte foncée pour le texte de jour.
+- **Prochaine étape** : attendre la suite.
+
 ## 2026-11-28 · Captures de l'essai 0.1.19 regardées
 
 - **Auteur** : Claude, session S6
