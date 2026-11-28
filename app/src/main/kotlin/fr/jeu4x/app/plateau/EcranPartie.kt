@@ -31,6 +31,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -78,8 +80,9 @@ import fr.jeu4x.app.moteur.Visibilite
  * (montagne en gris froid, colline ocre). Le style définitif revient à la session 6.
  */
 private object Teintes {
-    val fond = Color(0xFF3C5A3A)
-    val fondNuit = Color(0xFF121A24)
+    // Table sous le plateau (guide de S6, § 2) : papier kraft de jour, encre de nuit.
+    val fond = Color(0xFFE2C9A0)
+    val fondNuit = Color(0xFF0C1018)
     val barre = Color(0xFF2B2B2B)
     val plaine = Color(0xFFB9D98C)
     val foret = Color(0xFF5F9A55)
@@ -120,6 +123,12 @@ fun couleurClan(clan: Clan) = when (clan) {
     Clan.VENTS_ERRANTS -> Color(0xFF2FB8D0)
 }
 
+/** Encre posée sur la couleur d'un clan (guide de S6, § 2) : blanc, ou brun très foncé sur les clans clairs. */
+private fun encreClan(clan: Clan?): Color = when (clan) {
+    Clan.MURAILLIERS, Clan.VENTS_ERRANTS -> Color(0xFF2B2118)
+    else -> Color.White
+}
+
 fun couleurJoueur(etat: Etat, joueur: Int): Color = etat.joueurs.getOrNull(joueur)?.let { couleurClan(it.clan) } ?: Color.White
 
 @Composable
@@ -132,6 +141,15 @@ private val CODE_UNITE = listOf("eclaireur", "lancier", "archer", "cavalier", "c
 private val CODE_TERRAIN = listOf("P", "F", "C", "M", "E")
 private val CODE_EXPLOITATION = listOf("cueillette", "champ", "carriere")
 
+
+/** Couleurs des barres et panneaux (guide de S6, § 2, « Interface »), selon le mode du téléphone (D-33). */
+private class Interface(val panneau: Color, val texte: Color, val secondaire: Color, val or: Color)
+
+private val INTERFACE_JOUR = Interface(Color(0xFFFFFFFF), Color(0xFF1C1E24), Color(0xFF555B66), Color(0xFFB07A0A))
+private val INTERFACE_NUIT = Interface(Color(0xFF1C212A), Color(0xFFEEF1F5), Color(0xFFA9B1BD), Color(0xFFFFE14A))
+
+@Composable
+private fun teintesInterface() = if (isSystemInDarkTheme()) INTERFACE_NUIT else INTERFACE_JOUR
 
 @Composable
 fun EcranPartie(affichage: Affichage, vm: PartieViewModel) {
@@ -153,11 +171,12 @@ fun EcranPartie(affichage: Affichage, vm: PartieViewModel) {
 private fun BarreHaut(a: Affichage) {
     val e = a.etat
     val nomCourant = nomJoueur(e, e.joueurCourant)
-    Column(Modifier.fillMaxWidth().background(Teintes.barre).padding(horizontal = 12.dp, vertical = 6.dp)) {
+    val ui = teintesInterface()
+    Column(Modifier.fillMaxWidth().background(ui.panneau).padding(horizontal = 12.dp, vertical = 6.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
                 if (e.tour >= 70) stringResource(R.string.partie_tour_limite, e.tour, e.limiteTours) else stringResource(R.string.partie_tour, e.tour),
-                color = Color.White, fontSize = 15.sp,
+                color = ui.texte, fontSize = 15.sp,
             )
             Text(
                 if (e.joueurCourant == a.humain) stringResource(R.string.partie_votre_tour) else stringResource(R.string.partie_tour_de, nomCourant),
@@ -165,15 +184,15 @@ private fun BarreHaut(a: Affichage) {
             )
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(stringResource(R.string.partie_vivres, e.vivres, e.revenu), color = Teintes.champ, fontSize = 13.sp)
-            Text(stringResource(R.string.partie_unites, e.nbMesUnites, e.entretien), color = Color.White, fontSize = 13.sp)
+            Text(stringResource(R.string.partie_vivres, e.vivres, e.revenu), color = ui.or, fontSize = 13.sp)
+            Text(stringResource(R.string.partie_unites, e.nbMesUnites, e.entretien), color = ui.texte, fontSize = 13.sp)
         }
         Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             e.joueurs.forEachIndexed { j, info ->
                 val nom = nomJoueur(e, j) + if (j == a.humain) " (" + stringResource(R.string.partie_vous) + ")" else ""
                 Text(
                     "$nom ${info.score}/${e.seuil}" + if (info.annonce) " !" else "",
-                    color = if (info.elimine) Color.Gray else couleurJoueur(e, j),
+                    color = if (info.elimine) ui.secondaire else couleurJoueur(e, j),
                     fontSize = 12.sp,
                     fontWeight = if (j == e.joueurCourant) FontWeight.Bold else FontWeight.Normal,
                 )
@@ -190,7 +209,10 @@ private fun BarreHaut(a: Affichage) {
 private fun PanneauBas(a: Affichage, vm: PartieViewModel) {
     val e = a.etat
     val nomsUnites = stringArrayResource(R.array.noms_unites)
-    Column(Modifier.fillMaxWidth().background(Color.White).padding(horizontal = 12.dp, vertical = 8.dp)) {
+    val nuit = isSystemInDarkTheme()
+    // De nuit, le panneau passe en sombre ; les boutons suivent avec le jeu de couleurs sombre de Material.
+    MaterialTheme(colorScheme = if (nuit) darkColorScheme() else MaterialTheme.colorScheme) {
+    Column(Modifier.fillMaxWidth().background(teintesInterface().panneau).padding(horizontal = 12.dp, vertical = 8.dp)) {
         val attaque = a.attaque
         val choisie = a.choisie?.let { e.uniteSur(it) }
         val ville = a.villeChoisie?.let { e.villeSur(it) }
@@ -263,16 +285,17 @@ private fun PanneauBas(a: Affichage, vm: PartieViewModel) {
                 enabled = a.tourHumain,
                 modifier = Modifier.weight(1f).height(48.dp).testTag("bouton-tour"),
                 shape = RoundedCornerShape(24.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = couleurJoueur(a.etat, a.humain)),
+                colors = ButtonDefaults.buttonColors(containerColor = couleurJoueur(a.etat, a.humain), contentColor = encreClan(a.etat.joueurs.getOrNull(a.humain)?.clan)),
             ) {
                 Text(stringResource(R.string.partie_fin_du_tour), fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
+    }
 }
 
 @Composable
-private fun Texte(t: String) = Text(t, fontSize = 13.sp, color = Color(0xFF333333))
+private fun Texte(t: String) = Text(t, fontSize = 13.sp, color = teintesInterface().texte)
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

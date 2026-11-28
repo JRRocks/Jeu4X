@@ -64,11 +64,24 @@ class Perspective(val taille: Int, val demiLargeur: Float, val demiHauteur: Floa
         return Triple(echelle, dx, dy)
     }
 
-    /** Décalage qui met le centre moyen des cases au milieu de la vue, à l'échelle donnée (D-21). */
+    /**
+     * Décalage pour voir les cases données (D-20, D-21) : leur centre moyen part du milieu de la vue,
+     * puis la vue glisse au plus d'un sixième de sa taille pour que le plateau couvre l'écran
+     * (pas de grand vide quand les unités sont au bord du plateau).
+     */
     fun decalagePour(cases: List<Pair<Int, Int>>, largeur: Float, hauteur: Float, echelle: Float): Pair<Float, Float> {
         val centres = if (cases.isEmpty()) listOf(centre((taille - 1) / 2, (taille - 1) / 2)) else cases.map { (x, y) -> centre(x, y) }
         val cx = centres.map { it.first }.average().toFloat()
         val cy = centres.map { it.second }.average().toFloat()
-        return largeur / 2f - cx * echelle to hauteur / 2f - cy * echelle
+        val l = limites()
+        val dx = ajuster(largeur / 2f - cx * echelle, l[0] * echelle, l[2] * echelle, largeur)
+        val dy = ajuster(hauteur / 2f - cy * echelle, l[1] * echelle, l[3] * echelle, hauteur)
+        return dx to dy
+    }
+
+    /** Sur un axe : `ideal` rapproché de la plage où le plateau [debut, fin] couvre la vue, de vue/6 au plus. */
+    private fun ajuster(ideal: Float, debut: Float, fin: Float, vue: Float): Float {
+        val couvrant = if (fin - debut >= vue) ideal.coerceIn(vue - fin, -debut) else (vue - debut - fin) / 2f
+        return couvrant.coerceIn(ideal - vue / 6f, ideal + vue / 6f)
     }
 }

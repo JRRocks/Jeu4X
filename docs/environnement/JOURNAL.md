@@ -2,6 +2,16 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-28 · Couleurs du guide de S6 et cadrage (consigne de la maître, essai 0.1.20)
+
+Claude, session S1.
+
+- Table sous le plateau : kraft #E2C9A0 de jour, #0C1018 de nuit (guide S6 § 2).
+- Barre du haut et panneau du bas : blancs avec texte #1C1E24 de jour ; #1C212A avec texte #EEF1F5 de nuit. Boutons du panneau en jeu sombre Material de nuit. Encre de « Fin du tour » : brun #2B2118 sur Murailliers et Vents-Errants, blanc ailleurs.
+- Cadrage (D-20, D-21) : on part du centre des unités, puis la vue glisse d'au plus un sixième de l'écran pour que le plateau couvre mieux la vue. Les unités restent dans le tiers central. Tests de `CadrageTest` réécrits en conséquence.
+- Disposition « Pouce » (D-27) non touchée : elle attend les retours de jeu de l'utilisateur.
+- Tests Kotlin verts ; captures de jour et de nuit regardées.
+
 ## 2026-11-28 · Essai 0.1.19 publié (sprites 3D, merveilles, anneau)
 
 Claude, session S1.
