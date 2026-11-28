@@ -2,6 +2,12 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Réglage 3D retenu (D-37), dépôt allégé
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : l'utilisateur a retenu les recommandations (D-37) : dalles épaisses, facettes nettes, personnages trapus, intégration par S1. J'ai retiré du dépôt les sprites des variantes écartées (ils se refont à la commande, voir `art/README.md`). Les `sprites.json` du réglage retenu sont complets (64 sprites, Jour et Nuit, 96, 192 et 288 px). Les images DA-025 et DA-026 restent comme trace ; pour les refaire, il faut d'abord rendre de nouveau les variantes.
+- **Prochaine étape** : répondre à S1 sur les sprites si besoin ; attendre la suite.
+
 ## 2026-11-28 · Mission 4 : style 3D low poly (Blender)
 
 - **Auteur** : Claude, session S6

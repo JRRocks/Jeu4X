@@ -265,7 +265,7 @@ Les losanges et le low poly sont des traits de genre. Ce qui est propre au jeu :
 
 ## Coût et poids
 
-- **Coût** : tout se refait par une commande. Rendre les 65 sprites d'une palette et d'une taille prend environ 30 secondes sur 4 processeurs.
+- **Coût** : tout se refait par une commande. Rendre les 64 sprites d'une palette et d'une taille prend environ 30 secondes sur 4 processeurs.
 - **Poids** : environ 0,5 Mo par jeu de sprites en 96 px, 1 Mo en 192 px et 1,7 Mo en 288 px.
 - **Pas de modèle 3D dans l'application** : elle reste en 2D (Compose), et ne fait qu'afficher des images.
 

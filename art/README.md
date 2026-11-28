@@ -44,11 +44,14 @@ Types communs : `eclaireur`, `lancier`, `archer`, `cavalier`, `catapulte`.
 Unités propres : `coureur` (crocs), `pavois` (mur), `astronome` (veil), `planeur` (vents).
 Les cases se dessinent de l'arrière vers l'avant, comme dans `Perspective.ordreDeDessin()`.
 
-## Variantes rendues pour l'aperçu
+## Réglage retenu (D-37)
 
-| Dossier | Contenu |
-|---|---|
-| `epaisse-facettes-trapu/` | Réglage recommandé, Jour et Nuit, 96, 192 et 288 px |
-| `fine-facettes-trapu/` | Dalles fines (terrains seulement), Jour, 192 px |
-| `epaisse-doux-trapu/` | Ombrage doux, Jour, 192 px |
-| `epaisse-facettes-elance/` | Personnages élancés (unités seulement), Jour, 192 px |
+Dalles épaisses, facettes nettes, personnages trapus : `sprites/epaisse-facettes-trapu/<jour|nuit>/<96|192|288>/`.
+
+Les variantes écartées (dalles fines, ombrage doux, personnages élancés) ne sont plus dans le dépôt. Elles se refont à la commande, par exemple :
+
+```
+python art/blender/rendu.py --palette jour --taille 192 --epaisseur fine --quoi terrains
+python art/blender/rendu.py --palette jour --taille 192 --ombrage doux
+python art/blender/rendu.py --palette jour --taille 192 --proportions elance --quoi unites
+```
