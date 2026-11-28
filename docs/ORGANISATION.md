@@ -6,12 +6,12 @@ L'utilisateur parle à la session maître, et à elle seule. La session maître 
 
 | N° | Rôle | Branche | Dossier | Préfixe des idées | État |
 |---|---|---|---|---|---|
-| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | essai jouable 0.1.17 livré, attend les retours |
+| S1 | Environnement de jeu : technologie, plateau de cases adressées, tour par tour, petits graphismes, APK | `s1-environnement` | `docs/environnement/` et le code | `EN-` | intègre le style 3D (P1.7, D-37) |
 | S2 | Recherche de game design : arbre d'évolution, clans, styles de jeu | `s2-game-design` | `docs/game-design/` | `GD-` | règles validées (D-30), en pause |
 | S3 | IA évolutive : apprentissage par renforcement, algorithmes génétiques, pré-entraînement | `s3-ia` | `docs/ia/` et `moteur/ia/` | `IA-` | IA `utilite-r3-v3` en service, attend les retours |
 | S4 | Regroupement des données : serveur, local ou mixte, pour suivre l'évolution de l'IA | `s4-donnees` | `docs/donnees/` | `DO-` | trié, en pause |
 | S5 | Veille dans le monde du jeu vidéo : idées de gameplay et autres | `s5-veille` | `docs/veille/` | `VE-` | trié, mission terminée |
-| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` et `art/` | `DA-` | modèles 3D low poly dans Blender (P6.4, D-36) |
+| S6 | Direction artistique : styles graphiques, palettes de couleurs, interface | `s6-direction-artistique` | `docs/direction-artistique/` et `art/` | `DA-` | modèles 3D retenus (D-37), soutien à S1 |
 
 ## Règles communes aux sessions de travail
 
