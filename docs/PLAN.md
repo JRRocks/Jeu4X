@@ -25,8 +25,9 @@ Poser les fondations d'un jeu de stratégie 4X original pour Android : un platea
 | P2.2 | Règles précises de la première version, d'après le tri (D-23, D-28) | Un résumé d'une page, validé par l'utilisateur | S2 | ✅ validé (D-30) |
 | P6.2 | Deuxième série d'images : papier découpé en perspective, palette Jour franc et Nuit, interface Pouce (D-27) | Des images avec variantes ; un choix de l'utilisateur | S6 | ✅ choix faits (D-31 à D-33) |
 | P3.2 | Terrain d'essai des IA et première IA simple, sans rien d'affiché (D-24) | Un tournoi d'IA lancé par une commande, son résultat écrit | S3 | ✅ terrain d'essai et IA à utilité (s3-ia, 4762d74) |
-| P6.3 | Guide de style pour S1 : couleurs, formes et dimensions du papier découpé retenu, de jour et de nuit | S1 peut dessiner le style sans deviner ; l'utilisateur voit le jeu dans le style choisi | S6 | 🔄 |
-| P1.6 | Coder les règles de la première version une fois validées | Sur l'essai : villes, villages, combat annoncé, brouillard, arbre, quatre clans, victoire (D-28) | S1 | 🔄 étape a) en cours |
+| P6.3 | Guide de style pour S1 : couleurs, formes et dimensions du papier découpé retenu, de jour et de nuit | S1 peut dessiner le style sans deviner ; l'utilisateur voit le jeu dans le style choisi | S6 | ✅ livré (e796775), remplacé par la 3D (D-36) |
+| P6.4 | Modèles 3D low poly dans Blender, rendus en sprites pour le plateau (D-36) | Des scènes de jeu en images, avec variantes ; un choix de l'utilisateur avant toute intégration | S6 | 🔄 |
+| P1.6 | Version jouable complète (D-34) : toutes les règles de la première version, adversaire tenu par l'ordinateur, graphismes provisoires | Sur l'essai : une partie entière, de la nouvelle partie à la victoire, contre l'ordinateur | S1 et S3 | 📱 essai jouable 0.1.17, vert à l'émulateur ; une partie entière à faire sur le téléphone |
 | P0.1 | Tri des idées avec l'utilisateur, sur une page à cocher (D-13) | Le retenu entre dans les décisions et le plan, le reste dans `docs/idees-futur.md` | maître | ✅ D-22, détail dans `docs/TRI.md` |
 
 ## À vérifier sur le téléphone
@@ -40,3 +41,4 @@ Poser les fondations d'un jeu de stratégie 4X original pour Android : un platea
 | R5 | essai 0.1.10 | Passe le tour plusieurs fois | La vue glisse en douceur vers les unités du joueur suivant | à essayer, séance groupée |
 | R6 | essai 0.1.10 | Fait glisser la vue, pince pour zoomer et dézoomer, touche une unité puis une case jaune | Les gestes répondent, la case touchée est la bonne | à essayer, séance groupée |
 | R7 | essai 0.1.10 | Joue quelques tours | Les cases et les unités se lisent bien au zoom de départ | à essayer, séance groupée |
+| R8 | essai 0.1.17 | Joue une partie entière contre l'ordinateur, de « Nouvelle partie » à l'écran de fin | La partie se joue sans blocage ; les panneaux (ville, évolution, combat) se lisent sur le téléphone | à essayer |

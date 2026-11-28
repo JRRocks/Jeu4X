@@ -22,6 +22,18 @@ Gabarit :
 
 ---
 
+## 2026-11-27 · Première version jouable de bout en bout (essai 0.1.17)
+
+- **Auteur** : Claude, session maître
+- **Branche et commit** : `s1-environnement` (c60aa38), pré-version `essai-0.1.17`
+- **Objectif** : une version jouable complète pour essayer les mécaniques (D-34).
+- **Réalisé** : S1 a codé les règles de la première version (villes, villages, vivres, croissance avec cadeau, exploitations, bâtiments, merveilles, 9 unités, combat sans chance annoncé, brouillard par joueur, arbre en trois branches, 4 clans, ruines, victoire par la capitale ou le seuil, élimination, nulle au tour 80) et l'écran « Nouvelle partie » (2 à 4 joueurs, choix du clan) ; l'ordinateur joue avec l'IA `utilite-r3-v3` de S3. S2 et S3 ont réglé la durée des parties (D-35).
+- **Décisions** : D-34, D-35.
+- **Vérifications** : lien de l'APK vérifié (7,4 Mo) ; capture de l'émulateur relue : seuil de 58 points à deux joueurs, réglage appliqué ; test à l'émulateur vert (installation, « Commencer », fin de tour, tour de l'ordinateur, plantage provoqué, relance). Les exécutions 14 à 16 étaient rouges (bouton « Commencer » hors de l'écran de l'émulateur), corrigé ; pas d'essais 0.1.12 à 0.1.16.
+- **Non vérifié sur téléphone** : une partie entière, les gestes, la lisibilité des panneaux, l'installation par-dessus l'essai précédent (R8).
+- **Problèmes et dette** : graphismes provisoires ; ni « annuler un coup » ni « recommencer son tour » ; les captures haute définition du dépôt montrent encore l'ancien seuil de 45 (images de test, pas l'application) ; 10 à 12 % de nulles et Vents-Errants un peu faibles (D-35).
+- **Prochaine étape** : l'utilisateur joue et donne ses retours ; ensuite les questions de style en attente (S6) et la nuit (D-32).
+
 ## 2026-11-27 · Page de tri : boutons qui bloquaient, corrigé
 
 - **Auteur** : Claude, session maître
