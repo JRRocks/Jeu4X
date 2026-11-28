@@ -21,6 +21,8 @@ const jobs = [
   // Planches du guide V1 (mission 3), page guide.html
   ['DA-019-guide-couleurs', 'vue=couleurs', 3], ['DA-020-guide-terrains', 'vue=terrains', 3], ['DA-021-guide-villes', 'vue=villes', 3],
   ['DA-022-guide-unites', 'vue=unites', 3], ['DA-023-guide-ordre-de-dessin', 'vue=couches', 3], ['DA-024-guide-pouce-combat', 'vue=mesures', 3],
+  // Style 3D low poly (mission 4), page apercu3.html, sprites de art/sprites
+  ['DA-025-3d-plateau', 'vue=terrains', 4], ['DA-026-3d-unites', 'vue=unites', 4], ['DA-027-3d-villes', 'vue=villes', 4], ['DA-028-3d-pouce', 'vue=pouce', 4],
 ];
 (async () => {
   const b = await chromium.launch();
@@ -28,7 +30,7 @@ const jobs = [
   p.on('pageerror', e => console.log('ERREUR', e.message));
   for (const [name, qs, serie] of jobs) {
     if (process.argv[3] && !new RegExp(process.argv[3]).test(name)) continue;
-    await p.goto('file://' + path.join(here, serie === 3 ? 'guide.html' : serie === 2 ? 'apercu2.html' : 'apercu.html') + '?' + qs);
+    await p.goto('file://' + path.join(here, serie === 4 ? 'apercu3.html' : serie === 3 ? 'guide.html' : serie === 2 ? 'apercu2.html' : 'apercu.html') + '?' + qs);
     await p.waitForSelector('body[data-pret="1"]');
     await p.locator('#shot').screenshot({ path: path.join(out, name + '.png') });
     console.log('ok', name);

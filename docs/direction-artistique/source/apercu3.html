@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Aperçus 3D low poly</title>
+<style>
+  @font-face { font-family: Fredoka; font-weight: 400; src: url(fonts/fredoka-latin-400-normal.woff2); }
+  @font-face { font-family: Fredoka; font-weight: 600; src: url(fonts/fredoka-latin-600-normal.woff2); }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #E9E7E2; font-family: Inter, sans-serif; color: #1C1E24; }
+  #shot { display: inline-flex; flex-direction: column; gap: 16px; padding: 28px; background: #E9E7E2; }
+  .head h1 { font-size: 28px; } .head h1 span { font-size: 15px; color: #6A6458; letter-spacing: .06em; margin-right: 8px; } .head p { font-size: 16px; color: #3C3A35; max-width: 1200px; }
+  .row { display: flex; gap: 28px; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; gap: 10px; width: 380px; }
+  .vt { font-size: 19px; font-weight: 700; } .vt span { display: inline-block; background: #1C1E24; color: #fff; border-radius: 8px; padding: 1px 9px; margin-right: 8px; font-size: 16px; }
+  .notes { font-size: 14.5px; line-height: 1.4; color: #2C2A26; } .notes ul { padding-left: 18px; }
+  .phone { width: 380px; padding: 10px; border-radius: 46px; background: #15161A; box-shadow: 0 10px 30px #0004; }
+  .screen { width: 360px; height: 780px; border-radius: 36px; overflow: hidden; position: relative; font-family: Fredoka, sans-serif; color: var(--text); background: var(--table); }
+  .board { position: absolute; inset: 0; }
+  .board img, .board svg { position: absolute; }
+  .top { position: absolute; top: 12px; left: 10px; right: 10px; height: 62px; background: var(--surf); border-radius: 20px; box-shadow: 0 3px 6px #0003; display: flex; align-items: center; gap: 10px; padding: 0 12px; z-index: 2; }
+  .turn { display: flex; flex-direction: column; line-height: 1; } .turn small { font-size: 11px; } .turn b { font-size: 20px; font-weight: 600; }
+  .res { display: flex; gap: 12px; margin-left: auto; font-size: 17px; font-weight: 600; } .res span { display: flex; align-items: center; gap: 4px; } .res small { font-size: 12px; font-weight: 400; opacity: .8; }
+  .menu { width: 48px; height: 48px; display: grid; place-items: center; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: var(--surf); border-radius: 24px 24px 0 0; box-shadow: 0 -4px 14px #0003; padding: 8px 14px 20px; display: flex; flex-direction: column; gap: 10px; z-index: 2; }
+  .handle { width: 40px; height: 5px; border-radius: 3px; background: var(--line); align-self: center; }
+  .card { display: flex; gap: 8px; align-items: center; } .card b { font-size: 18px; font-weight: 600; } .card small { display: block; font-size: 13px; color: var(--text2); }
+  .hp { height: 7px; border-radius: 4px; background: var(--line); overflow: hidden; width: 130px; margin-top: 4px; display: flex; } .hp i { display: block; height: 100%; }
+  .btns { display: flex; gap: 10px; }
+  .sq { flex: 1; height: 56px; border-radius: 16px; background: var(--bg); border: 1.5px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font-size: 13px; font-weight: 600; color: var(--text); }
+  .end { height: 58px; border-radius: 29px; background: var(--btn); color: var(--btnText); font-size: 21px; font-weight: 600; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px #0003; }
+  .end.alt { background: var(--alert); color: var(--alertText); }
+  .vs { display: grid; grid-template-columns: 1fr 28px 1fr; gap: 6px; align-items: center; }
+  .vs .side { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 13px; text-align: center; } .vs .side b { font-size: 15px; font-weight: 600; } .vs .x { font-size: 20px; text-align: center; }
+  .verdict { text-align: center; font-size: 16px; font-weight: 600; }
+  .planche { background: #F3E6CC; border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .planche.nuit { background: #141A24; color: #EEF1F5; }
+  .grid { display: grid; gap: 2px 6px; align-items: center; }
+  .lbl { font: 600 13px Fredoka; text-align: center; } .sub { font: 400 12px Fredoka; opacity: .75; text-align: center; }
+  .tuile { position: relative; }
+  .tuile img { position: absolute; left: 0; top: 0; }
+</style>
+<script src="couleurs.js"></script>
+<script src="scene.js"></script>
+<script src="palettes.js"></script>
+</head>
+<body>
+<div id="shot"></div>
+<script>
+  const q = new URLSearchParams(location.search), vue = q.get('vue');
+  const shot = document.getElementById('shot');
+  const SPR = (set, pal) => `../../../art/sprites/${set}/${pal}/192/`;
+  const REC = 'epaisse-facettes-trapu';
+  const CLANS = { crocs: 'Crocs-Rouges', mur: 'Murailliers', veil: 'Veilleurs d’Astres', vents: 'Vents-Errants' };
+  const PROPRE = { crocs: ['coureur', 'Coureur de crête'], mur: ['pavois', 'Porte-pavois'], veil: ['astronome', 'Astronome'], vents: ['planeur', 'Guetteur-planeur'] };
+  const PAL = { jour: PALETTES.jour, nuit: PALETTES.nuit };
+  const TABLE = { jour: '#E2C9A0', nuit: '#0C1018' };
+
+  // ---- Scène commune : carte 11 × 11, cadrage zoomé sur les unités (D-20) ----
+  const MAP = ['EEEPPFFMMPP', 'EEPPPFFCPPC', 'ECPPPPFPPCC', 'EPPFPPPPFPE', 'CPPFFPPMMPE', 'EPPPPPFMCPE', 'EEPPCPPPPFE', 'EEPPPPFFPPE', 'EECPPPFMCPE', 'EEECPPPPPEE', 'EEEECPPPEEE'];
+  const UNITS = [{ c: 5, r: 6, t: 'lancier', k: 'veil', sel: true }, { c: 3, r: 5, t: 'archer', k: 'veil' }, { c: 6, r: 4, t: 'eclaireur', k: 'veil' }, { c: 6, r: 6, t: 'coureur', k: 'crocs' }, { c: 4, r: 7, t: 'cavalier', k: 'veil' }];
+  const CITY = { c: 4, r: 3, k: 'veil', n: 2, nom: 'Astrelle' }, VIL = { c: 7, r: 7 }, RUINE = { c: 2, r: 6 }, CHAMP = { c: 5, r: 4 };
+  const SEL = UNITS[0], CIBLE = UNITS[3];
+  const cheb = (a, b, c, r) => Math.max(Math.abs(a - c), Math.abs(b - r));
+  const etat = (c, r) => UNITS.filter(u => u.k === 'veil').some(u => cheb(u.c, u.r, c, r) <= 2) || cheb(CITY.c, CITY.r, c, r) <= 2 ? 'vue' : cheb(5, 5, c, r) <= 4 && !(c >= 8 && r <= 3) ? 'souvenir' : 'jamais';
+  const reach = (c, r) => cheb(SEL.c, SEL.r, c, r) === 1 && !(c === CIBLE.c && r === CIBLE.r) && !'EM'.includes(MAP[r][c]) && !UNITS.some(u => u.c === c && u.r === r);
+
+  function plateau(o) {
+    const W = o.W || 72, H = W / 2, base = o.base, pal = o.pal;
+    const view = o.view || [5, 5.6], cy0 = o.cy || 330;
+    const ox = 180 - (view[0] - view[1]) * W / 2, oy = cy0 - (view[0] + view[1]) * H / 2;
+    const cells = [];
+    for (let r = 0; r < 11; r++) for (let c = 0; c < 11; c++) cells.push([c, r]);
+    cells.sort((a, b) => (a[0] + a[1]) - (b[0] + b[1]) || a[0] - b[0]);
+    const img = (nom, x, y, extra = '') => `<img src="${base}${nom}.png" style="left:${x - W / 2}px;top:${y - .85 * W}px;width:${W}px;height:${W * 1.25}px;${extra}">`;
+    const ui = PAL[pal].ui;
+    const losange = (x, y, w, h, st) => `<svg style="left:${x - w / 2 - 3}px;top:${y - h / 2 - 3}px" width="${w + 6}" height="${h + 6}"><polygon points="${w / 2 + 3},3 ${w + 3},${h / 2 + 3} ${w / 2 + 3},${h + 3} 3,${h / 2 + 3}" ${st}/></svg>`;
+    let g = '', late = '';
+    for (const [c, r] of cells) {
+      const x = ox + (c - r) * W / 2, y = oy + (c + r) * H / 2;
+      if (x < -W || x > 360 + W || y < -W || y > 780 + W) continue;
+      const st = o.noFog ? 'vue' : etat(c, r), t = MAP[r][c];
+      if (st === 'jamais') { g += img('nuage', x, y); continue; }
+      g += img('terrain_' + t, x, y);
+      if (c === CHAMP.c && r === CHAMP.r) g += img('champ', x, y);
+      if (o.marks && st === 'vue') {
+        if (reach(c, r)) g += `<svg style="left:${x - 10}px;top:${y - 5}px" width="20" height="10"><ellipse cx="10" cy="5" rx="9" ry="4.5" fill="#FFFFFF" stroke="#0003"/></svg>`;
+        if (c === SEL.c && r === SEL.r) g += losange(x, y, W - 4, H - 2, 'fill="none" stroke="#FFFFFF" stroke-width="3.5"');
+        if (c === CIBLE.c && r === CIBLE.r) g += losange(x, y, W - 6, H - 3, `fill="${ui.alert}" fill-opacity=".25" stroke="${ui.alert}" stroke-width="2.6"`);
+      }
+      if (c === CITY.c && r === CITY.r) g += img(`ville_${CITY.k}_${CITY.n}`, x, y) + img(`capitale_${CITY.k}`, x, y);
+      if (c === VIL.c && r === VIL.r) g += img('village', x, y);
+      if (c === RUINE.c && r === RUINE.r) g += img('ruine', x, y);
+      if (st === 'souvenir') g += img('calque', x, y);
+      if (st === 'vue') for (const u of UNITS) if (u.c === c && u.r === r) {
+        const nom = u.t === 'coureur' ? 'unite_crocs_coureur' : `unite_${u.k}_${u.t}`;
+        g += img(nom, x, y - (o.marks && u.sel ? 5 : 0));
+      }
+      if (c === CITY.c && r === CITY.r) late = `<div style="position:absolute;left:${x - 46}px;top:${y + 16}px;width:92px;height:20px;border-radius:10px;background:${ui.surf};box-shadow:0 2px 4px #0003;font:600 12.5px Fredoka;color:${ui.text};display:flex;align-items:center;justify-content:center;gap:6px">${CITY.nom}<span style="color:${pal === 'nuit' ? '#8C7BFF' : '#4A45D1'}">●●</span></div>`;
+    }
+    return `<div class="board">${g}${late}</div>`;
+  }
+
+  const vars = pal => { const u = PAL[pal].ui; return `--table:${TABLE[pal]};--surf:${u.surf};--bg:${u.bg};--text:${u.text};--text2:${u.text2};--btn:${u.btn};--btnText:${u.btnText};--line:${u.line};--alert:${u.alert};--alertText:${pal === 'nuit' ? '#0B1220' : '#FFFFFF'}`; };
+  const topBar = pal => `<div class="top"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="15" fill="${pal === 'nuit' ? '#8C7BFF' : '#4A45D1'}"/><path d="M17 7L19 15L27 17L19 19L17 27L15 19L7 17L15 15Z" fill="#fff"/></svg><div class="turn"><small>Tour</small><b>7</b></div><div class="res"><span><span style="color:${pal === 'nuit' ? '#FFE14A' : '#E0A21A'}">${Scene.ICON.or}</span>12<small>+3</small></span><span><span style="color:${PAL[pal].ui.accent}">${Scene.ICON.savoir}</span>4<small>+1</small></span></div><div class="menu">${Scene.ICON.menu}</div></div>`;
+  const mini = (base, nom, s = 62) => `<div style="width:${s}px;height:${s * .9}px;overflow:hidden;position:relative"><img src="${base}${nom}.png" style="position:absolute;width:${s * 1.64}px;left:${-s * .32}px;top:${-s * .546}px"></div>`;
+  const sheetUnit = (pal, base) => `<div class="sheet"><div class="handle"></div><div class="card">${mini(base, 'unite_veil_lancier', 64)}<div style="flex:1"><b>Lancier</b><small>PV 10/10 · Attaque 3 · Défense 3 · Pas 1</small><div class="hp"><i style="width:100%;background:#2E8B57"></i></div></div></div><div class="btns"><div class="sq">${Scene.ICON.bouclier}Fortifier</div><div class="sq">${Scene.ICON.soin}Soigner</div><div class="sq">${Scene.ICON.fleche}Plus</div></div><div class="end">Fin du tour</div></div>`;
+  const sheetCombat = (pal, base) => `<div class="sheet"><div class="handle"></div><div class="verdict">Attaquer le Coureur de crête ?</div>
+    <div class="vs"><div class="side">${mini(base, 'unite_veil_lancier', 70)}<b>Ton lancier</b>PV 10 ➜ 7<div class="hp" style="width:110px"><i style="width:70%;background:#2E8B57"></i><i style="width:30%;background:#F2B8B0"></i></div></div><div class="x">⚔</div>
+    <div class="side">${mini(base, 'unite_crocs_coureur', 70)}<b>Coureur de crête</b>PV 8 ➜ 0 · détruit<div class="hp" style="width:110px"><i style="width:100%;background:#F2B8B0"></i></div></div></div>
+    <div class="btns"><div class="sq" style="height:56px;font-size:17px">Annuler</div><div class="end alt" style="flex:2">Attaquer</div></div></div>`;
+  const phone = (pal, inner) => `<div class="phone"><div class="screen" style="${vars(pal)}">${inner}</div></div>`;
+  const head = (num, t, p) => `<div class="head"><h1><span>${num}</span>${t}</h1><p>${p}</p></div>`;
+  const variante = (l, t, notes, ph) => `<div class="col"><div class="vt"><span>${l}</span>${t}</div>${ph}<div class="notes"><ul>${notes.map(n => `<li>${n}</li>`).join('')}</ul></div></div>`;
+  const ecran = (set, pal, panneau = 'unite') => { const base = SPR(set, pal); return phone(pal, plateau({ base, pal, marks: true }) + topBar(pal) + (panneau === 'combat' ? sheetCombat(pal, base) : sheetUnit(pal, base))); };
+
+  const V = {};
+  V.terrains = () => head('DA-025', 'Plateau en 3D low poly : trois réglages', 'Même carte, cadrage zoomé au départ (D-20), aucune adresse affichée (D-16). Modèles faits par scripts Blender, rendus en sprites dans la projection du plateau. Seuls changent l’épaisseur des cases et l’ombrage.')
+    + `<div class="row">${variante('A', 'Dalles épaisses, facettes nettes', ['Chaque case est une dalle : herbe, terre, roche, comme une motte levée (univers des « Terres Levées »).', 'Soleil franc : faces claires à gauche, sombres à droite, ombres nettes.', 'Le relief et les joints entre cases se lisent bien.'], ecran(REC, 'jour'))}
+      ${variante('B', 'Dalles fines', ['Même lumière, cases minces sans strates.', 'Plus calme et plus « plateau de jeu », moins de volume.', 'Les montagnes et les arbres portent seuls le relief.'], (() => { const pal = 'jour'; return phone(pal, plateau({ base: SPR('fine-facettes-trapu', pal), pal, marks: true }).replace(/fine-facettes-trapu\/jour\/192\/(unite_|ville_|capitale_|village|ruine|champ|calque)/g, `${REC}/jour/192/$1`) + topBar(pal) + sheetUnit(pal, SPR(REC, pal))); })())}
+      ${variante('C', 'Ombrage doux', ['Lumière enveloppante, ombres floues, contrastes plus tendres.', 'Ambiance plus douce, mais faces et unités se détachent un peu moins.', 'Même coût de rendu.'], ecran('epaisse-doux-trapu', 'jour'))}</div>`;
+
+  V.unites = () => {
+    const types = [['eclaireur', 'Éclaireur'], ['lancier', 'Lancier'], ['archer', 'Archer'], ['cavalier', 'Cavalier'], ['catapulte', 'Catapulte']];
+    const cell = (set, nom, gris, terrain = 'terrain_P') => `<div class="tuile" style="width:118px;height:148px${gris ? ';filter:grayscale(1)' : ''}"><img src="${SPR(set, 'jour')}${terrain}.png" style="width:118px"><img src="${SPR(set === 'epaisse-facettes-elance' ? REC : set, 'jour').replace(REC, set)}${nom}.png" style="width:118px"></div>`;
+    const c2 = (set, nom, gris) => `<div class="tuile" style="width:118px;height:148px${gris ? ';filter:grayscale(1)' : ''}"><img src="${SPR(REC, 'jour')}terrain_P.png" style="width:118px"><img src="${SPR(set, 'jour')}${nom}.png" style="width:118px"></div>`;
+    let rows = `<div></div>${types.map(t => `<div class="lbl">${t[1]}</div>`).join('')}<div class="lbl">Unité propre</div><div class="lbl">En gris</div>`;
+    for (const k in CLANS) rows += `<div style="font:600 14px Fredoka;color:#3A2A1C">${CLANS[k]}<br><small style="font-weight:400">${PROPRE[k][1]}</small></div>` + types.map(([t]) => c2(REC, `unite_${k}_${t}`)).join('') + c2(REC, `unite_${k}_${PROPRE[k][0]}`) + c2(REC, `unite_${k}_lancier`, true);
+    let el = '';
+    for (const k in CLANS) el += c2('epaisse-facettes-elance', `unite_${k}_lancier`) + c2('epaisse-facettes-elance', `unite_${k}_${PROPRE[k][0]}`);
+    let tr = '';
+    for (const k in CLANS) tr += c2(REC, `unite_${k}_lancier`) + c2(REC, `unite_${k}_${PROPRE[k][0]}`);
+    return head('DA-026', 'Unités des quatre clans en 3D', 'Personnages en cloche sur un socle de clan. Le clan se lit au socle (dents, carré, étoile, goutte) et à la coiffe (cornes, heaume carré, capuche pointue, chapeau large) ; le type se lit à l’arme ou à la monture. La colonne en gris montre qu’on les distingue sans couleur.')
+      + `<div class="planche"><div class="vt"><span>A</span>Proportions trapues (recommandé)</div><div class="grid" style="grid-template-columns:170px repeat(7,118px)">${rows}</div></div>`
+      + `<div class="row"><div class="planche"><div class="vt"><span>A</span>Trapues : lancier et unité propre</div><div class="row" style="gap:0">${tr}</div></div></div>`
+      + `<div class="row"><div class="planche"><div class="vt"><span>B</span>Élancées : même chose, corps plus haut, tête plus petite</div><div class="row" style="gap:0">${el}</div></div></div>`;
+  };
+
+  V.villes = () => {
+    const B = SPR(REC, 'jour'), N = SPR(REC, 'nuit');
+    const t = (base, layers, l, s) => `<div style="display:flex;flex-direction:column;align-items:center"><div class="tuile" style="width:132px;height:165px">${layers.map(n => `<img src="${base}${n}.png" style="width:132px">`).join('')}</div><div class="lbl">${l}</div>${s ? `<div class="sub">${s}</div>` : ''}</div>`;
+    const ligne = base => t(base, ['terrain_P', 'village'], 'Village neutre') + [1, 2, 3, 4, 5].map(n => t(base, ['terrain_P', `ville_veil_${n}`], 'Ville niveau ' + n)).join('')
+      + t(base, ['terrain_P', 'ville_veil_1', 'capitale_veil'], 'Capitale', 'étendard couronné') + t(base, ['terrain_P', 'remparts_arriere', 'ville_veil_3', 'remparts_avant'], 'Remparts', 'arrière et avant')
+      + t(base, ['terrain_P', 'ville_veil_3', 'marche'], 'Marché');
+    const autres = base => t(base, ['terrain_P', 'champ'], 'Champ', 'plaine') + t(base, ['terrain_F', 'cueillette'], 'Cueillette', 'forêt') + t(base, ['terrain_C', 'carriere'], 'Carrière', 'colline')
+      + t(base, ['terrain_P', 'ruine'], 'Ruine') + t(base, ['terrain_P', 'merveille_veil'], 'Merveille', 'la Tour des Brumes') + t(base, ['nuage'], 'Inconnue', 'nuages') + t(base, ['terrain_F', 'calque'], 'Vue autrefois', 'voile') + t(base, ['terrain_M'], 'Montagne') + t(base, ['terrain_E'], 'Eau');
+    const clans = Object.keys(CLANS).map(k => t(B, ['terrain_P', `ville_${k}_3`], CLANS[k])).join('');
+    return head('DA-027', 'Villes, constructions et brouillard en 3D', 'Une maison de plus par niveau, une tour au niveau 5. Capitale, remparts et marché sont des surcouches posées sur la ville. Le village neutre a des huttes rondes au toit de chaume, sans couleur de clan.')
+      + `<div class="planche"><div class="row" style="gap:0">${ligne(B)}</div><div class="row" style="gap:0">${autres(B)}</div><div class="row" style="gap:0">${clans}</div></div>`
+      + `<div class="planche nuit"><div class="row" style="gap:0">${ligne(N)}</div><div class="row" style="gap:0">${autres(N)}</div></div>`;
+  };
+
+  V.pouce = () => head('DA-028', 'Écran « Pouce » en 3D, de jour et de nuit', 'Le réglage recommandé (dalles épaisses, facettes nettes, personnages trapus) dans l’écran de jeu complet : unité choisie, annonce du combat, et mode sombre du téléphone (palette Nuit).')
+    + `<div class="row">${variante('Jour', 'Unité choisie', ['Pastilles sur les cases atteignables, case choisie cerclée de blanc, ennemi cerclé de rouge.', 'Nuages sur l’inconnu, voile blanc sur ce qu’on a déjà vu.'], ecran(REC, 'jour'))}
+      ${variante('Jour', 'Annonce du combat', ['Le panneau du bas montre les deux unités en 3D, PV avant ➜ après.', 'Annuler / Attaquer à portée du pouce.'], ecran(REC, 'jour', 'combat'))}
+      ${variante('Nuit', 'Mode sombre', ['Mêmes modèles, couleurs de la palette Nuit, même lumière.', 'Les nuits du jeu (D-32) auront leur propre allure, plus tard.'], ecran(REC, 'nuit'))}</div>`;
+
+  shot.innerHTML = V[vue]();
+  Promise.all([...document.images].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; }))).then(() => document.fonts.ready).then(() => setTimeout(() => document.body.dataset.pret = '1', 200));
+</script>
+</body>
+</html>

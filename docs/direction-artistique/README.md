@@ -31,6 +31,10 @@ Aperçus à comparer : rien n'est codé dans le jeu (D-11). Détail de chaque pr
 | DA-022 | `DA-022-guide-unites.png` | Guide V1 : les 9 unités pour les quatre clans, test en gris, nuit |
 | DA-023 | `DA-023-guide-ordre-de-dessin.png` | Guide V1 : ordre de dessin |
 | DA-024 | `DA-024-guide-pouce-combat.png` | Guide V1 : disposition Pouce cotée et panneau du combat |
+| DA-025 | `DA-025-3d-plateau.png` | Style 3D : plateau, trois réglages (épaisseur, ombrage) |
+| DA-026 | `DA-026-3d-unites.png` | Style 3D : unités des quatre clans, trapues ou élancées, test en gris |
+| DA-027 | `DA-027-3d-villes.png` | Style 3D : villes, constructions, exploitations, brouillard, jour et nuit |
+| DA-028 | `DA-028-3d-pouce.png` | Style 3D : écran Pouce, unité choisie, combat, nuit |
 
 ## Refaire les images
 
@@ -52,3 +56,5 @@ Les polices (licence SIL OFL 1.1) sont copiées dans `source/fonts/`, qui n'est 
 `catalogue-2.json` fait de même pour la deuxième série (questions DA-Q5 à DA-Q10).
 
 **Guide de dessin pour S1 : [`guide-v1.md`](guide-v1.md).**
+
+**Style 3D (D-36)** : modèles et sprites dans [`art/`](../../art/README.md) ; aperçus assemblés par `source/apercu3.html` ; questions DA-Q11 à DA-Q14 dans `catalogue-3.json`.

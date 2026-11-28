@@ -1,0 +1,30 @@
+{
+ "taille": [
+  192,
+  240
+ ],
+ "ancre_px": [
+  96.0,
+  163.20000000000002
+ ],
+ "losange": [
+  192,
+  96
+ ],
+ "epaisseur_case": 0.06,
+ "variante": [
+  "fine",
+  "facettes",
+  "trapu"
+ ],
+ "palette": "jour",
+ "sprites": [
+  "terrain_P",
+  "terrain_F",
+  "terrain_C",
+  "terrain_M",
+  "terrain_E",
+  "nuage",
+  "calque"
+ ]
+}

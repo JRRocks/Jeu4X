@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Mission 4 : style 3D low poly (Blender)
+
+- **Auteur** : Claude, session S6
+- **Branche et commit** : `s6-direction-artistique`, voir `git log` ; `main` fusionnée avant de commencer
+- **Objectif** : D-36, tout en 3D low poly vu en 2D. Modèles par scripts Blender, sprites dans la projection du plateau de S1, aperçus avant intégration.
+- **Réalisé** : Blender 5.3 sous forme de module Python (`pip install bpy`) dans un environnement de la session, sans écran. Moteur : Cycles sur processeur (Workbench et EEVEE ne rendent rien sans carte graphique : essai fait). Scripts `art/blender/` (lib, modèles, rendu) ; 65 sprites par palette et par taille (terrains, nuage, 24 unités, villes 1 à 5 × 4 clans, capitale, remparts, marché, exploitations, ruine, merveille, calque) ; Jour et Nuit en 96, 192 et 288 px ; variantes dalles fines, ombrage doux, personnages élancés en 192 px. Aperçus DA-025 à DA-028 assemblés à partir des sprites ; `catalogue-3.json` (DA-Q11 à DA-Q14).
+- **Décisions** : aucune décision de l'utilisateur. Choix de travail : image `taille × 1,25 taille`, ancre au centre du dessus de la case à (0,5 ; 0,85 taille) ; losange 2:1 vérifié dans `Perspective.kt` (s1-environnement) et mesuré sur un sprite (haut du losange à 118 px pour 117,4 attendus en 192 px).
+- **Vérifications** : chaque planche regardée ; tailles et ancre mesurées sur les PNG ; JSON validé.
+- **Non vérifié sur téléphone** : lisibilité des unités à 72 dp par case, fluidité.
+- **Problèmes et dette** : la colonne « en gris » de DA-026 grise aussi la case ; les ombres ne débordent pas sur la case voisine (limite des sprites) ; la cape de l'éclaireur se voit peu.
+- **Prochaine étape** : attendre les réponses DA-Q11 à DA-Q14 ; S1 intégrera après le « oui ».
+
 ## 2026-11-27 · Guide transmis à S1, questions en attente
 
 - **Auteur** : Claude, session S6

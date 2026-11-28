@@ -206,3 +206,71 @@ Taille réelle des cases et des symboles en main, lisibilité en plein soleil (D
 
 - Il assemble les choix recommandés : carton, maisons, personnages debout, papier vierge et pastilles. La version Nuit garde la même disposition sur une table bleu nuit.
 - À vérifier sur le téléphone : taille des cases et des personnages en main, et lecture du « déjà vu » de nuit, qui reste sombre.
+
+---
+
+# Style 3D low poly (mission 4, 2026-11-28, D-36)
+
+> Le papier découpé est remplacé par de la 3D low poly vue en 2D (D-36).
+> Les modèles sont faits par des scripts Blender (`art/blender/`), sans modèle ni texture venus d'ailleurs. Ils sont rendus en sprites (`art/sprites/`) dans la projection exacte du plateau de l'application. Les aperçus ci-dessous sont assemblés uniquement à partir de ces sprites.
+> Sont gardés : la palette Jour franc, Nuit pour le mode sombre, l'interface Pouce, l'annonce du combat par pastilles et panneau, et le brouillard en nuages.
+
+| N° | Titre | L'idée en une ligne | Intérêt | Coût |
+|---|---|---|---|---|
+| DA-025 | Plateau 3D, trois réglages | Dalles épaisses ou fines, ombrage net ou doux | Fixe l'allure du plateau | M |
+| DA-026 | Unités 3D des quatre clans | Personnages en cloche, socle et coiffe de clan, trapus ou élancés | Reconnaissables même en gris | M |
+| DA-027 | Villes, constructions, brouillard 3D | Village, villes 1 à 5, surcouches, exploitations, ruine, merveille, nuages | Tout le décor de la V1 | M |
+| DA-028 | Écran Pouce en 3D, jour et nuit | Unité choisie, annonce du combat, mode sombre | Vue d'ensemble avant intégration | S |
+
+## Loin de Polytopia (D-03)
+
+Les losanges et le low poly sont des traits de genre. Ce qui est propre au jeu :
+
+- **Cases** : des dalles épaisses à strates (herbe, terre, roche), comme des mottes levées (univers des « Terres Levées »), avec un joint biseauté entre les cases.
+- **Décors** : arbres en boules facettées, collines en buttes, montagnes en colonnes de roche inclinées coiffées de neige (pas de pyramides).
+- **Personnages** : en cloche, sans bras ni jambes, sur un socle à la forme du clan. Chaque clan a sa coiffe : cornes, heaume carré, capuche pointue à étoile, chapeau large.
+- **Village neutre** : des huttes rondes au toit de chaume.
+- **Couleurs et lumière** : nos palettes, avec un soleil franc venu de l'avant-gauche.
+
+## DA-025 Plateau 3D, trois réglages
+
+![DA-025](apercus/DA-025-3d-plateau.png)
+
+- **A Dalles épaisses, facettes nettes** (ma recommandation) : le volume est le plus lisible, les joints entre cases se voient bien, et le bord du plateau montre les strates.
+- **B Dalles fines** : plus calme, mais seuls les décors portent le relief.
+- **C Ombrage doux** : lumière enveloppante et ombres floues ; les unités se détachent un peu moins.
+
+## DA-026 Unités 3D des quatre clans
+
+![DA-026](apercus/DA-026-3d-unites.png)
+
+- **A Trapues** (ma recommandation) : grosse tête, corps court. Elles se lisent mieux à petite taille.
+- **B Élancées** : corps plus haut, tête plus petite. C'est plus élégant, mais la coiffe, qui distingue le clan, devient plus petite.
+- Les 9 unités de `regles-v1.md` sont faites pour les 4 clans. La colonne en gris montre que les clans se distinguent sans la couleur.
+
+## DA-027 Villes, constructions et brouillard
+
+![DA-027](apercus/DA-027-3d-villes.png)
+
+- **Villes** : une maison de plus par niveau (2 au niveau 1, 6 au niveau 5) et une tour au niveau 5. Les toits, les drapeaux et les flèches prennent la couleur du clan.
+- **Surcouches** : la capitale (étendard à couronne), les remparts (une partie arrière et une partie avant, pour que les maisons passent entre les deux) et le marché.
+- **Le reste** : les exploitations (champ, cueillette, carrière), la ruine et une merveille d'exemple (la Tour des Brumes).
+- **Brouillard** : des nuages en 3D sur l'inconnu, un voile sur ce qu'on a vu autrefois.
+
+## DA-028 Écran Pouce en 3D
+
+![DA-028](apercus/DA-028-3d-pouce.png)
+
+- L'écran montre le réglage recommandé dans l'écran de jeu complet, de jour et de nuit. Le panneau du combat montre les deux unités en 3D.
+
+## Coût et poids
+
+- **Coût** : tout se refait par une commande. Rendre les 65 sprites d'une palette et d'une taille prend environ 30 secondes sur 4 processeurs.
+- **Poids** : environ 0,5 Mo par jeu de sprites en 96 px, 1 Mo en 192 px et 1,7 Mo en 288 px.
+- **Pas de modèle 3D dans l'application** : elle reste en 2D (Compose), et ne fait qu'afficher des images.
+
+## Ce qui reste à vérifier sur le téléphone
+
+- La taille des unités au zoom de départ, à 72 dp par case.
+- La fluidité avec des sprites plutôt que du dessin vectoriel.
+- La lecture des nuages et du voile de nuit.

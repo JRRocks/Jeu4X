@@ -1,0 +1,48 @@
+{
+ "taille": [
+  192,
+  240
+ ],
+ "ancre_px": [
+  96.0,
+  163.20000000000002
+ ],
+ "losange": [
+  192,
+  96
+ ],
+ "epaisseur_case": 0.2,
+ "variante": [
+  "epaisse",
+  "facettes",
+  "elance"
+ ],
+ "palette": "jour",
+ "sprites": [
+  "unite_crocs_eclaireur",
+  "unite_crocs_lancier",
+  "unite_crocs_archer",
+  "unite_crocs_cavalier",
+  "unite_crocs_catapulte",
+  "unite_crocs_coureur",
+  "unite_mur_eclaireur",
+  "unite_mur_lancier",
+  "unite_mur_archer",
+  "unite_mur_cavalier",
+  "unite_mur_catapulte",
+  "unite_mur_pavois",
+  "unite_veil_eclaireur",
+  "unite_veil_lancier",
+  "unite_veil_archer",
+  "unite_veil_cavalier",
+  "unite_veil_catapulte",
+  "unite_veil_astronome",
+  "unite_vents_eclaireur",
+  "unite_vents_lancier",
+  "unite_vents_archer",
+  "unite_vents_cavalier",
+  "unite_vents_catapulte",
+  "unite_vents_planeur",
+  "calque"
+ ]
+}

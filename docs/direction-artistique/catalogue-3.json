@@ -1,0 +1,163 @@
+{
+ "session": "S6",
+ "domaine": "Direction artistique, style 3D low poly",
+ "branche": "s6-direction-artistique",
+ "commit_catalogue": "à venir",
+ "groupes": [
+  "Plateau 3D",
+  "Unités 3D",
+  "Décor 3D",
+  "Écran de jeu"
+ ],
+ "idees": [
+  {
+   "id": "DA-025",
+   "groupe": "Plateau 3D",
+   "titre": "Plateau 3D, trois réglages",
+   "resume": "Dalles épaisses ou fines, ombrage net ou doux, sur la même carte zoomée.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Ce choix fixe l’allure de tout le plateau.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-025-plateau-3d-trois-réglages",
+   "image": "docs/direction-artistique/apercus/DA-025-3d-plateau.png"
+  },
+  {
+   "id": "DA-026",
+   "groupe": "Unités 3D",
+   "titre": "Unités 3D des quatre clans",
+   "resume": "Personnages en cloche, socle et coiffe propres au clan, en proportions trapues ou élancées.",
+   "interet": 3,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Chaque clan se reconnaît même sans couleur.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-026-unités-3d-des-quatre-clans",
+   "image": "docs/direction-artistique/apercus/DA-026-3d-unites.png"
+  },
+  {
+   "id": "DA-027",
+   "groupe": "Décor 3D",
+   "titre": "Villes, constructions et brouillard 3D",
+   "resume": "Village, villes de niveau 1 à 5, capitale, remparts, marché, exploitations, ruine, merveille et nuages.",
+   "interet": 2,
+   "cout": "M",
+   "recommandation": "garder",
+   "raison": "Tout le décor de la première version.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-027-villes-constructions-et-brouillard",
+   "image": "docs/direction-artistique/apercus/DA-027-3d-villes.png"
+  },
+  {
+   "id": "DA-028",
+   "groupe": "Écran de jeu",
+   "titre": "Écran Pouce en 3D, jour et nuit",
+   "resume": "L’écran de jeu complet avec le réglage recommandé, combat et mode sombre compris.",
+   "interet": 2,
+   "cout": "S",
+   "recommandation": "garder",
+   "raison": "Vue d’ensemble avant que S1 intègre les sprites.",
+   "fiche": "docs/direction-artistique/catalogue.md#da-028-écran-pouce-en-3d",
+   "image": "docs/direction-artistique/apercus/DA-028-3d-pouce.png"
+  }
+ ],
+ "questions": [
+  {
+   "id": "DA-Q11",
+   "question": "Quelle épaisseur pour les cases ?",
+   "contexte": "Image DA-025, réglages A et B.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Dalles épaisses à strates",
+     "detail": "Herbe, terre et roche, joints bien visibles.",
+     "image": "docs/direction-artistique/apercus/DA-025-3d-plateau.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Dalles fines",
+     "detail": "Plus calme, moins de volume.",
+     "image": "docs/direction-artistique/apercus/DA-025-3d-plateau.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-025"
+   ]
+  },
+  {
+   "id": "DA-Q12",
+   "question": "Quel ombrage ?",
+   "contexte": "Image DA-025, réglages A et C.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Facettes nettes",
+     "detail": "Soleil franc, ombres nettes.",
+     "image": "docs/direction-artistique/apercus/DA-025-3d-plateau.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Ombrage doux",
+     "detail": "Lumière enveloppante, ombres floues.",
+     "image": "docs/direction-artistique/apercus/DA-025-3d-plateau.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-025"
+   ]
+  },
+  {
+   "id": "DA-Q13",
+   "question": "Quelles proportions pour les personnages ?",
+   "contexte": "Image DA-026, blocs A et B.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Trapus",
+     "detail": "Grosse tête, se lisent mieux petits.",
+     "image": "docs/direction-artistique/apercus/DA-026-3d-unites.png"
+    },
+    {
+     "id": "b",
+     "libelle": "Élancés",
+     "detail": "Plus hauts, tête plus petite.",
+     "image": "docs/direction-artistique/apercus/DA-026-3d-unites.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-026"
+   ]
+  },
+  {
+   "id": "DA-Q14",
+   "question": "Le style 3D convient-il pour passer la main à S1 ?",
+   "contexte": "Images DA-025 à DA-028.",
+   "options": [
+    {
+     "id": "a",
+     "libelle": "Oui, S1 peut intégrer",
+     "detail": "Avec les réponses ci-dessus.",
+     "image": "docs/direction-artistique/apercus/DA-028-3d-pouce.png"
+    },
+    {
+     "id": "b",
+     "libelle": "À retoucher d’abord",
+     "detail": "Dites quoi : formes, couleurs, tailles.",
+     "image": "docs/direction-artistique/apercus/DA-028-3d-pouce.png"
+    }
+   ],
+   "recommandation": "a",
+   "multiple": false,
+   "idees_liees": [
+    "DA-025",
+    "DA-026",
+    "DA-027",
+    "DA-028"
+   ]
+  }
+ ]
+}
