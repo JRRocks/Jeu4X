@@ -61,6 +61,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fr.jeu4x.app.R
@@ -145,7 +146,7 @@ private val CODE_EXPLOITATION = listOf("cueillette", "champ", "carriere")
 /** Couleurs des barres et panneaux (guide de S6, § 2, « Interface »), selon le mode du téléphone (D-33). */
 private class Interface(val panneau: Color, val texte: Color, val secondaire: Color, val or: Color)
 
-private val INTERFACE_JOUR = Interface(Color(0xFFFFFFFF), Color(0xFF1C1E24), Color(0xFF555B66), Color(0xFFB07A0A))
+private val INTERFACE_JOUR = Interface(Color(0xFFFFFFFF), Color(0xFF1C1E24), Color(0xFF555B66), Color(0xFF8A5A00))
 private val INTERFACE_NUIT = Interface(Color(0xFF1C212A), Color(0xFFEEF1F5), Color(0xFFA9B1BD), Color(0xFFFFE14A))
 
 @Composable
@@ -178,9 +179,9 @@ private fun BarreHaut(a: Affichage) {
                 if (e.tour >= 70) stringResource(R.string.partie_tour_limite, e.tour, e.limiteTours) else stringResource(R.string.partie_tour, e.tour),
                 color = ui.texte, fontSize = 15.sp,
             )
-            Text(
+            NomPastille(
                 if (e.joueurCourant == a.humain) stringResource(R.string.partie_votre_tour) else stringResource(R.string.partie_tour_de, nomCourant),
-                color = couleurJoueur(e, e.joueurCourant), fontSize = 15.sp, fontWeight = FontWeight.Bold,
+                couleurJoueur(e, e.joueurCourant), ui.texte, 15.sp, FontWeight.Bold,
             )
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -190,17 +191,31 @@ private fun BarreHaut(a: Affichage) {
         Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             e.joueurs.forEachIndexed { j, info ->
                 val nom = nomJoueur(e, j) + if (j == a.humain) " (" + stringResource(R.string.partie_vous) + ")" else ""
-                Text(
+                NomPastille(
                     "$nom ${info.score}/${e.seuil}" + if (info.annonce) " !" else "",
-                    color = if (info.elimine) ui.secondaire else couleurJoueur(e, j),
-                    fontSize = 12.sp,
-                    fontWeight = if (j == e.joueurCourant) FontWeight.Bold else FontWeight.Normal,
+                    if (info.elimine) ui.secondaire else couleurJoueur(e, j),
+                    if (info.elimine) ui.secondaire else ui.texte,
+                    12.sp,
+                    if (j == e.joueurCourant) FontWeight.Bold else FontWeight.Normal,
                 )
             }
         }
         e.joueurs.indexOfFirst { it.annonce }.takeIf { it >= 0 }?.let { j ->
-            Text(stringResource(R.string.partie_annonce, nomJoueur(e, j)), color = Teintes.choix, fontSize = 12.sp)
+            Text(stringResource(R.string.partie_annonce, nomJoueur(e, j)), color = ui.texte, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         }
+    }
+}
+
+/**
+ * Nom à la couleur d'un clan : texte à l'encre de l'interface, précédé d'une pastille de la couleur
+ * du clan, pour que le texte reste lisible (4,5:1) et que la couleur ne soit pas le seul repère.
+ */
+@Composable
+private fun NomPastille(texte: String, couleur: Color, encre: Color, taille: TextUnit, graisse: FontWeight) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(Modifier.size(if (taille.value >= 14f) 12.dp else 10.dp).background(couleur, CircleShape))
+        Spacer(Modifier.width(4.dp))
+        Text(texte, color = encre, fontSize = taille, fontWeight = graisse)
     }
 }
 

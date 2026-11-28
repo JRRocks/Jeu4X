@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-28 · Noms de clan lisibles : texte à l'encre et pastille (pas encore publié)
+
+Claude, session S1.
+
+- Retour de S6 : de jour, sur la barre blanche, les noms écrits en jaune ou en bleu ciel atteignent environ 2:1. Choix de la maître : texte foncé et pastille à la couleur du clan.
+- Barre du haut : « Votre tour » ou « Tour de … », et chaque joueur, avec une pastille de couleur devant un texte à l'encre de l'interface (#1C1E24 de jour, #EEF1F5 de nuit). Vivres de jour en #8A5A00. L'annonce de victoire est à l'encre, en gras.
+- Tests Kotlin verts ; captures de la barre regardées, de jour et de nuit.
+- Poussé avec `[skip ci]` : la maître ne veut pas d'essai pour ce seul point. Il partira dans le prochain essai, avec les corrections qui suivront les retours de jeu de l'utilisateur.
+
 ## 2026-11-28 · Essai 0.1.20 publié (couleurs du guide, cadrage)
 
 Claude, session S1.
