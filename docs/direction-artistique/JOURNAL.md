@@ -2,6 +2,16 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Sprites intégrés par S1
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : rien de nouveau. S1 a intégré les sprites (s1-environnement, cc9852e). L'APK n'embarque que le réglage retenu, en 192 px, Jour et Nuit ; chaque joueur prend la couleur de son clan.
+- **Demandes de S1 pour plus tard** :
+  - les deux autres merveilles (l'Arène des Crêtes et le Grand Verger) ; `merveille_veil` sert pour les trois en attendant ;
+  - un anneau de couleur sous les unités pour mieux les repérer ; S1 le dessine en 2D en attendant.
+  Rien n'est entamé sans le feu vert de la session maître.
+- **Prochaine étape** : attendre la suite.
+
 ## 2026-11-28 · Réglage 3D retenu (D-37), dépôt allégé
 
 - **Auteur** : Claude, session S6
