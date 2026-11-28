@@ -22,6 +22,18 @@ Gabarit :
 
 ---
 
+## 2026-11-28 · Essai 0.1.20 : table kraft, panneaux de nuit, cadrage centré
+
+- **Auteur** : Claude, session maître
+- **Branche et commit** : `s1-environnement`, pré-version `essai-0.1.20`
+- **Objectif** : corriger trois écarts relevés par S6 entre l'essai 0.1.19 et les images validées (DA-025, DA-028, D-20).
+- **Réalisé** : table kraft de jour et presque noire de nuit ; barre du haut et panneau du bas blancs de jour, sombres de nuit ; départ centré sur les unités du joueur.
+- **Décisions** : aucune ; la disposition « Pouce » attend les retours de jeu.
+- **Vérifications** : lien vérifié ; l'APK diffère bien de la 0.1.19 (empreinte comparée, même taille par hasard) ; captures de jour et de nuit relues.
+- **Non vérifié sur téléphone** : toucher, fluidité, lisibilité des unités.
+- **Problèmes et dette** : aucun nouveau.
+- **Prochaine étape** : retours de jeu de l'utilisateur.
+
 ## 2026-11-28 · Le jeu passe en 3D low poly (essai 0.1.19)
 
 - **Auteur** : Claude, session maître
