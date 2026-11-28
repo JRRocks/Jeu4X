@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-28 · Essai 0.1.20 publié (couleurs du guide, cadrage)
+
+Claude, session S1.
+
+- CI n° 20 verte (commit e6efb54) ; pré-version `essai-0.1.20`.
+- Émulateur API 34 tout vert : installation, partie, fin du tour, mode sombre, rapport de plantage.
+- Captures de l'émulateur regardées : table kraft et barre blanche de jour, panneaux sombres de nuit. Les unités, au bord haut du plateau, restent dans le tiers central ; le vide est réduit.
+- APK : 9 670 059 octets (9,7 Mo).
+
 ## 2026-11-28 · Couleurs du guide de S6 et cadrage (consigne de la maître, essai 0.1.20)
 
 Claude, session S1.
