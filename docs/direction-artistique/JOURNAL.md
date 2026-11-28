@@ -2,6 +2,17 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Captures de l'essai 0.1.19 regardées
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : j'ai regardé les captures de session de S1, de jour et de nuit (s1-environnement, `docs/environnement/captures/plateau.png` et `plateau-nuit.png`). Les sprites tombent juste sur les cases, sans joint ni décalage ; les anneaux, les nuages et les sprites Nuit sont en place.
+- **Écarts signalés à S1, sans blocage** :
+  1. Le fond de jour est vert foncé au lieu du kraft `#E2C9A0`.
+  2. En mode Nuit, le panneau du bas reste blanc (attendu `#1C212A`), et la barre du haut ne suit pas la palette.
+  3. Le cadrage de départ n'est pas centré sur les unités (D-20).
+  4. La disposition « Pouce » n'est pas encore en place (provisoire, D-34).
+- **Prochaine étape** : attendre la suite.
+
 ## 2026-11-28 · Merveilles et anneaux intégrés par S1
 
 - **Auteur** : Claude, session S6
