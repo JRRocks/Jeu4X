@@ -2,6 +2,15 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-28 · Merveilles par clan et anneau 3D (livraison S6 a0d53a4)
+
+Claude, session S1.
+
+- Sprites 192 px jour et nuit repris de `s6-direction-artistique` (a0d53a4) : 80 par jeu, 2,4 Mo d'assets.
+- Chaque merveille (arène, verger, tour) a son sprite propre, aux couleurs du clan qui tient la ville.
+- L'anneau 3D `anneau_<clan>` se dessine juste avant l'unité ; l'ovale 2D est retiré.
+- Tests Kotlin verts ; captures de jour et de nuit regardées (anneaux visibles sous les unités). Aucune merveille n'apparaît encore dans les captures.
+
 ## 2026-11-28 · Sprites 3D low poly de S6 intégrés (D-37)
 
 *Claude, session S1.*

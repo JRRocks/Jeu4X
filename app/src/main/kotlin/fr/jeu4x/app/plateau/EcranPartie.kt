@@ -529,7 +529,13 @@ private fun DrawScope.dessinerPlateau(p: Perspective, a: Affichage, s: Sprites) 
         if (ville != null) {
             if (ville.a(Batiment.REMPARTS)) sprite(s, "remparts_avant", cx, cy, dl)
             if (ville.a(Batiment.MARCHE)) sprite(s, "marche", cx, cy, dl)
-            if (ville.a(Batiment.ARENE) || ville.a(Batiment.VERGER) || ville.a(Batiment.TOUR)) sprite(s, "merveille_veil", cx, cy, dl)
+            // Chaque merveille a son sprite, aux couleurs du clan qui la tient.
+            if (clanVille != null) {
+                val c = CODE_CLAN[clanVille.ordinal]
+                if (ville.a(Batiment.ARENE)) sprite(s, "merveille_arene_$c", cx, cy, dl)
+                if (ville.a(Batiment.VERGER)) sprite(s, "merveille_verger_$c", cx, cy, dl)
+                if (ville.a(Batiment.TOUR)) sprite(s, "merveille_tour_$c", cx, cy, dl)
+            }
             if (ville.capitale && clanVille != null) sprite(s, "capitale_${CODE_CLAN[clanVille.ordinal]}", cx, cy, dl)
             if (clanVille != null) badgeNiveau(cx + dl * 0.55f, cy + dh * 0.35f, couleurClan(clanVille), ville.niveau)
         }
@@ -538,12 +544,11 @@ private fun DrawScope.dessinerPlateau(p: Perspective, a: Affichage, s: Sprites) 
         // Pastilles (D-31) : blanches pour aller.
         if (case in a.portee) drawCircle(Teintes.portee, radius = 6f, center = Offset(cx, cy))
         val u = etat.uniteSur(case) ?: continue
-        val couleur = couleurJoueur(etat, u.joueur)
         val epuisee = u.joueur == a.humain && (u.pointsRestants == 0 || !u.peutAgir)
-        // Socle à la couleur du joueur, sous les pieds.
-        drawOval(couleur.copy(alpha = 0.75f), topLeft = Offset(cx - dl * 0.42f, cy - dh * 0.32f), size = Size(dl * 0.84f, dh * 0.64f))
         if (a.choisie == case) drawOval(Teintes.choix, topLeft = Offset(cx - dl * 0.5f, cy - dh * 0.4f), size = Size(dl, dh * 0.8f), style = Stroke(3.5f))
         val clanU = etat.joueurs.getOrNull(u.joueur)?.clan ?: Clan.CROCS_ROUGES
+        // Anneau 3D à la couleur du clan, sous les pieds, juste avant l'unité.
+        sprite(s, "anneau_${CODE_CLAN[clanU.ordinal]}", cx, cy, dl)
         sprite(s, "unite_${CODE_CLAN[clanU.ordinal]}_${CODE_UNITE[u.type.ordinal]}", cx, cy, dl, alpha = if (epuisee) 0.6f else 1f)
         barreVie(cx, cy + dh * 0.45f, u.pv, u.pvMax)
         // Cibles : un anneau rouge autour de la silhouette.
