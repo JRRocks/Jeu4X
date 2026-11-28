@@ -35,6 +35,7 @@ Aperçus à comparer : rien n'est codé dans le jeu (D-11). Détail de chaque pr
 | DA-026 | `DA-026-3d-unites.png` | Style 3D : unités des quatre clans, trapues ou élancées, test en gris |
 | DA-027 | `DA-027-3d-villes.png` | Style 3D : villes, constructions, exploitations, brouillard, jour et nuit |
 | DA-028 | `DA-028-3d-pouce.png` | Style 3D : écran Pouce, unité choisie, combat, nuit |
+| DA-029 | `DA-029-3d-merveilles-anneaux.png` | Style 3D : les trois merveilles et l'anneau de repérage, jour, nuit, en gris (assemblée par `source/planche29.py`) |
 
 ## Refaire les images
 

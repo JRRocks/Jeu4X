@@ -34,14 +34,16 @@ Moteur de rendu : Cycles sur processeur (Workbench et EEVEE demandent une carte 
 | `nuage` | Case inconnue (remplace le terrain) | 1 |
 | `champ`, `cueillette`, `carriere` | Exploitations | 2 |
 | `remparts_arriere` | Murailles du fond | 3 |
-| `village`, `ville_<clan>_<1..5>`, `ruine`, `merveille_veil` | Lieux | 4 |
+| `village`, `ville_<clan>_<1..5>`, `ruine`, `merveille_<tour|arene|verger>_<clan>` | Lieux ; `merveille_veil` reste comme alias de `merveille_tour_veil` | 4 |
 | `remparts_avant`, `marche`, `capitale_<clan>` | Surcouches de ville | 5 |
 | `calque` | Voile « vue autrefois » (2D) | 6 |
-| `unite_<clan>_<type>` | Unités, si la case est visible | 7 |
+| `anneau_<clan>` | Anneau de repérage sous l'unité, couleur du clan avec liseré clair | 7 |
+| `unite_<clan>_<type>` | Unités, si la case est visible | 8 |
 
 Clans : `crocs`, `mur`, `veil`, `vents`.
 Types communs : `eclaireur`, `lancier`, `archer`, `cavalier`, `catapulte`.
 Unités propres : `coureur` (crocs), `pavois` (mur), `astronome` (veil), `planeur` (vents).
+Merveilles : `tour` (la Tour des Brumes, Souffle), `arene` (l'Arène des Crêtes, Fer), `verger` (le Grand Verger, Terre).
 Les cases se dessinent de l'arrière vers l'avant, comme dans `Perspective.ordreDeDessin()`.
 
 ## Réglage retenu (D-37)

@@ -25,6 +25,7 @@ def liste(quoi):
         for k in lib.CLANS:
             for u in UNITES + [PROPRES[k]]:
                 s.append((f'unite_{k}_{u}', 'objet', (lambda k, u: lambda p, T, o: M.unite(p, k, u, T, o.proportions))(k, u)))
+            s.append((f'anneau_{k}', 'objet', (lambda k: lambda p, T, o: M.anneau(p, k, T))(k)))
     if 'villes' in quoi:
         s.append(('village', 'objet', lambda p, T, o: M.village(p, T)))
         for k in lib.CLANS:
@@ -39,6 +40,10 @@ def liste(quoi):
               ('carriere', 'objet', lambda p, T, o: M.carriere(p, T)),
               ('ruine', 'objet', lambda p, T, o: M.ruine(p, T)),
               ('merveille_veil', 'objet', lambda p, T, o: M.merveille(p, 'veil', T))]
+        for k in lib.CLANS:
+            s += [(f'merveille_tour_{k}', 'objet', (lambda k: lambda p, T, o: M.merveille(p, k, T))(k)),
+                  (f'merveille_arene_{k}', 'objet', (lambda k: lambda p, T, o: M.arene(p, k, T))(k)),
+                  (f'merveille_verger_{k}', 'objet', (lambda k: lambda p, T, o: M.verger(p, k, T))(k))]
     return s
 
 

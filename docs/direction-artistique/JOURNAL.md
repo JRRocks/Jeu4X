@@ -2,6 +2,20 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Merveilles et anneaux de repérage en 3D
+
+- **Auteur** : Claude, session S6
+- **Branche et commit** : `s6-direction-artistique`, voir `git log`
+- **Objectif** : feu vert de la session maître, sans aperçu à valider à part (D-34). Les deux merveilles manquantes et un anneau sous les unités, demandés par S1.
+- **Réalisé** :
+  - l'Arène des Crêtes (gradins de pierre en fer à cheval ouvert vers le joueur, sable, oriflammes, deux crêtes de roche) et le Grand Verger (arbre-mère aux fruits d'or, petits arbres fruitiers, clôture basse) ;
+  - les trois merveilles déclinées pour les 4 clans ;
+  - `anneau_<clan>` : une couronne à la couleur du clan, avec un liseré clair dehors et dedans ;
+  - le jeu complet rendu de nouveau : 80 sprites, Jour et Nuit, 96, 192 et 288 px ;
+  - la planche DA-029.
+- **Vérifications** : planche regardée, de jour, de nuit et en gris ; en gris, le clan se lit au socle et à la coiffe, et l'anneau reste visible grâce à son liseré.
+- **Prochaine étape** : attendre la suite.
+
 ## 2026-11-28 · Sprites intégrés par S1
 
 - **Auteur** : Claude, session S6

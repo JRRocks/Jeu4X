@@ -341,3 +341,71 @@ def merveille(p, k, T):
     for i in range(6):
         a = i * math.pi / 3
         boule('brume', 0.06, p['nuage'], loc=(math.cos(a) * 0.2, math.sin(a) * 0.2, T + 0.42), echelle=(1, 1, 0.6), subdiv=1)
+
+
+def anneau_forme(nom, r_ext, r_int, h, couleur, z, cotes=24):
+    """Anneau plat (couronne) extrudé sur une hauteur h."""
+    bm = bmesh.new()
+    ext = [bm.verts.new((math.cos(a) * r_ext, math.sin(a) * r_ext, 0)) for a in [i * 2 * math.pi / cotes for i in range(cotes)]]
+    inte = [bm.verts.new((math.cos(a) * r_int, math.sin(a) * r_int, 0)) for a in [i * 2 * math.pi / cotes for i in range(cotes)]]
+    for i in range(cotes):
+        j = (i + 1) % cotes
+        bm.faces.new([ext[i], ext[j], inte[j], inte[i]])
+    r = bmesh.ops.extrude_face_region(bm, geom=list(bm.faces))
+    vs = [e for e in r['geom'] if isinstance(e, bmesh.types.BMVert)]
+    bmesh.ops.translate(bm, vec=(0, 0, h), verts=vs)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    ob = objet(nom, bm, couleur)
+    ob.location = (0, 0, z)
+    return ob
+
+
+def anneau(p, k, T):
+    """Anneau de repérage sous une unité : couleur du clan, liseré clair dehors et dedans."""
+    c = couleur_clan(p, k)
+    clair = '#FFFFFF' if p is PAL['jour'] else '#E8ECF2'
+    anneau_forme('liseré', 0.43, 0.395, 0.02, clair, T)
+    anneau_forme('anneau', 0.395, 0.33, 0.026, c, T)
+    anneau_forme('liseré', 0.33, 0.315, 0.02, clair, T)
+
+
+def arene(p, k, T):
+    """L'Arène des Crêtes : gradins de pierre en fer à cheval, sable au centre, mâts aux couleurs du clan."""
+    c = couleur_clan(p, k)
+    cylindre('sable', 0.2, 0.2, 0.02, '#E8C98A', loc=(0, 0, T), cotes=12)
+    n = 14
+    for etage in range(3):
+        r = 0.24 + etage * 0.065
+        for i in range(n):
+            a = math.radians(-60) + i * math.radians(300) / (n - 1)   # ouvert vers l'avant (le joueur)
+            a += FACE + math.radians(180)
+            boite('gradin', 0.105 + etage * 0.02, 0.065, 0.05 + etage * 0.05, mix(p['pierre'], '#000000', 0.07 * etage),
+                  loc=(math.cos(a) * r, math.sin(a) * r, T + (0.025 + etage * 0.025)), rot=(0, 0, a + math.pi / 2))
+    for a in [FACE + math.radians(d) for d in (120, 180, 240)]:
+        x, y = math.cos(a) * 0.4, math.sin(a) * 0.4
+        cylindre('mat', 0.012, 0.012, 0.42, p['bois'], loc=(x, y, T), cotes=4)
+        boite('oriflamme', 0.006, 0.09, 0.16, c, loc=(x, y + 0.05, T + 0.32), rot=(0, 0, a))
+    for d in (-1, 1):   # deux crêtes de roche qui encadrent l'entrée
+        a = FACE + d * math.radians(62)
+        cylindre('crete', 0.06, 0.0, 0.3, p['M'], loc=(math.cos(a) * 0.36, math.sin(a) * 0.36, T), cotes=5)
+
+
+def verger(p, k, T):
+    """Le Grand Verger : un arbre-mère aux fruits d'or, de petits arbres fruitiers, une clôture."""
+    c = couleur_clan(p, k)
+    cylindre('tronc', 0.06, 0.045, 0.3, p['bois'], loc=(0, 0.04, T), cotes=6)
+    for (x, y, z, r) in [(0, 0.04, 0.42, 0.2), (-0.12, 0.08, 0.34, 0.13), (0.12, 0.0, 0.35, 0.13), (0.02, -0.06, 0.52, 0.12)]:
+        boule('couronne', r, mix(p['F'], '#FFFFFF', 0.12), loc=(x, y, T + z), echelle=(1, 1, 0.9), alea=0.1, graine=int(r * 100))
+    rnd = __import__('random').Random(9)
+    for i in range(9):
+        a = i * 2 * math.pi / 9
+        boule('fruit', 0.025, p['or'], loc=(math.cos(a) * 0.17, 0.04 + math.sin(a) * 0.17, T + 0.36 + rnd.uniform(-0.05, 0.1)), subdiv=0)
+    for (x, y) in [(-0.3, 0.26), (0.3, 0.22), (-0.3, -0.2)]:
+        cylindre('tronc', 0.02, 0.018, 0.1, p['bois'], loc=(x, y, T), cotes=5)
+        boule('feuillage', 0.08, mix(p['F'], '#000000', 0.05), loc=(x, y, T + 0.15), alea=0.1, graine=int(x * 50))
+        boule('fruit', 0.02, '#E04A3A', loc=(x + 0.04, y - 0.05, T + 0.15), subdiv=0)
+    for i in range(16):   # clôture basse, ouverte vers l'avant
+        a = FACE + math.radians(180) + math.radians(-150 + i * 20)
+        cylindre('piquet', 0.012, 0.012, 0.07, p['bois_clair'], loc=(math.cos(a) * 0.44, math.sin(a) * 0.44, T), cotes=4)
+    boite('fanion', 0.006, 0.1, 0.06, c, loc=(0.32, -0.32, T + 0.2))
+    cylindre('mat', 0.01, 0.01, 0.26, p['bois'], loc=(0.32, -0.37, T), cotes=4)
