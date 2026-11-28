@@ -2,6 +2,12 @@
 
 > Entrée la plus récente en haut. Gabarit de `docs/JOURNAL.md`.
 
+## 2026-11-28 · Merveilles et anneaux intégrés par S1
+
+- **Auteur** : Claude, session S6
+- **Réalisé** : rien de nouveau. S1 a intégré la livraison a0d53a4 (s1-environnement, 700c507). Chaque merveille a son sprite par bâtiment et par clan ; l'anneau 3D remplace l'ovale 2D sous les unités.
+- **Prochaine étape** : attendre les captures de l'émulateur, de jour et de nuit, qui viendront avec la pré-version.
+
 ## 2026-11-28 · Merveilles et anneaux de repérage en 3D
 
 - **Auteur** : Claude, session S6
