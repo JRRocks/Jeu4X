@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,6 +45,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -63,6 +65,7 @@ import fr.jeu4x.app.R
 import fr.jeu4x.app.moteur.ActionPermise
 import fr.jeu4x.app.moteur.Avancee
 import fr.jeu4x.app.moteur.Batiment
+import fr.jeu4x.app.moteur.Clan
 import fr.jeu4x.app.moteur.COUT_UNITE
 import fr.jeu4x.app.moteur.Etat
 import fr.jeu4x.app.moteur.Exploitation
@@ -76,6 +79,7 @@ import fr.jeu4x.app.moteur.Visibilite
  */
 private object Teintes {
     val fond = Color(0xFF3C5A3A)
+    val fondNuit = Color(0xFF121A24)
     val barre = Color(0xFF2B2B2B)
     val plaine = Color(0xFFB9D98C)
     val foret = Color(0xFF5F9A55)
@@ -105,23 +109,29 @@ private object Teintes {
     val champ = Color(0xFFE6C55A)
 }
 
-fun couleurJoueur(joueur: Int) = when (joueur) {
-    0 -> Teintes.bleu
-    1 -> Teintes.rouge
-    2 -> Teintes.violet
-    3 -> Teintes.jaune
-    else -> Color.White
+/**
+ * Chaque joueur porte la couleur de son clan, celle de ses sprites (S6) : rouge, jaune,
+ * indigo, turquoise. Les clans sont tous différents dans une partie.
+ */
+fun couleurClan(clan: Clan) = when (clan) {
+    Clan.CROCS_ROUGES -> Color(0xFFE03A2A)
+    Clan.MURAILLIERS -> Color(0xFFE8B820)
+    Clan.VEILLEURS -> Color(0xFF5A5AF0)
+    Clan.VENTS_ERRANTS -> Color(0xFF2FB8D0)
 }
 
-private fun nomCouleur(joueur: Int) = when (joueur) {
-    0 -> R.string.joueur_bleu
-    1 -> R.string.joueur_rouge
-    2 -> R.string.joueur_violet
-    else -> R.string.joueur_jaune
-}
+fun couleurJoueur(etat: Etat, joueur: Int): Color = etat.joueurs.getOrNull(joueur)?.let { couleurClan(it.clan) } ?: Color.White
 
-/** Sigle provisoire de chaque type d'unité, dessiné sur le jeton. */
-private val SIGLES = listOf("É", "L", "A", "C", "K", "R", "P", "S", "G")
+@Composable
+private fun nomJoueur(etat: Etat, joueur: Int): String =
+    etat.joueurs.getOrNull(joueur)?.let { stringArrayResource(R.array.noms_clans)[it.clan.ordinal] } ?: ""
+
+/** Codes des sprites de S6 (`art/README.md`). */
+private val CODE_CLAN = listOf("crocs", "mur", "veil", "vents")
+private val CODE_UNITE = listOf("eclaireur", "lancier", "archer", "cavalier", "catapulte", "coureur", "pavois", "astronome", "planeur")
+private val CODE_TERRAIN = listOf("P", "F", "C", "M", "E")
+private val CODE_EXPLOITATION = listOf("cueillette", "champ", "carriere")
+
 
 @Composable
 fun EcranPartie(affichage: Affichage, vm: PartieViewModel) {
@@ -142,7 +152,7 @@ fun EcranPartie(affichage: Affichage, vm: PartieViewModel) {
 @Composable
 private fun BarreHaut(a: Affichage) {
     val e = a.etat
-    val nomCourant = stringResource(nomCouleur(e.joueurCourant))
+    val nomCourant = nomJoueur(e, e.joueurCourant)
     Column(Modifier.fillMaxWidth().background(Teintes.barre).padding(horizontal = 12.dp, vertical = 6.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
@@ -151,7 +161,7 @@ private fun BarreHaut(a: Affichage) {
             )
             Text(
                 if (e.joueurCourant == a.humain) stringResource(R.string.partie_votre_tour) else stringResource(R.string.partie_tour_de, nomCourant),
-                color = couleurJoueur(e.joueurCourant), fontSize = 15.sp, fontWeight = FontWeight.Bold,
+                color = couleurJoueur(e, e.joueurCourant), fontSize = 15.sp, fontWeight = FontWeight.Bold,
             )
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -160,17 +170,17 @@ private fun BarreHaut(a: Affichage) {
         }
         Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             e.joueurs.forEachIndexed { j, info ->
-                val nom = stringResource(nomCouleur(j)) + if (j == a.humain) " (" + stringResource(R.string.partie_vous) + ")" else ""
+                val nom = nomJoueur(e, j) + if (j == a.humain) " (" + stringResource(R.string.partie_vous) + ")" else ""
                 Text(
                     "$nom ${info.score}/${e.seuil}" + if (info.annonce) " !" else "",
-                    color = if (info.elimine) Color.Gray else couleurJoueur(j),
+                    color = if (info.elimine) Color.Gray else couleurJoueur(e, j),
                     fontSize = 12.sp,
                     fontWeight = if (j == e.joueurCourant) FontWeight.Bold else FontWeight.Normal,
                 )
             }
         }
         e.joueurs.indexOfFirst { it.annonce }.takeIf { it >= 0 }?.let { j ->
-            Text(stringResource(R.string.partie_annonce, stringResource(nomCouleur(j))), color = Teintes.choix, fontSize = 12.sp)
+            Text(stringResource(R.string.partie_annonce, nomJoueur(e, j)), color = Teintes.choix, fontSize = 12.sp)
         }
     }
 }
@@ -253,7 +263,7 @@ private fun PanneauBas(a: Affichage, vm: PartieViewModel) {
                 enabled = a.tourHumain,
                 modifier = Modifier.weight(1f).height(48.dp).testTag("bouton-tour"),
                 shape = RoundedCornerShape(24.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = couleurJoueur(a.humain)),
+                colors = ButtonDefaults.buttonColors(containerColor = couleurJoueur(a.etat, a.humain)),
             ) {
                 Text(stringResource(R.string.partie_fin_du_tour), fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
@@ -275,7 +285,7 @@ private fun PanneauVille(a: Affichage, case: Int, vm: PartieViewModel) {
     val cadeauxB = stringArrayResource(R.array.cadeaux_b)
     when {
         v.joueur == -1 -> Texte(stringResource(R.string.ville_village))
-        v.joueur != a.humain -> Texte(stringResource(R.string.ville_adverse, stringResource(nomCouleur(v.joueur)), v.niveau))
+        v.joueur != a.humain -> Texte(stringResource(R.string.ville_adverse, nomJoueur(e, v.joueur), v.niveau))
         else -> {
             Text(
                 stringResource(if (v.capitale) R.string.ville_capitale else R.string.ville_resume, v.niveau, v.revenu),
@@ -378,7 +388,7 @@ private fun Fin(a: Affichage, vm: PartieViewModel) {
             )
             Text(
                 if (e.gagnant < 0) stringResource(R.string.fin_nulle_detail, e.limiteTours)
-                else stringResource(R.string.fin_gagnant, stringResource(nomCouleur(e.gagnant)), e.tour),
+                else stringResource(R.string.fin_gagnant, nomJoueur(e, e.gagnant), e.tour),
                 fontSize = 14.sp,
             )
             Text(stringResource(R.string.reglage_carte, a.graine), fontSize = 12.sp, color = Color.Gray)
@@ -391,6 +401,9 @@ private fun Fin(a: Affichage, vm: PartieViewModel) {
 @Composable
 private fun Plateau(affichage: Affichage, surToucherCase: (Int) -> Unit) {
     val etat = affichage.etat
+    // Mode sombre du téléphone : jeu de sprites de Nuit (D-33).
+    val nuit = isSystemInDarkTheme()
+    val sprites = rememberSprites(nuit)
     val perspective = remember(etat.taille) { Perspective(etat.taille, demiLargeur = 44f) }
     // Remis à zéro à chaque nouvelle partie : le cadrage de lancement se refait.
     var echelle by remember(affichage.numeroPartie) { mutableFloatStateOf(0f) } // 0 : pas encore cadré
@@ -419,7 +432,7 @@ private fun Plateau(affichage: Affichage, surToucherCase: (Int) -> Unit) {
     }
 
     Canvas(
-        Modifier.fillMaxSize().background(Teintes.fond).testTag("plateau")
+        Modifier.fillMaxSize().background(if (nuit) Teintes.fondNuit else Teintes.fond).testTag("plateau")
             .onSizeChanged { tailleVue = it }
             .pointerInput(perspective) {
                 detectTransformGestures { centroide, deplacement, zoom, _ ->
@@ -434,12 +447,12 @@ private fun Plateau(affichage: Affichage, surToucherCase: (Int) -> Unit) {
                     if (echelle == 0f) return@detectTapGestures
                     val p = (point - decalage) / echelle
                     // Guide S6 : le toucher vise d'abord la silhouette d'une unité, puis le losange.
-                    val surUnite = etat.unites.firstOrNull { u ->
+                    // Les unités de devant d'abord : ce sont elles qu'on voit par-dessus.
+                    val surUnite = etat.unites.sortedByDescending { etat.colonne(it.case) + (etat.taille - 1 - etat.rangee(it.case)) }.firstOrNull { u ->
                         val (cx, cy) = perspective.centre(etat.colonne(u.case), etat.rangee(u.case))
-                        val haut = if (etat.terrains[u.case] == Terrain.MONTAGNE) 7f else 0f
                         val dx = p.x - cx
-                        val dy = p.y - (cy - 14f - haut)
-                        dx * dx + dy * dy <= 15f * 15f
+                        val dy = p.y - (cy - SILHOUETTE_Y)
+                        dx * dx + dy * dy <= SILHOUETTE_R * SILHOUETTE_R
                     }
                     if (surUnite != null) surToucherCase(surUnite.case)
                     else perspective.caseSous(p.x, p.y)?.let { (x, y) -> surToucherCase(y * etat.taille + x) }
@@ -451,7 +464,7 @@ private fun Plateau(affichage: Affichage, surToucherCase: (Int) -> Unit) {
             translate(decalage.x, decalage.y)
             scale(echelle, echelle, Offset.Zero)
         }) {
-            dessinerPlateau(perspective, affichage)
+            dessinerPlateau(perspective, affichage, sprites)
         }
     }
 }
@@ -464,124 +477,101 @@ private fun losange(cx: Float, haut: Float, dl: Float, dh: Float, retrait: Float
     close()
 }
 
-private fun DrawScope.dessinerPlateau(p: Perspective, a: Affichage) {
+/** Silhouette d'une unité pour le toucher : un disque au-dessus du centre de la case (repère plateau). */
+private const val SILHOUETTE_Y = 24f
+private const val SILHOUETTE_R = 26f
+
+/** Dessine un sprite de S6, son ancre sur le point (cx, cy), à la largeur d'une case (2 × demi-largeur). */
+private fun DrawScope.sprite(s: Sprites, nom: String, cx: Float, cy: Float, dl: Float, alpha: Float = 1f) {
+    val img = s[nom] ?: return
+    val k = 2 * dl / Sprites.LARGEUR
+    withTransform({
+        translate(cx - Sprites.ANCRE_X * k, cy - Sprites.ANCRE_Y * k)
+        scale(k, k, Offset.Zero)
+    }) {
+        drawImage(img, dstSize = IntSize(img.width, img.height), alpha = alpha, filterQuality = FilterQuality.Medium)
+    }
+}
+
+/**
+ * Plateau en sprites 3D (D-37), de l'arrière vers l'avant, chaque case dans l'ordre de
+ * `art/README.md` : terrain (ou nuage), exploitation, remparts du fond, lieu, surcouches,
+ * voile « vue autrefois », unité. Les repères de jeu (territoire, pastilles, points de vie)
+ * restent dessinés en 2D par-dessus.
+ */
+private fun DrawScope.dessinerPlateau(p: Perspective, a: Affichage, s: Sprites) {
     val etat = a.etat
     val dl = p.demiLargeur
     val dh = p.demiHauteur
-    val relief = 7f
     for ((x, y) in p.ordreDeDessin()) {
         val case = y * etat.taille + x
-        val (sx, sy0) = p.sommet(x, y)
+        val (sx, sy) = p.sommet(x, y)
+        val (cx, cy) = p.centre(x, y)
         val terrain = etat.terrains[case]
-        // Case inconnue (brouillard) : une dalle sombre, rien de ce qu'elle contient.
         if (terrain == null || etat.visibilite[case] == Visibilite.INCONNUE) {
-            val forme = losange(sx, sy0, dl, dh)
-            drawPath(forme, Teintes.inconnue)
-            drawPath(forme, Teintes.bord, style = Stroke(1f))
+            sprite(s, "nuage", cx, cy, dl)
             continue
         }
         val souvenir = etat.visibilite[case] == Visibilite.VUE_AUTREFOIS
-        val haut = if (terrain == Terrain.MONTAGNE) sy0 - relief else sy0
-        if (terrain == Terrain.MONTAGNE) {
-            val flancs = listOf(
-                Path().apply { moveTo(sx - dl, haut + dh); lineTo(sx, haut + 2 * dh); lineTo(sx, sy0 + 2 * dh); lineTo(sx - dl, sy0 + dh); close() } to Teintes.montagneFlancG,
-                Path().apply { moveTo(sx + dl, haut + dh); lineTo(sx, haut + 2 * dh); lineTo(sx, sy0 + 2 * dh); lineTo(sx + dl, sy0 + dh); close() } to Teintes.montagneFlancD,
-            )
-            for ((chemin, teinte) in flancs) {
-                drawPath(chemin, teinte)
-                if (souvenir) drawPath(chemin, Teintes.souvenir)
-            }
-        }
-        val forme = losange(sx, haut, dl, dh)
-        drawPath(forme, couleurTerrain(terrain))
-        // Territoire : un voile à la couleur du propriétaire.
+        sprite(s, "terrain_" + CODE_TERRAIN[terrain.ordinal], cx, cy, dl)
+        // Territoire : un voile léger à la couleur du propriétaire, sur le dessus de la case.
         val proprio = etat.territoire[case]
-        if (proprio >= 0) drawPath(losange(sx, haut, dl, dh, retrait = 2f), couleurJoueur(proprio).copy(alpha = 0.22f))
-        drawPath(forme, Teintes.bord, style = Stroke(1f))
-        decor(terrain, sx, haut + dh)
-        etat.exploitations[case]?.let { dessinerExploitation(it, sx, haut + dh) }
-        if (etat.ruines[case]) dessinerRuine(sx, haut + dh)
-        etat.villeSur(case)?.let { dessinerVille(sx, haut + dh, if (it.joueur >= 0) couleurJoueur(it.joueur) else Color.White, it.niveau, it.capitale) }
-        // Vue autrefois : le terrain et les villes tels qu'on s'en souvient, assombris.
-        if (souvenir) drawPath(forme, Teintes.souvenir)
-        if (case == a.villeChoisie || case == a.caseChoisie) drawPath(losange(sx, haut, dl, dh, retrait = 2f), Teintes.choix, style = Stroke(3f))
-    }
-    // Les unités après le terrain, dans le même ordre, pour rester par-dessus.
-    for ((x, y) in p.ordreDeDessin()) {
-        val case = y * etat.taille + x
-        val (cx, cy) = p.centre(x, y)
-        val haut = if (etat.terrains[case] == Terrain.MONTAGNE) relief else 0f
-        etat.uniteSur(case)?.let { u ->
-            dessinerUnite(cx, cy - 14f - haut, couleurJoueur(u.joueur), u.type, u.pv, u.pvMax, choisie = a.choisie == case, epuisee = u.joueur == a.humain && (u.pointsRestants == 0 || !u.peutAgir))
+        if (proprio >= 0) drawPath(losange(sx, sy, dl, dh, retrait = 3f), couleurJoueur(etat, proprio).copy(alpha = 0.18f))
+        etat.exploitations[case]?.let { sprite(s, CODE_EXPLOITATION[it.ordinal], cx, cy, dl) }
+        val ville = etat.villeSur(case)
+        val clanVille = ville?.joueur?.takeIf { it >= 0 }?.let { etat.joueurs.getOrNull(it)?.clan }
+        if (ville != null && ville.a(Batiment.REMPARTS)) sprite(s, "remparts_arriere", cx, cy, dl)
+        when {
+            ville != null && clanVille != null -> sprite(s, "ville_${CODE_CLAN[clanVille.ordinal]}_${ville.niveau.coerceIn(1, 5)}", cx, cy, dl)
+            ville != null -> sprite(s, "village", cx, cy, dl)
+            etat.ruines[case] -> sprite(s, "ruine", cx, cy, dl)
         }
-        // Pastilles (D-31) : blanches pour aller, rouges pour attaquer.
-        if (case in a.portee) drawCircle(Teintes.portee, radius = 6f, center = Offset(cx, cy - haut))
-        if (case in a.cibles) drawCircle(Teintes.cible, radius = 17f, center = Offset(cx, cy - 14f - haut), style = Stroke(3.5f))
-        if (a.attaque?.first == case) drawCircle(Teintes.cible, radius = 20f, center = Offset(cx, cy - 14f - haut), style = Stroke(5f))
-    }
-}
-
-private fun couleurTerrain(t: Terrain) = when (t) {
-    Terrain.PLAINE -> Teintes.plaine
-    Terrain.FORET -> Teintes.foret
-    Terrain.COLLINE -> Teintes.colline
-    Terrain.MONTAGNE -> Teintes.montagne
-    Terrain.EAU -> Teintes.eau
-}
-
-private fun DrawScope.decor(t: Terrain, cx: Float, cy: Float) {
-    when (t) {
-        Terrain.FORET -> for ((dx, dy) in listOf(-9f to -2f, 9f to 3f)) {
-            drawPath(Path().apply {
-                moveTo(cx + dx - 6f, cy + dy + 5f); lineTo(cx + dx, cy + dy - 8f); lineTo(cx + dx + 6f, cy + dy + 5f); close()
-            }, Teintes.sapin)
+        if (ville != null) {
+            if (ville.a(Batiment.REMPARTS)) sprite(s, "remparts_avant", cx, cy, dl)
+            if (ville.a(Batiment.MARCHE)) sprite(s, "marche", cx, cy, dl)
+            if (ville.a(Batiment.ARENE) || ville.a(Batiment.VERGER) || ville.a(Batiment.TOUR)) sprite(s, "merveille_veil", cx, cy, dl)
+            if (ville.capitale && clanVille != null) sprite(s, "capitale_${CODE_CLAN[clanVille.ordinal]}", cx, cy, dl)
+            if (clanVille != null) badgeNiveau(cx + dl * 0.55f, cy + dh * 0.35f, couleurClan(clanVille), ville.niveau)
         }
-        Terrain.COLLINE -> for ((dx, dy, r) in listOf(Triple(-7f, 3f, 9f), Triple(7f, -1f, 7f))) {
-            drawArc(
-                Teintes.collineBosse, startAngle = 180f, sweepAngle = 180f, useCenter = true,
-                topLeft = Offset(cx + dx - r, cy + dy - r * 0.8f), size = Size(2 * r, 1.6f * r),
-            )
-        }
-        Terrain.MONTAGNE -> {
-            drawPath(Path().apply { moveTo(cx - 14f, cy + 6f); lineTo(cx, cy - 14f); lineTo(cx + 14f, cy + 6f); close() }, Teintes.roche)
-            drawPath(Path().apply { moveTo(cx - 4f, cy - 8f); lineTo(cx, cy - 14f); lineTo(cx + 4f, cy - 8f); close() }, Teintes.neige)
-        }
-        Terrain.EAU -> for (o in listOf(-4f, 5f)) {
-            drawPath(Path().apply {
-                moveTo(cx - 12f, cy + o); quadraticTo(cx - 6f, cy + o - 4f, cx, cy + o); quadraticTo(cx + 6f, cy + o + 4f, cx + 12f, cy + o)
-            }, Teintes.vague, style = Stroke(1.8f))
-        }
-        Terrain.PLAINE -> Unit
+        if (souvenir) sprite(s, "calque", cx, cy, dl)
+        if (case == a.villeChoisie || case == a.caseChoisie) drawPath(losange(sx, sy, dl, dh, retrait = 2f), Teintes.choix, style = Stroke(3f))
+        // Pastilles (D-31) : blanches pour aller.
+        if (case in a.portee) drawCircle(Teintes.portee, radius = 6f, center = Offset(cx, cy))
+        val u = etat.uniteSur(case) ?: continue
+        val couleur = couleurJoueur(etat, u.joueur)
+        val epuisee = u.joueur == a.humain && (u.pointsRestants == 0 || !u.peutAgir)
+        // Socle à la couleur du joueur, sous les pieds.
+        drawOval(couleur.copy(alpha = 0.75f), topLeft = Offset(cx - dl * 0.42f, cy - dh * 0.32f), size = Size(dl * 0.84f, dh * 0.64f))
+        if (a.choisie == case) drawOval(Teintes.choix, topLeft = Offset(cx - dl * 0.5f, cy - dh * 0.4f), size = Size(dl, dh * 0.8f), style = Stroke(3.5f))
+        val clanU = etat.joueurs.getOrNull(u.joueur)?.clan ?: Clan.CROCS_ROUGES
+        sprite(s, "unite_${CODE_CLAN[clanU.ordinal]}_${CODE_UNITE[u.type.ordinal]}", cx, cy, dl, alpha = if (epuisee) 0.6f else 1f)
+        barreVie(cx, cy + dh * 0.45f, u.pv, u.pvMax)
+        // Cibles : un anneau rouge autour de la silhouette.
+        if (case in a.cibles) drawCircle(Teintes.cible, radius = SILHOUETTE_R, center = Offset(cx, cy - SILHOUETTE_Y), style = Stroke(3.5f))
+        if (a.attaque?.first == case) drawCircle(Teintes.cible, radius = SILHOUETTE_R + 4f, center = Offset(cx, cy - SILHOUETTE_Y), style = Stroke(5f))
     }
 }
 
-private fun DrawScope.dessinerExploitation(e: Exploitation, cx: Float, cy: Float) {
-    when (e) {
-        Exploitation.CHAMP -> for (o in listOf(-6f, 0f, 6f)) drawLine(Teintes.champ, Offset(cx - 14f, cy + o + 4f), Offset(cx + 2f, cy + o - 4f), strokeWidth = 2.5f)
-        Exploitation.CUEILLETTE -> for (dx in listOf(-14f, -8f)) drawCircle(Color(0xFFC0392B), radius = 2.5f, center = Offset(cx + dx, cy + 6f))
-        Exploitation.CARRIERE -> drawRect(Color(0xFF8E8E8E), topLeft = Offset(cx - 16f, cy + 2f), size = Size(9f, 6f))
-    }
+private fun DrawScope.badgeNiveau(x: Float, y: Float, couleur: Color, niveau: Int) {
+    drawCircle(Color.White, radius = 7f, center = Offset(x, y))
+    drawCircle(couleur, radius = 7f, center = Offset(x, y), style = Stroke(2f))
+    texte("$niveau", x, y + 3.5f, 10f, Color.Black)
 }
 
-/** Ruine, provisoire : deux piliers et un linteau. */
-private fun DrawScope.dessinerRuine(cx: Float, cy: Float) {
-    drawRect(Teintes.ruine, topLeft = Offset(cx + 4f, cy - 6f), size = Size(3f, 10f))
-    drawRect(Teintes.ruine, topLeft = Offset(cx + 13f, cy - 4f), size = Size(3f, 8f))
-    drawRect(Teintes.ruine, topLeft = Offset(cx + 3f, cy - 8f), size = Size(11f, 3f))
+private fun DrawScope.barreVie(cx: Float, y: Float, pv: Int, pvMax: Int) {
+    val largeur = 24f
+    drawRoundRect(Color(0xAA000000), topLeft = Offset(cx - largeur / 2, y), size = Size(largeur, 4f), cornerRadius = CornerRadius(2f, 2f))
+    val part = (pv.toFloat() / pvMax.coerceAtLeast(1)).coerceIn(0f, 1f)
+    drawRoundRect(
+        if (part > 0.5f) Color(0xFF6BD26B) else if (part > 0.25f) Color(0xFFF2C14E) else Color(0xFFE5533D),
+        topLeft = Offset(cx - largeur / 2, y), size = Size(largeur * part, 4f), cornerRadius = CornerRadius(2f, 2f),
+    )
 }
 
-/** Ville, provisoire : une maison à la couleur de son propriétaire (blanche si neutre), son niveau, une étoile pour la capitale. */
-private fun DrawScope.dessinerVille(cx: Float, cy: Float, couleur: Color, niveau: Int, capitale: Boolean) {
-    drawRect(Teintes.ombre, topLeft = Offset(cx - 9f, cy - 4f), size = Size(20f, 12f))
-    drawRect(couleur, topLeft = Offset(cx - 10f, cy - 6f), size = Size(20f, 12f))
-    drawPath(Path().apply { moveTo(cx - 13f, cy - 6f); lineTo(cx, cy - 17f); lineTo(cx + 13f, cy - 6f); close() }, if (capitale) Teintes.choix else Teintes.creme)
-    drawRect(Teintes.creme, topLeft = Offset(cx - 3f, cy - 1f), size = Size(6f, 7f))
-    if (couleur != Color.White) {
-        drawCircle(Color.White, radius = 6.5f, center = Offset(cx + 14f, cy + 4f))
-        drawCircle(couleur, radius = 6.5f, center = Offset(cx + 14f, cy + 4f), style = Stroke(1.5f))
-        texte("$niveau", cx + 14f, cy + 7.5f, 9f, Color.Black)
-    }
-}
+
+
+
+
 
 private fun DrawScope.texte(t: String, x: Float, y: Float, taille: Float, couleur: Color) {
     val peinture = android.graphics.Paint().apply {
@@ -592,21 +582,4 @@ private fun DrawScope.texte(t: String, x: Float, y: Float, taille: Float, couleu
         isFakeBoldText = true
     }
     drawContext.canvas.nativeCanvas.drawText(t, x, y, peinture)
-}
-
-private fun DrawScope.dessinerUnite(cx: Float, cy: Float, couleur: Color, type: TypeUnite, pv: Int, pvMax: Int, choisie: Boolean, epuisee: Boolean) {
-    val r = 11f
-    if (choisie) drawCircle(Teintes.choix, radius = r + 4f, center = Offset(cx, cy), style = Stroke(3.5f))
-    drawCircle(Teintes.ombre, radius = r, center = Offset(cx, cy + 2f))
-    drawCircle(if (epuisee) couleur.copy(alpha = 0.55f) else couleur, radius = r, center = Offset(cx, cy))
-    drawCircle(Color.White, radius = r, center = Offset(cx, cy), style = Stroke(2f))
-    texte(SIGLES[type.ordinal], cx, cy + 4.5f, 12f, Color.White)
-    // Points de vie : une barre sous le jeton.
-    val largeur = 20f
-    drawRoundRect(Color(0xAA000000), topLeft = Offset(cx - largeur / 2, cy + r + 2f), size = Size(largeur, 4f), cornerRadius = CornerRadius(2f, 2f))
-    val part = (pv.toFloat() / pvMax.coerceAtLeast(1)).coerceIn(0f, 1f)
-    drawRoundRect(
-        if (part > 0.5f) Color(0xFF6BD26B) else if (part > 0.25f) Color(0xFFF2C14E) else Color(0xFFE5533D),
-        topLeft = Offset(cx - largeur / 2, cy + r + 2f), size = Size(largeur * part, 4f), cornerRadius = CornerRadius(2f, 2f),
-    )
 }

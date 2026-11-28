@@ -2,6 +2,18 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-28 · Sprites 3D low poly de S6 intégrés (D-37)
+
+*Claude, session S1.*
+- Sprites de S6 (`s6-direction-artistique`, 808edf9 et 846c60a), variante retenue « dalles épaisses, facettes, trapus » seulement, en 192 px, Jour et Nuit : `app/src/main/assets/sprites/{jour,nuit}/`, 2,0 Mo. Le 192 px couvre le zoom de départ (case d'environ 190 px sur un écran de 1080 px). 96 et 288 px ne sont pas embarqués.
+- `Sprites.kt` charge à la demande. Chaque sprite est posé par son ancre (96 ; 163,2) sur `Perspective.centre()`, à la largeur d'une case. Ordre par case, de l'arrière vers l'avant : terrain ou nuage, exploitation, remparts du fond, lieu, surcouches, voile « vue autrefois », puis l'unité.
+- Repères en 2D par-dessus : voile de territoire, pastilles, socle de couleur, barre de vie, anneaux de cible, niveau de ville.
+- Le toucher vise d'abord la silhouette de l'unité, celles de devant en premier, puis la case.
+- Mode sombre du téléphone : sprites de Nuit et fond plus sombre (D-33).
+- Cas tranché ici : les sprites portent la couleur du clan (rouge, jaune, indigo, turquoise). Chaque joueur prend donc la couleur de son clan, et l'écran nomme les joueurs par leur clan au lieu de « Bleu » ou « Rouge ».
+- Une seule merveille a un sprite (`merveille_veil`), il sert pour les trois.
+- Tests Kotlin verts ; captures jour et nuit regardées. L'émulateur passe aussi en mode sombre et en fait une capture.
+
 ## 2026-11-27 · Essai jouable 0.1.17 vert à l'émulateur
 
 *Claude, session S1.* CI n° 17 (b0fa065) verte, pré-version `essai-0.1.17` publiée. Résumé de l'émulateur : installation, « Nouvelle partie » puis « Commencer », « Votre tour », « Fin du tour » (l'ordinateur joue, retour au tour 2), plantage provoqué, rapport et relance, tout vert. Les captures, regardées : le Rouge (le joueur humain) au tour 1, puis au tour 2, avec 7 puis 11 vivres. Contenu : règles V1 complètes, IA `utilite-r3-v3` de S3, réglage de durée de S2. Non vérifié : une partie entière sur un téléphone, les gestes, la lisibilité, l'installation par-dessus.

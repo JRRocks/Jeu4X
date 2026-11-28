@@ -6,7 +6,7 @@
 #      toucher « Fin du tour » fait jouer l'ordinateur, puis rend la main au tour 2 ;
 #   3. un plantage provoqué ouvre l'écran « … s'est arrêté ».
 # Usage : outils/essai-emulateur.sh <apk> <dossier de sortie>
-# Sortie : capture-accueil.png (plateau), capture-tour-rouge.png (début du tour 2), capture-plantage.png, resume-emulateur.txt.
+# Sortie : capture-accueil.png (plateau), capture-tour-rouge.png (début du tour 2), capture-nuit.png (mode sombre), capture-plantage.png, resume-emulateur.txt.
 set -uo pipefail
 APK=$1; SORTIE=$2
 PAQUET=fr.jeu4x.app.essai
@@ -76,6 +76,13 @@ if toucher "Fin du tour"; then
   fi
   sleep 2  # la vue glisse vers nos unités (D-21) : laisser finir l'animation
   adb exec-out screencap -p > "$SORTIE/capture-tour-rouge.png"
+  # Mode sombre du téléphone : le plateau passe aux sprites de Nuit (D-33), la partie continue.
+  adb shell cmd uimode night yes >/dev/null 2>&1
+  sleep 4
+  if ecran_contient "Fin du tour"; then note "OK  mode sombre : la partie continue (sprites de Nuit)"; else note "ÉCHEC mode sombre : la partie a disparu"; montrer_ecran "nuit"; echec=1; fi
+  adb exec-out screencap -p > "$SORTIE/capture-nuit.png"
+  adb shell cmd uimode night no >/dev/null 2>&1
+  sleep 2
 else
   note "ÉCHEC bouton « Fin du tour » introuvable"; echec=1
 fi

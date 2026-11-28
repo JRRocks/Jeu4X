@@ -82,6 +82,18 @@ class CapturesTest {
         capturer("fin")
     }
 
+    /** Le plateau en mode sombre du téléphone : sprites de Nuit (D-33). */
+    @Test
+    @Config(qualifiers = "+night")
+    fun plateauDeNuit() {
+        val vm = PartieViewModel({ 7L }, immediat = true)
+        compose.setContent { MaterialTheme { if (vm.enPartie) EcranPartie(vm.affichage, vm) else EcranNouvellePartie(vm.reglage, vm::choisirReglage, vm::commencer) } }
+        vm.choisirReglage(Reglage(2, Clan.VEILLEURS))
+        vm.commencer()
+        compose.waitForIdle()
+        capturer("plateau-nuit")
+    }
+
     private fun capturer(nom: String) {
         compose.waitForIdle()
         // captureToImage() attend un rafraîchissement que Robolectric ne donne pas : on dessine la vue.
