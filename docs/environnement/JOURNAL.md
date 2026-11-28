@@ -2,6 +2,16 @@
 
 > Entrée la plus récente en haut. On ne modifie ni ne supprime une entrée passée.
 
+## 2026-11-28 · Essai 0.1.19 publié (sprites 3D, merveilles, anneau)
+
+Claude, session S1.
+
+- CI n° 19 verte (commit 700c507) ; pré-version `essai-0.1.19`.
+- Passage à l'émulateur API 34 tout vert : installation, partie, fin du tour, mode sombre (sprites de Nuit), rapport de plantage.
+- Captures de l'émulateur regardées, de jour et de nuit : plateau 3D, anneaux sous les unités, brouillard en nuages.
+- Poids de l'APK : 9 670 059 octets (9,7 Mo).
+- Non vérifié : merveilles à l'écran (aucune construite au tour 1-2), toucher sur un vrai téléphone.
+
 ## 2026-11-28 · Merveilles par clan et anneau 3D (livraison S6 a0d53a4)
 
 Claude, session S1.
